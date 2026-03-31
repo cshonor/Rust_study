@@ -22,3 +22,6 @@ Thumbs.db
 *.pdb
 *.dSYM/
 
+# demos may generate runtime files
+09-error-handling/9.2-result-demo/hello.txt
+
