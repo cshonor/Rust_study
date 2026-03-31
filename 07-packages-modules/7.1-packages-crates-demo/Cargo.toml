@@ -1,0 +1,8 @@
+[package]
+name = "packages_crates_demo"
+version = "0.1.0"
+edition = "2021"
+default-run = "packages_crates_demo"
+
+[dependencies]
+
