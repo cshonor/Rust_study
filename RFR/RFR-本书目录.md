@@ -115,6 +115,8 @@
 - **底层内存访问与硬件抽象**。
 - **交叉编译 (Cross-Compilation)**。
 
+本仓库笔记（深度解析）：[`Chapter-12-Rust-Without-Standard-Library/12-脱离标准库-no_std-深度解析.md`](Chapter-12-Rust-Without-Standard-Library/12-脱离标准库-no_std-深度解析.md)
+
 ## 第 13 章：Rust 生态系统 (The Rust Ecosystem) — `Chapter-13-Rust-Ecosystem/`
 
 - **生态资源 (What’s Out There?)**：工具、库、标准库深度解析。
