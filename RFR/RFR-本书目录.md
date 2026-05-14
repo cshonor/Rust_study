@@ -57,6 +57,8 @@
 - **条件编译 (Conditional Compilation)**。
 - **版本控制 (Versioning)**：语义化版本、MSRV（最小支持版本）、变更日志。
 
+本仓库笔记（深度解析）：[`Chapter-05-Project-Structure/5-项目结构-Project-Structure-深度解析.md`](Chapter-05-Project-Structure/5-项目结构-Project-Structure-深度解析.md)
+
 ## 第 6 章：测试 (Testing) — `Chapter-06-Testing/`
 
 - **Rust 测试机制 (Rust Testing Mechanisms)**：测试测试架 (Test Harness)、`#[cfg(test)]`、文档测试 (Doctests)。
