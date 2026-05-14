@@ -88,6 +88,8 @@
 - **巨大的责任 (Great Responsibility)**：有效性、恐慌 (Panics)、转换 (Casting)、Drop 检查。
 - **应对恐惧 (Coping with Fear)**：管理不安全边界、文档编写、检查工作。
 
+本仓库笔记（深度解析）：[`Chapter-09-Unsafe-Code/9-不安全代码-Unsafe-Code-深度解析.md`](Chapter-09-Unsafe-Code/9-不安全代码-Unsafe-Code-深度解析.md)
+
 ## 第 10 章：并发与并行 (Concurrency and Parallelism) — `Chapter-10-Concurrency-and-Parallelism/`
 
 - **并发的麻烦 (The Trouble with Concurrency)**：正确性与性能。
