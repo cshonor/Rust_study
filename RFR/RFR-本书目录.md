@@ -97,6 +97,8 @@
 - **异步与并行 (Asynchrony and Parallelism)**。
 - **底层并发 (Lower-Level Concurrency)**：原子类型、内存排序 (Memory Ordering)、CAS 操作、Fetch 方法。
 
+本仓库笔记（深度解析）：[`Chapter-10-Concurrency-and-Parallelism/10-并发与并行-Concurrency-and-Parallelism-深度解析.md`](Chapter-10-Concurrency-and-Parallelism/10-并发与并行-Concurrency-and-Parallelism-深度解析.md)
+
 ## 第 11 章：外部函数接口 (Foreign Function Interfaces) — `Chapter-11-Foreign-Function-Interfaces/`
 
 - **跨越边界 (Crossing Boundaries with extern)**：符号、调用约定。
