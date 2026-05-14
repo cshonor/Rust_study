@@ -79,6 +79,8 @@
 - **人体工程学 Future (Ergonomic Futures)**：`async/await`、`Pin` 与 `Unpin`。
 - **休眠与唤醒 (Going to Sleep & Waking Up)**：轮询契约、任务与子执行器、`spawn`。
 
+本仓库笔记（深度解析）：[`Chapter-08-Asynchronous-Programming/8-异步编程-Asynchronous-Programming-深度解析.md`](Chapter-08-Asynchronous-Programming/8-异步编程-Asynchronous-Programming-深度解析.md)
+
 ## 第 9 章：不安全代码 (Unsafe Code) — `Chapter-09-Unsafe-Code/`
 
 - **unsafe 关键字**。
