@@ -31,12 +31,16 @@
 - **特质限定与标记特质 (Marker Traits)**。
 - **存在类型 (Existential Types)**。
 
+本仓库笔记（深度解析）：[`Chapter-02-Types/2-类型-Types-深度解析.md`](Chapter-02-Types/2-类型-Types-深度解析.md)
+
 ## 第 3 章：接口设计 (Designing Interfaces) — `Chapter-03-Designing-Interfaces/`
 
 - **不意外 (Unsurprising)**：命名习惯、类型的通用特质实现、包装类型。
 - **灵活 (Flexible)**：泛型参数、对象安全 (Object Safety)、借用 vs. 拥有。
 - **显而易见 (Obvious)**：文档编写、类型系统引导。
 - **受限 (Constrained)**：类型修改、特质实现、隐藏契约。
+
+本仓库笔记（深度解析）：[`Chapter-03-Designing-Interfaces/3-接口设计-Designing-Interfaces-深度解析.md`](Chapter-03-Designing-Interfaces/3-接口设计-Designing-Interfaces-深度解析.md)
 
 ## 第 4 章：错误处理 (Error Handling) — `Chapter-04-Error-Handling/`
 
