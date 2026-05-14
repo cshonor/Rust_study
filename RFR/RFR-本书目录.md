@@ -123,6 +123,8 @@
 - **实战模式 (Patterns in the Wild)**：索引指针、Drop 卫士、扩展特质、Crate 预导入 (Preludes)。
 - **后续学习建议 (What Next?)**。
 
+本仓库笔记（深度解析）：[`Chapter-13-Rust-Ecosystem/13-生态系统-Ecosystem-深度解析.md`](Chapter-13-Rust-Ecosystem/13-生态系统-Ecosystem-深度解析.md)
+
 ---
 
 ## 索引
