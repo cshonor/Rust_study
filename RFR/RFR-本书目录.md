@@ -22,6 +22,8 @@
 - **所有权 (Ownership)**。
 - **借用与生命周期 (Borrowing and Lifetimes)**：共享引用与可变引用、内部可变性、生命周期深入理解。
 
+本仓库笔记（深度解析）：[`Chapter-01-Foundations/1-基础-Foundations-深度解析.md`](Chapter-01-Foundations/1-基础-Foundations-深度解析.md)
+
 ## 第 2 章：类型 (Types) — `Chapter-02-Types/`
 
 - **内存中的类型 (Types in Memory)**：内存对齐 (Alignment)、布局 (Layout)、复杂类型、动态大小类型 (DST) 与宽指针。
