@@ -47,6 +47,8 @@
 - **表示错误 (Representing Errors)**：枚举式错误、不透明错误、特殊错误场景。
 - **传播错误 (Propagating Errors)**。
 
+本仓库笔记（深度解析）：[`Chapter-04-Error-Handling/4-错误处理-Error-Handling-深度解析.md`](Chapter-04-Error-Handling/4-错误处理-Error-Handling-深度解析.md)
+
 ## 第 5 章：项目结构 (Project Structure) — `Chapter-05-Project-Structure/`
 
 - **特性 (Features)**：定义、包含与使用特性。
