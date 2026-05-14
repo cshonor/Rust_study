@@ -64,10 +64,14 @@
 - **Rust 测试机制 (Rust Testing Mechanisms)**：测试测试架 (Test Harness)、`#[cfg(test)]`、文档测试 (Doctests)。
 - **额外测试工具 (Additional Testing Tools)**：Lint 检查、测试生成与增强、性能测试（基准测试）。
 
+本仓库笔记（深度解析）：[`Chapter-06-Testing/6-测试-Testing-深度解析.md`](Chapter-06-Testing/6-测试-Testing-深度解析.md)
+
 ## 第 7 章：宏 (Macros) — `Chapter-07-Macros/`
 
 - **声明式宏 (Declarative Macros)**：何时使用、工作原理、编写技巧。
 - **过程宏 (Procedural Macros)**：类型（派生、属性、函数式）、成本分析、工作原理。
+
+本仓库笔记（深度解析）：[`Chapter-07-Macros/7-宏-Macros-深度解析.md`](Chapter-07-Macros/7-宏-Macros-深度解析.md)
 
 ## 第 8 章：异步编程 (Asynchronous Programming) — `Chapter-08-Asynchronous-Programming/`
 
