@@ -105,6 +105,8 @@
 - **跨语言类型 (Types Across Language Boundaries)**：类型匹配、分配、回调、安全性。
 - **bindgen 与构建脚本**。
 
+本仓库笔记（深度解析）：[`Chapter-11-Foreign-Function-Interfaces/11-外部函数接口-FFI-深度解析.md`](Chapter-11-Foreign-Function-Interfaces/11-外部函数接口-FFI-深度解析.md)
+
 ## 第 12 章：脱离标准库的 Rust (Rust Without the Standard Library) — `Chapter-12-Rust-Without-Standard-Library/`
 
 - **禁用标准库 (Opting Out of std)**。
