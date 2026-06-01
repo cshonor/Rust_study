@@ -1,8 +1,12 @@
 // 4.1 什么是所有权 - 示例
 
+const MAX: i32 = 100;
+const TXT: &str = "rust";
+
 static NUM: i32 = 100;
 static MSG: &str = "全局静态字符串";
 static GLOBAL_STR: &str = "全局字面量";
+static mut GLOBAL_MUT: i32 = 0;
 
 fn main() {
     println!("=== 0. 栈 vs 堆 ===");
@@ -26,7 +30,7 @@ fn main() {
     } // local 出作用域，堆内存释放
 
     // static 只能模块顶层；函数内禁止 static INNER: i32 = 200;
-    println!("static NUM = {}, MSG = {}", NUM, MSG);
+    println!("static NUM = {}, static MSG = {}", NUM, MSG);
 
     let local_str = "函数内字面量"; // 只有局部变量 local_str；"xxx" 是字面数据，不是变量
     println!("GLOBAL_STR = {}, local_str = {}", GLOBAL_STR, local_str);
@@ -43,6 +47,54 @@ fn main() {
     let literal = "hello"; // s 是局部引用；指向的字面量本体 'static
     let owned = String::from("hello"); // 堆上，变量拥有所有权
     println!("字面量引用: {}, 堆上 String: {}", literal, owned);
+
+    println!("\n=== 0.6 const vs static ===");
+    const LOCAL_MSG: &str = "函数内 const";
+    println!("const MAX = {}, LOCAL_MSG = {}", MAX, LOCAL_MSG);
+
+    let static_ref: &'static i32 = &NUM; // static 有全局地址，引用为 'static
+    println!("static NUM = {}, &'static ref = {}", NUM, static_ref);
+
+    unsafe {
+        GLOBAL_MUT = 10;
+        let v = GLOBAL_MUT; // 拷贝值，避免直接引用 static mut
+        println!("static mut GLOBAL_MUT = {}", v);
+    }
+    // let a = 10; const B: i32 = a;  // ❌ 不能用运行时变量初始化
+
+    println!("\n=== 0.7 const vs 字符串字面量 ===");
+    let literal = "hello";
+    println!("字面量 \"hello\" 地址: {:p}", literal);
+
+    let a = MAX; // 编译后等价于 let a = 100;
+    println!("const MAX 内联: a = {}", a);
+
+    let s = TXT; // 编译后等价于 let s = &"rust";
+    println!("const TXT → 指向只读段: \"{}\" 地址: {:p}", s, s);
+
+    println!("\n=== 0.8 字面量引用：变量消失，数据不 drop ===");
+    {
+        let s = "块内字面量"; // 栈上引用变量
+        let owned = String::from("块内 String");
+        println!("块内: s = {}, owned = {}", s, owned);
+    } // s 消失，"块内字面量" 仍在只读段；owned drop 释放堆
+
+    let returned = get_static_str();
+    println!("从函数返回 &'static str: {}", returned);
+
+    println!("\n=== 0.9 &'static str 类型与指向 ===");
+    let s: &'static str = "abc";
+    println!(
+        "s: &'static str → 只读段 \"{}\" 地址 {:p}",
+        s, s
+    );
+    println!("demo_static_str() 合法返回: {}", demo_static_str());
+
+    println!("\n=== 0.10 生命周期标注 vs 作用域 ===");
+    let num = 10;
+    let r = take_ref(&num); // 'a 约束：r 指向的数据 = num
+    println!("'a 约束: r 指向 num = {}", r);
+    // 出 main：r 销毁，num 也销毁，引用不越界
 
     println!("\n=== 1. 移动 (Move) ===");
     let s1 = String::from("hello");
@@ -78,6 +130,20 @@ fn main() {
     let s1 = String::from("hello");
     let (s2, len) = calculate_length(s1);
     println!("The length of '{}' is {}.", s2, len);
+}
+
+fn get_static_str() -> &'static str {
+    let s = "常驻文本";
+    s // 数据源 'static，可安全返回引用
+}
+
+fn demo_static_str() -> &'static str {
+    let s = "hello";
+    s // "hello" 在只读段，局部 s 消失后数据仍在
+}
+
+fn take_ref<'a>(data: &'a i32) -> &'a i32 {
+    data // 'a：返回引用不能比 data 活得更久
 }
 
 fn takes_ownership(some_string: String) {
