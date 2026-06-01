@@ -1,6 +1,7 @@
 # Rust 学习笔记
 
-> 基于《Rust程序设计语言》教程大纲整理
+> 基于《Rust程序设计语言》教程大纲整理  
+> **全书导航**（笔记 + demo 链接）：[Book/Book-本书目录.md](Book/Book-本书目录.md)
 
 ---
 
@@ -171,13 +172,13 @@
 - [ ] 常见 trait：`Debug`、`Clone`、`Copy` 等
 
 ### 10.3 生命周期与引用有效性
-- [ ] [10.3 索引](../10-generics-traits-lifetimes/10.3-生命周期与引用有效性.md)
-- [ ] [10.3.1 悬垂引用](../10-generics-traits-lifetimes/10.3.1-悬垂引用.md)
-- [ ] [10.3.2 同 `'a` 与红线](../10-generics-traits-lifetimes/10.3.2-同a约束与红线.md)
-- [ ] [10.3.3 生命周期基础](../10-generics-traits-lifetimes/10.3.3-生命周期基础.md)
-- [ ] [10.3.4 longest / get_first](../10-generics-traits-lifetimes/10.3.4-longest与get_first.md)
-- [ ] [10.3.5 显式与隐式](../10-generics-traits-lifetimes/10.3.5-显式与隐式生命周期.md)
-- [ ] [10.3.6 结构体 / static / 泛型](../10-generics-traits-lifetimes/10.3.6-结构体-static与泛型.md)
+- [ ] [10.3 索引](Book/10-generics-traits-lifetimes/10.3-生命周期与引用有效性.md)
+- [ ] [10.3.1 悬垂引用](Book/10-generics-traits-lifetimes/10.3.1-悬垂引用.md)
+- [ ] [10.3.2 同 `'a` 与红线](Book/10-generics-traits-lifetimes/10.3.2-同a约束与红线.md)
+- [ ] [10.3.3 生命周期基础](Book/10-generics-traits-lifetimes/10.3.3-生命周期基础.md)
+- [ ] [10.3.4 longest / get_first](Book/10-generics-traits-lifetimes/10.3.4-longest与get_first.md)
+- [ ] [10.3.5 显式与隐式](Book/10-generics-traits-lifetimes/10.3.5-显式与隐式生命周期.md)
+- [ ] [10.3.6 结构体 / static / 泛型](Book/10-generics-traits-lifetimes/10.3.6-结构体-static与泛型.md)
 
 ---
 

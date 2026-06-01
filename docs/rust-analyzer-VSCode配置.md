@@ -69,7 +69,7 @@ VSCode 扩展市场搜索：**rust-analyzer**（作者 **rust-lang** / 原 matkl
 code "c:\Users\12392\Desktop\rs\rs study"
 ```
 
-编辑某一章 demo 时，也可 **单独打开** 该 demo 目录（如 `03-common-concepts/3.3-functions-demo`），减少 RA 索引范围、更快。
+编辑某一章 demo 时，也可 **单独打开** 该 demo 目录（如 `Book/03-common-concepts/3.3-functions-demo`），减少 RA 索引范围、更快。
 
 ---
 

@@ -5,7 +5,7 @@
 > **定位**：从「能写 Rust」到「写得地道（idiomatic）」；用**类型系统**在编译期表达设计、消除无效状态。  
 > **在线全文**：[effective-rust.com](https://www.effective-rust.com/print.html)（亦可按章浏览 [effective-rust.com](https://effective-rust.com/)）
 
-与仓库 **The Book 主线**（`01-*`～`19-*`）的关系：The Book 打语法与所有权基础；本书用 **35 条建议**纠习惯与反模式，建议在过完所有权、错误处理、trait 后再读。
+与仓库 **The Book 主线**（[`Book/Book-本书目录.md`](../Book/Book-本书目录.md)，`Book/01-*`～`Book/19-*`）的关系：The Book 打语法与所有权基础；本书用 **35 条建议**纠习惯与反模式，建议在过完所有权、错误处理、trait 后再读。
 
 ---
 
@@ -95,10 +95,10 @@
 
 | Effective Rust | 可衔接的本仓库章节 |
 |----------------|-------------------|
-| Ch1 Types（1–9） | `06-enums`、`08-collections`、`09-errors` |
-| Ch2 Traits（10–13） | `10-generics-traits-lifetimes` |
-| Ch3 Concepts（14–20） | `04-ownership`、`10.3` 生命周期、`16-fearless-concurrency` |
-| Ch4–6 | `14-cargo`、`19-advanced-features` 等 |
+| Ch1 Types（1–9） | `Book/06-enums-*`、`Book/08-collections`、`Book/09-error-handling` |
+| Ch2 Traits（10–13） | `Book/10-generics-traits-lifetimes` |
+| Ch3 Concepts（14–20） | `Book/04-ownership`、`Book/10.3` 生命周期、`Book/16-fearless-concurrency` |
+| Ch4–6 | `Book/14-cargo-crates`、`Book/19-advanced-features` 等 |
 
 ---
 
