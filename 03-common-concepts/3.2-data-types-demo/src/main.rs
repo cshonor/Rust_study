@@ -7,12 +7,16 @@ fn main() {
 
     println!("\n=== 2. 整型字面量 ===");
     let decimal = 98_222;
-    let hex = 0xff;
+    let same_3 = 98_222;
+    let same_4 = 9_8222;
+    let grouped = 1234_5678;
+    let hex = 0xFF_AA_00;
+    let binary = 0b1010_1100;
     let octal = 0o77;
-    let binary = 0b1111_0000;
     let byte = b'A';
-    println!("decimal={}, hex={}, octal={}, binary={}, byte={}", decimal, hex, octal, binary, byte);
-    // 输出: 98222, 255, 63, 240, 65
+    println!("98222 == 98_222 == 9_8222 ? {} {}", decimal == same_3, same_3 == same_4);
+    println!("1234_5678 = {}", grouped);
+    println!("hex=0x{:X}, bin={}, octal={}, byte={}", hex, binary, octal, byte);
 
     println!("\n=== 3. 浮点类型 ===");
     let x = 2.0; // f64

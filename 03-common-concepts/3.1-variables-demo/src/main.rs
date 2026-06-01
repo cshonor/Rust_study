@@ -25,5 +25,16 @@ fn main() {
     let spaces = "   ";
     let spaces = spaces.len(); // 从 &str 变为 usize
     println!("spaces = {} (类型变为 usize)", spaces); // 输出: 3
+
+    println!("\n=== 5. Default 默认值（须显式调用）===");
+    let num: i32 = Default::default();
+    let flag: bool = Default::default();
+    let s: String = Default::default();
+    let v: Vec<i32> = Vec::default();
+    println!("num={}, flag={}, s=[{}], v={:?}", num, flag, s, v);
+
+    // 未初始化不能直接使用（取消注释会编译失败）：
+    // let a: i32;
+    // println!("{}", a);
 }
 
