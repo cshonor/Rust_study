@@ -3,7 +3,6 @@
 Rust 学习笔记 + 每章 demo。
 
 - **主线**：《Rust 程序设计语言》（The Book），目录 `01-*` ~ `19-*`。
-- **扩展**：《Rust for Rustaceans》对照目录与全书笔记索引，见仓库根目录下的 `RFR/`（详见 `RFR/RFR-本书目录.md`）。
 
 ## 目录结构
 
@@ -11,7 +10,6 @@ Rust 学习笔记 + 每章 demo。
 - **笔记**：每章/小节为一个 `*.md`
 - **demo**：从第 3 章起，按规则 **“一个 md 对应一个独立 Cargo project”**
   - 例：`03-common-concepts/3.3-函数.md` ↔ `03-common-concepts/3.3-functions-demo/`
-- **RFR**：`RFR/Chapter-01-Foundations/` … `Chapter-13-Rust-Ecosystem/`，可按书章放笔记或独立 demo（与 The Book 目录相互独立）。
 
 ## 快速开始
 
