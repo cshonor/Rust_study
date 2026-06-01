@@ -38,13 +38,18 @@ fn main() {
     let c = 'z';
     let z = 'ℤ';
     let heart_eyed_cat = '😻';
-    println!("c={}, z={}, emoji={}", c, z, heart_eyed_cat); // z, ℤ, 😻
+    let zhong = '中';
+    println!("c={}, z={}, emoji={}, zhong={}", c, z, heart_eyed_cat, zhong);
 
     println!("\n=== 7. 元组 tuple ===");
     let tup: (i32, f64, u8) = (500, 6.4, 1);
-    let (x, y, z) = tup;  // 解构
-    println!("解构: x={}, y={}, z={}", x, y, z); // 500, 6.4, 1
-    println!("索引: tup.0={}, tup.1={}, tup.2={}", tup.0, tup.1, tup.2); // 同上
+    let (x, y, z) = tup;
+    println!("解构: x={}, y={}, z={}", x, y, z);
+    println!("索引: tup.0={}, tup.1={}, tup.2={}", tup.0, tup.1, tup.2);
+
+    // 函数返回多个值时常用元组
+    let (sum, product) = add_and_mul(10, 3);
+    println!("add_and_mul(10,3) -> sum={}, product={}", sum, product);
 
     println!("\n=== 8. 数组 array ===");
     let a = [1, 2, 3, 4, 5];
@@ -56,5 +61,9 @@ fn main() {
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     println!("months[0]={}", months[0]); // Jan
+}
+
+fn add_and_mul(a: i32, b: i32) -> (i32, i32) {
+    (a + b, a * b)
 }
 
