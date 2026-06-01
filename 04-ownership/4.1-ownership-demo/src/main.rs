@@ -79,23 +79,6 @@ fn main() {
         println!("块内: s = {}, owned = {}", s, owned);
     } // s 消失，"块内字面量" 仍在只读段；owned drop 释放堆
 
-    let returned = get_static_str();
-    println!("从函数返回 &'static str: {}", returned);
-
-    println!("\n=== 0.9 &'static str 类型与指向 ===");
-    let s: &'static str = "abc";
-    println!(
-        "s: &'static str → 只读段 \"{}\" 地址 {:p}",
-        s, s
-    );
-    println!("demo_static_str() 合法返回: {}", demo_static_str());
-
-    println!("\n=== 0.10 生命周期标注 vs 作用域 ===");
-    let num = 10;
-    let r = take_ref(&num); // 'a 约束：r 指向的数据 = num
-    println!("'a 约束: r 指向 num = {}", r);
-    // 出 main：r 销毁，num 也销毁，引用不越界
-
     println!("\n=== 1. 移动 (Move) ===");
     let s1 = String::from("hello");
     let s2 = s1; // s1 被移动，s1 不再有效
@@ -130,20 +113,6 @@ fn main() {
     let s1 = String::from("hello");
     let (s2, len) = calculate_length(s1);
     println!("The length of '{}' is {}.", s2, len);
-}
-
-fn get_static_str() -> &'static str {
-    let s = "常驻文本";
-    s // 数据源 'static，可安全返回引用
-}
-
-fn demo_static_str() -> &'static str {
-    let s = "hello";
-    s // "hello" 在只读段，局部 s 消失后数据仍在
-}
-
-fn take_ref<'a>(data: &'a i32) -> &'a i32 {
-    data // 'a：返回引用不能比 data 活得更久
 }
 
 fn takes_ownership(some_string: String) {

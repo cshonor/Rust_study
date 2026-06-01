@@ -33,6 +33,7 @@ fn main() {
     println!("\n=== 5. 正确返回所有权，避免悬垂 ===");
     let s = no_dangle();
     println!("{}", s);
+    // 生命周期 'a / 'static 详见 10.3-lifetimes-demo
 }
 
 /// 借用：不获取所有权，s1 在调用后仍有效
