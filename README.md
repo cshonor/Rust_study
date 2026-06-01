@@ -3,10 +3,12 @@
 Rust 学习笔记 + 每章 demo。
 
 - **主线**：《Rust 程序设计语言》（The Book），目录 `01-*` ~ `19-*`。
+- **扩展**：[Effective Rust](https://www.effective-rust.com/)（David Drysdale，35 条建议），本地索引与占位笔记见 [`ER/ER-本书目录.md`](ER/ER-本书目录.md)。
 
 ## 目录结构
 
 - **章节目录（The Book）**：`01-*` ~ `19-*`
+- **ER（Effective Rust）**：`ER/Chapter-01-Types/` … `Chapter-06-Beyond-Standard-Rust/`，每条 Item 一个 `Item-NN-*.md` 占位（与 The Book 并行，按需填写）
 - **笔记**：每章/小节为一个 `*.md`
 - **demo**：从第 3 章起，按规则 **“一个 md 对应一个独立 Cargo project”**
   - 例：`03-common-concepts/3.3-函数.md` ↔ `03-common-concepts/3.3-functions-demo/`
