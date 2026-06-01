@@ -75,6 +75,22 @@ fn pick_any<'a>(x: &'a i32, y: &'a i32) -> &'a i32 {
     if *x > *y { x } else { y }
 }
 
+fn demo1<'a>(x: &'a i32, y: &'a i32) {
+    println!("demo1: {} {}", x, y);
+}
+
+fn demo2<'a>(p: &'a i32) {
+    println!("demo2: {}", p);
+}
+
+fn get_short<'a>(x: &'a i32, _y: &'a i32) -> &'a i32 {
+    x
+}
+
+fn return_ref<'a>(p: &'a i32) -> &'a i32 {
+    p
+}
+
 fn get_static_str() -> &'static str {
     let s = "常驻文本";
     s
@@ -153,13 +169,31 @@ fn main() {
             print_both(&a, &b);
         }
     }
-    println!("出内层块后 outer 原变量仍可用: {}", outer); // ✅ 限制的是引用，不是 outer
+    println!("出内层块后 outer 原变量仍可用: {}", outer);
+    let r = &outer; // ✅ 新建普通引用，全新生命周期，与旧 'a 无关
+    println!("出内层块后新建普通引用: {}", r);
 
     triple(&v1, &v2, &num);
     println!("pick_one: {}", pick_one(&v1, &v2));
     let (rx, ry) = return_two(&v1, &v2);
     println!("return_two: ({}, {})", rx, ry);
     println!("pick_any max: {}", pick_any(&v1, &v2));
+
+    println!("\n=== 0.9) 'a 是函数局部标签 ===");
+    demo1(&v1, &v2);
+    demo2(&v1);
+    let ret = get_short(&v1, &v2);
+    println!("get_short 返回: {}", ret);
+    {
+        let inner = 99;
+        demo2(&inner);
+        let r1 = return_ref(&inner);
+        println!("return_ref(&inner): {}", r1);
+        // demo1(&outer, &inner); // ❌ 同函数内共用 'a
+    }
+    demo2(&outer);
+    let r2 = return_ref(&outer);
+    println!("return_ref(&outer): {}", r2);
 
     println!("\n=== 1) get_first：返回引用与入参同 'a ===");
     let s = String::from("中文abc");
