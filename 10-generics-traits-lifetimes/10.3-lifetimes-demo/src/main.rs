@@ -27,7 +27,25 @@ fn cmp<'a>(x: &'a i32, y: &'a i32) -> &'a i32 {
     if *x > *y { x } else { y }
 }
 
-// 笔记反例：print_two(&outer, &inner) 同 'a 但寿命不一 → 编译报错
+// 空函数体：签名契约仍须满足，与函数内用不用形参无关
+#[allow(dead_code)]
+fn demo<'a>(_x: &'a i32, _y: &'a i32) {}
+
+// 笔记反例：demo(&outer, &inner) — 契约 vs 实际寿命不匹配
+#[allow(dead_code)]
+fn same_group<'a>(_p1: &'a i32, _p2: &'a i32) {}
+
+// 笔记反例：use_both(&long_live, &short_live) 同 'a 但 long 超组上限 → 编译报错
+#[allow(dead_code)]
+fn use_both<'a>(a: &'a i32, b: &'a i32) {
+    println!("{} {}", a, b);
+}
+
+fn print_both<'a>(x: &'a i32, y: &'a i32) {
+    println!("{} {}", x, y);
+}
+
+// 笔记反例：print_two(&outer, &inner) 同 'a 但 outer 比 inner 活得长
 #[allow(dead_code)]
 fn print_two<'a>(x: &'a i32, y: &'a i32) {
     println!("{} {}", x, y);
@@ -126,9 +144,16 @@ fn main() {
     let outer = 100;
     {
         let inner = 200;
-        two_group(&outer, &inner); // 不同 'a/'b，各自最晚可用时间独立
-        // print_two(&outer, &inner); // ❌ 同 'a：&outer 晚于 &inner 失效
-    } // inner 最晚可用时间在此；outer 在 main 末尾
+        two_group(&outer, &inner);
+        // demo(&outer, &inner);   // ❌ 空函数也报错：契约不匹配
+        // same_group(&outer, &inner);
+        {
+            let a = 1;
+            let b = 2;
+            print_both(&a, &b);
+        }
+    }
+    println!("出内层块后 outer 原变量仍可用: {}", outer); // ✅ 限制的是引用，不是 outer
 
     triple(&v1, &v2, &num);
     println!("pick_one: {}", pick_one(&v1, &v2));
