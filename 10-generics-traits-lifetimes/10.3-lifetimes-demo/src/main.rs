@@ -23,6 +23,17 @@ fn borrow_num<'a>(data: &'a i32) -> &'a i32 {
     data
 }
 
+// 笔记 §7.3：返回入参引用，'a 绑定数据源寿命 → 防悬垂
+fn get_ref<'a>(data: &'a i32) -> &'a i32 {
+    data
+}
+
+// 笔记 §7.3 场景C / §5.2：two(&outer, &inner) 一长一短 → 编译报错
+#[allow(dead_code)]
+fn two<'a>(a: &'a i32, _b: &'a i32) -> &'a i32 {
+    a
+}
+
 fn cmp<'a>(x: &'a i32, y: &'a i32) -> &'a i32 {
     if *x > *y { x } else { y }
 }
@@ -96,9 +107,9 @@ fn get_static_str() -> &'static str {
     s
 }
 
-// fn bad<'a>() -> &'a i32 {
-//     let tmp = 20;
-//     &tmp
+// fn demo() -> &i32 {
+//     let x = 10;
+//     &x
 // }
 
 // fn bad_str<'a>() -> &'a str {
@@ -149,6 +160,33 @@ fn main() {
     let s: &'static str = "abc";
     println!("s: &'static str → 只读段 \"{}\" 地址 {:p}", s, s);
 
+    println!("\n=== 0.7) 悬垂引用与生命周期防护 ===");
+    let val = 99;
+    let r2 = get_ref(&val);
+    println!("get_ref(&val): {}（返回引用绑定 val 寿命，不会悬垂）", r2);
+
+    // 跨块悬垂反例（编译报错）：
+    // let r: &i32;
+    // { let x = 10; r = &x; }
+    // println!("{}", r);
+
+    // 合法方式1：引用与数据同块
+    {
+        let x = 10;
+        let r = &x;
+        println!("同块借用: {}", r);
+    }
+
+    // 合法方式2：数据提升到外层
+    let x = 10;
+    let r: &i32;
+    {
+        r = &x;
+    }
+    println!("外层变量 + 跨块引用: {}", r);
+
+    // two(&outer, &inner) 见 0.8 内层块注释
+
     println!("\n=== 0.8) 最晚可用时间 & 'a 分组 ===");
     let v1 = 10;
     let v2 = 20; // 同块 → &v1、&v2 最晚可用时间都是 main 末尾
@@ -161,6 +199,7 @@ fn main() {
     {
         let inner = 200;
         two_group(&outer, &inner);
+        // let res = two(&outer, &inner); // ❌ 防悬垂：长短不一不能共用 'a
         // demo(&outer, &inner);   // ❌ 空函数也报错：契约不匹配
         // same_group(&outer, &inner);
         {
