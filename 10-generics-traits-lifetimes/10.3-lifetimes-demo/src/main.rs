@@ -28,10 +28,16 @@ fn get_ref<'a>(data: &'a i32) -> &'a i32 {
     data
 }
 
-// 笔记 §7.3 场景C / §5.2：two(&outer, &inner) 一长一短 → 编译报错
+// 笔记 §7.3 场景C / §7.5 场景5：two_ref(&outer, &inner) 一长一短 → 编译报错
 #[allow(dead_code)]
-fn two<'a>(a: &'a i32, _b: &'a i32) -> &'a i32 {
+fn two_ref<'a>(a: &'a i32, _b: &'a i32) -> &'a i32 {
     a
+}
+
+// 笔记 §7.5 场景4.1：结构体持引用，数据源须活得比结构体久
+#[allow(dead_code)]
+struct Wrapper<'a> {
+    val: &'a i32,
 }
 
 fn cmp<'a>(x: &'a i32, y: &'a i32) -> &'a i32 {
@@ -106,6 +112,11 @@ fn get_static_str() -> &'static str {
     let s = "常驻文本";
     s
 }
+
+// fn return_local() -> &i32 {
+//     let num = 66;
+//     &num
+// }
 
 // fn demo() -> &i32 {
 //     let x = 10;
@@ -185,7 +196,16 @@ fn main() {
     }
     println!("外层变量 + 跨块引用: {}", r);
 
-    // two(&outer, &inner) 见 0.8 内层块注释
+    println!("\n=== 0.75) 常见悬垂场景（反例见笔记 §7.5，均编译报错）===");
+    // 场景1 return_local() — 返回局部引用
+    // 场景3.1 let mut val=10; let r=&val; val=20;
+    // 场景3.2 let r = &(10 + 20);
+    // 场景4.1 Wrapper { val: &x } 且 x 在内层块
+    // 场景4.2 let r=&v[0]; v.clear();
+    // 场景6   let r=&s1; let s2=s1;
+    println!("合法：数据寿命 ≥ 引用寿命 → 无悬垂");
+
+    // two_ref(&outer, &inner) 见 0.8 内层块注释
 
     println!("\n=== 0.8) 最晚可用时间 & 'a 分组 ===");
     let v1 = 10;
@@ -199,7 +219,7 @@ fn main() {
     {
         let inner = 200;
         two_group(&outer, &inner);
-        // let res = two(&outer, &inner); // ❌ 防悬垂：长短不一不能共用 'a
+        // let res = two_ref(&outer, &inner); // ❌ 防悬垂：长短不一不能共用 'a
         // demo(&outer, &inner);   // ❌ 空函数也报错：契约不匹配
         // same_group(&outer, &inner);
         {
