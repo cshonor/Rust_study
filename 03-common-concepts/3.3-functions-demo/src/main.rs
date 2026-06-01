@@ -16,11 +16,21 @@ fn main() {
     println!("The value of y is: {}", y); // 输出: 4
 
     println!("\n=== 4. 带返回值的函数 ===");
-    let x = five();
-    println!("five() = {}", x); // 输出: 5
+    println!("add(1, 2) = {}", add(1, 2));
+    println!("five() = {}", five());
+    println!("plus_one(5) = {}", plus_one(5));
+    println!("max(3, 7) = {}", max(3, 7));
+}
 
-    let x = plus_one(5);
-    println!("plus_one(5) = {}", x); // 输出: 6
+fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+
+fn max(a: i32, b: i32) -> i32 {
+    if a > b {
+        return a;
+    }
+    b
 }
 
 fn another_function() {
