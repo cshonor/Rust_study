@@ -32,9 +32,22 @@ fn main() {
     let s: String = Default::default();
     let v: Vec<i32> = Vec::default();
     println!("num={}, flag={}, s=[{}], v={:?}", num, flag, s, v);
+    let s2: String = String::default();
+    println!("String::default() 同 Default::default(): [{}]", s2);
 
-    // 未初始化不能直接使用（取消注释会编译失败）：
-    // let a: i32;
-    // println!("{}", a);
+    // 多类型未初始化均报错（取消注释会编译失败）：
+    // let n: i32;
+    // let f: bool;
+    // println!("{} {}", n, f);
+
+    println!("\n=== 6. main 内：先声明后赋值（须 mut）===");
+    let flag = std::hint::black_box(true);
+    let mut a: i32;
+    if flag {
+        a = 10;
+    } else {
+        a = 0;
+    }
+    println!("先 let mut 再按分支赋值: a = {}", a);
 }
 
