@@ -10,6 +10,21 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
     }
 }
 
+/// 返回 s 的第一个 UTF-8 标量（演示 `'a`：返回引用与入参同寿命）
+fn get_first<'a>(s: &'a str) -> &'a str {
+    let end = s
+        .char_indices()
+        .nth(1)
+        .map(|(i, _)| i)
+        .unwrap_or(s.len());
+    &s[0..end]
+}
+
+// fn bad<'a>() -> &'a str {
+//     let s = String::from("hello");
+//     &s
+// }
+
 fn longest_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a str
 where
     T: Display,
@@ -38,7 +53,12 @@ impl<'a> ImportantExcerpt<'a> {
 }
 
 fn main() {
-    println!("=== 1) longest ===");
+    println!("=== 0) get_first：返回引用与入参同 'a ===");
+    let s = String::from("中文abc");
+    let first = get_first(&s);
+    println!("get_first(\"中文abc\") = {:?}", first);
+
+    println!("\n=== 1) longest ===");
     let string1 = String::from("abcd");
     let string2 = "xyz";
     let result = longest(string1.as_str(), string2);

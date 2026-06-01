@@ -33,6 +33,15 @@ fn main() {
     let chars: Vec<char> = s2.chars().collect();
     println!("collect[2] = {}", chars[2]);
 
+    println!("\n=== 2b. char 拼进 String（码点 → UTF-8）===");
+    let c = '国';
+    let mut s = "中".to_string();
+    let len_before = s.len();
+    s.push(c);
+    println!("push('国') 后: \"{}\"", s);
+    println!("字节数: {} -> {}（'国' UTF-8 通常 +3 字节）", len_before, s.len());
+    println!("'国' 码点 = 0x{:X}", c as u32);
+
     println!("\n=== 3. 字符数 vs 字节数 ===");
     let s3 = "Hello 世界 😂";
     println!("len() 字节 = {}, chars().count() 标量 = {}", s3.len(), s3.chars().count());
