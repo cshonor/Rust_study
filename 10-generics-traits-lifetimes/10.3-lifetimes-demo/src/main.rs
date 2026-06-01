@@ -34,6 +34,15 @@ fn two_ref<'a>(a: &'a i32, _b: &'a i32) -> &'a i32 {
     a
 }
 
+fn calc<'a>(a: &'a i32, b: &'a i32) {
+    println!("{} {}", a, b);
+}
+
+// 笔记导读 §2 / §7.5 场景4.1：结构体持引用须标注 'a
+struct Holder<'a> {
+    val: &'a i32,
+}
+
 // 笔记 §7.5 场景4.1：结构体持引用，数据源须活得比结构体久
 #[allow(dead_code)]
 struct Wrapper<'a> {
@@ -48,9 +57,18 @@ fn cmp<'a>(x: &'a i32, y: &'a i32) -> &'a i32 {
 #[allow(dead_code)]
 fn demo<'a>(_x: &'a i32, _y: &'a i32) {}
 
-// 笔记反例：demo(&outer, &inner) — 契约 vs 实际寿命不匹配
+// 笔记 §10：省略规则 — 单引用入参，可省略 'a
+fn get_data(data: &i32) -> &i32 {
+    data
+}
+
+// 笔记 §10.3：隐式 — 多引用各自独立校验（不写 'a）
 #[allow(dead_code)]
-fn same_group<'a>(_p1: &'a i32, _p2: &'a i32) {}
+fn same(a: &i32, b: &i32) {}
+
+// 笔记 §10.3：显式 — 手动划入同一组
+#[allow(dead_code)]
+fn same_group_elision<'a>(a: &'a i32, b: &'a i32) {}
 
 // 笔记反例：use_both(&long_live, &short_live) 同 'a 但 long 超组上限 → 编译报错
 #[allow(dead_code)]
@@ -161,6 +179,11 @@ fn main() {
     let r = borrow_num(&num);
     println!("borrow<'a>: r = {}", r);
 
+    calc(&num, &num); // 导读：多入参共用 'a，纯入参约束
+    let holder = Holder { val: &num };
+    println!("Holder {{ val: {} }}", holder.val);
+    println!("get_data 省略 'a: {}", get_data(&num)); // §10 省略规则
+
     println!("\n=== 0.5) &'static str：变量消失，数据不 drop ===");
     {
         let s = "块内字面量";
@@ -221,7 +244,7 @@ fn main() {
         two_group(&outer, &inner);
         // let res = two_ref(&outer, &inner); // ❌ 防悬垂：长短不一不能共用 'a
         // demo(&outer, &inner);   // ❌ 空函数也报错：契约不匹配
-        // same_group(&outer, &inner);
+        // same_group_elision(&outer, &inner);
         {
             let a = 1;
             let b = 2;
