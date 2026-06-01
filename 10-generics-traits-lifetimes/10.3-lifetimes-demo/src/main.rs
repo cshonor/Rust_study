@@ -32,7 +32,7 @@ fn get_ref<'a>(data: &'a i32) -> &'a i32 {
     data
 }
 
-// 笔记 §7.3 场景C / §7.5 场景5：two_ref(&outer, &inner) 一长一短 → 编译报错
+// 笔记 §5.8：无返回值 + 内层一长一短 → ✅；有返回值且跨红线才 ❌
 #[allow(dead_code)]
 fn two_ref<'a>(a: &'a i32, _b: &'a i32) -> &'a i32 {
     a
@@ -42,12 +42,16 @@ fn calc<'a>(a: &'a i32, b: &'a i32) {
     println!("{} {}", a, b);
 }
 
+// 笔记 §5.8：use_both 无返回值，内层一长一短 — 编译正常
+fn use_both<'a>(a: &'a i32, b: &'a i32) {
+    println!("use_both: {} {}", a, b);
+}
+
 // 笔记导读 §2 / §7.5 场景4.1：结构体持引用须标注 'a
 struct Holder<'a> {
     val: &'a i32,
 }
 
-// 笔记 §7.5 场景4.1：结构体持引用，数据源须活得比结构体久
 #[allow(dead_code)]
 struct Wrapper<'a> {
     val: &'a i32,
@@ -57,34 +61,25 @@ fn cmp<'a>(x: &'a i32, y: &'a i32) -> &'a i32 {
     if *x > *y { x } else { y }
 }
 
-// 空函数体：签名契约仍须满足，与函数内用不用形参无关
+// 空函数体：无返回值，内层一长一短调用合法（§5.8）
 #[allow(dead_code)]
 fn demo<'a>(_x: &'a i32, _y: &'a i32) {}
 
-// 笔记 §10：省略规则 — 单引用入参，可省略 'a
 fn get_data(data: &i32) -> &i32 {
     data
 }
 
-// 笔记 §10.3：隐式 — 多引用各自独立校验（不写 'a）
 #[allow(dead_code)]
 fn same(a: &i32, b: &i32) {}
 
-// 笔记 §10.3：显式 — 手动划入同一组
 #[allow(dead_code)]
 fn same_group_elision<'a>(a: &'a i32, b: &'a i32) {}
-
-// 笔记反例：use_both(&long_live, &short_live) 同 'a 但 long 超组上限 → 编译报错
-#[allow(dead_code)]
-fn use_both<'a>(a: &'a i32, b: &'a i32) {
-    println!("{} {}", a, b);
-}
 
 fn print_both<'a>(x: &'a i32, y: &'a i32) {
     println!("{} {}", x, y);
 }
 
-// 笔记反例：print_two(&outer, &inner) 同 'a 但 outer 比 inner 活得长
+// 笔记 §5.8：无返回值内层调用 ✅；有返回值且 res 逃出内层才 ❌
 #[allow(dead_code)]
 fn print_two<'a>(x: &'a i32, y: &'a i32) {
     println!("{} {}", x, y);
@@ -246,8 +241,9 @@ fn main() {
     {
         let inner = 200;
         two_group(&outer, &inner);
-        let _ = two_ref(&outer, &inner); // ✅ 内层调用（§8.4）
-        demo(&outer, &inner);           // ✅ 内层调用（§8.4）
+        use_both(&outer, &inner);       // ✅ §5.8 无返回值
+        let _ = two_ref(&outer, &inner); // ✅ 返回值仅在内层丢弃
+        demo(&outer, &inner);           // ✅ 空函数体，内层调用
         // same_group_elision(&outer, &inner);
         {
             let a = 1;
