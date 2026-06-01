@@ -1,0 +1,41 @@
+{
+  // ---------- rust-analyzer 工作区推荐配置（rs study 学习仓库）----------
+  // 说明见 docs/rust-analyzer-VSCode配置.md
+
+  // 核心：宏 + 保存时 cargo check
+  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.cargo.loadOutDirsFromCheck": true,
+  "rust-analyzer.check.command": "check",
+  "rust-analyzer.checkOnSave": true,
+  "rust-analyzer.check.extraArgs": ["--all-targets"],
+
+  // 内联提示（可按喜好关闭单项）
+  "rust-analyzer.inlayHints.typeHints.enable": true,
+  "rust-analyzer.inlayHints.parameterHints.enable": true,
+  "rust-analyzer.inlayHints.chainingHints.enable": true,
+
+  // 补全
+  "rust-analyzer.completion.autoimport.enable": true,
+  "rust-analyzer.completion.autoimport.exclude": [],
+  "rust-analyzer.completion.addCallParenthesis": true,
+  "rust-analyzer.completion.addCallArgumentSnippets": true,
+
+  // 格式化（保存时 rustfmt）
+  "editor.formatOnSave": true,
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    "editor.tabSize": 4
+  },
+  "rust-analyzer.rustfmt.enable": true,
+
+  // 性能（章节 demo 较多时可适当加大）
+  "rust-analyzer.lruCapacity": 2048,
+
+  // 本仓库：减少无关文件干扰
+  "files.watcherExclude": {
+    "**/target/**": true
+  },
+  "search.exclude": {
+    "**/target": true
+  }
+}

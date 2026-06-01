@@ -1,12 +1,35 @@
 // 3.5 控制流 - 示例
 
 fn main() {
-    println!("=== 1. if / else ===");
+    println!("\n=== 1. if / else（条件必须是 bool）===");
     let number = 3;
     if number < 5 {
-        println!("condition was true"); // 输出
+        println!("condition was true");
     } else {
         println!("condition was false");
+    }
+    // if number { }  // ❌ expected `bool`, found integer
+
+    if number != 0 {
+        println!("number != 0");
+    }
+
+    let flag = true;
+    if flag {
+        println!("flag is true");
+    }
+
+    let s = "";
+    if s.is_empty() {
+        println!("empty string");
+    }
+
+    let opt: Option<i32> = Some(5);
+    if opt.is_some() {
+        println!("opt has value");
+    }
+    if let Some(v) = opt {
+        println!("if let Some: v = {}", v);
     }
 
     println!("\n=== 2. else if 多重条件 ===");

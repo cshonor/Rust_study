@@ -56,3 +56,4 @@ cargo run -p pancakes
 
 - 章节目录使用英文命名，避免 Windows 终端乱码。
 - `target/` 已在 `.gitignore` 中忽略。
+- **VSCode + rust-analyzer**：见 [`docs/rust-analyzer-VSCode配置.md`](docs/rust-analyzer-VSCode配置.md)；仓库内 [`.vscode/settings.json`](.vscode/settings.json) 为开箱即用工作区配置。

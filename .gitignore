@@ -11,7 +11,10 @@ target/
 
 # IDE
 .idea/
-.vscode/
+# IDE / 编辑器（可选：工作区推荐配置可提交）
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 *.iml
 
 # 系统文件
