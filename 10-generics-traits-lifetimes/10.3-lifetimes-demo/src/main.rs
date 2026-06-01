@@ -2,6 +2,10 @@
 
 use std::fmt::Display;
 
+fn two_str<'a, 'b>(x: &'a str, y: &'b str) {
+    println!("{} | {}", x, y);
+}
+
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
     if x.len() > y.len() {
         x
@@ -242,8 +246,8 @@ fn main() {
     {
         let inner = 200;
         two_group(&outer, &inner);
-        // let res = two_ref(&outer, &inner); // ❌ 防悬垂：长短不一不能共用 'a
-        // demo(&outer, &inner);   // ❌ 空函数也报错：契约不匹配
+        let _ = two_ref(&outer, &inner); // ✅ 内层调用（§8.4）
+        demo(&outer, &inner);           // ✅ 内层调用（§8.4）
         // same_group_elision(&outer, &inner);
         {
             let a = 1;
@@ -282,18 +286,29 @@ fn main() {
     let first = get_first(&s);
     println!("get_first(\"中文abc\") = {:?}", first);
 
-    println!("\n=== 2) longest ===");
+    println!("\n=== 2) longest：同块调用，'a 动态适配 ===");
     let string1 = String::from("abcd");
     let string2 = "xyz";
     let result = longest(string1.as_str(), string2);
     println!("longest = {}", result);
 
-    println!("\n=== 3) 不同作用域下的 longest ===");
+    println!("\n=== 3) longest 一长一短（§8.4 场景 A：引用在红线内）===");
     let string1 = String::from("long string is long");
     {
         let string2 = String::from("xyz");
         let result = longest(string1.as_str(), string2.as_str());
-        println!("longest = {}", result);
+        println!("场景 A: {}", result);
+    }
+    // 场景 B ❌ res 在外层（取消注释即编译失败）：
+    // let res: &str;
+    // { let inner = String::from("short"); res = longest(string1.as_str(), inner.as_str()); }
+    // 补充 ❌ 出红线后 println!(res)
+
+    println!("\n=== 3b) two_str：'a/'b 分组，一长一短合法 ===");
+    let outer = String::from("outer");
+    {
+        let inner = String::from("inner");
+        two_str(outer.as_str(), inner.as_str());
     }
 
     println!("\n=== 4) 结构体 ImportantExcerpt<'a> ===");
