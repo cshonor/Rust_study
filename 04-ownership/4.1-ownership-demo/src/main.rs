@@ -1,7 +1,50 @@
 // 4.1 什么是所有权 - 示例
 
+static NUM: i32 = 100;
+static MSG: &str = "全局静态字符串";
+static GLOBAL_STR: &str = "全局字面量";
+
 fn main() {
-    println!("=== 1. 移动 (Move) ===");
+    println!("=== 0. 栈 vs 堆 ===");
+    // 栈：固定大小，赋值直接拷贝
+    let num: i32 = 42;
+    let num2 = num;
+    println!("栈上 i32 拷贝: num = {}, num2 = {}", num, num2);
+
+    // 堆：String 的 ptr/len/cap 在栈，字节在堆
+    let s = String::from("hello");
+    println!(
+        "String 栈上 ptr/len/cap → 堆上 {} 字节: \"{}\"",
+        s.len(),
+        s
+    );
+
+    println!("\n=== 0.5 所有者、作用域、static、字面量 ===");
+    {
+        let local = String::from("局部变量");
+        println!("局部变量（块内有效）: {}", local);
+    } // local 出作用域，堆内存释放
+
+    // static 只能模块顶层；函数内禁止 static INNER: i32 = 200;
+    println!("static NUM = {}, MSG = {}", NUM, MSG);
+
+    let local_str = "函数内字面量"; // 只有局部变量 local_str；"xxx" 是字面数据，不是变量
+    println!("GLOBAL_STR = {}, local_str = {}", GLOBAL_STR, local_str);
+
+    // const：编译期内联，无所有权，出块只是不能访问
+    const COUNT: i32 = 100;
+    {
+        const NUM: i32 = 200;
+        println!("const COUNT = {}, NUM = {}", COUNT, NUM);
+    }
+    println!("出块后 COUNT 仍可用 = {}", COUNT);
+    // println!("{}", NUM); // ❌ 超出作用域，不是释放内存
+
+    let literal = "hello"; // s 是局部引用；指向的字面量本体 'static
+    let owned = String::from("hello"); // 堆上，变量拥有所有权
+    println!("字面量引用: {}, 堆上 String: {}", literal, owned);
+
+    println!("\n=== 1. 移动 (Move) ===");
     let s1 = String::from("hello");
     let s2 = s1; // s1 被移动，s1 不再有效
     println!("s2 = {}", s2); // s2 有效
