@@ -67,6 +67,7 @@
 | 节 | 笔记 | demo |
 |----|------|------|
 | 3.1 变量和可变性 | [3.1-变量和可变性.md](./03-common-concepts/3.1-变量和可变性.md) | [3.1-variables-demo](./03-common-concepts/3.1-variables-demo/) |
+| 3.1 延伸 | [下划线占位符 `_`](./03-common-concepts/3.1-下划线占位符.md) | — |
 | 3.2 数据类型 | [3.2-数据类型.md](./03-common-concepts/3.2-数据类型.md) | [3.2-data-types-demo](./03-common-concepts/3.2-data-types-demo/) |
 | 3.2 延伸 | [JSON 与编码](./03-common-concepts/3.2-JSON与编码.md) · [Unicode 与字符串](./03-common-concepts/3.2-Unicode与字符串.md) | [json-encoding](./03-common-concepts/3.2-json-encoding-demo/) · [unicode](./03-common-concepts/3.2-unicode-demo/) |
 | 3.3 函数 | [3.3-函数.md](./03-common-concepts/3.3-函数.md) | [3.3-functions-demo](./03-common-concepts/3.3-functions-demo/) |
