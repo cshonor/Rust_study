@@ -7,7 +7,7 @@ fn parse_positive(s: &str) -> Result<u32, ParseIntError> {
 }
 
 fn first_positive(nums: &[&str]) -> Option<Result<u32, ParseIntError>> {
-    nums.iter().find_map(|s| Some(parse_positive(s)))
+    nums.iter().map(|s| parse_positive(s)).next()
 }
 
 fn first_positive_result(nums: &[&str]) -> Result<u32, String> {

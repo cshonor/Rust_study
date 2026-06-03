@@ -10,3 +10,6 @@ schema = []
 
 [package.metadata.docs.rs]
 all-features = true
+
+[lib]
+path = "src/lib.rs"
