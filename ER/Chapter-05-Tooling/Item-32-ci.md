@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / CI 配置示例
+- [x] [CI 示例](../../.github/workflows/er-study-ci.yml)
 
 ---
 
@@ -142,7 +142,9 @@ cargo fmt --check && cargo clippy -- -Dwarnings && cargo test --all-features
 
 ## 6. 后续拓展
 
-- 本章 Item 32 已覆盖 CI 核心要点；具体平台（GitHub Actions matrix、Dependabot）见 Item 25 / 31 交叉引用即可。
+> 展开版：[ER-拓展索引 § Item 32](../ER-拓展索引.md#item-32)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

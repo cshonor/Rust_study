@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -126,10 +126,11 @@ where
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] 默认方法 + 泛型 / `Self` + `where Self: Sized` 与 `dyn Trait`（链 Item 12）
-- [ ] Serde 等 crate：小核心 API + 大默认方法族
+> 展开版：[ER-拓展索引 § Item 13](../ER-拓展索引.md#item-13)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

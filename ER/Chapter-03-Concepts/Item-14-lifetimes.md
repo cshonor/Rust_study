@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -126,10 +126,11 @@ let r = fn_returning_ref(&mut tmp); // ✅ 先绑定具名变量
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **HRTB** `for<'a>`：宏、GAT 中的延迟绑定
-- [ ] 图/树：纯引用 vs `Rc<RefCell<_>>` / ID 表「逃课」（链 Item 15）
+> 展开版：[ER-拓展索引 § Item 14](../ER-拓展索引.md#item-14)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

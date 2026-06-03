@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -122,10 +122,11 @@ cargo tree --duplicates
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **Dependabot / Renovate** + CI **`cargo-deny`**（Item 32）
-- [ ] **`workspace.dependencies`**（Rust 1.64+）集中管版本
+> 展开版：[ER-拓展索引 § Item 25](../ER-拓展索引.md#item-25)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

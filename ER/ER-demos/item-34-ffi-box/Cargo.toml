@@ -1,0 +1,8 @@
+[package]
+name = "item-34-ffi-box"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "item-34-ffi-box"
+path = "src/main.rs"

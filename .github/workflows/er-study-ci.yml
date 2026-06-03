@@ -1,0 +1,41 @@
+# ER study — 示例 CI（Item 32）
+# 复制到活跃项目时按需增删 job；本仓库以文档为主，仅 fmt + clippy + ER-demos 测试。
+
+name: er-study-ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  er-demos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: fmt
+        run: cargo fmt --all -- --check
+        working-directory: ER/ER-demos
+      - name: clippy
+        run: cargo clippy --workspace -- -D warnings
+        working-directory: ER/ER-demos
+      - name: test
+        run: cargo test --workspace
+        working-directory: ER/ER-demos
+
+  item-33-no-std:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: no_std lib check (alloc only)
+        run: |
+          cargo check -p item-33-no-std --no-default-features --features alloc
+        working-directory: ER/ER-demos

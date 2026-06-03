@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -127,10 +127,11 @@ pub fn new_api() { /* ... */ }
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] `cargo-semver-checks` / `cargo breaking` 自动化 break 检测
-- [ ] MSRV policy 与 `rust-version` 字段实践
+> 展开版：[ER-拓展索引 § Item 21](../ER-拓展索引.md#item-21)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

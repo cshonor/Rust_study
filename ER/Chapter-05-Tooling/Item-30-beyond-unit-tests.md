@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [x] [item-30-black-box](../ER-demos/item-30-black-box/)
 
 ---
 
@@ -133,10 +133,11 @@ fn smoke() {
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] CI **matrix**：OS × Rust × features（Item 32）
-- [ ] **`cargo-fuzz` corpus** 保存与共享
+> 展开版：[ER-拓展索引 § Item 30](../ER-拓展索引.md#item-30)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

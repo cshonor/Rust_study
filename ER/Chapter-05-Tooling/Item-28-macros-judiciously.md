@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -129,10 +129,11 @@ macro_rules! square {
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **`cargo-expand`** 查看展开结果（Item 31）
-- [ ] **`syn` + `quote`** 写 derive 宏实战
+> 展开版：[ER-拓展索引 § Item 28](../ER-拓展索引.md#item-28)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

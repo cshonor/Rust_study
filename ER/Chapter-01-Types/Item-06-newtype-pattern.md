@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -136,10 +136,11 @@ Newtype **不**自动拥有内部类型的 trait 实现：
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] `derive_more`：自动委托 `Add`、`Display` 等
-- [ ] `Deref` / `DerefMut`：在保持类型安全下减少 `.0` 样板（与 Item 5 coercion 衔接）
+> 展开版：[ER-拓展索引 § Item 06](../ER-拓展索引.md#item-06)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

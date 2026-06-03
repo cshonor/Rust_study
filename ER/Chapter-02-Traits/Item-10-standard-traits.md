@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -133,10 +133,11 @@ let x = Oddity(f32::NAN);
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **`derivative` crate**：部分字段不参与 `Hash` / `Debug` / `Eq`
-- [ ] **`std::ops`**：`&T + T` 等组合 impl 与宏生成
+> 展开版：[ER-拓展索引 § Item 10](../ER-拓展索引.md#item-10)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

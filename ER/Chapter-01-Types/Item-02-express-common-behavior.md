@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -157,10 +157,11 @@ fn apply<F: FnOnce(i32) -> i32>(f: F, x: i32) -> i32 { f(x) }
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] 单态化与代码膨胀、静/动态分发性能 → [Item 12](../Chapter-02-Traits/Item-12-generics-vs-trait-objects.md)
-- [ ] 异步 / 多线程里闭包：`move`、生命周期、`Send` / `Sync` → [16 章](../../Book/16-fearless-concurrency/16.4-Send与Sync.md)
+> 展开版：[ER-拓展索引 § Item 02](../ER-拓展索引.md#item-02)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

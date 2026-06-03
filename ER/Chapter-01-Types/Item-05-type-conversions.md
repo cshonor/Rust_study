@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -140,10 +140,11 @@ is_iana_reserved(IanaAllocated(0)); // ✅ 自反 From
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] Deref coercion 与方法解析（Method Resolution）优先级、连续解引用
-- [ ] `AsRef` vs `Into`：字符串 / 路径 API 设计（`&str`/`String`、`Path`/`PathBuf`）
+> 展开版：[ER-拓展索引 § Item 05](../ER-拓展索引.md#item-05)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

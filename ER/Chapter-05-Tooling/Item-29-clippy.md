@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -127,10 +127,11 @@ Clippy：`approximate value of f{32,64}::consts::PI found`
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] 根目录 **`clippy.toml`**：`cognitive-complexity-threshold`、`too-many-arguments-threshold`
-- [ ] GitHub Actions **`clippy-action`** 行内批注（Item 32）
+> 展开版：[ER-拓展索引 § Item 29](../ER-拓展索引.md#item-29)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -111,10 +111,11 @@ BytesLeft::remaining(&v)
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] 设计 crate 自有 **`prelude`**：与 Item 22 可见性 + Item 24 重导出配合
-- [ ] `std::prelude` / 常用库 prelude 对比
+> 展开版：[ER-拓展索引 § Item 23](../ER-拓展索引.md#item-23)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

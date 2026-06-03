@@ -125,10 +125,11 @@ bindings.write_to_file(out_dir.join("generated.rs"))?;
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **`build.rs` + `bindgen`** 完整 pipeline；`OUT_DIR` / rerun-if-changed
-- [ ] **`cxx` bridge** 模块示例
+> 展开版：[ER-拓展索引 § Item 35](../ER-拓展索引.md#item-35)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

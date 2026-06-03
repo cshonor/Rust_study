@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -147,10 +147,11 @@ fn print_page(sides: Sides, output: Output) { /* ... */ }
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] `Option` / `Result` 与迭代转换、`?` 的链式写法 → 见 [Item 3](./Item-03-option-result-transforms.md)
-- [ ] 类型化状态机（State Machine in Type System）业务实战案例
+> 展开版：[ER-拓展索引 § Item 01](../ER-拓展索引.md#item-01)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

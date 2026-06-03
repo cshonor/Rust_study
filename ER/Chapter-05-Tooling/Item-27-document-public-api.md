@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -127,10 +127,11 @@ examples/ → 完整集成示例，非 doc test 片段
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] 文档覆盖率工具；**`#[doc(cfg(...))]`** 多 target API 标注（Item 31）
-- [ ] **Module-level `//!`** 新手引导 vs 函数级 `///` 分工
+> 展开版：[ER-拓展索引 § Item 27](../ER-拓展索引.md#item-27)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

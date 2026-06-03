@@ -1,0 +1,8 @@
+[package]
+name = "item-30-black-box"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "item-30-black-box"
+path = "src/main.rs"

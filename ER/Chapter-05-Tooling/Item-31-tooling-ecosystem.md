@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -134,10 +134,11 @@ cargo expand --lib my_module::some_macro_user
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] 形式化验证：**Kani**、**Prusti** 等适用场景
-- [ ] **`cargo-public-api`** API 边界监控（Item 24）
+> 展开版：[ER-拓展索引 § Item 31](../ER-拓展索引.md#item-31)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

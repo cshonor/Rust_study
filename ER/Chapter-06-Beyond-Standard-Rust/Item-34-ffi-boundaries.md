@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / FFI 练习
+- [x] [item-34-ffi-box](../ER-demos/item-34-ffi-box/)
 
 ---
 
@@ -150,10 +150,11 @@ let s: &FfiStruct = unsafe { &*p };
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **bindgen** 同步 C 头文件（Item 35）
-- [ ] **`cxx`** crate：Rust ↔ C++ 类型安全互操作（Item 31 曾提及）
+> 展开版：[ER-拓展索引 § Item 34](../ER-拓展索引.md#item-34)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -146,10 +146,11 @@ Child  --Rc--> Parent   // strong count 永不为 0 → 泄漏
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] `UnsafeCell`：内部可变性的底层
-- [ ] Async：`.await` 边界上 `Rc` 非 `Send` → `Arc` + `tokio::sync::Mutex`
+> 展开版：[ER-拓展索引 § Item 08](../ER-拓展索引.md#item-08)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

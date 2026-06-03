@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [x] [item-15-borrow-checker](../ER-demos/item-15-borrow-checker/)
 
 ---
 
@@ -117,10 +117,11 @@ let found = find(&query, "ex");
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **`Pin`** + async 状态机：合法自引用（async/await）
-- [ ] **Polonius**：更精确借用分析、减少误报
+> 展开版：[ER-拓展索引 § Item 15](../ER-拓展索引.md#item-15)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

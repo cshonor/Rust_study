@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -106,10 +106,11 @@ std / crates.io 里已有专家封装 → 用安全 API，别重写 unsafe
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **Miri + CI**：集成方式；Strict Provenance 违规案例
-- [ ] **大规模 C/C++ 迁移**：结合 Item 34 / 35，`bindgen` + `cxx` 建 FFI 隔离层
+> 展开版：[ER-拓展索引 § Item 16](../ER-拓展索引.md#item-16)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

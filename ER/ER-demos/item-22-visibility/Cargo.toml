@@ -1,0 +1,12 @@
+[package]
+name = "item-22-visibility"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "item_22_visibility"
+path = "src/lib.rs"
+
+[[bin]]
+name = "item-22-visibility"
+path = "src/main.rs"

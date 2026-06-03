@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -126,10 +126,11 @@ let vec = parsed?; // 任一 parse 失败则 ? 返回
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **`itertools`**：`chunks`、`unique`、`group_by` 等
-- [ ] Godbolt：显式循环 vs 迭代器、边界检查消除
+> 展开版：[ER-拓展索引 § Item 09](../ER-拓展索引.md#item-09)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

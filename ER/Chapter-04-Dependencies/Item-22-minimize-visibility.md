@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [x] [item-22-visibility](../ER-demos/item-22-visibility/)
 
 ---
 
@@ -124,10 +124,11 @@ pub mod somemodule {
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] `mod.rs` vs `name.rs` 与大型项目目录 + 可见性分层
-- [ ] **`pub use` 门面**（Item 24）：对外扁平、对内严格私有
+> 展开版：[ER-拓展索引 § Item 22](../ER-拓展索引.md#item-22)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

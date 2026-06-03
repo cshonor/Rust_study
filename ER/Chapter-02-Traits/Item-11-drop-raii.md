@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -115,10 +115,11 @@ std::mem::drop(x); // ✅ 按所有权消费 x，再 drop
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] Drop 期间 panic 与 double-panic / abort
-- [ ] Async 关闭：`AsyncDrop` 模式、显式 shutdown + `.await`
+> 展开版：[ER-拓展索引 § Item 11](../ER-拓展索引.md#item-11)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

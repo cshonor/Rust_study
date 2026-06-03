@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -154,10 +154,11 @@ let copy = square.make_copy(); // ✅ 具体类型
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **Rust 1.76+ `trait_upcasting`**：`dyn Shape` → `dyn Draw` 与 vtable 变化
-- [ ] `cargo bench`：单态化 vs `dyn` 纳秒级对比
+> 展开版：[ER-拓展索引 § Item 12](../ER-拓展索引.md#item-12)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

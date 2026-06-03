@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -129,11 +129,11 @@ let choice = dep_lib::pick_number_with(&mut prev_rng, max); // ✅
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **`cargo tree --duplicates`** 诊断公开依赖（Item 25）
-- [ ] **`cargo-public-api`** + CI 防止 API 泄漏私有依赖类型
-- [ ] newtype 封装 vs `pub use` 选型
+> 展开版：[ER-拓展索引 § Item 24](../ER-拓展索引.md#item-24)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

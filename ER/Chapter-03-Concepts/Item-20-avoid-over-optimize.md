@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [x] [item-20-tlv](../ER-demos/item-20-tlv/)
 
 ---
 
@@ -131,10 +131,11 @@ struct NetworkServer {
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **`cargo bench` + `black_box`**：建立基线，证明某处 clone 是否真瓶颈（Item 31）
-- [ ] **`Cow<'_, T>`**：有时借、有时拥有时的折中
+> 展开版：[ER-拓展索引 § Item 20](../ER-拓展索引.md#item-20)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

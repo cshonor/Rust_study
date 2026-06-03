@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [x] [item-18-dont-panic](../ER-demos/item-18-dont-panic/)
 
 ---
 
@@ -125,10 +125,11 @@ fn divide_recover(a: i64, b: i64, default: i64) -> i64 {
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **`no_panic` crate** + CI（Item 32）：编译期禁止 panic 路径
-- [ ] **`AssertUnwindSafe`**：为何含 `&mut` 的类型在 `catch_unwind` 里受限；exception safety 深入
+> 展开版：[ER-拓展索引 § Item 18](../ER-拓展索引.md#item-18)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

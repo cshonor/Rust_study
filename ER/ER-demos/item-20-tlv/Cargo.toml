@@ -1,0 +1,8 @@
+[package]
+name = "item-20-tlv"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "item-20-tlv"
+path = "src/main.rs"

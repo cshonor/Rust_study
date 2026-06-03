@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 交叉编译练习
+- [x] [item-33-no-std](../ER-demos/item-33-no-std/)
 
 ---
 
@@ -144,10 +144,11 @@ fn try_build_a_vec() -> Result<Vec<u8>, String> {
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] **`no_global_oom_handling`**：禁用隐式 infallible 分配 API
-- [ ] `embedded-hal` / 平台 crate 分层模式
+> 展开版：[ER-拓展索引 § Item 33](../ER-拓展索引.md#item-33)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -147,10 +147,11 @@ fn read_config() -> Result<Config, MyError> {
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] `thiserror` vs `anyhow`：宏展开、堆分配、API 边界对比
-- [ ] `core::error::Error` 稳定后对 `no_std` 的影响
+> 展开版：[ER-拓展索引 § Item 04](../ER-拓展索引.md#item-04)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 

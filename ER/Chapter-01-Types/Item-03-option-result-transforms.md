@@ -1,4 +1,4 @@
-﻿# Item 3: Prefer Option and Result transforms over explicit match
+# Item 3: Prefer Option and Result transforms over explicit match
 
 > **Effective Rust** · [Chapter 1 — Types](../ER-本书目录.md)  
 > **中文**：优先使用 Option / Result 的转换方法，而非显式 `match`  
@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / 代码练习
+- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
 
 ---
 
@@ -110,10 +110,11 @@ let v = maybe.map(use_value).unwrap_or_default();
 
 ---
 
-## 6. 后续拓展（待补）
+## 6. 后续拓展
 
-- [ ] Option ↔ Result 拓扑速查（`ok_or`、`transpose`、`and_then` 等，对照原书 Figure 1-1）
-- [ ] `?` 与 `From` blanket impl：错误类型自动转换机制 → 见 [Item 4](./Item-04-idiomatic-error-types.md)
+> 展开版：[ER-拓展索引 § Item 03](../ER-拓展索引.md#item-03)
+
+详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
 
