@@ -1,5 +1,5 @@
 # ER study — 示例 CI（Item 32）
-# 复制到活跃项目时按需增删 job；本仓库以文档为主，仅 fmt + clippy + ER-demos 测试。
+# 复制到活跃项目时按需增删 job；本仓库以文档为主。
 
 name: er-study-ci
 
@@ -70,3 +70,83 @@ jobs:
         run: |
           cd ER/ER-demos/item-24-re-export/dep-lib
           cargo public-api dump
+
+  semver-checks:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Semver vs base branch (Item 21)
+        uses: obi1kenobi/cargo-semver-checks-action@v2
+        with:
+          manifest-path: ER/ER-demos/item-24-re-export/Cargo.toml
+          package: dep-lib
+          baseline-rev: ${{ github.event.pull_request.base.ref }}
+
+  cargo-deny:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: EmbarkStudios/cargo-deny-action@v2
+        with:
+          command: check all
+          manifest-path: ER/ER-demos/Cargo.toml
+
+  miri:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ER/ER-demos
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: miri
+      - name: Miri setup (Item 16)
+        run: cargo miri setup
+      - name: Miri test item-16-miri
+        run: cargo miri test -p item-16-miri
+
+  matrix-demo:
+    name: matrix (${{ matrix.os }} / ${{ matrix.rust }}${{ matrix.features && format(' / {0}', matrix.features) || '' }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            rust: stable
+            pkg: item-30-black-box
+            features: ""
+          - os: windows-latest
+            rust: stable
+            pkg: item-30-black-box
+            features: ""
+          - os: macos-latest
+            rust: stable
+            pkg: item-30-black-box
+            features: ""
+          - os: ubuntu-latest
+            rust: "1.70.0"
+            pkg: item-26-feature-creep
+            features: ""
+          - os: ubuntu-latest
+            rust: stable
+            pkg: item-26-feature-creep
+            features: "--features schema"
+          - os: windows-latest
+            rust: stable
+            pkg: item-26-feature-creep
+            features: "--no-default-features"
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: ER/ER-demos
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.rust }}
+      - name: Test ${{ matrix.pkg }}
+        run: cargo test -p ${{ matrix.pkg }} ${{ matrix.features }}

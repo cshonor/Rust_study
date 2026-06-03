@@ -1,0 +1,36 @@
+# Item 25：Dependabot —— 自动 PR 更新 Cargo.lock（库 lock 不保护下游，但本仓库 CI 需要）
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates
+
+version: 2
+updates:
+  - package-ecosystem: cargo
+    directory: /ER/ER-demos
+    schedule:
+      interval: weekly
+    labels:
+      - dependencies
+      - er-demos
+
+  - package-ecosystem: cargo
+    directory: /ER/ER-demos/item-24-re-export
+    schedule:
+      interval: weekly
+    labels:
+      - dependencies
+      - item-24
+
+  - package-ecosystem: cargo
+    directory: /ER/ER-demos/item-35-sys-workspace
+    schedule:
+      interval: weekly
+    labels:
+      - dependencies
+      - item-35
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    labels:
+      - dependencies
+      - ci

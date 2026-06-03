@@ -40,6 +40,17 @@ cargo public-api dump  # 导出当前 API 文本
 
 CI 可选步骤见 [er-study-ci.yml](../../../.github/workflows/er-study-ci.yml) `public-api` job（文档性 dump）。
 
+## `cargo-semver-checks`（Item 21）
+
+PR 上对比 `dep-lib` 与 base 分支的 semver 合规性（未发布 crate 用 `--baseline-rev`）：
+
+```bash
+cargo install cargo-semver-checks --locked
+cargo semver-checks --package dep-lib --baseline-rev main
+```
+
+CI：`semver-checks` job（`pull_request` 触发）。
+
 ## 运行
 
 ```bash

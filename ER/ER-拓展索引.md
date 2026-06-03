@@ -28,12 +28,12 @@
 ## Item 05 {#item-05}
 
 - [x] **Demo**：[item-05-06-newtype](./ER-demos/item-05-06-newtype/) — `Deref` 强制转换 + `print_len(&Wrapper)`
-- [ ] **`AsRef` vs `Into`**：API 收 `impl AsRef<str>` vs 一次性 `Into<String>`
+- [x] **`AsRef` vs `Into`**：同 demo 模块 `as_ref_vs_into.rs` — 只读 `AsRef<str>` vs 存盘 `Into<String>`
 
 ## Item 06 {#item-06}
 
 - [x] **Demo**：[item-05-06-newtype](./ER-demos/item-05-06-newtype/) — `derive_more` 的 `From`/`Add`/`Display`
-- [ ] **过度 Deref**：透明代理模糊类型边界的反例（文档性）
+- [x] **过度 Deref**：同 demo 模块 `over_deref.rs` — `LeakyDb` 绕过校验 vs `UserDb` 受控 API
 
 ## Item 07 {#item-07}
 
@@ -84,7 +84,7 @@
 ## Item 16 {#item-16}
 
 - [x] **unsafe demo** → Book [19.1](../Book/19-advanced-features/19.1-不安全Rust.md)
-- [ ] **Miri CI**：`cargo +nightly miri test`；Strict Provenance 违规样例
+- [x] **Miri CI**：`cargo +nightly miri test -p item-16-miri`；Strict Provenance 违规见 crate 内 `#[ignore]` 测试
 - [ ] **C/C++ 迁移**：`-sys` + safe 层 → [Item 34–35](./Chapter-06-Beyond-Standard-Rust/)
 
 ## Item 17 {#item-17}
@@ -112,7 +112,7 @@
 
 ## Item 21 {#item-21}
 
-- [ ] **`cargo-semver-checks`**：PR 上对比 public API diff
+- [x] **`cargo-semver-checks`**：CI `semver-checks` job（PR vs base）+ [item-24 README](./ER-demos/item-24-re-export/README.md)
 - [x] **MSRV**：[WORKSPACE.md](./ER-demos/WORKSPACE.md) + CI `msrv` job（`rust-version = "1.70"`）
 
 ## Item 22 {#item-22}
@@ -135,7 +135,7 @@
 
 ## Item 25 {#item-25}
 
-- [ ] **Dependabot + `cargo deny check`** → [Item 32](./Chapter-05-Tooling/Item-32-ci.md)
+- [x] **Dependabot + `cargo deny check`**：[dependabot.yml](../.github/dependabot.yml) + [deny.toml](../deny.toml) + CI `cargo-deny`
 - [x] **`[workspace.dependencies]`**：[ER-demos/Cargo.toml](./ER-demos/Cargo.toml) + [WORKSPACE.md](./ER-demos/WORKSPACE.md)
 
 ## Item 26 {#item-26}
@@ -163,7 +163,7 @@
 ## Item 30 {#item-30}
 
 - [x] **Demo**：[item-30-black-box](./ER-demos/item-30-black-box/)
-- [ ] **CI matrix**：`os × rust × features`
+- [x] **CI matrix**：`matrix-demo` job — `os × rust × features`（Item 26 / 30）
 - [ ] **`cargo-fuzz` corpus**：`fuzz/corpus/` 入仓
 
 ## Item 31 {#item-31}

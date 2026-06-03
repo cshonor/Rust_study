@@ -146,6 +146,10 @@ name = "item-15-borrow-checker"
 version = "0.1.0"
 
 [[package]]
+name = "item-16-miri"
+version = "0.1.0"
+
+[[package]]
 name = "item-18-dont-panic"
 version = "0.1.0"
 

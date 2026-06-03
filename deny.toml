@@ -1,0 +1,31 @@
+# Item 25：cargo-deny 示例（ER study）
+# CI：`.github/workflows/er-study-ci.yml` → `cargo-deny` job
+# 文档：https://embarkstudios.github.io/cargo-deny/
+
+[advisories]
+version = 2
+db-url = "https://github.com/rustsec/advisory-db"
+yanked = "warn"
+unmaintained = "warn"
+
+[licenses]
+version = 2
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "Unicode-3.0",
+    "Zlib",
+]
+confidence-threshold = 0.8
+
+[bans]
+multiple-versions = "warn"
+wildcards = "warn"
+
+[sources]
+unknown-registry = "warn"
+unknown-git = "warn"

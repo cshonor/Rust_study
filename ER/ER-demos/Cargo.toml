@@ -5,6 +5,7 @@ members = [
     "item-04-error-types",
     "item-04-core-error",
     "item-05-06-newtype",
+    "item-16-miri",
     "item-15-borrow-checker",
     "item-18-dont-panic",
     "item-20-tlv",
