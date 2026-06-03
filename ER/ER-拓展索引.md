@@ -22,18 +22,18 @@
 
 ## Item 04 {#item-04}
 
-- [x] **Demo**：[item-04-error-types](./ER-demos/item-04-error-types/) — 库 `thiserror` + 应用 `anyhow` + `.context()` / `.chain()`
-- [ ] **`core::error::Error`**：`no_std` + `alloc` → [Item 33](./Chapter-06-Beyond-Standard-Rust/Item-33-no-std.md)
+- [x] **Demo**：[item-04-error-types](./ER-demos/item-04-error-types/) — 库 `thiserror` + 应用 `anyhow`
+- [x] **`core::error::Error` + `no_std`**：[item-04-core-error](./ER-demos/item-04-core-error/) — 手动 `impl Error` + `alloc`
 
 ## Item 05 {#item-05}
 
-- [ ] **Deref 强制转换链**：方法解析顺序（固有 → deref → trait）；连续 `*` 与 auto-deref
-- [ ] **`AsRef` vs `Into`**：API 收 `impl AsRef<str>` vs 一次性 `Into<String>`；路径用 `AsRef<Path>`
+- [x] **Demo**：[item-05-06-newtype](./ER-demos/item-05-06-newtype/) — `Deref` 强制转换 + `print_len(&Wrapper)`
+- [ ] **`AsRef` vs `Into`**：API 收 `impl AsRef<str>` vs 一次性 `Into<String>`
 
 ## Item 06 {#item-06}
 
-- [ ] **`derive_more`**：`From`、`Add`、`Display` 委托减少 `.0` 样板
-- [ ] **`Deref` 透明代理**：newtype 包 URL/ID 时谨慎 — 过度 Deref 会模糊类型边界（Item 5）
+- [x] **Demo**：[item-05-06-newtype](./ER-demos/item-05-06-newtype/) — `derive_more` 的 `From`/`Add`/`Display`
+- [ ] **过度 Deref**：透明代理模糊类型边界的反例（文档性）
 
 ## Item 07 {#item-07}
 
@@ -113,7 +113,7 @@
 ## Item 21 {#item-21}
 
 - [ ] **`cargo-semver-checks`**：PR 上对比 public API diff
-- [ ] **MSRV**：`Cargo.toml` `rust-version = "1.70"` + CI `cargo +1.70.0 check`
+- [x] **MSRV**：[WORKSPACE.md](./ER-demos/WORKSPACE.md) + CI `msrv` job（`rust-version = "1.70"`）
 
 ## Item 22 {#item-22}
 
@@ -128,15 +128,15 @@
 
 ## Item 24 {#item-24}
 
-- [x] **Demo**：[item-24-re-export](./ER-demos/item-24-re-export/) — `dep-lib` + `pub use rand` + `consumer`
-- [x] **诊断**：`cargo tree -p consumer -d rand`（见 demo README）
-- [ ] **`cargo-public-api`**：CI 拦截 pub API 泄漏依赖类型
-- [ ] **newtype 包装** vs `pub use dep`：隐藏 rand 于 API 内
+- [x] **Demo**：[item-24-re-export](./ER-demos/item-24-re-export/) — `pub use rand` 与 **newtype** 两方案
+- [x] **诊断**：`cargo tree -p consumer -d rand`
+- [x] **`cargo-public-api`**：CI `public-api` job + README 用法
+- [x] **newtype 隐藏**：`dep-lib-newtype` / `consumer-newtype`
 
 ## Item 25 {#item-25}
 
 - [ ] **Dependabot + `cargo deny check`** → [Item 32](./Chapter-05-Tooling/Item-32-ci.md)
-- [ ] **`[workspace.dependencies]`**：workspace 根统一版本
+- [x] **`[workspace.dependencies]`**：[ER-demos/Cargo.toml](./ER-demos/Cargo.toml) + [WORKSPACE.md](./ER-demos/WORKSPACE.md)
 
 ## Item 26 {#item-26}
 
@@ -157,7 +157,7 @@
 
 ## Item 29 {#item-29}
 
-- [ ] **`clippy.toml`**：`cognitive-complexity-threshold = 25`
+- [x] **`clippy.toml`**：[ER-demos/clippy.toml](./ER-demos/clippy.toml)
 - [x] **CI `-Dwarnings`** → [`.github/workflows/er-study-ci.yml`](../.github/workflows/er-study-ci.yml)
 
 ## Item 30 {#item-30}
@@ -190,6 +190,6 @@
 
 ## Item 35 {#item-35}
 
-- [x] **Demo**：[item-35-bindgen](./ER-demos/item-35-bindgen/) — `build.rs` + `wrapper.h` + `cc` + safe `add()`
-- [x] **rerun-if-changed**：见 `build.rs` 对 `wrapper.h` / `er_add.c`
-- [ ] **完整 `-sys` / safe 双层** workspace（可与 [item-24](./ER-demos/item-24-re-export/) 的 `dep-lib` 模式对照）
+- [x] **Demo**：[item-35-bindgen](./ER-demos/item-35-bindgen/) — 单 crate 内 bindgen + safe 封装
+- [x] **`-sys` / safe 双层**：[item-35-sys-workspace](./ER-demos/item-35-sys-workspace/) — `er-add-sys` + `er-add`
+- [x] **rerun-if-changed**：见各 crate `build.rs`

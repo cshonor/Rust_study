@@ -11,18 +11,23 @@ CHAPTERS = list(ROOT.glob("Chapter-*"))
 # item_num -> (demo_done, demo_line)
 DEMO = {
     3: (True, "- [x] [item-03-option-result](../ER-demos/item-03-option-result/)"),
-    4: (True, "- [x] [item-04-error-types](../ER-demos/item-04-error-types/)"),
+    4: (True, "- [x] [item-04-error-types](../ER-demos/item-04-error-types/) · [item-04-core-error](../ER-demos/item-04-core-error/)"),
+    5: (True, "- [x] [item-05-06-newtype](../ER-demos/item-05-06-newtype/)（Deref）"),
+    6: (True, "- [x] [item-05-06-newtype](../ER-demos/item-05-06-newtype/)（derive_more）"),
     15: (True, "- [x] [item-15-borrow-checker](../ER-demos/item-15-borrow-checker/)"),
     18: (True, "- [x] [item-18-dont-panic](../ER-demos/item-18-dont-panic/)"),
     20: (True, "- [x] [item-20-tlv](../ER-demos/item-20-tlv/)"),
+    21: (True, "- [x] [WORKSPACE.md MSRV](../ER-demos/WORKSPACE.md)"),
     22: (True, "- [x] [item-22-visibility](../ER-demos/item-22-visibility/)"),
     24: (True, "- [x] [item-24-re-export](../ER-demos/item-24-re-export/)"),
+    25: (True, "- [x] [WORKSPACE.md](../ER-demos/WORKSPACE.md)"),
     26: (True, "- [x] [item-26-feature-creep](../ER-demos/item-26-feature-creep/)"),
+    29: (True, "- [x] [clippy.toml](../ER-demos/clippy.toml)"),
     30: (True, "- [x] [item-30-black-box](../ER-demos/item-30-black-box/)"),
     32: (True, "- [x] [CI 示例](../../.github/workflows/er-study-ci.yml)"),
     33: (True, "- [x] [item-33-no-std](../ER-demos/item-33-no-std/)"),
     34: (True, "- [x] [item-34-ffi-box](../ER-demos/item-34-ffi-box/)"),
-    35: (True, "- [x] [item-35-bindgen](../ER-demos/item-35-bindgen/)"),
+    35: (True, "- [x] [item-35-bindgen](../ER-demos/item-35-bindgen/) · [item-35-sys-workspace](../ER-demos/item-35-sys-workspace/)"),
 }
 
 SECTION6 = """## 6. 后续拓展

@@ -28,7 +28,10 @@ fn first_ok_only(nums: &[&str]) -> Result<Option<u32>, ParseIntError> {
 fn main() {
     let nums = ["not-a-number", "42", "99"];
 
-    println!("find_map → Option<Result<_, _>>: {:?}", first_positive(&nums));
+    println!(
+        "find_map → Option<Result<_, _>>: {:?}",
+        first_positive(&nums)
+    );
     println!("ok_or  → Result: {:?}", first_positive_result(&nums));
     println!("transpose → Result<Option<_>>: {:?}", first_ok_only(&nums));
 

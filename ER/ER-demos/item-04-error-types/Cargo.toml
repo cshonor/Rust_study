@@ -1,7 +1,8 @@
 [package]
 name = "item-04-error-types"
 version = "0.1.0"
-edition = "2021"
+edition.workspace = true
+rust-version.workspace = true
 
 [lib]
 path = "src/lib.rs"
@@ -11,5 +12,5 @@ name = "item-04-error-types"
 path = "src/main.rs"
 
 [dependencies]
-anyhow = "1"
-thiserror = "1"
+anyhow = { workspace = true }
+thiserror = { workspace = true }

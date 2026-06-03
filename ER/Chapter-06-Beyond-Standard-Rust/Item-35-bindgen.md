@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [x] [item-35-bindgen](../ER-demos/item-35-bindgen/)
+- [x] [item-35-bindgen](../ER-demos/item-35-bindgen/) · [item-35-sys-workspace](../ER-demos/item-35-sys-workspace/)
 
 ---
 

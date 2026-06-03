@@ -8,9 +8,7 @@ fn main() {
     println!("cargo:rerun-if-changed=wrapper.h");
     println!("cargo:rerun-if-changed=src/er_add.c");
 
-    cc::Build::new()
-        .file("src/er_add.c")
-        .compile("er_add");
+    cc::Build::new().file("src/er_add.c").compile("er_add");
 
     let bindings = bindgen::Builder::default()
         .header(header.to_string_lossy())

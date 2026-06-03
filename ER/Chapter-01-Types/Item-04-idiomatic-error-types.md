@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [x] [item-04-error-types](../ER-demos/item-04-error-types/)
+- [x] [item-04-error-types](../ER-demos/item-04-error-types/) · [item-04-core-error](../ER-demos/item-04-core-error/)（no_std `Error`）
 
 ---
 

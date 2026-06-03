@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
+- [x] [clippy.toml](../ER-demos/clippy.toml)
 
 ---
 

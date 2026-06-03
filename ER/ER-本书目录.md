@@ -105,5 +105,5 @@
 ## 使用说明
 
 - 每个 `Item-NN-*.md` 为笔记正文；**§6 拓展**展开见 [ER-拓展索引.md](./ER-拓展索引.md)。
-- **Demo**：[ER-demos/](./ER-demos/README.md)（ER 专用）+ The Book 各章 `*-demo/`；Item 内「状态」区有链接。
+- **Demo / 配置**：[ER-demos/](./ER-demos/README.md)、[WORKSPACE.md](./ER-demos/WORKSPACE.md)（MSRV、`workspace.dependencies`、`clippy.toml`）。
 - 示例 CI：[`.github/workflows/er-study-ci.yml`](../.github/workflows/er-study-ci.yml)（Item 32）。

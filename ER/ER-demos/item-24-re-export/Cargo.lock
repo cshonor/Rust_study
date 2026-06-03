@@ -16,7 +16,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "consumer-newtype"
+version = "0.1.0"
+dependencies = [
+ "dep-lib-newtype",
+]
+
+[[package]]
 name = "dep-lib"
+version = "0.1.0"
+dependencies = [
+ "rand",
+]
+
+[[package]]
+name = "dep-lib-newtype"
 version = "0.1.0"
 dependencies = [
  "rand",
