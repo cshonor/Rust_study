@@ -24,4 +24,4 @@ rust-version = "1.70"
 [workspace.dependencies]
 anyhow = "1"
 thiserror = "1"
-derive_more = { version = "1", features = ["from", "display", "add"] }
+derive_more = { version = "2", features = ["from", "display", "add"] }
