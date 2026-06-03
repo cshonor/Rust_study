@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
+- [x] [item-03-option-result](../ER-demos/item-03-option-result/)
 
 ---
 

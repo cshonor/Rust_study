@@ -29,6 +29,9 @@ jobs:
       - name: test
         run: cargo test --workspace
         working-directory: ER/ER-demos
+      - name: item-24 re-export
+        run: cargo run -p consumer
+        working-directory: ER/ER-demos/item-24-re-export
 
   item-33-no-std:
     runs-on: ubuntu-latest

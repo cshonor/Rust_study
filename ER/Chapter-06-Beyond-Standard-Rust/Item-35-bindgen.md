@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo / bindgen 练习
+- [x] [item-35-bindgen](../ER-demos/item-35-bindgen/)
 
 ---
 

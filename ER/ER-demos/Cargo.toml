@@ -1,11 +1,15 @@
 [workspace]
 resolver = "2"
 members = [
+    "item-03-option-result",
+    "item-04-error-types",
     "item-15-borrow-checker",
     "item-18-dont-panic",
     "item-20-tlv",
     "item-22-visibility",
+    "item-26-feature-creep",
     "item-30-black-box",
     "item-33-no-std",
     "item-34-ffi-box",
+    "item-35-bindgen",
 ]

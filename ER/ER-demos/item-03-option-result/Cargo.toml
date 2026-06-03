@@ -1,0 +1,8 @@
+[package]
+name = "item-03-option-result"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "item-03-option-result"
+path = "src/main.rs"

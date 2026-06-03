@@ -16,13 +16,14 @@
 
 ## Item 03 {#item-03}
 
-- [x] **Option ↔ Result 拓扑**：`ok_or` / `ok_or_else`、`transpose`、`and_then`；Book [9.2](../Book/09-error-handling/9.2-Result-与可恢复的错误.md) demo
-- [x] **`?` + `From`**：错误类型自动转换 → [Item 4](./Chapter-01-Types/Item-04-idiomatic-error-types.md)
+- [x] **Demo**：[item-03-option-result](./ER-demos/item-03-option-result/) — `ok_or`、`transpose`、`and_then` 链
+- [x] **Option ↔ Result 拓扑**：`ok_or` / `ok_or_else`、`transpose`、`and_then`；Book [9.2](../Book/09-error-handling/9.2-Result-与可恢复的错误.md)
+- [x] **`?` + `From`** → [Item 4](./Chapter-01-Types/Item-04-idiomatic-error-types.md)
 
 ## Item 04 {#item-04}
 
-- [ ] **`thiserror` vs `anyhow`**：库边界用具体 Error enum + thiserror；应用层 anyhow；对比堆分配与 `source()` 链
-- [ ] **`core::error::Error`**：`no_std` + `alloc` 下的错误 trait → 链 [Item 33](./Chapter-06-Beyond-Standard-Rust/Item-33-no-std.md)
+- [x] **Demo**：[item-04-error-types](./ER-demos/item-04-error-types/) — 库 `thiserror` + 应用 `anyhow` + `.context()` / `.chain()`
+- [ ] **`core::error::Error`**：`no_std` + `alloc` → [Item 33](./Chapter-06-Beyond-Standard-Rust/Item-33-no-std.md)
 
 ## Item 05 {#item-05}
 
@@ -127,7 +128,8 @@
 
 ## Item 24 {#item-24}
 
-- [ ] **`cargo tree -d rand`**：多版本诊断
+- [x] **Demo**：[item-24-re-export](./ER-demos/item-24-re-export/) — `dep-lib` + `pub use rand` + `consumer`
+- [x] **诊断**：`cargo tree -p consumer -d rand`（见 demo README）
 - [ ] **`cargo-public-api`**：CI 拦截 pub API 泄漏依赖类型
 - [ ] **newtype 包装** vs `pub use dep`：隐藏 rand 于 API 内
 
@@ -138,8 +140,8 @@
 
 ## Item 26 {#item-26}
 
-- [ ] **`cargo hack test --feature-powerset`** + CI
-- [ ] **docs.rs**：`[package.metadata.docs.rs] all-features = true`
+- [x] **Demo**：[item-26-feature-creep](./ER-demos/item-26-feature-creep/) + README 中 `cargo hack --feature-powerset`
+- [x] **docs.rs**：demo `Cargo.toml` 注释 `[package.metadata.docs.rs] all-features = true`
 
 ## Item 27 {#item-27}
 
@@ -188,5 +190,6 @@
 
 ## Item 35 {#item-35}
 
-- [ ] **`build.rs` + bindgen**：`println!("cargo:rerun-if-changed=lib.h")`
-- [ ] **`-sys` / safe 双层** workspace 模板
+- [x] **Demo**：[item-35-bindgen](./ER-demos/item-35-bindgen/) — `build.rs` + `wrapper.h` + `cc` + safe `add()`
+- [x] **rerun-if-changed**：见 `build.rs` 对 `wrapper.h` / `er_add.c`
+- [ ] **完整 `-sys` / safe 双层** workspace（可与 [item-24](./ER-demos/item-24-re-export/) 的 `dep-lib` 模式对照）
