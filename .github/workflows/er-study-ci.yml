@@ -97,7 +97,7 @@ jobs:
         with:
           command: check
           command-arguments: all
-          arguments: --all-features
+          arguments: ""
           manifest-path: ./ER/ER-demos/Cargo.toml
 
   miri:

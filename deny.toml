@@ -4,9 +4,9 @@
 
 [advisories]
 version = 2
-db-url = "https://github.com/rustsec/advisory-db"
+db-urls = ["https://github.com/rustsec/advisory-db"]
 yanked = "warn"
-unmaintained = "warn"
+unmaintained = "workspace"
 
 [licenses]
 version = 2
@@ -24,6 +24,9 @@ allow = [
     "Zlib",
 ]
 confidence-threshold = 0.8
+
+[licenses.private]
+ignore = true
 
 [bans]
 multiple-versions = "warn"
