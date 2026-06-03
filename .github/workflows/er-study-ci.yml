@@ -71,8 +71,8 @@ jobs:
           workspaces: ER/ER-demos/item-24-re-export -> target
       - name: Install cargo-public-api
         run: cargo install cargo-public-api --locked
-      - name: Dump dep-lib public API (Item 24)
-        run: cargo public-api dump
+      - name: List dep-lib public API (Item 24)
+        run: cargo public-api
         working-directory: ER/ER-demos/item-24-re-export/dep-lib
 
   semver-checks:
