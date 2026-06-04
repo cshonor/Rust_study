@@ -172,7 +172,16 @@ mod tests {
 
         let tick = parse_tick(&buf).unwrap();
         assert_eq!(tick.magic, b"TK");
-        // 子切片仍指向 buf；buf 未清空时视图有效
         assert_eq!(tick.price(), 1);
+    }
+
+    /// 模拟官方 4.3：`idx` 仍是 5 但 `s` 已空 —— 编译器不在 clear 时报错，切片时才 panic
+    #[test]
+    #[should_panic]
+    fn dangling_usize_panics_at_runtime() {
+        let mut s = String::from("hello world");
+        let idx = 5usize; // 空格下标；与 s 无借用关系
+        s.clear();
+        let _ = &s[0..idx]; // 运行时越界
     }
 }
