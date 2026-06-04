@@ -29,7 +29,13 @@ rustc --edition 2021 compile_fail/slice_blocks_clear.rs
 rustc --edition 2021 compile_fail/part_outlives_string.rs
 ```
 
-### 4. `usize` 方案：`clear` 能编译，切片才 panic
+### 4. 禁止 `fn f() -> str`（DST 不能作返回值）
+
+```bash
+rustc --edition 2021 compile_fail/return_str_dst.rs
+```
+
+### 5. `usize` 方案：`clear` 能编译，切片才 panic
 
 ```bash
 cargo test dangling_usize_panics_at_runtime
