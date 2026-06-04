@@ -99,6 +99,7 @@
 | 5.1.2 | [结构体更新语法 `..orig`](./05-structs/5.1.2-结构体更新语法.md) | ↑ |
 | 5.1.3 | [字段所有权 String/&str](./05-structs/5.1.3-字段所有权与引用.md) | ↑ |
 | 5.1.4 | [Debug/Display 与 Trait 约束](./05-structs/5.1.4-Debug-Display与Trait约束.md) | ↑ |
+| 5.1.5 | [结构体实体 vs 引用 vs Box](./05-structs/5.1.5-结构体变量实体与引用.md) | ↑ |
 | 5.2 结构体示例 | [5.2](./05-structs/5.2-使用结构体的代码例子.md) | [5.2-rectangles-demo](./05-structs/5.2-rectangles-demo/) |
 | 5.3 方法语法 | [5.3](./05-structs/5.3-方法语法.md) | [5.3-method-syntax-demo](./05-structs/5.3-method-syntax-demo/) |
 | 5.4 结构体与持久化 | [5.4](./05-structs/5.4-结构体与持久化.md) | [5.4-persist-json-demo](./05-structs/5.4-persist-json-demo/) |
