@@ -1,6 +1,6 @@
 # 附录 G：Rust 如何构建与 “Nightly Rust”
 
-> **The Book** · [Appendix G（英文）](https://doc.rust-lang.org/book/appendix-07-nightly-rust.html)  
+> **The Book** · [Appendix G（英文）](https://doc.rust-lang.org/book/appendix-07-nightly-rust.html) · [附录索引](./README.md)  
 > **扩展**（Edition vs Channel、CI 踩坑）：仓库根 [README § Rust 工具链](../../README.md#rust-工具链stablenightly--edition)
 
 ---
@@ -77,7 +77,7 @@ rustup override set nightly
 | Book 章节 | 与本附录 |
 |-----------|----------|
 | [1.1 安装](../01-getting-started/1.1-安装.md) | `rustup` 安装，默认 Stable；**未展开**三渠道 |
-| [1.3 Hello, Cargo!](../01-getting-started/1.3-Hello-Cargo.md) | `edition = "2021"` — **Edition ≠ Channel**，详见根 README |
+| [1.3 Hello, Cargo!](../01-getting-started/1.3-Hello-Cargo.md) | `edition = "2021"` — **Edition ≠ Channel**，见 [E.5](./E.5-Editions.md)、根 README |
 | 第 19 章 | 高级特性仍按 **Stable** 可编译写法；不稳定试验见本附录 + Nomicon |
 
 ---

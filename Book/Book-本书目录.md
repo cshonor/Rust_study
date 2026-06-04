@@ -277,8 +277,14 @@
 
 ## 附录
 
+索引：[appendix/README.md](./appendix/README.md)
+
 | 附录 | 笔记 | 说明 |
 |------|------|------|
-| G | [G.7 Nightly Rust 与发布渠道](./appendix/G.7-Nightly-Rust与发布渠道.md) | Stable/Beta/Nightly、feature flags、rustup；扩展见根 [README § 工具链](../README.md#rust-工具链stablenightly--edition) |
-
-其余附录（A～F、H 等）按需从 [官方目录](https://doc.rust-lang.org/book/) 补充。
+| A | [A.1 关键字](./appendix/A.1-关键字.md) | 保留字、`r#` 原始标识符 |
+| B | [B.2 运算符与符号](./appendix/B.2-运算符与符号.md) | 运算符与语法符号速查 |
+| C | [C.3 可 derive 的 Trait](./appendix/C.3-可derive的Trait.md) | `#[derive(...)]` 标准库列表 |
+| D | [D.4 实用开发工具](./appendix/D.4-实用开发工具.md) | fmt / clippy / rust-analyzer |
+| E | [E.5 Editions](./appendix/E.5-Editions.md) | Edition 与 Channel 区别 |
+| F | [F.6 译本](./appendix/F.6-译本.md) | 社区翻译 |
+| G | [G.7 Nightly Rust](./appendix/G.7-Nightly-Rust与发布渠道.md) | Stable/Beta/Nightly；链 [README § 工具链](../README.md#rust-工具链stablenightly--edition) |
