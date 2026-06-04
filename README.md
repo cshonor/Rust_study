@@ -104,6 +104,8 @@ cargo +nightly doc -Z unstable-options --output-format json  # 成功
 
 本仓库 ER-demos 的 MSRV、CI nightly job 等落地细节见 [`ER/ER-demos/WORKSPACE.md`](ER/ER-demos/WORKSPACE.md)。
 
+The Book 对应章节：[附录 G — Nightly Rust 与发布渠道](Book/appendix/G.7-Nightly-Rust与发布渠道.md)（正文 1～19 章默认 Stable，渠道细节在附录）。
+
 ## 快速开始
 
 ### 运行某个 demo（The Book）

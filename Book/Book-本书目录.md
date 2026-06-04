@@ -272,3 +272,13 @@
 | 进阶 | 15–19 | 智能指针、并发、OOP、模式、unsafe/宏 |
 
 详细勾选见 [`Rust学习笔记.md`](../Rust学习笔记.md)。
+
+---
+
+## 附录
+
+| 附录 | 笔记 | 说明 |
+|------|------|------|
+| G | [G.7 Nightly Rust 与发布渠道](./appendix/G.7-Nightly-Rust与发布渠道.md) | Stable/Beta/Nightly、feature flags、rustup；扩展见根 [README § 工具链](../README.md#rust-工具链stablenightly--edition) |
+
+其余附录（A～F、H 等）按需从 [官方目录](https://doc.rust-lang.org/book/) 补充。
