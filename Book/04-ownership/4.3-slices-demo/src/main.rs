@@ -17,6 +17,9 @@ fn main() {
 
     println!("\n=== 5. Vec 缓冲区：切片绑定 vs 裸 usize ===");
     vec_packet_buffer_demo();
+
+    println!("\n=== 6. 静态 &str vs 堆上 String 切片 ===");
+    static_vs_heap_str_demo();
 }
 
 fn str_slices() {
@@ -101,6 +104,18 @@ fn vec_packet_buffer_demo() {
 
     // 若写成下面这样且 tick 仍存活，则 buf.truncate(0) 无法编译（借用检查）：
     // let mut buf2 = vec![...]; let tick = parse_tick(&buf2).unwrap(); buf2.clear();
+}
+
+/// 来源 1：字面量 → 指向只读静态区（`'static`，与程序同寿）
+/// 来源 2：`String` 切片 → 借用堆内存，不能比 `String` 活得更久
+fn static_vs_heap_str_demo() {
+    let lit: &'static str = "literal-static";
+    println!("'static: {lit}");
+
+    let st = String::from("from-heap");
+    let part: &str = &st[..];
+    println!("from String slice: {part}");
+    // `st` 在本作用域结束前有效；`part` 不能逃出此作用域（见 compile_fail/part_outlives_string.rs）
 }
 
 #[derive(Debug, Clone, Copy)]

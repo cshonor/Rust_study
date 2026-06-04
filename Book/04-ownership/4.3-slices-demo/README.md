@@ -14,12 +14,22 @@ cargo test
 ### 1. 切片方案：`clear` 编译失败（推荐先跑）
 
 ```bash
-cargo check --example slice_blocks_clear
+rustc --edition 2021 compile_fail/slice_blocks_clear.rs
 ```
 
 应看到类似：`cannot borrow ... as mutable because it is also borrowed as immutable`。
 
-### 2. `usize` 方案：`clear` 能编译，切片才 panic
+### 2. 静态 `&str` vs 堆上临时 `&str`（`cargo run` 打印）
+
+主程序 `static_vs_heap_str_demo()`：`"literal"` → `&'static str`；`&st[..]` → 绑定 `String` 生命周期。
+
+### 3. 堆上 `&str` 不能比 `String` 活得更久
+
+```bash
+rustc --edition 2021 compile_fail/part_outlives_string.rs
+```
+
+### 4. `usize` 方案：`clear` 能编译，切片才 panic
 
 ```bash
 cargo test dangling_usize_panics_at_runtime

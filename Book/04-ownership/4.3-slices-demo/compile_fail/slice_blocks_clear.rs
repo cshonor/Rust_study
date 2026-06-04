@@ -1,8 +1,8 @@
 //! 故意写错：活跃 `&str` 存在时调用 `s.clear()`。
-//! 预期：**编译失败**（借用检查）。
+//! 预期：**编译失败**（借用检查 E0502）。
 //!
 //! ```bash
-//! cargo check --example slice_blocks_clear
+//! rustc --edition 2021 compile_fail/slice_blocks_clear.rs
 //! ```
 
 fn first_word(s: &str) -> &str {
