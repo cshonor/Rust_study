@@ -1,24 +1,24 @@
 # 7.1 包与 Crate demo
 
-笔记：[7.1-包和crate.md](../7.1-包和crate.md) · [7.1.1 二进制与库 crate](../7.1.1-二进制与库crate.md)
+笔记：[7.1](../7.1-包和crate.md) · [7.1.1](../7.1.1-二进制与库crate.md)
 
-| 目录 | 结构 | 运行 |
+| 目录 | 场景 | 命令 |
 |------|------|------|
-| `only_bin/` | 仅 bin crate | `cargo run` |
-| `only_lib/` | 仅 lib crate | `cargo build`（无 main，不能 run） |
-| `bin_plus_lib/` | lib + bin + `math/` 子模块 | `cargo run` |
-| `multi_bin/` | lib + 多个 `src/bin/*.rs` | `cargo run --bin cli1` |
+| `only_bin/` | ① 仅 bin crate | `cargo run` |
+| `only_lib/` | ② 仅 lib crate | `cargo build` |
+| `user_demo/` | ② 外部 `path` 依赖 `only_lib` | `cargo run` → 30 |
+| `bin_plus_lib/` | ③ lib + bin + `calc/` | `cargo run` → 30 |
+| `multi_bin/` | 多个 `src/bin/*.rs` | `cargo run --bin cli1` |
 
 ```bash
 cd only_bin && cargo run
 cd ../only_lib && cargo build
+cd ../user_demo && cargo run
 cd ../bin_plus_lib && cargo run
-cd ../multi_bin && cargo run --bin cli2
 ```
 
-### compile_fail：`pub mod` 去掉 pub
+### compile_fail
 
 ```bash
-cd bin_plus_lib/compile_fail/private_mod
-cargo check   # 预期 E0603: module `math` is private
+cd bin_plus_lib/compile_fail/private_mod && cargo check   # E0603
 ```

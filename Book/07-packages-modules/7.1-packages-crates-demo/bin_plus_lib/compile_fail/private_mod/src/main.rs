@@ -1,5 +1,5 @@
-use private_mod_fail::math::add;
+use private_mod_fail::calc::mul;
 
 fn main() {
-    println!("{}", add(1, 2));
+    println!("{}", mul(1, 2));
 }
