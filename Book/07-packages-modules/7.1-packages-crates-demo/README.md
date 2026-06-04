@@ -11,7 +11,7 @@
 | `only_bin/` | 仅 `main.rs` | `cargo run` |
 | `only_lib/` | 仅 `lib.rs` | `cargo build` |
 | `bin_plus_lib/` | `lib.rs` + `main.rs` + `math/` | `cargo run` |
-| `multi_bin/` | `lib.rs` + `src/bin/*.rs` | `cargo run --bin cli1` |
+| `multi_bin/` | 1 lib + `main.rs` + 2×`bin/*.rs` | `cargo run` / `cargo run --bin cli1` |
 
 ---
 
