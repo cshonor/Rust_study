@@ -123,6 +123,7 @@
 |----|------|------|
 | 7.1 包和 crate | [7.1](./07-packages-modules/7.1-包和crate.md) | [7.1-packages-crates-demo](./07-packages-modules/7.1-packages-crates-demo/) |
 | 7.1.1 | [二进制与库 crate（bin/lib、`pub mod`）](./07-packages-modules/7.1.1-二进制与库crate.md) | ↑ 同上 demo |
+| 7.1.2 | [main 如何调用 `a.rs`（有 lib / 无 lib）](./07-packages-modules/7.1.2-main调用分文件模块.md) | ↑ |
 | 7.2 模块与私有性 | [7.2](./07-packages-modules/7.2-定义模块来控制作用域与私有性.md) | [7.2-modules-privacy-demo](./07-packages-modules/7.2-modules-privacy-demo/) |
 | 7.3 路径 | [7.3](./07-packages-modules/7.3-路径用于引用模块树中的项.md) | [7.3-paths-demo](./07-packages-modules/7.3-paths-demo/) |
 | 7.4 use | [7.4](./07-packages-modules/7.4-使用use关键字将名称引入作用域.md) | [7.4-use-demo](./07-packages-modules/7.4-use-demo/) |
