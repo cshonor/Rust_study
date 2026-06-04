@@ -1,4 +1,4 @@
-//! 5.3 方法语法：三种 `self` + 关联函数
+//! 5.3 方法语法：三种 `self` + 关联函数 + 多 impl 块
 
 #[derive(Debug)]
 struct Rectangle {
@@ -6,26 +6,10 @@ struct Rectangle {
     height: u32,
 }
 
+// 只读方法
 impl Rectangle {
-    /// 1. `&self`：不可变借用，只读
     fn area(&self) -> u32 {
         self.width * self.height
-    }
-
-    /// 2. `&mut self`：可变借用，可改字段（调用方变量须 `mut`）
-    fn set_size(&mut self, w: u32, h: u32) {
-        self.width = w;
-        self.height = h;
-    }
-
-    /// 3. `self`：消费实例，所有权移入方法
-    fn destroy_to_tuple(self) -> (u32, u32) {
-        (self.width, self.height)
-    }
-
-    /// 关联函数：无 `self`，`Rectangle::new()` 调用
-    fn new(w: u32, h: u32) -> Self {
-        Self { width: w, height: h }
     }
 
     fn can_hold(&self, other: &Rectangle) -> bool {
@@ -34,6 +18,25 @@ impl Rectangle {
 
     fn width(&self) -> bool {
         self.width > 0
+    }
+}
+
+// 修改方法
+impl Rectangle {
+    fn set_size(&mut self, w: u32, h: u32) {
+        self.width = w;
+        self.height = h;
+    }
+
+    fn destroy_to_tuple(self) -> (u32, u32) {
+        (self.width, self.height)
+    }
+}
+
+// 关联函数
+impl Rectangle {
+    fn new(w: u32, h: u32) -> Self {
+        Self { width: w, height: h }
     }
 
     fn square(size: u32) -> Self {
@@ -48,33 +51,32 @@ fn main() {
     println!("=== 三种 self + 关联函数（核心） ===");
     let mut rect = Rectangle::new(10, 20);
 
-    // &self：只读，rect 仍可用
+    // &self：r.area() → (&r).area()
     let s = rect.area();
     println!("面积：{s}");
 
-    // &mut self：修字段，rect 须 mut
+    // &mut self：→ (&mut rect).set_size(...)
     rect.set_size(50, 60);
     println!("修改后 {rect:?}");
 
-    // self：move 进方法，此后 rect 不可用
+    // self：move
     let (w, h) = rect.destroy_to_tuple();
     println!("拆分数据：{w} {h}");
-    // println!("{:?}", rect); // ❌ value moved
+    // println!("{:?}", rect); // ❌ moved
+
+    println!("\n=== can_hold：other 须手动 & ===");
+    let r1 = Rectangle::new(50, 60);
+    let r2 = Rectangle::new(20, 30);
+    println!("r1.can_hold(&r2) = {}", r1.can_hold(&r2));
 
     println!("\n=== 5.2 演进：独立函数 → 方法 ===");
     demo_area_evolution();
 
-    println!("\n=== 其它：can_hold / square / dbg! ===");
-    let rect3 = Rectangle::new(30, 50);
-    let small = Rectangle::new(10, 40);
-    let big = Rectangle::new(60, 45);
-    println!("can_hold small? {}", rect3.can_hold(&small));
-    println!("can_hold big? {}", rect3.can_hold(&big));
-    if rect3.width() {
-        println!("rect3.width field = {}", rect3.width);
-    }
+    println!("\n=== 关联函数 ::square ===");
     let sq = Rectangle::square(3);
-    println!("square = {sq:?}, area = {}", sq.area());
+    if sq.width() {
+        println!("square = {sq:?}, area = {}", sq.area());
+    }
     dbg!(&sq);
 }
 

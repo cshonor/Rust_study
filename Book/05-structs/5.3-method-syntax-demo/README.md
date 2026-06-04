@@ -17,4 +17,11 @@ cargo run
 | `self` | `destroy_to_tuple()` | **move，不可用** |
 | 无 self | `Rectangle::new()` | 关联函数 |
 
-预期输出含：`面积：200`、`修改后 Rectangle { width: 50, height: 60 }`、`拆分数据：50 60`。
+## 自动引用
+
+- `r.area()` → `(&r).area()`（self 自动加 `&`）
+- `r1.can_hold(&r2)`：**other 须手写 `&`**
+
+## 多 impl
+
+同一 `Rectangle` 可拆多块 impl（只读 / 修改 / 关联函数），见 `main.rs`。
