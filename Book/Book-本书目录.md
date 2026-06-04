@@ -87,6 +87,7 @@
 | 4.3.1 | [usize 下标与悬空索引](./04-ownership/4.3.1-usize下标与悬空索引.md) | ↑ 同上 demo |
 | 4.3.2 | [切片与借用规则（& / &mut）](./04-ownership/4.3.2-切片与借用规则.md) | ↑ |
 | 4.3.3 | [str 与 &str 类型](./04-ownership/4.3.3-str与str类型.md) | ↑ |
+| 4.3.4 | [DST 与 Sized](./04-ownership/4.3.4-DST与Sized.md) | ↑ |
 
 ---
 
