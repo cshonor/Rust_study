@@ -97,6 +97,7 @@
 | 5.1 定义并实例化结构体 | [5.1](./05-structs/5.1-定义并实例化结构体.md) | [5.1-structs-demo](./05-structs/5.1-structs-demo/) |
 | 5.2 结构体示例 | [5.2](./05-structs/5.2-使用结构体的代码例子.md) | [5.2-rectangles-demo](./05-structs/5.2-rectangles-demo/) |
 | 5.3 方法语法 | [5.3](./05-structs/5.3-方法语法.md) | [5.3-method-syntax-demo](./05-structs/5.3-method-syntax-demo/) |
+| 5.4 结构体与持久化 | [5.4](./05-structs/5.4-结构体与持久化.md) | [5.4-persist-json-demo](./05-structs/5.4-persist-json-demo/) |
 
 ---
 
