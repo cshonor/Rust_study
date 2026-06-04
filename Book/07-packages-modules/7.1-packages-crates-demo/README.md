@@ -1,6 +1,6 @@
 # 7.1 包与 Crate demo
 
-笔记：[7.1](../7.1-包和crate.md) · [7.1.1](../7.1.1-二进制与库crate.md) · [7.1.2](../7.1.2-main调用分文件模块.md)
+笔记：[7.1](../7.1-包和crate.md) · [7.1.1](../7.1.1-二进制与库crate.md) · [7.1.2](../7.1.2-main调用分文件模块.md) · [7.1.3](../7.1.3-Actix-web项目目录范例.md)
 
 ---
 
@@ -33,7 +33,15 @@
 
 ---
 
-## 快速跑通
+## 四、Actix-web 式目录骨架（7.1.3）
+
+| 目录 | 说明 | 命令 |
+|------|------|------|
+| `webserver_layout/` | 1 lib + 1 main · domain/routes · `tests/api/` | `cargo run` · `cargo test` |
+
+```bash
+cd webserver_layout && cargo run && cargo test
+```
 
 ```bash
 # 布局
