@@ -84,6 +84,9 @@
 | 4.1 延伸 | [const 与 static](./04-ownership/4.1-const与static.md) | — |
 | 4.2 引用与借用 | [4.2-引用与借用.md](./04-ownership/4.2-引用与借用.md) | [4.2-references-demo](./04-ownership/4.2-references-demo/) |
 | 4.3 切片 | [4.3-切片slice.md](./04-ownership/4.3-切片slice.md) | [4.3-slices-demo](./04-ownership/4.3-slices-demo/) |
+| 4.3.1 | [usize 下标与悬空索引](./04-ownership/4.3.1-usize下标与悬空索引.md) | ↑ 同上 demo |
+| 4.3.2 | [切片与借用规则（& / &mut）](./04-ownership/4.3.2-切片与借用规则.md) | ↑ |
+| 4.3.3 | [str 与 &str 类型](./04-ownership/4.3.3-str与str类型.md) | ↑ |
 
 ---
 
