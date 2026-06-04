@@ -1,4 +1,4 @@
-// 5.2/5.3 使用结构体的代码例子 + 方法语法：计算长方形面积
+//! 5.3 方法语法：三种 `self` + 关联函数
 
 #[derive(Debug)]
 struct Rectangle {
@@ -7,24 +7,37 @@ struct Rectangle {
 }
 
 impl Rectangle {
+    /// 1. `&self`：不可变借用，只读
     fn area(&self) -> u32 {
         self.width * self.height
     }
-}
 
-impl Rectangle {
+    /// 2. `&mut self`：可变借用，可改字段（调用方变量须 `mut`）
+    fn set_size(&mut self, w: u32, h: u32) {
+        self.width = w;
+        self.height = h;
+    }
+
+    /// 3. `self`：消费实例，所有权移入方法
+    fn destroy_to_tuple(self) -> (u32, u32) {
+        (self.width, self.height)
+    }
+
+    /// 关联函数：无 `self`，`Rectangle::new()` 调用
+    fn new(w: u32, h: u32) -> Self {
+        Self { width: w, height: h }
+    }
+
     fn can_hold(&self, other: &Rectangle) -> bool {
         self.width > other.width && self.height > other.height
     }
 
-    // 与字段同名的方法：getter 风格示例
     fn width(&self) -> bool {
         self.width > 0
     }
 
-    // 关联函数（不带 self）
-    fn square(size: u32) -> Rectangle {
-        Rectangle {
+    fn square(size: u32) -> Self {
+        Self {
             width: size,
             height: size,
         }
@@ -32,66 +45,47 @@ impl Rectangle {
 }
 
 fn main() {
-    println!("=== 版本 1：分别用变量 ===");
-    let width1 = 30;
-    let height1 = 50;
-    println!(
-        "The area of the rectangle is {} square pixels.",
-        area_v1(width1, height1)
-    );
+    println!("=== 三种 self + 关联函数（核心） ===");
+    let mut rect = Rectangle::new(10, 20);
 
-    println!("\n=== 版本 2：用元组 ===");
-    let rect2 = (30, 50);
-    println!(
-        "The area of the rectangle is {} square pixels.",
-        area_v2(rect2)
-    );
+    // &self：只读，rect 仍可用
+    let s = rect.area();
+    println!("面积：{s}");
 
-    println!("\n=== 版本 3：用结构体 + 借用 ===");
-    let rect3 = Rectangle {
-        width: 30,
-        height: 50,
-    };
-    println!(
-        "The area of the rectangle is {} square pixels.",
-        area_v3(&rect3)
-    );
+    // &mut self：修字段，rect 须 mut
+    rect.set_size(50, 60);
+    println!("修改后 {rect:?}");
 
-    println!("\n=== 版本 4：方法语法（impl） ===");
-    println!(
-        "The area of the rectangle is {} square pixels.",
-        rect3.area()
-    );
+    // self：move 进方法，此后 rect 不可用
+    let (w, h) = rect.destroy_to_tuple();
+    println!("拆分数据：{w} {h}");
+    // println!("{:?}", rect); // ❌ value moved
 
-    let rect_small = Rectangle {
-        width: 10,
-        height: 40,
-    };
-    let rect_big = Rectangle {
-        width: 60,
-        height: 45,
-    };
-    println!("Can rect3 hold rect_small? {}", rect3.can_hold(&rect_small));
-    println!("Can rect3 hold rect_big? {}", rect3.can_hold(&rect_big));
+    println!("\n=== 5.2 演进：独立函数 → 方法 ===");
+    demo_area_evolution();
 
+    println!("\n=== 其它：can_hold / square / dbg! ===");
+    let rect3 = Rectangle::new(30, 50);
+    let small = Rectangle::new(10, 40);
+    let big = Rectangle::new(60, 45);
+    println!("can_hold small? {}", rect3.can_hold(&small));
+    println!("can_hold big? {}", rect3.can_hold(&big));
     if rect3.width() {
-        println!("The rectangle has a nonzero width; it is {}", rect3.width);
+        println!("rect3.width field = {}", rect3.width);
     }
-
     let sq = Rectangle::square(3);
-    println!("square = {:?}, area = {}", sq, sq.area());
+    println!("square = {sq:?}, area = {}", sq.area());
+    dbg!(&sq);
+}
 
-    println!("\n=== Debug 打印 ===");
-    println!("rect3 is {:?}", rect3);
-    println!("rect3 is {:#?}", rect3);
-
-    println!("\n=== dbg! 宏（输出到 stderr） ===");
-    let scale = 2;
-    let rect4 = Rectangle {
-        width: dbg!(30 * scale),
-        height: 50,
-    };
-    dbg!(&rect4);
+fn demo_area_evolution() {
+    let w = 30;
+    let h = 50;
+    println!("v1 变量: {}", area_v1(w, h));
+    println!("v2 元组: {}", area_v2((w, h)));
+    let r = Rectangle::new(w, h);
+    println!("v3 &结构体: {}", area_v3(&r));
+    println!("v4 方法: {}", r.area());
 }
 
 fn area_v1(width: u32, height: u32) -> u32 {
@@ -105,4 +99,3 @@ fn area_v2(dimensions: (u32, u32)) -> u32 {
 fn area_v3(rectangle: &Rectangle) -> u32 {
     rectangle.width * rectangle.height
 }
-
