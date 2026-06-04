@@ -14,6 +14,9 @@ fn main() {
 
     println!("\n=== 4. HFT：&[u8] 零拷贝报文分段 ===");
     hft_zero_copy_demo();
+
+    println!("\n=== 5. Vec 缓冲区：切片绑定 vs 裸 usize ===");
+    vec_packet_buffer_demo();
 }
 
 fn str_slices() {
@@ -71,6 +74,33 @@ fn hft_zero_copy_demo() {
         "(反例) 裸下标 bad_idx={} 在 buf 清空后仍打印，但已无效",
         bad_idx
     );
+}
+
+/// `Vec<u8>` 模拟可复用的 UDP 接收缓冲区：切片绑定整段内存，而非裸下标。
+fn vec_packet_buffer_demo() {
+    let mut buf: Vec<u8> = vec![0; 20];
+    buf[0..2].copy_from_slice(b"TK");
+    buf[2..10].copy_from_slice(&99u64.to_le_bytes());
+    buf[10..14].copy_from_slice(&1u32.to_le_bytes());
+
+    // ✅ 推荐：&buf 得到 &[u8]，parse 返回的子切片都指向 buf 内部
+    let pkt: &[u8] = &buf;
+    if let Some(tick) = parse_tick(pkt) {
+        println!("Vec 缓冲区内 magic = {:?}", tick.magic);
+        println!("解码 price = {}", tick.price());
+    }
+
+    // 裸 usize：只记录「价格字段从偏移 2 开始」——与 buf 无生命周期绑定
+    let price_offset: usize = 2;
+    buf.truncate(0); // 模拟缓冲区被复用/清空
+    println!(
+        "裸下标 price_offset={} 仍在，但 buf.len()={}，用它切片会越界",
+        price_offset,
+        buf.len()
+    );
+
+    // 若写成下面这样且 tick 仍存活，则 buf.truncate(0) 无法编译（借用检查）：
+    // let mut buf2 = vec![...]; let tick = parse_tick(&buf2).unwrap(); buf2.clear();
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -131,5 +161,18 @@ mod tests {
     #[test]
     fn first_word_slice() {
         assert_eq!(first_word("abc def"), "abc");
+    }
+
+    #[test]
+    fn vec_slice_views_into_same_buffer() {
+        let mut buf = vec![0u8; 14];
+        buf[0..2].copy_from_slice(b"TK");
+        buf[2..10].copy_from_slice(&1u64.to_le_bytes());
+        buf[10..14].copy_from_slice(&2u32.to_le_bytes());
+
+        let tick = parse_tick(&buf).unwrap();
+        assert_eq!(tick.magic, b"TK");
+        // 子切片仍指向 buf；buf 未清空时视图有效
+        assert_eq!(tick.price(), 1);
     }
 }
