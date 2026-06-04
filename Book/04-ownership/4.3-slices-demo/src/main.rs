@@ -1,48 +1,135 @@
-// 4.3 切片 Slice - 示例
+//! 4.3 切片 —— &str / &[T] + HFT 风格 &[u8] 零拷贝分段
 
 fn main() {
-    println!("=== 1. 字符串 slice 语法 ===");
+    println!("=== 1. 字符串 slice ===");
+    str_slices();
+
+    println!("\n=== 2. first_word（&str）===");
     let s = String::from("hello world");
-    let hello = &s[0..5];
-    let world = &s[6..11];
-    println!("hello = '{}', world = '{}'", hello, world);
+    println!("first word: '{}'", first_word(&s));
 
-    let s = String::from("hello");
-    let slice1 = &s[0..2];
-    let slice2 = &s[..2];  // 等价
-    let slice3 = &s[3..];
-    let slice4 = &s[..];   // 整个字符串
-    println!("[0..2]='{}', [..2]='{}', [3..]='{}', [..]='{}'", slice1, slice2, slice3, slice4);
-
-    println!("\n=== 2. first_word 返回 slice ===");
-    let s = String::from("hello world");
-    let word = first_word(&s);
-    println!("first word: '{}'", word);
-
-    println!("\n=== 3. &str 参数：更通用的 API ===");
-    let my_string = String::from("hello world");
-    let word = first_word(&my_string[..]);
-    println!("from String slice: '{}'", word);
-
-    let my_string_literal = "hello world";
-    let word = first_word(my_string_literal);  // 字面量本身就是 &str
-    println!("from literal: '{}'", word);
-
-    println!("\n=== 4. 数组 slice ===");
+    println!("\n=== 3. 数组 slice ===");
     let a = [1, 2, 3, 4, 5];
-    let slice = &a[1..3];
-    println!("&a[1..3] = {:?}", slice);  // [2, 3]
+    println!("&a[1..3] = {:?}", &a[1..3]);
+
+    println!("\n=== 4. HFT：&[u8] 零拷贝报文分段 ===");
+    hft_zero_copy_demo();
 }
 
-/// 返回第一个单词的 slice
-/// 参数用 &str 可接受 String、&str、字面量
+fn str_slices() {
+    let s = String::from("hello world");
+    println!("hello='{}', world='{}'", &s[0..5], &s[6..11]);
+
+    let s = String::from("hello");
+    println!(
+        "[0..2]='{}', [..2]='{}', [3..]='{}', [..]='{}'",
+        &s[0..2],
+        &s[..2],
+        &s[3..],
+        &s[..]
+    );
+}
+
 fn first_word(s: &str) -> &str {
     let bytes = s.as_bytes();
-    for (i, &item) in bytes.iter().enumerate() {
-        if item == b' ' {
+    for (i, &b) in bytes.iter().enumerate() {
+        if b == b' ' {
             return &s[0..i];
         }
     }
-    &s[..]  // 无空格则返回整个字符串
+    &s[..]
 }
 
+/// 模拟定长行情头：magic(2) + price_le(8) + qty_le(4) = 14 字节
+/// 全程 `&[u8]` 子切片，不分配、不拷贝字段缓冲区。
+fn hft_zero_copy_demo() {
+    let mut buf = vec![0u8; 14];
+    buf[0..2].copy_from_slice(b"TK");
+    buf[2..10].copy_from_slice(&123_456_789_000_1234u64.to_le_bytes());
+    buf[10..14].copy_from_slice(&500u32.to_le_bytes());
+
+    // 整包借用；parse 只返回指向 buf 内部的切片视图
+    let pkt: &[u8] = &buf;
+    match parse_tick(pkt) {
+        Some(tick) => {
+            println!("magic = {:?}", tick.magic); // 仍是 &[u8]，零拷贝
+            println!("price bytes = {:?}", tick.price_bytes);
+            println!("qty bytes   = {:?}", tick.qty_bytes);
+            println!(
+                "price = {}, qty = {}",
+                tick.price(),
+                tick.qty()
+            );
+        }
+        None => println!("packet too short"),
+    }
+
+    // 对比：若只存 usize 下标，buf.resize(0, 0) 后下标仍“存在”——逻辑 bug
+    let bad_idx = 10usize;
+    buf.clear();
+    println!(
+        "(反例) 裸下标 bad_idx={} 在 buf 清空后仍打印，但已无效",
+        bad_idx
+    );
+}
+
+#[derive(Debug, Clone, Copy)]
+struct TickView<'a> {
+    magic: &'a [u8],
+    price_bytes: &'a [u8],
+    qty_bytes: &'a [u8],
+}
+
+fn parse_tick(pkt: &[u8]) -> Option<TickView<'_>> {
+    const HEADER: usize = 14;
+    if pkt.len() < HEADER {
+        return None;
+    }
+    Some(TickView {
+        magic: &pkt[0..2],
+        price_bytes: &pkt[2..10],
+        qty_bytes: &pkt[10..14],
+    })
+}
+
+impl TickView<'_> {
+    fn price(&self) -> u64 {
+        let mut b = [0u8; 8];
+        b.copy_from_slice(self.price_bytes);
+        u64::from_le_bytes(b)
+    }
+
+    fn qty(&self) -> u32 {
+        let mut b = [0u8; 4];
+        b.copy_from_slice(self.qty_bytes);
+        u32::from_le_bytes(b)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parse_tick_ok() {
+        let mut buf = vec![0u8; 14];
+        buf[0..2].copy_from_slice(b"TK");
+        buf[2..10].copy_from_slice(&42u64.to_le_bytes());
+        buf[10..14].copy_from_slice(&7u32.to_le_bytes());
+
+        let v = parse_tick(&buf).unwrap();
+        assert_eq!(v.magic, b"TK");
+        assert_eq!(v.price(), 42);
+        assert_eq!(v.qty(), 7);
+    }
+
+    #[test]
+    fn parse_tick_short_packet() {
+        assert!(parse_tick(&[1, 2, 3]).is_none());
+    }
+
+    #[test]
+    fn first_word_slice() {
+        assert_eq!(first_word("abc def"), "abc");
+    }
+}
