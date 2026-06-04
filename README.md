@@ -4,11 +4,13 @@ Rust 学习笔记 + 每章 demo。
 
 - **主线**：《Rust 程序设计语言》（The Book），章节在 `Book/01-*`～`Book/19-*`，导航 [`Book/Book-本书目录.md`](Book/Book-本书目录.md)。
 - **扩展**：[Effective Rust](https://www.effective-rust.com/)（David Drysdale，35 条建议），本地索引见 [`ER/ER-本书目录.md`](ER/ER-本书目录.md)。
+- **网络（UNP）**：[UNIX 网络编程](UNP/UNP-本书目录.md) 卷 1 精读（HFT 向），与 Rust 主线并行。
 
 ## 目录结构
 
 - **Book（The Book）**：[`Book/Book-本书目录.md`](Book/Book-本书目录.md) + `Book/01-*`～`Book/19-*`（笔记与 demo）
 - **ER（Effective Rust）**：`ER/Chapter-01-Types/` … `Chapter-06-Beyond-Standard-Rust/`，每条 Item 一个 `Item-NN-*.md` 占位（与 The Book 并行，按需填写）
+- **UNP**：[`UNP/UNP-本书目录.md`](UNP/UNP-本书目录.md) + `UNP/Vol1/`（网络编程精读，HFT 批注）
 - **笔记**：每章/小节为一个 `*.md`
 - **demo**：从第 3 章起，按规则 **“一个 md 对应一个独立 Cargo project”**
   - 例：`Book/03-common-concepts/3.3-函数.md` ↔ `Book/03-common-concepts/3.3-functions-demo/`
