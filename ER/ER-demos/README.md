@@ -1,6 +1,6 @@
 # Effective Rust — Demo 索引
 
-拓展全文：[ER-拓展索引.md](../ER-拓展索引.md) · Workspace 配置：[WORKSPACE.md](./WORKSPACE.md)
+拓展全文：[ER-拓展索引.md](../ER-拓展索引.md) · Workspace 配置：[WORKSPACE.md](./WORKSPACE.md) · Rust 工具链概念：[README § 工具链](../../README.md#rust-工具链stablenightly--edition)
 
 ## 运行
 

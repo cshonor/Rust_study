@@ -16,43 +16,9 @@ rustup toolchain install 1.70.0
 cargo +1.70.0 check --workspace
 ```
 
-## Rust 工具链：源码同根，打包分时
+## 本 workspace 的 toolchain 策略
 
-Rust **没有** Stable / Nightly 两条并行开发分支，只有 **`rust-lang/rust` 的 `main` 一条主干**：
-
-| Channel | 含义 |
-|---------|------|
-| **Nightly** | 每天从 `main` 打包的快照，含尚在试验的 `feature(xxx)` |
-| **Beta** | 每 6 周从 Nightly 切出的发布候选，功能冻结 |
-| **Stable** | Beta 打磨完成后发布；**代码均来自过往某次 Nightly** |
-
-口诀：**源码同根，打包分时；Nightly 追新，Stable 锁稳。**
-
-### 语法 vs 工具链能力（CI 踩坑根源）
-
-- **Edition（2018/2021）**：Stable 与 Nightly **共用同一套语法**（`fn`、`struct`、`unsafe` 等）。
-- **稳定 API**：走完 stabilization 周期后进入 Stable，任意 Stable 版本可用。
-- **夜间专属能力**：仍在 `main` 上试验、尚未转正 —— 可能需 `#![feature(…)]`，或 **编译器/工具链 `-Z` 选项**；Stable 直接报错。
-
-示例 —— 语法是标准 Rust，但 **Stable 不可用**：
-
-```rust
-#![feature(try_blocks)] // Stable：error: feature 未稳定
-
-fn demo() -> Option<i32> {
-    try { Some(1? + 2) }
-}
-```
-
-示例 —— 本仓库 CI 里更常见的情况（**无需改源码**，但工具链必须是 Nightly）：
-
-```bash
-# rustdoc JSON：Stable 报 -Z 仅 nightly 可用
-cargo +stable doc -Z unstable-options --output-format json   # 失败
-cargo +nightly doc -Z unstable-options --output-format json # 成功
-```
-
-### 本 workspace 的 toolchain 策略
+Rust 工具链基础概念（`main` / Stable / Nightly / Edition）见仓库根目录 [README.md](../../README.md#rust-工具链stablenightly--edition)。
 
 [`rust-toolchain.toml`](./rust-toolchain.toml) 钉 **Stable**（fmt / clippy / test / MSRV 日常开发）：
 
