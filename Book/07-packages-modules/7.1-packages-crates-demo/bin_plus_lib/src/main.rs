@@ -1,5 +1,7 @@
-// 二进制 crate root：同 package 的库 crate 自动可用
+use bin_plus_lib_demo::math::add;
+
 fn main() {
+    println!("{}", add(1, 2));
     let msg = bin_plus_lib_demo::greet("src/main.rs (binary crate)");
     println!("{msg}");
 }
