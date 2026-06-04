@@ -1,1 +1,1 @@
-mod calc;
+mod math;

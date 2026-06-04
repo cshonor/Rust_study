@@ -7,7 +7,7 @@
 | `only_bin/` | ① 仅 bin crate | `cargo run` |
 | `only_lib/` | ② 仅 lib crate | `cargo build` |
 | `user_demo/` | ② 外部 `path` 依赖 `only_lib` | `cargo run` → 30 |
-| `bin_plus_lib/` | ③ lib + bin + `calc/` | `cargo run` → 30 |
+| `bin_plus_lib/` | ③ lib + bin + `math/` | `cargo run` → 3 |
 | `multi_bin/` | 多个 `src/bin/*.rs` | `cargo run --bin cli1` |
 
 ```bash

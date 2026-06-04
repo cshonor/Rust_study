@@ -1,7 +1,7 @@
-use bin_plus_lib_demo::calc::mul;
+use bin_plus_lib_demo::math::add;
 
 fn main() {
-    println!("{}", mul(5, 6));
+    println!("{}", add(1, 2));
     let msg = bin_plus_lib_demo::greet("src/main.rs (binary crate)");
     println!("{msg}");
 }
