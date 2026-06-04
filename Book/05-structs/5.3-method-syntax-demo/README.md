@@ -2,26 +2,17 @@
 
 笔记：[5.3-方法语法.md](../5.3-方法语法.md)
 
-## 运行
-
 ```bash
 cargo run
 ```
 
-## 三种 `self`（main 第一节）
+## 输出节与笔记对应
 
-| 签名 | 示例 | 调用后实例 |
-|------|------|------------|
-| `&self` | `area()` | 仍可用 |
-| `&mut self` | `set_size()` | 仍拥有，字段已改 |
-| `self` | `destroy_to_tuple()` | **move，不可用** |
-| 无 self | `Rectangle::new()` | 关联函数 |
+| demo 输出节 | 笔记 |
+|-------------|------|
+| 三种 self + 关联函数 | §二 |
+| can_hold：other 须手动 `&` | §三 |
+| 5.2 演进 | [5.2](../5.2-使用结构体的代码例子.md) |
+| `::square` | §四 |
 
-## 自动引用
-
-- `r.area()` → `(&r).area()`（self 自动加 `&`）
-- `r1.can_hold(&r2)`：**other 须手写 `&`**
-
-## 多 impl
-
-同一 `Rectangle` 可拆多块 impl（只读 / 修改 / 关联函数），见 `main.rs`。
+`main.rs` 中 `Rectangle` 拆成 **三块 `impl`**（只读 / 修改 / 关联函数）。
