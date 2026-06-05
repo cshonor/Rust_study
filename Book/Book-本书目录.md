@@ -139,6 +139,7 @@
 | 7.4.1 | [use 作用域 · 无全局 use](./07-packages-modules/7.4.1-use作用域仅限当前文件.md) | [7.5-split-modules-demo](./07-packages-modules/7.5-split-modules-demo/) |
 | 7.5 分文件 | [7.5](./07-packages-modules/7.5-将模块分割进不同文件.md) | [7.5-split-modules-demo](./07-packages-modules/7.5-split-modules-demo/) |
 | 7.5.1 | [`mod.rs` 里 mod 与 use](./07-packages-modules/7.5.1-mod.rs里的mod与use.md) | ↑ |
+| 7.5.2 | [`pub mod` 登记 vs `pub use` 收拢](./07-packages-modules/7.5.2-pub-mod登记与pub-use收拢.md) | ↑ |
 
 ---
 
