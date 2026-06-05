@@ -1,11 +1,11 @@
 fn main() {
     paths_demo::eat_at_restaurant();
+    println!("ok: crate:: / 相对 / super:: / self:: 路径 + pub 字段");
 
     let mut meal = paths_demo::Breakfast::summer("Rye");
     meal.toast = String::from("Wheat");
-    println!("I'd like {} toast please", meal.toast);
+    println!("toast = {} (pub 字段可改)", meal.toast);
+    println!("fruit = {} (私有字段经 getter)", meal.seasonal_fruit());
 
-    let _order1 = paths_demo::Appetizer::Soup;
-    let _order2 = paths_demo::Appetizer::Salad;
+    let _ = paths_demo::Appetizer::Soup;
 }
-
