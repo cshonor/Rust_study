@@ -46,14 +46,14 @@ impl Message {
     fn call(&self) {
         println!("Message::call");
     }
+}
 
-    fn describe(&self) -> String {
-        match self {
-            Message::Quit => "退出".into(),
-            Message::Move { x, y } => format!("坐标 {} {}", x, y),
-            Message::Write(s) => format!("写入: {}", s),
-            Message::ChangeColor(r, g, b) => format!("rgb {} {} {}", r, g, b),
-        }
+fn handle_message(msg: &Message) {
+    match msg {
+        Message::Quit => println!("  [match] 退出"),
+        Message::Move { x, y } => println!("  [match] 移动坐标：{} {}", x, y),
+        Message::Write(s) => println!("  [match] 消息内容：{}", s),
+        Message::ChangeColor(r, g, b) => println!("  [match] 颜色：{} {} {}", r, g, b),
     }
 }
 
@@ -92,14 +92,14 @@ fn main() {
     let ip: StdIpAddr = StdIpAddr::V4(Ipv4Addr::new(127, 0, 0, 1));
     println!("is_loopback = {}", ip.is_loopback());
 
-    println!("\n=== 5) Message 四种变体 + impl ===");
+    println!("\n=== 5) Message 四种变体：构造 + match 取值 ===");
     let m1 = Message::Quit;
     let m2 = Message::Move { x: 10, y: 20 };
-    let m3 = Message::Write(String::from("hello"));
+    let m3 = Message::Write(String::from("你好"));
     let m4 = Message::ChangeColor(255, 0, 0);
     m1.call();
-    for m in [&m2, &m3, &m4] {
-        println!("  {}", m.describe());
+    for m in [&m1, &m2, &m3, &m4] {
+        handle_message(m);
     }
 
     println!("\n=== 6) Option<T> ===");
