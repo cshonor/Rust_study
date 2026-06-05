@@ -1,58 +1,77 @@
-// 8.3 HashMap<K, V> - 示例
+// 8.3 HashMap<K, V> 完整 demo
 
 use std::collections::HashMap;
 
 fn main() {
-    println!("=== 1) new + insert ===");
+    println!("=== 1) new + insert + 覆盖返回旧值 ===");
     let mut scores = HashMap::new();
     scores.insert(String::from("Blue"), 10);
     scores.insert(String::from("Yellow"), 50);
-    println!("scores = {:?}", scores);
+    let old = scores.insert(String::from("Blue"), 25);
+    println!("覆盖 Blue: old={:?}, scores={:?}", old, scores);
 
-    println!("\n=== 2) zip + collect ===");
-    let teams = vec![String::from("Blue"), String::from("Yellow")];
-    let initial_scores = vec![10, 50];
-    let scores2: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
-    println!("scores2 = {:?}", scores2);
+    println!("\n=== 2) zip + collect / from / with_capacity ===");
+    let teams = vec![String::from("A"), String::from("B")];
+    let nums = vec![10, 20];
+    let mut zip_map: HashMap<String, i32> = teams.into_iter().zip(nums).collect();
+    println!("zip collect = {:?}", zip_map);
 
-    println!("\n=== 3) 所有权：String 会 move 进 map ===");
-    let field_name = String::from("Favorite color");
-    let field_value = String::from("Blue");
-    let mut map = HashMap::new();
-    map.insert(field_name, field_value);
-    println!("map = {:?}", map);
-    // field_name/field_value 此后不可用（已 move），示例保留为注释：
-    // println!("{}", field_name);
+    let from_map = HashMap::from([("Blue", 10), ("Yellow", 50)]);
+    let _pre = HashMap::<&str, i32>::with_capacity(10);
+    println!("from = {:?}", from_map);
 
-    println!("\n=== 4) get 返回 Option<&V> ===");
-    let mut scores = HashMap::new();
-    scores.insert(String::from("Blue"), 10);
-    scores.insert(String::from("Yellow"), 50);
-    let team_name = String::from("Blue");
-    let score = scores.get(&team_name);
-    println!("score({}) = {:?}", team_name, score);
+    println!("\n=== 3) [] / get / get_mut / contains_key ===");
+    println!("zip_map[\"A\"] = {}", zip_map["A"]);
+    if let Some(v) = zip_map.get("B") {
+        println!("get B = {}", v);
+    }
+    if let Some(v) = zip_map.get_mut("B") {
+        *v += 5;
+    }
+    println!("after get_mut B+=5: {:?}", zip_map);
+    println!("contains_key Red? {}", zip_map.contains_key("Red"));
 
-    println!("\n=== 5) 遍历（顺序不保证） ===");
-    for (k, v) in &scores {
-        println!("{}: {}", k, v);
+    println!("\n=== 4) entry / or_insert 词频 ===");
+    let mut count = HashMap::new();
+    for s in ["a", "a", "b"] {
+        *count.entry(s).or_insert(0) += 1;
+    }
+    println!("count = {:?}", count);
+
+    count
+        .entry("a")
+        .and_modify(|v| *v *= 2)
+        .or_insert(100);
+    println!("and_modify a*=2: {:?}", count);
+
+    println!("\n=== 5) 所有权 ===");
+    let s = String::from("borrowed");
+    let mut ref_map: HashMap<&str, i32> = HashMap::new();
+    ref_map.insert(&s, 99);
+    println!("insert &s 后 s 仍可用: {} map={:?}", s, ref_map);
+
+    let mut own_map: HashMap<String, i32> = HashMap::new();
+    let moved = String::from("moved");
+    own_map.insert(moved, 1);
+    // moved 已 move
+    println!("own_map = {:?}", own_map);
+
+    println!("\n=== 6) remove / remove_entry ===");
+    let removed = zip_map.remove("A");
+    let entry = zip_map.remove_entry("B");
+    println!("remove A={:?}, remove_entry B={:?}, rest={:?}", removed, entry, zip_map);
+
+    println!("\n=== 7) 遍历 keys / values / &map ===");
+    let mut demo = HashMap::from([("x", 1), ("y", 2)]);
+    print!("keys: ");
+    for k in demo.keys() {
+        print!("{} ", k);
+    }
+    println!();
+    for (k, v) in demo.iter_mut() {
+        *v += 10;
+        println!("  {} -> {}", k, v);
     }
 
-    println!("\n=== 6) 覆盖旧值 ===");
-    scores.insert(String::from("Blue"), 25);
-    println!("scores = {:?}", scores);
-
-    println!("\n=== 7) entry / or_insert 只在不存在时插入 ===");
-    scores.entry(String::from("Yellow")).or_insert(50);
-    scores.entry(String::from("Blue")).or_insert(50);
-    println!("scores = {:?}", scores);
-
-    println!("\n=== 8) 基于旧值更新：词频统计 ===");
-    let text = "hello world wonderful world";
-    let mut counts: HashMap<&str, u32> = HashMap::new();
-    for word in text.split_whitespace() {
-        let count = counts.entry(word).or_insert(0);
-        *count += 1;
-    }
-    println!("counts = {:?}", counts);
+    println!("\nok: HashMap 创建/取值/Entry/所有权/删除/遍历");
 }
-
