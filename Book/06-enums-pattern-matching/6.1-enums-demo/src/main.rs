@@ -62,6 +62,34 @@ fn route(ip_type: IpAddrKind) {
     println!("routing {:?}", ip_type);
 }
 
+enum MyOption<T> {
+    Some(T),
+    None,
+}
+
+impl<T> MyOption<T> {
+    fn unwrap(self) -> T {
+        match self {
+            MyOption::Some(v) => v,
+            MyOption::None => panic!("unwrap on MyOption::None"),
+        }
+    }
+
+    fn unwrap_or(self, default: T) -> T {
+        match self {
+            MyOption::Some(v) => v,
+            MyOption::None => default,
+        }
+    }
+}
+
+fn get_v4(ip: IpAddr) -> (u8, u8, u8, u8) {
+    match ip {
+        IpAddr::V4(a, b, c, d) => (a, b, c, d),
+        _ => panic!("不是 ipv4"),
+    }
+}
+
 fn main() {
     println!("=== 1) 单元变体 ===");
     let four = IpAddrKind::V4;
@@ -126,5 +154,30 @@ fn main() {
     );
     // let sum = 5 + x; // ❌ Option<i32> 与 i32 不能混用
 
-    println!("\nok: enum 变体 · impl · Option · match 预告");
+    println!("\n=== 7) 四种取值：match / if let / unwrap / let else ===");
+    let opt = Some(10);
+    match opt {
+        Some(x) => println!("match Some → {}", x),
+        None => println!("match None"),
+    }
+
+    let ip = IpAddr::V4(192, 168, 1, 2);
+    if let IpAddr::V4(w, _, _, _) = ip {
+        println!("if let V4 第一段 → {}", w);
+    }
+
+    println!("unwrap Some(5) → {}", Some(5).unwrap());
+    println!("unwrap_or None → {}", None::<i32>.unwrap_or(0));
+
+    let Some(data) = Some(88) else {
+        return;
+    };
+    println!("let else → {}", data);
+
+    let my = MyOption::Some(42);
+    println!("MyOption::unwrap → {}", my.unwrap());
+    println!("MyOption::unwrap_or → {}", MyOption::<i32>::None.unwrap_or(0));
+    println!("get_v4 → {:?}", get_v4(IpAddr::V4(1, 2, 3, 4)));
+
+    println!("\nok: 标签解构 · MyOption unwrap · 见 6.1.3");
 }
