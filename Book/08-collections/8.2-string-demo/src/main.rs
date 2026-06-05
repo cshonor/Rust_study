@@ -59,5 +59,28 @@ fn main() {
 
     println!("\n=== 7) String 不能索引 ===");
     println!("Rust 不允许 s[0]，因为 UTF-8 下“第 0 个字符”不明确且无法保证 O(1)。");
+
+    println!("\n=== 8) 底层结构：size_of + 胖指针 ===");
+    use std::mem::size_of;
+    println!(
+        "String={}B  &str={}B  [i32;3]={}B  &[i32]={}B  Vec<i32>={}B",
+        size_of::<String>(),
+        size_of::<&str>(),
+        size_of::<[i32; 3]>(),
+        size_of::<&[i32]>(),
+        size_of::<Vec<i32>>(),
+    );
+
+    let literal: &str = "abc";
+    let owned = String::from("abc");
+    let borrowed: &str = &owned;
+    println!("literal ptr={:p} len={}", literal.as_ptr(), literal.len());
+    println!("owned   ptr={:p} len={} cap={}", owned.as_ptr(), owned.len(), owned.capacity());
+    println!("borrowed ptr={:p} (借 String 堆，与 owned 同址)", borrowed.as_ptr());
+
+    let arr = [10, 20, 30, 40];
+    let slice: &[i32] = &arr[1..3];
+    println!("arr[1..3] ptr={:p} len={}", slice.as_ptr(), slice.len());
+    println!("\nok: 见 8.2.5 四种类型底层结构");
 }
 
