@@ -8,11 +8,15 @@ enum SpreadsheetCell {
 }
 
 fn main() {
-    println!("=== 1) 三种创建 ===");
-    let empty: Vec<i32> = Vec::new();
+    println!("=== 1) 三种创建 + 类型推断 ===");
+    let empty: Vec<i32> = Vec::new(); // 空 Vec 须标注（或靠后续 push 推导）
     println!("Vec::new() len={} cap={}", empty.len(), empty.capacity());
 
-    let v = vec![1, 2, 3];
+    let mut inferred = Vec::new();
+    inferred.push(5i32); // 第一次 push 反向锁定 Vec<i32>，不必标注
+    println!("Vec::new()+push(5i32) = {:?}", inferred);
+
+    let v = vec![1, 2, 3]; // 有初始元素，自动推断 Vec<i32>
     let zeros = vec![0; 5];
     println!("vec![1,2,3] = {:?}", v);
     println!("vec![0;5] = {:?}", zeros);
@@ -25,8 +29,8 @@ fn main() {
         pre.capacity()
     );
 
-    println!("\n=== 2) push 更新 ===");
-    let mut v = Vec::new();
+    println!("\n=== 2) push 更新（已标注 Vec<i32>）===");
+    let mut v: Vec<i32> = Vec::new();
     v.push(5);
     v.push(6);
     println!("pushed = {:?}", v);
