@@ -1,3 +1,4 @@
+// §二 嵌套路径 + §三 父模块/as 别名
 use std::{cmp::Ordering, io};
 use std::io::{self as std_io, Write};
 
@@ -5,31 +6,35 @@ use use_demo::results;
 use use_demo::results::beta::Result as BetaResult;
 
 fn main() {
-    // 1) `pub use` 重导出后的路径
+    // §四 pub use 重导出：外部直接用 use_demo::hosting
     use_demo::eat_at_restaurant();
     use_demo::hosting::add_to_waitlist();
+    println!("ok: pub use → use_demo::hosting::add_to_waitlist()");
 
-    // 2) 惯用导入：函数通常保留父模块前缀
+    // §二 惯用：类型直接导入名；函数保留模块前缀（Ordering 来自 use std::cmp）
     let ordering = Ordering::Equal;
     println!("ordering = {ordering:?}");
 
-    // 3) 嵌套路径 + self
+    // §五 嵌套路径 self
     let mut out = Vec::<u8>::new();
     write!(&mut out, "hello").unwrap();
-    std_io::stdout().write_all(b"").unwrap(); // 只是为了真正用到 std_io
-    let _ = io::stdin(); // 只是为了真正用到 io
+    let _ = std_io::stdout();
+    let _ = io::stdin();
 
-    // 4) 同名冲突：用父模块或 as 起别名
+    // §三 同名冲突：父模块区分 vs as 别名
     let a: results::alpha::Result = Ok("alpha ok");
     let b: BetaResult = Ok(42);
     println!("alpha = {a:?}, beta = {b:?}");
 
-    // 5) glob：一次性导入所有公有项（示例用法）
+    // §六 glob（限制在小作用域块内）
     {
         use std::collections::*;
         let mut map = HashMap::new();
         map.insert(1, 2);
-        println!("map len = {}", map.len());
+        println!("glob HashMap len = {}", map.len());
     }
-}
 
+    // §七 跨 Package 示例（本 demo 无外部依赖；见 7.3-cross-package-paths-demo）：
+    // use pkg_b::b_mod;
+    // pkg_b::b_mod::hello_b();
+}
