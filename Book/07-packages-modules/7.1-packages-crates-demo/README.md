@@ -1,17 +1,19 @@
 # 7.1 包与 Crate demo
 
-笔记：[7.1](../7.1-包和crate.md) · [7.1.1](../7.1.1-二进制与库crate.md) · [7.1.2](../7.1.2-main调用分文件模块.md) · [7.1.3](../7.1.3-Actix-web项目目录范例.md)
+笔记：[7.1](../7.1-包和crate.md) · … · [7.1.4](../7.1.4-src-bin与多exe.md)
 
 ---
 
-## 一、Package 三种布局（7.1）
+## 一、Package 布局（7.1 / 7.1.4）
 
 | 目录 | 结构 | 命令 |
 |------|------|------|
-| `only_bin/` | 仅 `main.rs` | `cargo run` |
+| `only_bin/` | 仅 `main.rs`（默认 1 个 exe） | `cargo run` |
 | `only_lib/` | 仅 `lib.rs` | `cargo build` |
 | `bin_plus_lib/` | `lib.rs` + `main.rs` + `math/` | `cargo run` |
-| `multi_bin/` | 1 lib + `main.rs` + 2×`bin/*.rs` | `cargo run` / `cargo run --bin cli1` |
+| `multi_bin/` | 1 lib + main + 每个 `bin/*.rs` 各 1 exe | `cargo run --bin cli1` |
+
+`src/bin/` 详解 → [7.1.4](../7.1.4-src-bin与多exe.md)
 
 ---
 
