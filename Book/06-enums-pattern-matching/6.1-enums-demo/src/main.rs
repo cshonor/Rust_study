@@ -16,6 +16,7 @@ struct IpAddrLegacy {
 enum IpAddr {
     V4(u8, u8, u8, u8),
     V6(String),
+    Unknown,
 }
 
 #[derive(Debug)]
@@ -73,10 +74,22 @@ fn main() {
     };
     println!("legacy = {:?}", legacy);
 
-    println!("\n=== 3) 元组变体 () — 多类型 / 嵌 struct ===");
-    let localhost = IpAddr::V4(192, 168, 1, 1);
-    let loopback = IpAddr::V6(String::from("::1"));
-    println!("IPv4 {:?}, IPv6 {:?}", localhost, loopback);
+    println!("\n=== 3) 元组变体 () — 类型永远是 IpAddr ===");
+    let a: IpAddr = IpAddr::V4(192, 168, 1, 1);
+    let b: IpAddr = IpAddr::V6(String::from("::1"));
+    let c: IpAddr = IpAddr::Unknown;
+    println!("a={:?} b={:?} c={:?}", a, b, c);
+
+    // 对标 Option：类型是 Option<i32>，不是 Some/None
+    let x: Option<i32> = Some(5);
+    let y: Option<i32> = None;
+    println!("Option: x={:?} y={:?}", x, y);
+
+    // use 导入变体构造器后可省略 IpAddr:: 前缀 → 见 6.1.2
+    use IpAddr::{V4, V6};
+    let d: IpAddr = V4(10, 0, 0, 1);
+    let _e: IpAddr = V6(String::from("fe80::1"));
+    println!("use V4/V6 后: d={:?}", d);
 
     let t1 = Test::Item1(1, 42, String::from("hi"));
     let t2 = Test::Item2(

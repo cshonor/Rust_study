@@ -112,6 +112,7 @@
 | 节 | 笔记 | demo |
 |----|------|------|
 | 6.1 定义枚举 | [6.1](./06-enums-pattern-matching/6.1-定义枚举.md) | [6.1-enums-demo](./06-enums-pattern-matching/6.1-enums-demo/) |
+| 6.1.2 | [枚举类型 vs 变体标签](./06-enums-pattern-matching/6.1.2-枚举类型与变体标签.md) | ↑ |
 | 6.2 match | [6.2](./06-enums-pattern-matching/6.2-match.md) | [6.2-match-demo](./06-enums-pattern-matching/6.2-match-demo/) |
 | 6.3 if let | [6.3](./06-enums-pattern-matching/6.3-if-let.md) | [6.3-if-let-demo](./06-enums-pattern-matching/6.3-if-let-demo/) |
 
