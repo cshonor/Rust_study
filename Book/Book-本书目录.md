@@ -132,6 +132,7 @@
 | 7.1.8 | [Package vs Module](./07-packages-modules/7.1.8-Package与Module.md) | ↑ |
 | 7.2 模块与私有性 | [7.2](./07-packages-modules/7.2-定义模块来控制作用域与私有性.md) | [7.2-modules-privacy-demo](./07-packages-modules/7.2-modules-privacy-demo/) |
 | 7.2.1 | [Crate Root 与模块树](./07-packages-modules/7.2.1-crate-root与模块树.md) | ↑ |
+| 7.2.2 | [结构体与字段私有性](./07-packages-modules/7.2.2-结构体与字段私有性.md) | ↑ |
 | 7.3 路径 | [7.3](./07-packages-modules/7.3-路径用于引用模块树中的项.md) | [7.3-paths-demo](./07-packages-modules/7.3-paths-demo/) |
 | 7.4 use | [7.4](./07-packages-modules/7.4-使用use关键字将名称引入作用域.md) | [7.4-use-demo](./07-packages-modules/7.4-use-demo/) |
 | 7.5 分文件 | [7.5](./07-packages-modules/7.5-将模块分割进不同文件.md) | [7.5-split-modules-demo](./07-packages-modules/7.5-split-modules-demo/) |
