@@ -31,6 +31,8 @@ fn main() {
     if let Some(v) = zip_map.get("B") {
         println!("get B = {}", v);
     }
+    let copied = zip_map.get("A").copied().unwrap_or(0);
+    println!("get A .copied().unwrap_or(0) = {}", copied);
     if let Some(v) = zip_map.get_mut("B") {
         *v += 5;
     }
@@ -60,6 +62,9 @@ fn main() {
     let moved = String::from("moved");
     own_map.insert(moved, 1);
     // moved 已 move
+    let num = 42;
+    own_map.insert("num".to_string(), num);
+    println!("i32 Copy 后 num 仍可用: {}", num);
     println!("own_map = {:?}", own_map);
 
     println!("\n=== 6) remove / remove_entry ===");
