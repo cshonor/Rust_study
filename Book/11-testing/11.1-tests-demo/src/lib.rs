@@ -54,6 +54,7 @@ mod tests {
 
     #[test]
     fn larger_can_hold_smaller() {
+        // Arrange
         let larger = Rectangle {
             width: 8,
             height: 7,
@@ -62,6 +63,7 @@ mod tests {
             width: 5,
             height: 1,
         };
+        // Act + Assert
         assert!(larger.can_hold(&smaller));
     }
 
@@ -80,7 +82,12 @@ mod tests {
 
     #[test]
     fn it_adds_two() {
-        assert_eq!(4, add_two(2));
+        assert_eq!(add_two(2), 4);
+    }
+
+    #[test]
+    fn it_does_not_add_three() {
+        assert_ne!(add_two(2), 5);
     }
 
     #[test]
