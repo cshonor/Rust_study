@@ -160,6 +160,7 @@
 | 8.3.1 | [zip → collect → HashMap](./08-collections/8.3.1-zip-collect与HashMap.md) | ↑ |
 | 8.3.2 | [创建与删除](./08-collections/8.3.2-创建与删除.md) | ↑ |
 | 8.3.3 | [insert · get · 遍历 · Entry](./08-collections/8.3.3-insert-get-遍历与Entry.md) | ↑ |
+| 8.3.4 | [Hasher 与 BuildHasher](./08-collections/8.3.4-Hasher与BuildHasher.md) | [8.3.4-hasher-demo](./08-collections/8.3.4-hasher-demo/) |
 
 ---
 
