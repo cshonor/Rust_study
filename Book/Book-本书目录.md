@@ -215,6 +215,7 @@
 | 14.1 发布配置 | [14.1](./14-cargo-crates/14.1-采用发布配置自定义构建.md) | [14.1-profiles-demo](./14-cargo-crates/14.1-profiles-demo/) |
 | 14.2 发布 crate | [14.2](./14-cargo-crates/14.2-将crate发布到Crates.io.md) | [14.2-crates-io-publish-demo](./14-cargo-crates/14.2-crates-io-publish-demo/) |
 | 14.3 工作空间 | [14.3](./14-cargo-crates/14.3-Cargo工作空间.md) | [14.3-workspace-demo](./14-cargo-crates/14.3-workspace-demo/) · [14.3-hft-workspace-demo](./14-cargo-crates/14.3-hft-workspace-demo/) |
+| 14.3.1 | [Workspace 与微服务（IPC / tonic）](./14-cargo-crates/14.3.1-Workspace与微服务.md) | ↑ |
 | 14.4 cargo install | [14.4](./14-cargo-crates/14.4-使用cargo-install从Crates.io安装二进制文件.md) | — |
 | 14.5 自定义命令 | [14.5](./14-cargo-crates/14.5-Cargo自定义扩展命令.md) | — |
 
