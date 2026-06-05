@@ -150,7 +150,11 @@
 | 节 | 笔记 | demo |
 |----|------|------|
 | 8.1 Vector | [8.1-vector.md](./08-collections/8.1-vector.md) | [8.1-vector-demo](./08-collections/8.1-vector-demo/) |
-| 8.2 字符串 | [8.2-string.md](./08-collections/8.2-string.md) | [8.2-string-demo](./08-collections/8.2-string-demo/) |
+| 8.2 字符串 | [8.2](./08-collections/8.2-string.md) | [8.2-string-demo](./08-collections/8.2-string-demo/) |
+| 8.2.1 | [`str`、DST 与定长规则](./08-collections/8.2.1-str与DST定长规则.md) | ↑ |
+| 8.2.2 | [不定长数据放哪](./08-collections/8.2.2-不定长数据放哪.md) | ↑ |
+| 8.2.3 | [`str` 与 `String` 互转](./08-collections/8.2.3-str与String互转.md) | ↑ |
+| 8.2.4 | [UTF-8 字符串实操](./08-collections/8.2.4-UTF-8字符串实操.md) | ↑ |
 | 8.3 HashMap | [8.3-hashmap.md](./08-collections/8.3-hashmap.md) | [8.3-hashmap-demo](./08-collections/8.3-hashmap-demo/) |
 
 ---
