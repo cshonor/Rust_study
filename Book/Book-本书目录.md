@@ -158,7 +158,8 @@
 | 8.2.5 | [四种类型底层结构](./08-collections/8.2.5-四种类型底层结构.md) | ↑ |
 | 8.3 HashMap | [8.3-hashmap.md](./08-collections/8.3-hashmap.md) | [8.3-hashmap-demo](./08-collections/8.3-hashmap-demo/) |
 | 8.3.1 | [zip → collect → HashMap](./08-collections/8.3.1-zip-collect与HashMap.md) | ↑ |
-| 8.3.2 | [HashMap 四段考点](./08-collections/8.3.2-HashMap四段考点.md) | ↑ |
+| 8.3.2 | [创建与删除](./08-collections/8.3.2-创建与删除.md) | ↑ |
+| 8.3.3 | [insert · get · 遍历 · Entry](./08-collections/8.3.3-insert-get-遍历与Entry.md) | ↑ |
 
 ---
 
