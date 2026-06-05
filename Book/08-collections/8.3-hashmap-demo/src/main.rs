@@ -11,10 +11,16 @@ fn main() {
     println!("覆盖 Blue: old={:?}, scores={:?}", old, scores);
 
     println!("\n=== 2) zip + collect / from / with_capacity ===");
+    // iter+zip → (&String,&i32)；into_iter+zip → (String,i32) → 见 8.3.1
+    let keys = vec![String::from("蓝"), String::from("黄")];
+    let vals = vec![10, 50];
+    let ref_map: HashMap<_, _> = keys.iter().zip(vals.iter()).collect();
+    println!("iter().zip().collect → {:?}", ref_map);
+
     let teams = vec![String::from("A"), String::from("B")];
     let nums = vec![10, 20];
     let mut zip_map: HashMap<String, i32> = teams.into_iter().zip(nums).collect();
-    println!("zip collect = {:?}", zip_map);
+    println!("into_iter().zip().collect → {:?}", zip_map);
 
     let from_map = HashMap::from([("Blue", 10), ("Yellow", 50)]);
     let _pre = HashMap::<&str, i32>::with_capacity(10);

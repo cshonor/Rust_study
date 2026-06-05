@@ -157,6 +157,7 @@
 | 8.2.4 | [UTF-8 字符串实操](./08-collections/8.2.4-UTF-8字符串实操.md) | ↑ |
 | 8.2.5 | [四种类型底层结构](./08-collections/8.2.5-四种类型底层结构.md) | ↑ |
 | 8.3 HashMap | [8.3-hashmap.md](./08-collections/8.3-hashmap.md) | [8.3-hashmap-demo](./08-collections/8.3-hashmap-demo/) |
+| 8.3.1 | [zip → collect → HashMap](./08-collections/8.3.1-zip-collect与HashMap.md) | ↑ |
 
 ---
 
