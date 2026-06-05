@@ -18,6 +18,23 @@ enum IpAddr {
     V6(String),
 }
 
+#[derive(Debug)]
+struct User {
+    name: String,
+}
+
+#[derive(Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+#[derive(Debug)]
+enum Test {
+    Item1(u8, i32, String),
+    Item2(User, Point),
+}
+
 enum Message {
     Quit,
     Move { x: i32, y: i32 },
@@ -56,10 +73,19 @@ fn main() {
     };
     println!("legacy = {:?}", legacy);
 
-    println!("\n=== 3) 变体绑定数据 ===");
-    let localhost = IpAddr::V4(127, 0, 0, 1);
+    println!("\n=== 3) 元组变体 () — 多类型 / 嵌 struct ===");
+    let localhost = IpAddr::V4(192, 168, 1, 1);
     let loopback = IpAddr::V6(String::from("::1"));
-    println!("{:?}, {:?}", localhost, loopback);
+    println!("IPv4 {:?}, IPv6 {:?}", localhost, loopback);
+
+    let t1 = Test::Item1(1, 42, String::from("hi"));
+    let t2 = Test::Item2(
+        User {
+            name: String::from("张三"),
+        },
+        Point { x: 10, y: 20 },
+    );
+    println!("Item1 {:?}, Item2 {:?}", t1, t2);
 
     println!("\n=== 4) 标准库 std::net::IpAddr ===");
     use std::net::{IpAddr as StdIpAddr, Ipv4Addr};
