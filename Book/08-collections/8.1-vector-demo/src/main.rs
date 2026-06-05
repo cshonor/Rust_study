@@ -46,19 +46,29 @@ fn main() {
     }
     println!("块结束，Vec 已 Drop");
 
-    println!("\n=== 4) [] vs get ===");
-    let mut v = vec![1, 2, 3, 4, 5];
+    println!("\n=== 4) [] vs get 完整对比 ===");
+    let v = vec![1, 2, 3, 4, 5];
+
     let third = &v[2];
-    println!("&v[2] = {}", third);
+    println!("[] &v[2] = {}", third);
+
     match v.get(2) {
-        Some(x) => println!("get(2) = {}", x),
-        None => println!("get(2) = None"),
+        Some(val) => println!("get(2) Some = {}", val),
+        None => println!("无该元素"),
     }
-    assert!(v.get(100).is_none());
-    if let Some(x) = v.get_mut(1) {
-        *x += 10;
+
+    // 越界：get 不 panic
+    match v.get(10) {
+        Some(_) => {}
+        None => println!("get(10) = None，程序继续"),
     }
-    println!("after get_mut(1)+10 = {:?}", v);
+    // &v[10]; // ❌ 运行 panic
+
+    let mut v2 = vec![1, 2, 3];
+    if let Some(val) = v2.get_mut(1) {
+        *val = 99;
+    }
+    println!("get_mut(1)=99 → {:?}", v2);
 
     println!("\n=== 5) 借用规则 + push 规避 ===");
     let mut v = vec![1, 2, 3, 4, 5];
