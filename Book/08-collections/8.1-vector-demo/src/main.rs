@@ -13,8 +13,13 @@ fn main() {
     println!("Vec::new() len={} cap={}", empty.len(), empty.capacity());
 
     let mut inferred = Vec::new();
-    inferred.push(5i32); // 第一次 push 反向锁定 Vec<i32>，不必标注
+    inferred.push(5i32); // 同作用域后续 push → 反推 Vec<i32>，不必在 let 行标注
     println!("Vec::new()+push(5i32) = {:?}", inferred);
+
+    // 从函数参数反推（注释示例）：
+    // fn take(v: Vec<i32>) {}
+    // let mut v2 = Vec::new();
+    // take(v2); // v2 被推断为 Vec<i32>
 
     let v = vec![1, 2, 3]; // 有初始元素，自动推断 Vec<i32>
     let zeros = vec![0; 5];
