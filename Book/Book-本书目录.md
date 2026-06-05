@@ -137,6 +137,7 @@
 | 7.3.1 | [跨 Package 路径 · Workspace 依赖](./07-packages-modules/7.3.1-跨Package路径与Workspace依赖.md) | [7.3-cross-package-paths-demo](./07-packages-modules/7.3-cross-package-paths-demo/) |
 | 7.4 use | [7.4](./07-packages-modules/7.4-使用use关键字将名称引入作用域.md) | [7.4-use-demo](./07-packages-modules/7.4-use-demo/) |
 | 7.5 分文件 | [7.5](./07-packages-modules/7.5-将模块分割进不同文件.md) | [7.5-split-modules-demo](./07-packages-modules/7.5-split-modules-demo/) |
+| 7.5.1 | [`mod.rs` 里 mod 与 use](./07-packages-modules/7.5.1-mod.rs里的mod与use.md) | ↑ |
 
 ---
 
