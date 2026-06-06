@@ -186,6 +186,7 @@
 | 10.2 Trait | [10.2-trait.md](./10-generics-traits-lifetimes/10.2-trait.md) | [10.2-traits-demo](./10-generics-traits-lifetimes/10.2-traits-demo/) |
 | 10.2.1 | [Trait 约束汇总表](./10-generics-traits-lifetimes/10.2.1-Trait语法速查.md) | ↑ |
 | 10.2.2 | [impl Trait 全解](./10-generics-traits-lifetimes/10.2.2-impl-Trait全解.md) | ↑ |
+| 10.2.3 | [Trait 七种写法详解](./10-generics-traits-lifetimes/10.2.3-Trait七种写法详解.md) | [10.2.3-trait-syntax-demo](./10-generics-traits-lifetimes/10.2.3-trait-syntax-demo/) |
 | 10.3 生命周期（索引） | [10.3](./10-generics-traits-lifetimes/10.3-生命周期与引用有效性.md) | [10.3-lifetimes-demo](./10-generics-traits-lifetimes/10.3-lifetimes-demo/) |
 
 **10.3 专题拆分**
