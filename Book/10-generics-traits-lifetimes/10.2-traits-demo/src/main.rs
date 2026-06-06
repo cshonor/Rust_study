@@ -64,6 +64,19 @@ fn notify_two_same<T: Summary>(a: &T, b: &T) {
     println!("same type: {} | {}", a.summarize(), b.summarize());
 }
 
+fn get_msg() -> impl Summary {
+    Tweet {
+        username: "demo".into(),
+        content: "impl Trait return".into(),
+        reply: false,
+        retweet: false,
+    }
+}
+
+fn make_adder() -> impl Fn(i32) -> i32 {
+    |x| x + 5
+}
+
 // --- 4) where 从句 ---
 fn print_two<T, U>(t: T, u: U)
 where
@@ -171,5 +184,10 @@ fn main() {
 
     println!("\n=== 6) Blanket impl: Display → ToString ===");
     println!("10.to_string() = {}", 10_i32.to_string());
+
+    println!("\n=== 7) -> impl Trait 返回 ===");
+    let msg = get_msg();
+    println!("get_msg() = {}", msg.summarize());
+    println!("make_adder()(3) = {}", make_adder()(3));
 }
 
