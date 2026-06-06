@@ -57,6 +57,21 @@ struct Wrapper<'a> {
     val: &'a i32,
 }
 
+struct StrWrapper<'a>(&'a str);
+
+fn make_wrapper(s: &str) -> StrWrapper<'_> {
+    StrWrapper(s)
+}
+
+fn print_underscore(s: &'_ str) {
+    println!("  print_underscore: {s}");
+}
+
+#[allow(dead_code)]
+fn print_plain(s: &str) {
+    println!("  print_plain: {s}");
+}
+
 fn cmp<'a>(x: &'a i32, y: &'a i32) -> &'a i32 {
     if *x > *y { x } else { y }
 }
@@ -182,6 +197,15 @@ fn main() {
     let holder = Holder { val: &num };
     println!("Holder {{ val: {} }}", holder.val);
     println!("get_data 省略 'a: {}", get_data(&num)); // §10 省略规则
+
+    println!("\n=== 0.55) 匿名生命周期 '_ ===");
+    let text = String::from("hello '_");
+    let w = make_wrapper(&text);
+    print_underscore(w.0);
+    println!("  StrWrapper 与 text 同寿，text 仍可用: {text}");
+    let longer = longest("short", "longer string");
+    println!("  longest 须命名 'a: {longer}");
+    // fn bad(x: &'_ str, y: &'_ str) -> &'_ str { x } // ❌ 两个 '_ 不绑定
 
     println!("\n=== 0.5) &'static str：变量消失，数据不 drop ===");
     {
