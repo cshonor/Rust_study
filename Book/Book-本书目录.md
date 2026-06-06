@@ -169,6 +169,7 @@
 | 节 | 笔记 | demo |
 |----|------|------|
 | 9.1 panic! | [9.1](./09-error-handling/9.1-panic-与不可恢复的错误.md) | [9.1-panic-demo](./09-error-handling/9.1-panic-demo/) |
+| 9.1.1 | [Backtrace 调试](./09-error-handling/9.1.1-Backtrace调试.md) | [9.1.1-backtrace-demo](./09-error-handling/9.1.1-backtrace-demo/) |
 | 9.2 Result | [9.2](./09-error-handling/9.2-Result-与可恢复的错误.md) | [9.2-result-demo](./09-error-handling/9.2-result-demo/) |
 | 9.3 策略 | [9.3](./09-error-handling/9.3-使用panic还是不用panic.md) | [9.3-panic-or-result-demo](./09-error-handling/9.3-panic-or-result-demo/) |
 
