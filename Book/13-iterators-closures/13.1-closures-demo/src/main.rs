@@ -127,7 +127,35 @@ fn thread_move_example() {
     handle.join().unwrap();
 }
 
+fn syntax_examples() {
+    fn add_fn(x: i32) -> i32 {
+        x + 1
+    }
+    let _v1 = add_fn(5);
+
+    let add1 = |x: i32| -> i32 { x + 1 };
+    let add2 = |x: i32| { x + 1 };
+    let add3 = |x: i32| x + 1;
+    let add4 = |x| x + 1;
+
+    assert_eq!(add1(5), 6);
+    assert_eq!(add2(5), 6);
+    assert_eq!(add3(5), 6);
+    assert_eq!(add4(5), 6);
+
+    let base = 10;
+    let add_base = |x| base + x;
+    assert_eq!(add_base(5), 15);
+
+    let add_multi = |x: i32| -> i32 {
+        let tmp = x + 2;
+        tmp - 1
+    };
+    assert_eq!(add_multi(5), 6);
+}
+
 fn run_quick() {
+    syntax_examples();
     println!("== quick: CacherOnce (fast_calc) ==");
     generate_workout_with_cache(10, 7, fast_calc);
 
