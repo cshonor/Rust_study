@@ -1,8 +1,20 @@
-// 13.2 迭代器 demo — cargo run 逐段演示（对应 13.2.1）
+// 13.2 迭代器 demo
+//   cargo run              — 13.2.1 全段演示
+//   cargo run -- iter_kinds — 13.2.2 三种 iter 所有权
 
-use iterators_demo::{get_dyn, get_iter, lazy_map_filter, Counter, CounterRange};
+use iterators_demo::{demo_iter_kinds, get_dyn, get_iter, lazy_map_filter, Counter, CounterRange};
 
 fn main() {
+    let arg = std::env::args().nth(1);
+    let mode = arg.as_deref().unwrap_or("full");
+
+    if mode == "iter_kinds" {
+        println!("=== 13.2.2 三种迭代生成方式 ===");
+        demo_iter_kinds();
+        println!("\nok: iter_kinds demo 完成");
+        return;
+    }
+
     println!("=== §1 惰性：collect 前 map/filter 不执行 ===");
     let res = lazy_map_filter([1, 2, 3]);
     println!("  collect 后: {:?}", res);
@@ -13,7 +25,7 @@ fn main() {
     println!("  next → {:?}, {:?}, {:?}", iter.next(), iter.next(), iter.next());
     println!("  结束 → {:?}", iter.next());
 
-    println!("\n=== §3 iter / iter_mut / into_iter ===");
+    println!("\n=== §3 iter / iter_mut / into_iter（详见 13.2.2）===");
     let mut v = vec![10, 20, 30];
     print!("  iter 只读: ");
     for x in v.iter() {
@@ -52,5 +64,5 @@ fn main() {
         .sum();
     println!("  Counter zip/skip/filter sum: {}", zip_sum);
 
-    println!("\nok: 迭代器 demo 完成");
+    println!("\nok: 迭代器 demo 完成（加 -- iter_kinds 看 13.2.2）");
 }

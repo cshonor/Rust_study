@@ -68,6 +68,46 @@ pub fn get_iter() -> impl Iterator<Item = i32> {
     vec![1, 2, 3].into_iter().map(|x| x * 2)
 }
 
+/// §13.2.2 三种 iter 演示（作用域避免借用冲突）
+pub fn demo_iter_kinds() {
+    let mut v = vec![10, 20, 30];
+
+    {
+        let val: Vec<&i32> = v.iter().collect();
+        println!("  iter collect: {:?}", val);
+        println!("  v 仍可用: {:?}", v);
+    }
+
+    {
+        let refs: Vec<&mut i32> = v.iter_mut().collect();
+        for x in refs {
+            *x *= 2;
+        }
+    }
+    println!("  iter_mut ×2 后: {:?}", v);
+
+    let owned: Vec<i32> = v.into_iter().collect();
+    println!("  into_iter owned: {:?}", owned);
+
+    let a = vec![1, 2];
+    let b = vec![10, 20];
+    let z: Vec<(&i32, &i32)> = a.iter().zip(b.iter()).collect();
+    println!("  zip iter: {:?}（a、b 仍可用 {:?} {:?}）", z, a, b);
+
+    let mut m = vec![1, 2];
+    for x in &mut m {
+        *x += 1;
+    }
+    println!("  for x in &mut m → {:?}", m);
+
+    let r = vec![5, 6];
+    let mut sum = 0;
+    for x in &r {
+        sum += x;
+    }
+    println!("  for x in &r → sum={}，r 仍 {:?}", sum, r);
+}
+
 /// §五 运行期两种迭代器 → Box<dyn>
 pub fn get_dyn(flag: bool) -> Box<dyn Iterator<Item = i32>> {
     if flag {
@@ -106,6 +146,55 @@ mod tests {
             *v += 1;
         }
         assert_eq!(arr, vec![11, 21, 31]);
+    }
+
+    #[test]
+    fn iter_kinds_iter_collect_keeps_vec() {
+        let mut v = vec![10, 20, 30];
+        {
+            let refs: Vec<&i32> = v.iter().collect();
+            assert_eq!(refs, vec![&10, &20, &30]);
+        }
+        v.iter_mut().for_each(|x| *x += 1);
+        assert_eq!(v, vec![11, 21, 31]);
+    }
+
+    #[test]
+    fn iter_kinds_iter_mut_exclusive_scope() {
+        let mut v = vec![1, 2, 3];
+        {
+            let refs: Vec<&mut i32> = v.iter_mut().collect();
+            for x in refs {
+                *x *= 2;
+            }
+        }
+        assert_eq!(v, vec![2, 4, 6]);
+    }
+
+    #[test]
+    fn iter_kinds_for_ref_and_for_mut() {
+        let v = vec![1, 2];
+        let mut sum = 0i32;
+        for x in &v {
+            sum += x;
+        }
+        assert_eq!(sum, 3);
+
+        let mut m = vec![1, 2];
+        for x in &mut m {
+            *x += 10;
+        }
+        assert_eq!(m, vec![11, 12]);
+    }
+
+    #[test]
+    fn iter_kinds_zip_collect_borrows() {
+        let a = vec![1, 2];
+        let b = vec![10, 20];
+        let z: Vec<(&i32, &i32)> = a.iter().zip(b.iter()).collect();
+        assert_eq!(z, vec![(&1, &10), (&2, &20)]);
+        assert_eq!(a.len(), 2);
+        assert_eq!(b.len(), 2);
     }
 
     #[test]
