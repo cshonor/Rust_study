@@ -172,6 +172,7 @@
 | 9.1.1 | [Backtrace 调试](./09-error-handling/9.1.1-Backtrace调试.md) | [9.1.1-backtrace-demo](./09-error-handling/9.1.1-backtrace-demo/) |
 | 9.1.2 | [dev/release 与 HFT 编译配置](./09-error-handling/9.1.2-dev-release与HFT编译配置.md) | ↑ |
 | 9.1.3 | [catch_unwind 与 panic 模式](./09-error-handling/9.1.3-catch_unwind与panic模式.md) | [9.1.3-catch-unwind-demo](./09-error-handling/9.1.3-catch-unwind-demo/) |
+| 9.1.4 | [整数溢出与 wrapping](./09-error-handling/9.1.4-整数溢出与wrapping.md) | [9.1.4-overflow-demo](./09-error-handling/9.1.4-overflow-demo/) |
 | 9.2 Result | [9.2](./09-error-handling/9.2-Result-与可恢复的错误.md) | [9.2-result-demo](./09-error-handling/9.2-result-demo/) |
 | 9.3 策略 | [9.3](./09-error-handling/9.3-使用panic还是不用panic.md) | [9.3-panic-or-result-demo](./09-error-handling/9.3-panic-or-result-demo/) |
 
