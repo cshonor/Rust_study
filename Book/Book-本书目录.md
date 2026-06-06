@@ -204,6 +204,7 @@
 | 节 | 笔记 | demo |
 |----|------|------|
 | 11.1 编写测试 | [11.1](./11-testing/11.1-如何编写测试.md) | [11.1-tests-demo](./11-testing/11.1-tests-demo/) |
+| 11.1.1 | [cfg(test) 与模拟输入](./11-testing/11.1.1-cfg-test与模拟输入.md) | [11.1.1-mock-input-demo](./11-testing/11.1.1-mock-input-demo/) |
 | 11.2 控制测试运行 | [11.2](./11-testing/11.2-控制测试如何运行.md) | [11.2-control-tests-demo](./11-testing/11.2-control-tests-demo/) |
 | 11.3 测试组织 | [11.3](./11-testing/11.3-测试的组织结构.md) | [11.3-test-organization-demo](./11-testing/11.3-test-organization-demo/) |
 
