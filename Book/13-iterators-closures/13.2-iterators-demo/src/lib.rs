@@ -1,4 +1,6 @@
-#[derive(PartialEq, Debug)]
+//! 13.2 迭代器 demo — 惰性 · next · iter 三件套 · Counter · impl/dyn 返回
+
+#[derive(PartialEq, Debug, Clone)]
 pub struct Shoe {
     pub size: u32,
     pub style: String,
@@ -11,6 +13,7 @@ pub fn shoes_in_my_size(shoes: Vec<Shoe>, shoe_size: u32) -> Vec<Shoe> {
         .collect()
 }
 
+// ── 书版 Counter：产出 1..=5 ─────────────────────────
 pub struct Counter {
     count: u32,
 }
@@ -34,9 +37,55 @@ impl Iterator for Counter {
     }
 }
 
+// ── 13.2.1 CounterRange：curr..max ───────────────────
+pub struct CounterRange {
+    pub curr: usize,
+    pub max: usize,
+}
+
+impl Iterator for CounterRange {
+    type Item = usize;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.curr < self.max {
+            let res = self.curr;
+            self.curr += 1;
+            Some(res)
+        } else {
+            None
+        }
+    }
+}
+
+/// §一 惰性：collect 前不运算
+pub fn lazy_map_filter(arr: [i32; 3]) -> Vec<i32> {
+    let iter = arr.iter().map(|&x| x * 2).filter(|&v| v > 2);
+    iter.collect()
+}
+
+/// §五 返回 impl Iterator
+pub fn get_iter() -> impl Iterator<Item = i32> {
+    vec![1, 2, 3].into_iter().map(|x| x * 2)
+}
+
+/// §五 运行期两种迭代器 → Box<dyn>
+pub fn get_dyn(flag: bool) -> Box<dyn Iterator<Item = i32>> {
+    if flag {
+        Box::new(vec![1, 2].into_iter())
+    } else {
+        Box::new((0..5).into_iter())
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn lazy_until_collect() {
+        let out = lazy_map_filter([1, 2, 3]);
+        assert_eq!(out, vec![4, 6]);
+    }
 
     #[test]
     fn iterator_demonstration() {
@@ -47,13 +96,29 @@ mod tests {
         assert_eq!(v1_iter.next(), Some(&2));
         assert_eq!(v1_iter.next(), Some(&3));
         assert_eq!(v1_iter.next(), None);
+        assert_eq!(v1_iter.next(), None);
+    }
+
+    #[test]
+    fn iter_mut_bumps() {
+        let mut arr = vec![10, 20, 30];
+        for v in arr.iter_mut() {
+            *v += 1;
+        }
+        assert_eq!(arr, vec![11, 21, 31]);
+    }
+
+    #[test]
+    fn into_iter_moves() {
+        let arr = vec![1, 2, 3];
+        let owned: Vec<i32> = arr.into_iter().collect();
+        assert_eq!(owned, vec![1, 2, 3]);
     }
 
     #[test]
     fn iterator_sum() {
         let v1 = vec![1, 2, 3];
-        let v1_iter = v1.iter();
-        let total: i32 = v1_iter.sum();
+        let total: i32 = v1.iter().sum();
         assert_eq!(total, 6);
     }
 
@@ -111,6 +176,14 @@ mod tests {
     }
 
     #[test]
+    fn counter_range_sum() {
+        let sum: usize = CounterRange { curr: 1, max: 5 }
+            .map(|x| x * 2)
+            .sum();
+        assert_eq!(sum, 20);
+    }
+
+    #[test]
     fn using_other_iterator_trait_methods() {
         let sum: u32 = Counter::new()
             .zip(Counter::new().skip(1))
@@ -120,5 +193,15 @@ mod tests {
 
         assert_eq!(18, sum);
     }
-}
 
+    #[test]
+    fn impl_and_dyn_iterators() {
+        let impl_vals: Vec<i32> = get_iter().collect();
+        assert_eq!(impl_vals, vec![2, 4, 6]);
+
+        let dyn_a: Vec<i32> = get_dyn(true).collect();
+        let dyn_b: Vec<i32> = get_dyn(false).collect();
+        assert_eq!(dyn_a, vec![1, 2]);
+        assert_eq!(dyn_b, vec![0, 1, 2, 3, 4]);
+    }
+}
