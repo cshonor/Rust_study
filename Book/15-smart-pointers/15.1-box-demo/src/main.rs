@@ -23,11 +23,15 @@ impl List {
 }
 
 fn main() {
-    // 示例 15-1：堆上存放 i32
+    // §二 基础 Box
+    let box_num = Box::new(99);
+    assert_eq!(*box_num, 99);
+    println!("box_num = {box_num}");
+
     let b = Box::new(5);
     println!("b = {b}");
 
-    // 示例 15-5：用 Box 打破递归，构造 cons list 1 -> 2 -> 3 -> Nil
+    // §三 Cons 链表 1 -> 2 -> 3 -> Nil
     let list = Cons(
         1,
         Box::new(Cons(
@@ -35,7 +39,8 @@ fn main() {
             Box::new(Cons(3, Box::new(Nil))),
         )),
     );
+    let link = Cons(5, Box::new(Cons(9, Box::new(Nil))));
     println!("list = {list:?}");
-    println!("len = {}", list.len());
-    println!("sum = {}", list.sum());
+    println!("link = {link:?}");
+    println!("list len = {}, sum = {}", list.len(), list.sum());
 }
