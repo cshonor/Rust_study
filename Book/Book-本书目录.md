@@ -184,6 +184,7 @@
 |----|------|------|
 | 10.1 泛型 | [10.1](./10-generics-traits-lifetimes/10.1-泛型数据类型.md) | [10.1-generics-demo](./10-generics-traits-lifetimes/10.1-generics-demo/) |
 | 10.2 Trait | [10.2-trait.md](./10-generics-traits-lifetimes/10.2-trait.md) | [10.2-traits-demo](./10-generics-traits-lifetimes/10.2-traits-demo/) |
+| 10.2.1 | [Trait 语法速查](./10-generics-traits-lifetimes/10.2.1-Trait语法速查.md) | ↑ |
 | 10.3 生命周期（索引） | [10.3](./10-generics-traits-lifetimes/10.3-生命周期与引用有效性.md) | [10.3-lifetimes-demo](./10-generics-traits-lifetimes/10.3-lifetimes-demo/) |
 
 **10.3 专题拆分**

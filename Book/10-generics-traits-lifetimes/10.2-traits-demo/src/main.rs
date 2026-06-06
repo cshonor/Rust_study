@@ -54,6 +54,16 @@ fn notify_bound<T: Summary>(item: &T) {
     println!("Breaking news! {}", item.summarize());
 }
 
+// impl：a、b 可以是不同具体类型（各自 impl Summary）
+fn notify_two_impl(a: &impl Summary, b: &impl Summary) {
+    println!("{} | {}", a.summarize(), b.summarize());
+}
+
+// 泛型：a、b 必须是同一类型 T
+fn notify_two_same<T: Summary>(a: &T, b: &T) {
+    println!("same type: {} | {}", a.summarize(), b.summarize());
+}
+
 // --- 4) where 从句 ---
 fn print_two<T, U>(t: T, u: U)
 where
@@ -69,6 +79,16 @@ fn largest_copy<T: PartialOrd + Copy>(list: &[T]) -> T {
     for &item in list.iter() {
         if item > largest {
             largest = item;
+        }
+    }
+    largest
+}
+
+fn largest_clone<T: PartialOrd + Clone>(list: &[T]) -> T {
+    let mut largest = list[0].clone();
+    for item in list.iter() {
+        if item > &largest {
+            largest = item.clone();
         }
     }
     largest
@@ -131,6 +151,8 @@ fn main() {
     notify(&article);
     notify(&tweet);
     notify_bound(&tweet);
+    notify_two_impl(&article, &tweet);
+    // notify_two_same(&article, &tweet); // ❌ 不同类型，编译失败
 
     println!("\n=== 3) where 从句 ===");
     print_two("hello".to_string(), vec![1, 2, 3]);
@@ -141,9 +163,13 @@ fn main() {
 
     let words = vec!["aaa".to_string(), "zz".to_string(), "mmmm".to_string()];
     println!("largest_ref(words) = {}", largest_ref(&words));
+    println!("largest_clone(words) = {}", largest_clone(&words));
 
     println!("\n=== 5) 条件实现 Pair<T> ===");
     let p = Pair::new(3, 7);
     p.cmp_display();
+
+    println!("\n=== 6) Blanket impl: Display → ToString ===");
+    println!("10.to_string() = {}", 10_i32.to_string());
 }
 
