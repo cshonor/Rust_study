@@ -2,7 +2,7 @@
 //   cargo run              — 13.2.1 全段演示
 //   cargo run -- iter_kinds — 13.2.2 三种 iter 所有权
 
-use iterators_demo::{demo_iter_kinds, get_dyn, get_iter, lazy_map_filter, Counter, CounterRange};
+use iterators_demo::{demo_iter_kinds, demo_iter_structs, get_dyn, get_iter, lazy_map_filter, Counter, CounterRange};
 
 fn main() {
     let arg = std::env::args().nth(1);
@@ -12,6 +12,13 @@ fn main() {
         println!("=== 13.2.2 三种迭代生成方式 ===");
         demo_iter_kinds();
         println!("\nok: iter_kinds demo 完成");
+        return;
+    }
+
+    if mode == "iter_structs" {
+        println!("=== 13.2.3 Iter / IterMut / IntoIter ===");
+        demo_iter_structs();
+        println!("\nok: iter_structs demo 完成");
         return;
     }
 
@@ -64,5 +71,5 @@ fn main() {
         .sum();
     println!("  Counter zip/skip/filter sum: {}", zip_sum);
 
-    println!("\nok: 迭代器 demo 完成（加 -- iter_kinds 看 13.2.2）");
+    println!("\nok: 迭代器 demo 完成（-- iter_kinds | iter_structs）");
 }

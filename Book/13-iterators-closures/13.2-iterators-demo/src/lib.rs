@@ -68,6 +68,38 @@ pub fn get_iter() -> impl Iterator<Item = i32> {
     vec![1, 2, 3].into_iter().map(|x| x * 2)
 }
 
+/// 13.2.3：三种结构体顺序使用（每步 `{}` 释放借用，避免 iter+iter_mut 冲突）
+pub fn demo_iter_structs() {
+    let mut v = vec![10, 20, 30];
+
+    {
+        let it1 = v.iter();
+        let cnt = it1.count();
+        println!("  Iter<'_, i32> count = {}，v 仍 {:?}", cnt, v);
+    }
+
+    {
+        let it2 = v.iter_mut();
+        for x in it2 {
+            *x += 5;
+        }
+    }
+    println!("  IterMut 后 v = {:?}", v);
+
+    let v_ref = vec![1, 2, 3];
+    let r1: Vec<&i32> = v_ref.iter().collect();
+    println!("  iter+collect → {:?}（v_ref 仍 {:?}）", r1, v_ref);
+
+    let r2: Vec<i32> = v.into_iter().collect();
+    println!("  IntoIter+collect → {:?}", r2);
+    // v 已 move
+
+    // ❌ 编译失败示例（勿取消注释）：
+    // let mut v = vec![1, 2, 3];
+    // let _a = v.iter();
+    // let _b = v.iter_mut();
+}
+
 /// §13.2.2 三种 iter 演示（作用域避免借用冲突）
 pub fn demo_iter_kinds() {
     let mut v = vec![10, 20, 30];
@@ -146,6 +178,22 @@ mod tests {
             *v += 1;
         }
         assert_eq!(arr, vec![11, 21, 31]);
+    }
+
+    #[test]
+    fn iter_structs_sequential_ok() {
+        let mut v = vec![10, 20, 30];
+        {
+            let _it1 = v.iter();
+            assert_eq!(_it1.count(), 3);
+        }
+        {
+            let mut it2 = v.iter_mut();
+            it2.next().map(|x| *x *= 2);
+        }
+        assert_eq!(v[0], 20);
+        let out: Vec<i32> = v.into_iter().collect();
+        assert_eq!(out, vec![20, 20, 30]);
     }
 
     #[test]
