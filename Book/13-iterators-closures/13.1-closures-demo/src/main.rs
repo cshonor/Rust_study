@@ -9,20 +9,18 @@ fn simulated_expensive_calculation(intensity: u32) -> u32 {
     intensity
 }
 
-fn generate_workout_without_cache(intensity: u32, random_number: u32) {
-    let expensive_closure = |num: u32| -> u32 {
-        println!("calculating slowly...");
-        thread::sleep(Duration::from_secs(2));
-        num
-    };
+fn fast_calc(intensity: u32) -> u32 {
+    intensity
+}
 
+fn generate_workout_without_cache(intensity: u32, random_number: u32, calc: fn(u32) -> u32) {
     if intensity < 25 {
-        println!("Today, do {} pushups!", expensive_closure(intensity));
-        println!("Next, do {} situps!", expensive_closure(intensity));
+        println!("Today, do {} pushups!", calc(intensity));
+        println!("Next, do {} situps!", calc(intensity));
     } else if random_number == 3 {
         println!("Take a break today! Remember to stay hydrated!");
     } else {
-        println!("Today, run for {} minutes!", expensive_closure(intensity));
+        println!("Today, run for {} minutes!", calc(intensity));
     }
 }
 
@@ -90,8 +88,8 @@ where
     }
 }
 
-fn generate_workout_with_cache(intensity: u32, random_number: u32) {
-    let mut expensive = CacherOnce::new(simulated_expensive_calculation);
+fn generate_workout_with_cache(intensity: u32, random_number: u32, calc: fn(u32) -> u32) {
+    let mut expensive = CacherOnce::new(calc);
 
     if intensity < 25 {
         println!("Today, do {} pushups!", expensive.value(intensity));
@@ -104,13 +102,10 @@ fn generate_workout_with_cache(intensity: u32, random_number: u32) {
 }
 
 fn closure_capture_examples() {
-    // Fn：不可变借用捕获
     let x = 4;
     let equal_to_x = |z: i32| z == x;
-    let y = 4;
-    assert!(equal_to_x(y));
+    assert!(equal_to_x(4));
 
-    // FnMut：可变借用捕获
     let mut count = 0;
     let mut inc = || {
         count += 1;
@@ -119,30 +114,53 @@ fn closure_capture_examples() {
     assert_eq!(1, inc());
     assert_eq!(2, inc());
 
-    // FnOnce：move 捕获并消费
     let v = vec![1, 2, 3];
     let consume = move || v;
-    let got = consume();
-    assert_eq!(got, vec![1, 2, 3]);
+    assert_eq!(consume(), vec![1, 2, 3]);
 }
 
-fn main() {
-    let simulated_user_specified_value = 10;
-    let simulated_random_number = 7;
+fn thread_move_example() {
+    let s = String::from("hello");
+    let handle = thread::spawn(move || {
+        println!("thread move: {s}");
+    });
+    handle.join().unwrap();
+}
 
-    println!("== Without cache ==");
-    generate_workout_without_cache(simulated_user_specified_value, simulated_random_number);
+fn run_quick() {
+    println!("== quick: CacherOnce (fast_calc) ==");
+    generate_workout_with_cache(10, 7, fast_calc);
 
-    println!("\n== With cache (CacherOnce) ==");
-    generate_workout_with_cache(simulated_user_specified_value, simulated_random_number);
+    let mut c = CacherMap::new(|a: &u32| -> u32 { a * 10 });
+    assert_eq!(10, c.value(1));
+    assert_eq!(20, c.value(2));
+    assert_eq!(10, c.value(1));
 
-    // 通用缓存（HashMap）演示：同一个闭包对不同输入各缓存一次
+    closure_capture_examples();
+    thread_move_example();
+    println!("quick: all passed");
+}
+
+fn run_full() {
+    println!("== Without cache (slow x2) ==");
+    generate_workout_without_cache(10, 7, simulated_expensive_calculation);
+
+    println!("\n== With CacherOnce (slow x1) ==");
+    generate_workout_with_cache(10, 7, simulated_expensive_calculation);
+
     let mut c = CacherMap::new(|a: &u32| -> u32 { *a });
     assert_eq!(1, c.value(1));
     assert_eq!(2, c.value(2));
-    assert_eq!(1, c.value(1));
 
     closure_capture_examples();
+    thread_move_example();
     println!("\nAll closure examples passed.");
 }
 
+fn main() {
+    let mode = std::env::args().nth(1).unwrap_or_else(|| "full".to_string());
+    match mode.as_str() {
+        "quick" => run_quick(),
+        "full" | _ => run_full(),
+    }
+}
