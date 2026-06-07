@@ -243,9 +243,10 @@
 |----|------|------|
 | 13.1 闭包 | [13.1](./13-iterators-closures/13.1-闭包.md) | [13.1-closures-demo](./13-iterators-closures/13.1-closures-demo/) |
 | 13.1.1 | [闭包四段式语法](./13-iterators-closures/13.1.1-闭包四段式语法.md) | ↑ |
-| 13.1.2 | [类型推导易错点](./13-iterators-closures/13.1.2-闭包类型推导易错点.md) | ↑ |
-| 13.1.3 | [move 闭包详解](./13-iterators-closures/13.1.3-move闭包详解.md) | ↑ |
+| 13.1.2 | [参数 vs 捕获](./13-iterators-closures/13.1.2-参数与捕获.md) | ↑ |
+| 13.1.3 | [类型推导易错点](./13-iterators-closures/13.1.3-闭包类型推导易错点.md) | ↑ |
 | 13.1.4 | [Fn / FnMut / FnOnce](./13-iterators-closures/13.1.4-Fn-FnMut-FnOnce三大捕获trait.md) | ↑ |
+| 13.1.5 | [move 闭包详解](./13-iterators-closures/13.1.5-move闭包详解.md) | ↑ |
 | 13.2 迭代器 | [13.2](./13-iterators-closures/13.2-使用迭代器处理元素序列.md) | [13.2-iterators-demo](./13-iterators-closures/13.2-iterators-demo/) |
 | 13.2.1 | [迭代器精讲](./13-iterators-closures/13.2.1-迭代器精讲.md) | ↑ |
 | 13.2.2 | [三种 iter 生成方式](./13-iterators-closures/13.2.2-三种迭代生成方式.md) | ↑ |

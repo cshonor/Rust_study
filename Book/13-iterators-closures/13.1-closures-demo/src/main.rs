@@ -138,7 +138,7 @@ fn closure_capture_examples() {
 }
 
 fn type_inference_examples() {
-    // 调用推导 — 见 13.1.2
+    // 调用推导 — 见 13.1.3
     let add = |x| x + 1;
     assert_eq!(add(5i32), 6);
 
@@ -146,7 +146,7 @@ fn type_inference_examples() {
     let add_annotated = |x: i32| -> i32 { x + 1 };
     assert_eq!(add_annotated(3), 4);
 
-    // let _fail = |x| x + 1; // ❌ E0282 if never called — see 13.1.2
+    // let _fail = |x| x + 1; // ❌ E0282 if never called — see 13.1.3
 }
 
 fn move_vs_borrow_examples() {
@@ -159,6 +159,20 @@ fn move_vs_borrow_examples() {
     let owned = move || println!("  move: {s2}");
     owned();
     // println!("{s2}"); // ❌ E0382 — ownership moved
+
+    // move + Copy：改闭包内副本，外面不变（13.1.5 §三）
+    let mut a = 1;
+    let mut f_borrow = || a += 1;
+    f_borrow();
+    assert_eq!(a, 2);
+
+    let mut b = 1;
+    let mut f_move = move || {
+        b += 1;
+        b
+    };
+    assert_eq!(f_move(), 2); // 闭包内副本变成 2
+    assert_eq!(b, 1);        // 外面仍是 1
 }
 
 fn fn_trait_examples() {
