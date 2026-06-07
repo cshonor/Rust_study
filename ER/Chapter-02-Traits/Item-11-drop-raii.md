@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [x] demo：[15.3-drop-demo](../../Book/15-smart-pointers/15.3-drop-demo/)（`cargo run` · `-- early` · `-- guard` · `-- manual`）
+- [x] demo：[15.3-drop-demo](../../Book/15-smart-pointers/15.3-drop-demo/)（`cargo run -- custom` · `-- early` · `-- guard` · `-- manual`）
 
 ---
 
@@ -38,6 +38,8 @@ trait Drop {
 ```
 
 - 内存回收**前**由编译器**自动**调用（离开 `{}`、变量被 move 走且旧值 drop 等）。
+- **默认**：只递归 drop 字段、释放内存。
+- **手写 `impl Drop`**：**替换**默认路径 —— 先跑你的 `drop`（外部资源），再自动 drop 字段；**不是叠加** → [15.3 §二](../../Book/15-smart-pointers/15.3-使用Drop运行清理代码.md#二默认-drop-vs-手写-drop替换不是叠加)
 - 与 C++ 析构函数同类思想；Rust 用**所有权 + 作用域**强制配对。
 
 ---
@@ -92,15 +94,17 @@ Rust：构造拿资源 + Drop 放资源（词法作用域）
 
 ## 5. 易错细节
 
-### 不要写 `x.drop()`
+### 不要写 `x.drop()`；也不要在 `drop` 里手动 drop 字段
 
 ```rust
 // x.drop(); // ❌ explicit use of destructor method
+// drop(self.buf); // ❌ 字段由编译器后补，手动 → double free
 
 std::mem::drop(x); // ✅ 按所有权消费 x，再 drop
 ```
 
 - `Drop::drop` 是 **`&mut self`**：若允许手动调，对象还在作用域里却已被清理 → **僵尸对象**。
+- **字段内存**：你的 `drop` 返回后编译器自动回收；**只写外部资源**（fd/锁/FFI）。
 - **`mem::drop`** 先 **move** 再析构，生命周期正确结束。
 
 ### `Drop` 里不能报告失败

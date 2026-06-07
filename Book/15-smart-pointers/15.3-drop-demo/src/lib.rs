@@ -55,7 +55,36 @@ impl Drop for Resource {
     }
 }
 
-/// §二 作用域结束自动 drop + §一 LIFO 顺序
+/// 带 Drop 日志的字段，观察「自定义 drop 之后字段才 drop」
+struct FieldTag(&'static str);
+
+impl Drop for FieldTag {
+    fn drop(&mut self) {
+        println!("  字段 {} 内存回收", self.0);
+    }
+}
+
+/// §二 模拟 FileHandle：外部资源 + 内存字段
+pub struct FileHandle {
+    pub fd: i32,
+    buf: FieldTag,
+}
+
+impl Drop for FileHandle {
+    fn drop(&mut self) {
+        println!("  手动执行：关闭 fd = {}（外部资源）", self.fd);
+    }
+}
+
+pub fn demo_custom_drop_then_fields() {
+    let _fh = FileHandle {
+        fd: 10,
+        buf: FieldTag("buf/Vec"),
+    };
+    println!("  FileHandle 创建完成，即将出作用域");
+}
+
+/// §三 作用域结束自动 drop + §五 LIFO 顺序
 pub fn demo_scope_and_order() {
     println!("  --- 进入内层作用域 ---");
     {

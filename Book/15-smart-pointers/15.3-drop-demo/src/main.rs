@@ -1,18 +1,26 @@
 // 15.3 Drop demo
 //   cargo run           — 作用域 + LIFO 顺序
+//   cargo run -- custom — FileHandle：手写 drop + 字段回收
 //   cargo run -- early  — std::mem::drop
 //   cargo run -- nested — Outer/Inner + Vec 正序
 //   cargo run -- guard  — MutexGuard RAII
 //   cargo run -- manual — ManuallyDrop
 
 use drop_demo::{
-    demo_manually_drop, demo_mem_drop_early, demo_mutex_guard_drop, demo_nested_drop,
-    demo_scope_and_order, demo_vec_drop_order,
+    demo_custom_drop_then_fields, demo_manually_drop, demo_mem_drop_early, demo_mutex_guard_drop,
+    demo_nested_drop, demo_scope_and_order, demo_vec_drop_order,
 };
 
 fn main() {
     let arg = std::env::args().nth(1);
     let mode = arg.as_deref().unwrap_or("full");
+
+    if mode == "custom" {
+        println!("=== 15.3 §二 手写 Drop → 字段自动回收 ===\n");
+        demo_custom_drop_then_fields();
+        println!("\nok: custom demo 完成");
+        return;
+    }
 
     if mode == "early" {
         println!("=== 15.3 §三 mem::drop 提前释放 ===\n");
@@ -46,5 +54,5 @@ fn main() {
 
     println!("=== 15.3 作用域自动 drop + LIFO ===\n");
     demo_scope_and_order();
-    println!("\nok: drop demo 完成（-- early | -- nested | -- guard | -- manual）");
+    println!("\nok: drop demo 完成（-- custom | -- early | -- nested | -- guard | -- manual）");
 }
