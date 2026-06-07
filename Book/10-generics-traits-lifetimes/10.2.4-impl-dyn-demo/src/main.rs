@@ -1,6 +1,6 @@
 // 10.2.4 impl vs dyn · 10.2.6 胖指针与虚表 demo
 //   cargo run           — impl vs dyn 全段
-//   cargo run -- vtable — 胖指针 size · 多 trait 虚表
+//   cargo run -- multi_vtable — 10.2.7 多 Trait 多虚表
 
 trait Animal {
     fn cry(&self);
@@ -84,6 +84,64 @@ fn demo_vtable() {
     println!("\nok: vtable 胖指针 demo 完成");
 }
 
+// ── 10.2.7：A 实现 T1/T2/T3 → 3 张虚表 ───────────────
+trait T1 {
+    fn f1(&self);
+}
+trait T2 {
+    fn f2(&self);
+}
+trait T3 {
+    fn f3(&self);
+}
+
+struct A;
+
+impl T1 for A {
+    fn f1(&self) {
+        println!("  T1::f1");
+    }
+}
+impl T2 for A {
+    fn f2(&self) {
+        println!("  T2::f2");
+    }
+}
+impl T3 for A {
+    fn f3(&self) {
+        println!("  T3::f3");
+    }
+}
+
+fn use_t1(x: &dyn T1) {
+    x.f1();
+}
+fn use_t2(x: &dyn T2) {
+    x.f2();
+}
+fn use_t3(x: &dyn T3) {
+    x.f3();
+}
+
+fn demo_multi_vtable() {
+    println!("=== 10.2.7 A 实现 T1+T2+T3 → 3 张独立虚表 ===");
+    let a = A;
+
+    println!("\n  dyn T1（vtable → A 的 T1 表）:");
+    use_t1(&a);
+    println!("  dyn T2（vtable → A 的 T2 表）:");
+    use_t2(&a);
+    println!("  dyn T3（vtable → A 的 T3 表）:");
+    use_t3(&a);
+
+    println!("\n  同一 A：分别 &dyn T1 与 &dyn T2（各查各虚表，无合并表）:");
+    use_t1(&a);
+    use_t2(&a);
+    // fn bad(x: &dyn T1 + T2) {} // ❌ stable：E0225 两个 non-auto trait
+
+    println!("\nok: multi_vtable demo 完成");
+}
+
 fn run_full() {
     println!("=== §1 speak_impl — 静态单态化 ===");
     speak_impl(Dog);
@@ -123,6 +181,11 @@ fn main() {
 
     if mode == "vtable" {
         demo_vtable();
+        return;
+    }
+
+    if mode == "multi_vtable" {
+        demo_multi_vtable();
         return;
     }
 
