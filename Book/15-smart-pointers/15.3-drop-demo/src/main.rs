@@ -1,34 +1,50 @@
-struct CustomSmartPointer {
-    data: String,
-}
+// 15.3 Drop demo
+//   cargo run           — 作用域 + LIFO 顺序
+//   cargo run -- early  — std::mem::drop
+//   cargo run -- nested — Outer/Inner + Vec 正序
+//   cargo run -- guard  — MutexGuard RAII
+//   cargo run -- manual — ManuallyDrop
 
-impl Drop for CustomSmartPointer {
-    fn drop(&mut self) {
-        println!("Dropping CustomSmartPointer with data `{}`!", self.data);
-    }
-}
-
-/// 示例 15-14：作用域结束时自动 `drop`，顺序与创建相反（先 `d` 后 `c`）。
-#[allow(unused_variables)]
-fn demo_drop_order() {
-    let c = CustomSmartPointer {
-        data: String::from("my stuff"),
-    };
-    let d = CustomSmartPointer {
-        data: String::from("other stuff"),
-    };
-    println!("CustomSmartPointers created.");
-}
+use drop_demo::{
+    demo_manually_drop, demo_mem_drop_early, demo_mutex_guard_drop, demo_nested_drop,
+    demo_scope_and_order, demo_vec_drop_order,
+};
 
 fn main() {
-    demo_drop_order();
+    let arg = std::env::args().nth(1);
+    let mode = arg.as_deref().unwrap_or("full");
 
-    println!("\n--- early drop (示例 15-16) ---\n");
+    if mode == "early" {
+        println!("=== 15.3 §三 mem::drop 提前释放 ===\n");
+        demo_mem_drop_early();
+        println!("\nok: early demo 完成");
+        return;
+    }
 
-    let c = CustomSmartPointer {
-        data: String::from("some data"),
-    };
-    println!("CustomSmartPointer created.");
-    std::mem::drop(c);
-    println!("CustomSmartPointer dropped before the end of main.");
+    if mode == "nested" {
+        println!("=== 15.3.1 嵌套 + Vec drop 顺序 ===\n");
+        demo_nested_drop();
+        println!();
+        demo_vec_drop_order();
+        println!("\nok: nested demo 完成");
+        return;
+    }
+
+    if mode == "guard" {
+        println!("=== 15.3 §四 MutexGuard RAII ===\n");
+        demo_mutex_guard_drop();
+        println!("\nok: guard demo 完成");
+        return;
+    }
+
+    if mode == "manual" {
+        println!("=== 15.3.1 ManuallyDrop ===\n");
+        demo_manually_drop();
+        println!("\nok: manual demo 完成");
+        return;
+    }
+
+    println!("=== 15.3 作用域自动 drop + LIFO ===\n");
+    demo_scope_and_order();
+    println!("\nok: drop demo 完成（-- early | -- nested | -- guard | -- manual）");
 }

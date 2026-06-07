@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo（见 [ER-demos 索引](../ER-demos/README.md) / Book demo）
+- [x] demo：[15.3-drop-demo](../../Book/15-smart-pointers/15.3-drop-demo/)（`cargo run` · `-- early` · `-- guard` · `-- manual`）
 
 ---
 
@@ -15,7 +15,7 @@
 
 | 主题 | 本仓库 |
 |------|--------|
-| RAII、`Drop` | [15.3 使用 Drop 运行清理代码](../../Book/15-smart-pointers/15.3-使用Drop运行清理代码.md) |
+| RAII、`Drop` | [15.3 使用 Drop 运行清理代码](../../Book/15-smart-pointers/15.3-使用Drop运行清理代码.md) · [15.3.1 顺序/进阶](../../Book/15-smart-pointers/15.3.1-Drop顺序与进阶场景.md) |
 | `MutexGuard` 示例 | [16.3 共享状态并发](../../Book/16-fearless-concurrency/16.3-共享状态并发.md) |
 | 所有权、作用域 | [4.1 所有权](../../Book/04-ownership/4.1-什么是所有权.md) |
 | FFI 资源 | [Item 34](../Chapter-06-Beyond-Standard-Rust/Item-34-ffi-boundaries.md)（ER） |

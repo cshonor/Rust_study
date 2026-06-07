@@ -275,8 +275,8 @@
 - [x] `Deref` 与 `DerefMut` → [15.2.1 嵌套/坑点](./Book/15-smart-pointers/15.2.1-Deref嵌套可变与编译坑.md)
 
 ### 15.3 使用 Drop Trait 运行清理代码
-- [ ] 析构逻辑
-- [ ] `drop` 函数
+- [x] 析构逻辑 → [15.3](./Book/15-smart-pointers/15.3-使用Drop运行清理代码.md)
+- [x] `drop` 函数 · `mem::drop` → [15.3.1](./Book/15-smart-pointers/15.3.1-Drop顺序与进阶场景.md)
 
 ### 15.4 Rc\<T\> 引用计数智能指针
 - [ ] 多所有权
