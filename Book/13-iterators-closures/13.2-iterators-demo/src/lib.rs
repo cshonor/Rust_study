@@ -184,7 +184,7 @@ pub fn get_iter() -> impl Iterator<Item = i32> {
     vec![1, 2, 3].into_iter().map(|x| x * 2)
 }
 
-/// 13.2.3：三种结构体顺序使用（每步 `{}` 释放借用，避免 iter+iter_mut 冲突）
+/// 13.2.6：三种结构体顺序使用（每步 `{}` 释放借用，避免 iter+iter_mut 冲突）
 pub fn demo_iter_structs() {
     let mut v = vec![10, 20, 30];
 
@@ -216,7 +216,7 @@ pub fn demo_iter_structs() {
     // let _b = v.iter_mut();
 }
 
-/// §13.2.2 三种 iter 演示（作用域避免借用冲突）
+/// §13.2.5 三种 iter 演示（作用域避免借用冲突）
 pub fn demo_iter_kinds() {
     let mut v = vec![10, 20, 30];
 
