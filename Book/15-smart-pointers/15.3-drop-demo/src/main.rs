@@ -5,11 +5,12 @@
 //   cargo run -- nested — Outer/Inner + Vec 正序
 //   cargo run -- guard  — MutexGuard RAII
 //   cargo run -- manual — ManuallyDrop
+//   cargo run -- lifo   — Tag self.0 + LIFO 顺序
 //   cargo run -- socket  — 15.3.2 TcpSocket / Conn / move
 
 use drop_demo::{
     demo_custom_drop_then_fields, demo_manually_drop, demo_mem_drop_early, demo_mutex_guard_drop,
-    demo_nested_drop, demo_scope_and_order, demo_socket_all, demo_vec_drop_order,
+    demo_nested_drop, demo_scope_and_order, demo_socket_all, demo_tag_lifo, demo_vec_drop_order,
 };
 
 fn main() {
@@ -46,6 +47,13 @@ fn main() {
         return;
     }
 
+    if mode == "lifo" {
+        println!("=== 15.3.1 Tag + self.0 · LIFO ===\n");
+        demo_tag_lifo();
+        println!("\nok: lifo demo 完成");
+        return;
+    }
+
     if mode == "socket" {
         println!("=== 15.3.2 Drop 与网络 Socket RAII ===\n");
         demo_socket_all();
@@ -62,5 +70,5 @@ fn main() {
 
     println!("=== 15.3 作用域自动 drop + LIFO ===\n");
     demo_scope_and_order();
-    println!("\nok: drop demo 完成（-- custom | -- socket | -- early | -- nested | -- guard | -- manual）");
+    println!("\nok: drop demo 完成（-- lifo | -- custom | -- socket | -- early | -- nested | -- guard | -- manual）");
 }

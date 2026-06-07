@@ -84,6 +84,14 @@ pub fn demo_custom_drop_then_fields() {
     println!("  FileHandle 创建完成，即将出作用域");
 }
 
+/// §15.3.1 LIFO：Tag("a") / Tag("b")，验证 drop b → drop a
+pub fn demo_tag_lifo() {
+    println!("  创建 a，再创建 b…");
+    let _a = Tag("a");
+    let _b = Tag("b");
+    println!("  即将出作用域（预期先 drop b，再 drop a）");
+}
+
 /// §三 作用域结束自动 drop + §五 LIFO 顺序
 pub fn demo_scope_and_order() {
     println!("  --- 进入内层作用域 ---");
