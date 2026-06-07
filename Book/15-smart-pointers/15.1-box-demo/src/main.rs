@@ -1,46 +1,25 @@
-#[derive(Debug)]
-enum List {
-    Cons(i32, Box<List>),
-    Nil,
-}
+// 15.1 Box demo
+//   cargo run        — 基础 Box + Cons 链表
+//   cargo run -- drop — Box 出作用域释堆
 
-use crate::List::{Cons, Nil};
-
-impl List {
-    fn len(&self) -> usize {
-        match self {
-            Cons(_, rest) => 1 + rest.len(),
-            Nil => 0,
-        }
-    }
-
-    fn sum(&self) -> i32 {
-        match self {
-            Cons(head, rest) => head + rest.sum(),
-            Nil => 0,
-        }
-    }
-}
+use box_demo::{demo_box_basics, demo_box_drop_scope, demo_cons_list};
 
 fn main() {
-    // §二 基础 Box
-    let box_num = Box::new(99);
-    assert_eq!(*box_num, 99);
-    println!("box_num = {box_num}");
+    let arg = std::env::args().nth(1);
+    let mode = arg.as_deref().unwrap_or("full");
 
-    let b = Box::new(5);
-    println!("b = {b}");
+    if mode == "drop" {
+        println!("=== 15.1 §四 Box + Drop 释堆 ===\n");
+        demo_box_drop_scope();
+        println!("\nok: drop demo 完成");
+        return;
+    }
 
-    // §三 Cons 链表 1 -> 2 -> 3 -> Nil
-    let list = Cons(
-        1,
-        Box::new(Cons(
-            2,
-            Box::new(Cons(3, Box::new(Nil))),
-        )),
-    );
-    let link = Cons(5, Box::new(Cons(9, Box::new(Nil))));
-    println!("list = {list:?}");
-    println!("link = {link:?}");
-    println!("list len = {}, sum = {}", list.len(), list.sum());
+    println!("=== 15.1 §三 基础 Box + Deref ===\n");
+    demo_box_basics();
+
+    println!("\n=== 15.1 §二 Cons 链表 1→2→3 ===\n");
+    demo_cons_list();
+
+    println!("\nok: box demo 完成（-- drop）");
 }
