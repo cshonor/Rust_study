@@ -311,7 +311,7 @@
 | 节 | 笔记 | demo |
 |----|------|------|
 | 18.1 模式位置 | [18.1](./18-patterns/18.1-所有可能会用到模式的位置.md) | [18.1-pattern-locations-demo](./18-patterns/18.1-pattern-locations-demo/) |
-| 18.2 可反驳性 | [18.2](./18-patterns/18.2-可反驳性-模式是否会匹配失效.md) | [18.2-refutability-demo](./18-patterns/18.2-refutability-demo/) |
+| 18.2 可反驳性 | [18.2](./18-patterns/18.2-可反驳性-模式是否会匹配失效.md)（边界 · 易错 · 整合 demo） | [18.2-refutability-demo](./18-patterns/18.2-refutability-demo/) |
 | 18.3 模式语法 | [18.3](./18-patterns/18.3-模式语法.md) | [18.3-pattern-syntax-demo](./18-patterns/18.3-pattern-syntax-demo/) |
 
 ---
