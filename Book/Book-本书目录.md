@@ -301,7 +301,7 @@
 | 节 | 笔记 | demo |
 |----|------|------|
 | 17.1 OOP 特征 | [17.1](./17-oop/17.1-面向对象语言的特征.md)（对象 · 封装 · Trait 替代继承 · 多态） | [17.1-averaged-collection-demo](./17-oop/17.1-averaged-collection-demo/) |
-| 17.2 Trait 对象 | [17.2](./17-oop/17.2-为使用不同类型的值而设计的trait对象.md)（枚举对比 · 对象安全 · GUI demo） | [17.2-trait-objects-demo](./17-oop/17.2-trait-objects-demo/) |
+| 17.2 Trait 对象 | [17.2](./17-oop/17.2-为使用不同类型的值而设计的trait对象.md)（DST · 对象安全 · 易错点 · GUI demo） | [17.2-trait-objects-demo](./17-oop/17.2-trait-objects-demo/) |
 | 17.3 状态模式 | [17.3](./17-oop/17.3-状态模式与博客工作流.md) | [17.3-blog-workflow-demo](./17-oop/17.3-blog-workflow-demo/) |
 
 ---

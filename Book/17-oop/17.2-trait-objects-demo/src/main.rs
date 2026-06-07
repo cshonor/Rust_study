@@ -1,10 +1,12 @@
 // 17.2 Trait 对象 demo
-//   cargo run           — GUI Draw 完整 demo（含扩展 SelectBox）
-//   cargo run -- compare — 枚举 vs 泛型 vs trait 对象
-//   cargo run -- safety  — 对象安全规则
+//   cargo run            — GUI Draw 完整 demo（含扩展 SelectBox）
+//   cargo run -- compare   — 枚举 vs 泛型 vs trait 对象
+//   cargo run -- safety    — 对象安全规则
+//   cargo run -- pitfalls  — 易错点 + 编译报错对照
 
 use trait_objects_gui_demo::{
-    demo_enum_vs_dyn_notes, demo_generic_vs_dyn_notes, demo_gui_trait_objects,
+    demo_compile_error_notes, demo_enum_vs_dyn_notes, demo_generic_vs_dyn_notes,
+    demo_gui_trait_objects, demo_gui_with_extension, demo_mutable_trait_object,
     demo_object_safety_notes, Draw, Screen,
 };
 
@@ -36,20 +38,24 @@ fn main() {
         return;
     }
 
+    if mode == "pitfalls" {
+        println!("=== 17.2 易错点 & 编译报错对照 ===\n");
+        demo_compile_error_notes();
+        println!();
+        demo_mutable_trait_object();
+        println!("\nok: pitfalls demo 完成");
+        return;
+    }
+
     println!("=== 17.2 GUI Trait 对象 Demo ===\n");
     demo_gui_trait_objects();
 
-    // 扩展：新增 SelectBox，不改 Screen / Draw
-    println!("\n--- 扩展 SelectBox（不修改库代码）---");
-    let mut screen = Screen::new();
-    screen.add_component(Box::new(trait_objects_gui_demo::Button {
-        label: "确定".into(),
-    }));
-    screen.add_component(Box::new(trait_objects_gui_demo::TextField {
-        content: "请输入内容".into(),
-    }));
-    screen.add_component(Box::new(SelectBox));
-    screen.run();
+    demo_gui_with_extension(|screen| {
+        screen.add_component(Box::new(SelectBox));
+    });
 
-    println!("\nok: trait objects demo 完成（-- compare / -- safety）");
+    println!("\n--- 可变 trait 对象 ---");
+    demo_mutable_trait_object();
+
+    println!("\nok: trait objects demo 完成（-- compare / -- safety / -- pitfalls）");
 }
