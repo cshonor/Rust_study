@@ -341,19 +341,19 @@
 → [19 章导读](./Book/19-advanced-features/19-章节导读.md)
 
 ### 19.1 不安全的 Rust
-- [ ] unsafe 五大超能力 · FFI · 封装 → [19.1](./Book/19-advanced-features/19.1-不安全Rust.md)
+- [x] 五大超能力 · 示例 · 易错点 → [19.1](./Book/19-advanced-features/19.1-不安全Rust.md)
 
 ### 19.2 高级 trait
-- [ ] 关联类型 · 完全限定语法 · supertrait · newtype → [19.2](./Book/19-advanced-features/19.2-高级trait.md)
+- [x] 关联类型 · FQS · supertrait · newtype → [19.2](./Book/19-advanced-features/19.2-高级trait.md)
 
 ### 19.3 高级类型
-- [ ] `!` · DST · ZST · `?Sized` → [19.3](./Book/19-advanced-features/19.3-高级类型.md)
+- [x] `!` · DST · ZST · 别名 vs newtype → [19.3](./Book/19-advanced-features/19.3-高级类型.md)
 
 ### 19.4 高级函数与闭包
-- [ ] `fn` · `Fn*` · 返回闭包 → [19.4](./Book/19-advanced-features/19.4-高级函数与闭包.md)
+- [x] `fn` · `Fn*` · 返回闭包 → [19.4](./Book/19-advanced-features/19.4-高级函数与闭包.md)
 
 ### 19.5 宏
-- [ ] `macro_rules!` · 过程宏 · hygiene → [19.5](./Book/19-advanced-features/19.5-宏.md)
+- [x] `macro_rules!` · 过程宏 · hygiene → [19.5](./Book/19-advanced-features/19.5-宏.md)
 
 ---
 
