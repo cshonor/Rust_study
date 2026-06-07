@@ -55,6 +55,19 @@ fn make_adder() -> impl Fn(i32) -> i32 {
     |x| x + 5
 }
 
+// §0 dyn Fn() 必须 & 或 Box（10.2.5 §一 !Sized）
+fn call_dyn_fn(f: &dyn Fn()) {
+    f();
+}
+
+fn call_static_fn<F: Fn()>(f: F) {
+    f();
+}
+
+fn call_mut_fn(f: &mut dyn FnMut()) {
+    f();
+}
+
 fn demo_vtable_story() {
     println!("=== 10.2.6 虚表通俗流程 ===\n");
 
@@ -176,7 +189,15 @@ fn demo_multi_vtable() {
 }
 
 fn run_full() {
-    println!("=== §1 speak_impl — 静态单态化 ===");
+    println!("=== §0 &dyn Fn() vs 静态 Fn() ===");
+    let c = || println!("  hello from closure");
+    call_dyn_fn(&c);
+    call_static_fn(c);
+
+    let mut m = || println!("  FnMut call");
+    call_mut_fn(&mut m);
+
+    println!("\n=== §1 speak_impl — 静态单态化 ===");
     speak_impl(Dog);
     speak_impl(Cat);
 
