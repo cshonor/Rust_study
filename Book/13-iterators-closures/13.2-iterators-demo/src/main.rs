@@ -1,8 +1,12 @@
 // 13.2 迭代器 demo
 //   cargo run              — 13.2.1 全段演示
+//   cargo run -- lazy      — 13.2.4 惰性分步打印
 //   cargo run -- iter_kinds — 13.2.2 三种 iter 所有权
 
-use iterators_demo::{demo_iter_kinds, demo_iter_structs, get_dyn, get_iter, lazy_map_filter, Counter, CounterRange};
+use iterators_demo::{
+    demo_iter_kinds, demo_iter_structs, demo_lazy_all, get_dyn, get_iter, lazy_map_filter,
+    Counter, CounterRange,
+};
 
 fn main() {
     let arg = std::env::args().nth(1);
@@ -12,6 +16,13 @@ fn main() {
         println!("=== 13.2.2 三种迭代生成方式 ===");
         demo_iter_kinds();
         println!("\nok: iter_kinds demo 完成");
+        return;
+    }
+
+    if mode == "lazy" {
+        println!("=== 13.2.4 惰性演示：适配器 vs 消费器 ===\n");
+        demo_lazy_all();
+        println!("\nok: lazy demo 完成");
         return;
     }
 
@@ -71,5 +82,5 @@ fn main() {
         .sum();
     println!("  Counter zip/skip/filter sum: {}", zip_sum);
 
-    println!("\nok: 迭代器 demo 完成（-- iter_kinds | iter_structs）");
+    println!("\nok: 迭代器 demo 完成（-- lazy | -- iter_kinds | -- iter_structs）");
 }

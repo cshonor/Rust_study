@@ -57,10 +57,101 @@ impl Iterator for CounterRange {
     }
 }
 
-/// §一 惰性：collect 前不运算
+/// §一 惰性：collect 前不运算（无日志，供 test）
 pub fn lazy_map_filter(arr: [i32; 3]) -> Vec<i32> {
     let iter = arr.iter().map(|&x| x * 2).filter(|&v| v > 2);
     iter.collect()
+}
+
+// ── 13.2.4 惰性分步演示（带 println）──────────────────
+
+pub fn demo_lazy_map_collect() {
+    let v = vec![1, 2, 3];
+    let iter = v.iter().map(|x| {
+        println!("  正在处理元素: {}", x);
+        x * 2
+    });
+    println!("  ===== 构建完迭代器，还没消费 =====");
+    let result: Vec<_> = iter.collect();
+    println!("  最终结果: {:?}", result);
+}
+
+pub fn demo_lazy_map_filter_chain() {
+    let v = vec![1, 2, 3, 4, 5];
+    let iter = v.iter().map(|x| {
+        println!("  map 处理: {}", x);
+        x * 2
+    }).filter(|&x| {
+        println!("  filter 判断: {}", x);
+        x > 5
+    });
+    println!("  ===== 规则组装完成，未执行 =====");
+    let res: Vec<_> = iter.collect();
+    println!("  筛选结果: {:?}", res);
+}
+
+pub fn demo_lazy_skip_take() {
+    let v = vec![10, 20, 30, 40];
+
+    let iter = v.iter().skip(2);
+    println!("  skip(2) 组装完成，未执行");
+    let res: Vec<_> = iter.collect();
+    println!("  skip 结果: {:?}", res);
+
+    let iter = v.iter().take(2);
+    println!("  take(2) 组装完成，未执行");
+    let res: Vec<_> = iter.collect();
+    println!("  take 结果: {:?}", res);
+}
+
+pub fn demo_lazy_consumers() {
+    let v = vec![1, 2, 3];
+
+    let iter = v.iter().map(|x| x * 2);
+    println!("  sum: 组装完成");
+    let total: i32 = iter.sum();
+    println!("  sum 总和: {}", total);
+
+    let iter = v.iter().map(|x| x * 2);
+    println!("  for: 开始循环（触发执行）");
+    for num in iter {
+        println!("    元素: {}", num);
+    }
+
+    let v2 = vec![1, 2, 3, 4, 5];
+    let iter = v2.iter().filter(|&&x| x % 2 == 0);
+    println!("  count: 组装完成");
+    let cnt = iter.count();
+    println!("  偶数个数: {}", cnt);
+}
+
+pub fn demo_lazy_consume_once() {
+    let v = vec![1, 2, 3];
+    let mut iter = v.iter().map(|x| x * 2);
+
+    // 第一次：&mut iter 收集，迭代器本体仍在（但已耗尽）
+    let res1: Vec<_> = (&mut iter).collect();
+    println!("  第一次 collect: {:?}", res1);
+
+    let res2: Vec<_> = iter.collect();
+    println!("  第二次 collect: {:?}（已耗尽）", res2);
+}
+
+pub fn demo_lazy_all() {
+    println!("--- §1 map + collect ---");
+    demo_lazy_map_collect();
+
+    println!("\n--- §2 map + filter 链 ---");
+    demo_lazy_map_filter_chain();
+
+    println!("\n--- §3 skip / take ---");
+    demo_lazy_skip_take();
+
+    println!("\n--- §4 sum / for / count ---");
+    demo_lazy_consumers();
+
+    println!("\n--- §5 消费后不能复用 ---");
+    demo_lazy_consume_once();
 }
 
 /// §五 返回 impl Iterator
@@ -152,6 +243,16 @@ pub fn get_dyn(flag: bool) -> Box<dyn Iterator<Item = i32>> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn lazy_consume_once_empty() {
+        let v = vec![1, 2, 3];
+        let mut iter = v.iter().map(|x| x * 2);
+        let first: Vec<_> = (&mut iter).collect();
+        let second: Vec<_> = iter.collect();
+        assert_eq!(first, vec![2, 4, 6]);
+        assert!(second.is_empty());
+    }
 
     #[test]
     fn lazy_until_collect() {
