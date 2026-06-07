@@ -1,49 +1,41 @@
-use std::ops::Deref;
+// 15.2 Deref demo
+//   cargo run           — 基础 + coercion + 方法调用
+//   cargo run -- guards — MutexGuard
+//   cargo run -- nested  — 多层 coercion
+//   cargo run -- mut     — DerefMut + Box move-out
 
-/// 教学用：类似 `Box<T>`，但数据就在结构体里（本节重点在 `Deref` 行为）。
-struct MyBox<T>(T);
-
-impl<T> MyBox<T> {
-    fn new(x: T) -> MyBox<T> {
-        MyBox(x)
-    }
-}
-
-impl<T> Deref for MyBox<T> {
-    type Target = T;
-
-    fn deref(&self) -> &T {
-        &self.0
-    }
-}
-
-fn hello(name: &str) {
-    println!("Hello, {name}!");
-}
+use deref_demo::{demo_basic, demo_deref_mut, demo_method_call, demo_mutex_guard, demo_nested_coercion};
 
 fn main() {
-    // 示例 15-6：常规引用
-    let x = 5;
-    let y = &x;
-    assert_eq!(5, x);
-    assert_eq!(5, *y);
+    let arg = std::env::args().nth(1);
+    let mode = arg.as_deref().unwrap_or("full");
 
-    // 示例 15-7：`Box<T>`
-    let x = 5;
-    let y = Box::new(x);
-    assert_eq!(5, *y);
+    if mode == "guards" {
+        println!("=== 15.2 §四 MutexGuard + Deref ===");
+        demo_mutex_guard();
+        println!("\nok: guards demo 完成");
+        return;
+    }
 
-    // 示例 15-9 / 15-10：`MyBox` + `Deref`，`*y` 等价于 `*(y.deref())`
-    let x = 5;
-    let y = MyBox::new(x);
-    assert_eq!(5, *y);
-    assert_eq!(5, *(y.deref()));
+    if mode == "nested" {
+        println!("=== 15.2.1 多层 coercion 链 ===");
+        demo_nested_coercion();
+        println!("\nok: nested demo 完成");
+        return;
+    }
 
-    // 示例 15-12：解引用强制转换 `&MyBox<String>` → `&str`
-    let m = MyBox::new(String::from("Rust"));
-    hello(&m);
+    if mode == "mut" {
+        println!("=== 15.2.1 DerefMut + Box move-out ===");
+        demo_deref_mut();
+        println!("\nok: mut demo 完成");
+        return;
+    }
 
-    // 示例 15-13：无强制转换时需写的显式形式
-    let m = MyBox::new(String::from("Rust"));
-    hello(&(*m)[..]);
+    println!("=== 15.2 基础：* / deref / coercion ===");
+    demo_basic();
+
+    println!("\n=== 15.2 §三 方法调用自动解引用 ===");
+    demo_method_call();
+
+    println!("\nok: deref demo 完成（-- guards | -- nested | -- mut）");
 }

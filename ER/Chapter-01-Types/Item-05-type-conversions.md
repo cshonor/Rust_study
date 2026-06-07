@@ -16,7 +16,7 @@
 | 主题 | 本仓库 |
 |------|--------|
 | 数值、`as`、类型 | [3.2 数据类型](../../Book/03-common-concepts/3.2-数据类型.md) |
-| `Deref` 强制转换 | [15.2 Deref](../../Book/15-smart-pointers/15.2-通过Deref将智能指针当作引用.md) |
+| `Deref` 强制转换 | [15.2 Deref](../../Book/15-smart-pointers/15.2-通过Deref将智能指针当作引用.md) · [15.2.1](../../Book/15-smart-pointers/15.2.1-Deref嵌套可变与编译坑.md) |
 | `From` / `Into` 与 `?` | [Item 4](./Item-04-idiomatic-error-types.md)、[9.2 Result](../../Book/09-error-handling/9.2-Result-与可恢复的错误.md) |
 | trait 对象强制转换 | [17.2 trait 对象](../../Book/17-oop/17.2-为使用不同类型的值而设计的trait对象.md) |
 | Newtype 转换 | [Item 6](./Item-06-newtype-pattern.md)（ER） |
@@ -47,7 +47,7 @@
 
 ### 解引用强制转换（Deref Coercion）
 
-- 实现 **`Deref` / `DerefMut`** 的智能指针类型上，编译器可把 `&SmartPtr` **自动**转为 `&Target`（见 Book 15.2）。
+- 实现 **`Deref` / `DerefMut`** 的智能指针类型上，编译器可把 `&SmartPtr` **自动**转为 `&Target`（见 Book [15.2](../../Book/15-smart-pointers/15.2-通过Deref将智能指针当作引用.md) · [15.2.1 嵌套/坑点](../../Book/15-smart-pointers/15.2.1-Deref嵌套可变与编译坑.md)）。
 
 ---
 

@@ -18,7 +18,7 @@
 | 元组结构体 | [5.1 结构体](../../Book/05-structs/5.1-定义并实例化结构体.md) |
 | 孤儿规则、`Error` | [Item 4](./Item-04-idiomatic-error-types.md) |
 | `From` / `Into` 单位转换 | [Item 5](./Item-05-type-conversions.md) |
-| `Deref` 减少 `.0` | [15.2 Deref](../../Book/15-smart-pointers/15.2-通过Deref将智能指针当作引用.md) |
+| `Deref` 减少 `.0` | [15.2 Deref](../../Book/15-smart-pointers/15.2-通过Deref将智能指针当作引用.md) · [15.2.1 勿滥用](../../Book/15-smart-pointers/15.2.1-Deref嵌套可变与编译坑.md#反例-3过度-derefeffective-rust-item-6) |
 | 布尔参数 → 枚举 | [Item 1](./Item-01-express-data-structures.md) |
 
 ---

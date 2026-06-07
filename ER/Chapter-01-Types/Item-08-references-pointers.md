@@ -18,7 +18,7 @@
 | `&T` / `&mut T`、借用 | [4.2 引用与借用](../../Book/04-ownership/4.2-引用与借用.md) |
 | 切片 `&[T]` | [4.3 切片](../../Book/04-ownership/4.3-切片slice.md) |
 | `Box` | [15.1 Box](../../Book/15-smart-pointers/15.1-使用Box指向堆上的数据.md) |
-| `Deref` | [15.2 Deref](../../Book/15-smart-pointers/15.2-通过Deref将智能指针当作引用.md) |
+| `Deref` | [15.2 Deref](../../Book/15-smart-pointers/15.2-通过Deref将智能指针当作引用.md) · [15.2.1 嵌套/坑点](../../Book/15-smart-pointers/15.2.1-Deref嵌套可变与编译坑.md) |
 | `Rc` / `RefCell` / `Weak` | [15.4 Rc](../../Book/15-smart-pointers/15.4-Rc引用计数智能指针.md)、[15.5 RefCell](../../Book/15-smart-pointers/15.5-RefCell与内部可变性.md)、[15.6 循环引用](../../Book/15-smart-pointers/15.6-引用循环与Weak.md) |
 | `Arc` / `Mutex` | [16.3 共享状态](../../Book/16-fearless-concurrency/16.3-共享状态并发.md) |
 | `dyn Trait` | [17.2 trait 对象](../../Book/17-oop/17.2-为使用不同类型的值而设计的trait对象.md) |
