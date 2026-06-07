@@ -150,6 +150,144 @@ pub fn demo_manually_drop() {
     println!("  手动 take + drop 完成");
 }
 
+// ── 15.3.2 网络 Socket RAII ─────────────────────────────
+
+/// 教学用：模拟持有裸 fd 的 TCP 封装（实际项目调 `libc::close`）
+pub struct TcpSocket {
+    fd: i32,
+    peer_addr: String,
+}
+
+impl TcpSocket {
+    pub fn new(fd: i32, addr: &str) -> Self {
+        Self {
+            fd,
+            peer_addr: addr.to_string(),
+        }
+    }
+
+    pub fn fd(&self) -> i32 {
+        self.fd
+    }
+
+    pub fn close(&mut self) {
+        if self.fd != -1 {
+            println!(
+                "  关闭 Socket fd: {}, 对端: {}",
+                self.fd, self.peer_addr
+            );
+            self.fd = -1;
+        }
+    }
+}
+
+impl Drop for TcpSocket {
+    fn drop(&mut self) {
+        self.close();
+    }
+}
+
+/// 模拟标准库 `TcpStream`：内部已实现 Drop
+struct OwnedStream {
+    fd: i32,
+}
+
+impl OwnedStream {
+    fn new(fd: i32) -> Self {
+        Self { fd }
+    }
+}
+
+impl Drop for OwnedStream {
+    fn drop(&mut self) {
+        if self.fd != -1 {
+            println!("  OwnedStream（类 TcpStream）关闭 fd: {}", self.fd);
+            self.fd = -1;
+        }
+    }
+}
+
+/// 业务 Conn：只嵌套 socket + 缓冲区，无需手写 Drop
+pub struct Conn {
+    socket: OwnedStream,
+    recv_buf: Vec<u8>,
+    send_buf: Vec<u8>,
+    active: bool,
+}
+
+impl Conn {
+    pub fn new(fd: i32) -> Self {
+        Self {
+            socket: OwnedStream::new(fd),
+            recv_buf: Vec::new(),
+            send_buf: Vec::new(),
+            active: true,
+        }
+    }
+}
+
+fn handle_conn(sock: TcpSocket) {
+    println!("  handle_conn 持有着 fd = {}", sock.fd());
+}
+
+/// §1 出作用域自动 close
+pub fn demo_socket_scope() {
+    let _sock = TcpSocket::new(1001, "127.0.0.1:8080");
+    println!("  连接正常使用中");
+}
+
+/// §2 Conn 默认 drop → 内层 OwnedStream close
+pub fn demo_conn_default_drop() {
+    let _conn = Conn::new(2002);
+    println!("  Conn 使用中（无手写 Drop）");
+}
+
+/// §3 move：原变量不在此 close，handle_conn 返回时才 close
+pub fn demo_socket_move() {
+    let sock = TcpSocket::new(1001, "127.0.0.1:8080");
+    handle_conn(sock);
+    println!("  handle_conn 返回后（连接已在函数内关闭）");
+}
+
+/// §4 提前 close / mem::drop
+pub fn demo_socket_early_close() {
+    let mut sock = TcpSocket::new(3003, "10.0.0.1:443");
+    println!("  主动 close()");
+    sock.close();
+    println!("  出作用域时 drop 不会重复 close（fd 已是 -1）");
+
+    let sock2 = TcpSocket::new(4004, "10.0.0.2:443");
+    mem::drop(sock2);
+    println!("  mem::drop 提前销毁 sock2");
+}
+
+pub fn demo_socket_all() {
+    println!("--- §1 出作用域 auto close ---");
+    demo_socket_scope();
+
+    println!("\n--- §2 Conn 默认 drop 关内层 socket ---");
+    demo_conn_default_drop();
+
+    println!("\n--- §3 move 语义 ---");
+    demo_socket_move();
+
+    println!("\n--- §4 提前 close / mem::drop ---");
+    demo_socket_early_close();
+}
+
+#[cfg(test)]
+mod socket_tests {
+    use super::TcpSocket;
+
+    #[test]
+    fn socket_close_once() {
+        let mut s = TcpSocket::new(42, "test");
+        s.close();
+        assert_eq!(s.fd(), -1);
+        drop(s); // drop 不应 panic，也不重复 close
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use std::sync::Mutex as StdMutex;
