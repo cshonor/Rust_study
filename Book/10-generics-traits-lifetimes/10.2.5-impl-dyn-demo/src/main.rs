@@ -65,6 +65,23 @@ fn dynamic_call(t: &dyn Hello) {
     t.say();
 }
 
+fn get_hello(flag: bool) -> Box<dyn Hello> {
+    if flag {
+        Box::new(Ha)
+    } else {
+        Box::new(Hb)
+    }
+}
+
+fn hetero_hello_array() {
+    let a = Ha;
+    let b = Hb;
+    let arr: [&dyn Hello; 2] = [&a, &b];
+    for item in arr {
+        item.say();
+    }
+}
+
 fn get_animal_impl() -> impl Animal {
     Dog
 }
@@ -232,6 +249,11 @@ fn run_full() {
 
     let mut m = || println!("  FnMut call");
     call_mut_fn(&mut m);
+
+    println!("\n=== §0b 异构 [&dyn Hello; 2] + 运行时分支 Box<dyn Hello> ===");
+    hetero_hello_array();
+    get_hello(true).say();
+    get_hello(false).say();
 
     println!("\n=== §1 speak_impl — 静态单态化 ===");
     speak_impl(Dog);
