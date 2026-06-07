@@ -184,14 +184,19 @@
 |----|------|------|
 | 10.1 泛型 | [10.1](./10-generics-traits-lifetimes/10.1-泛型数据类型.md) | [10.1-generics-demo](./10-generics-traits-lifetimes/10.1-generics-demo/) |
 | 10.2 Trait | [10.2-trait.md](./10-generics-traits-lifetimes/10.2-trait.md) | [10.2-traits-demo](./10-generics-traits-lifetimes/10.2-traits-demo/) |
-| 10.2.1 | [Trait 约束汇总表](./10-generics-traits-lifetimes/10.2.1-Trait语法速查.md) | ↑ |
-| 10.2.2 | [impl Trait 全解](./10-generics-traits-lifetimes/10.2.2-impl-Trait全解.md) | ↑ |
-| 10.2.3 | [Trait 七种写法详解](./10-generics-traits-lifetimes/10.2.3-Trait七种写法详解.md) | [10.2.3-trait-syntax-demo](./10-generics-traits-lifetimes/10.2.3-trait-syntax-demo/) |
-| 10.2.4 | [impl vs dyn Trait 对比](./10-generics-traits-lifetimes/10.2.4-impl与dyn-Trait对比.md) | [10.2.4-impl-dyn-demo](./10-generics-traits-lifetimes/10.2.4-impl-dyn-demo/) |
-| 10.2.5 | [type 关键字与关联类型](./10-generics-traits-lifetimes/10.2.5-type关键字与关联类型.md) | [10.2.5-type-keyword-demo](./10-generics-traits-lifetimes/10.2.5-type-keyword-demo/) |
-| 10.2.6 | [dyn 胖指针与虚表](./10-generics-traits-lifetimes/10.2.6-dyn胖指针与虚表.md) | [10.2.4-impl-dyn-demo](./10-generics-traits-lifetimes/10.2.4-impl-dyn-demo/)（`-- vtable`） |
-| 10.2.7 | [多 Trait 多虚表](./10-generics-traits-lifetimes/10.2.7-多Trait多虚表.md) | ↑（`-- multi_vtable`） |
-| 10.2.8 | [vtable 通俗全解](./10-generics-traits-lifetimes/10.2.8-vtable通俗全解.md) | ↑（`-- vtable_story`） |
+
+**10.2 子笔记**（**阅读序 ①→⑧**，文件名编号 ≠ 学习顺序 → [hub 路线图](./10-generics-traits-lifetimes/10.2-trait.md#建议阅读顺序①⑧)）
+
+| 阅读序 | 编号 | 笔记 | demo |
+|--------|------|------|------|
+| ① | 10.2.1 | [Trait 约束汇总表](./10-generics-traits-lifetimes/10.2.1-Trait语法速查.md) | ↑ |
+| ② | 10.2.3 | [Trait 七种写法详解](./10-generics-traits-lifetimes/10.2.3-Trait七种写法详解.md) | [10.2.3-trait-syntax-demo](./10-generics-traits-lifetimes/10.2.3-trait-syntax-demo/) |
+| ③ | 10.2.2 | [impl Trait 全解](./10-generics-traits-lifetimes/10.2.2-impl-Trait全解.md) | ↑ |
+| ④ | 10.2.5 | [type 关键字与关联类型](./10-generics-traits-lifetimes/10.2.5-type关键字与关联类型.md) | [10.2.5-type-keyword-demo](./10-generics-traits-lifetimes/10.2.5-type-keyword-demo/) |
+| ⑤ | 10.2.4 | [impl vs dyn Trait 对比](./10-generics-traits-lifetimes/10.2.4-impl与dyn-Trait对比.md) | [10.2.4-impl-dyn-demo](./10-generics-traits-lifetimes/10.2.4-impl-dyn-demo/) |
+| ⑥ | 10.2.8 | [vtable 通俗全解](./10-generics-traits-lifetimes/10.2.8-vtable通俗全解.md) | ↑（`-- vtable_story`） |
+| ⑦ | 10.2.6 | [dyn 胖指针与虚表](./10-generics-traits-lifetimes/10.2.6-dyn胖指针与虚表.md) | ↑（`-- vtable`） |
+| ⑧ | 10.2.7 | [多 Trait 多虚表](./10-generics-traits-lifetimes/10.2.7-多Trait多虚表.md) | ↑（`-- multi_vtable`） |
 | 10.3 生命周期（索引） | [10.3](./10-generics-traits-lifetimes/10.3-生命周期与引用有效性.md) | [10.3-lifetimes-demo](./10-generics-traits-lifetimes/10.3-lifetimes-demo/) |
 
 **10.3 专题拆分**
