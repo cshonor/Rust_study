@@ -279,8 +279,8 @@
 - [x] `drop` 函数 · `mem::drop` → [15.3.1](./Book/15-smart-pointers/15.3.1-Drop顺序与进阶场景.md)
 
 ### 15.4 Rc\<T\> 引用计数智能指针
-- [ ] 多所有权
-- [ ] `strong_count`、`weak_count`
+- [x] 多所有权 · vs Box → [15.4](./Book/15-smart-pointers/15.4-Rc引用计数智能指针.md)
+- [x] `strong_count` · 限制/循环引用 → [15.4.1](./Book/15-smart-pointers/15.4.1-Rc限制对比与循环引用.md)
 
 ### 15.5 RefCell\<T\> 与内部可变性模式
 - [ ] 运行时借用检查

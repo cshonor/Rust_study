@@ -1,28 +1,21 @@
-use std::rc::Rc;
+// 15.4 Rc demo
+//   cargo run        — 共享尾链表 + strong_count
+//   cargo run -- count — Rc<i32> 计数逐步
 
-#[derive(Debug)]
-#[allow(dead_code)]
-enum List {
-    Cons(i32, Rc<List>),
-    Nil,
-}
-
-use crate::List::{Cons, Nil};
+use rc_demo::{demo_rc_count_steps, demo_shared_tail_list};
 
 fn main() {
-    // 示例 15-18 / 15-19：共享尾列表 a，并观察 strong_count
-    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
-    println!("count after creating a = {}", Rc::strong_count(&a));
+    let arg = std::env::args().nth(1);
+    let mode = arg.as_deref().unwrap_or("full");
 
-    let b = Cons(3, Rc::clone(&a));
-    println!("count after creating b = {}", Rc::strong_count(&a));
-
-    {
-        let c = Cons(4, Rc::clone(&a));
-        println!("count after creating c = {}", Rc::strong_count(&a));
-        println!("c = {c:?}");
+    if mode == "count" {
+        println!("=== 15.4 §二 Rc<i32> strong_count 逐步 ===\n");
+        demo_rc_count_steps();
+        println!("\nok: count demo 完成");
+        return;
     }
 
-    println!("count after c goes out of scope = {}", Rc::strong_count(&a));
-    println!("b = {b:?}");
+    println!("=== 15.4 §三 共享尾链表 ===\n");
+    demo_shared_tail_list();
+    println!("\nok: rc demo 完成（-- count）");
 }
