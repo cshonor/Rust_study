@@ -1,4 +1,4 @@
-// 10.2.3 Trait 七种写法 — 可运行对比 demo
+// 10.2.2 Trait 七种写法 — 可运行对比 demo
 
 use std::fmt::Debug;
 

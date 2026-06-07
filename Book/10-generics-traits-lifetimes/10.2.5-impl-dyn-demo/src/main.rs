@@ -1,6 +1,6 @@
-// 10.2.4 impl vs dyn · 10.2.6 胖指针与虚表 demo
+// 10.2.5 impl vs dyn · 10.2.7 胖指针与虚表 demo
 //   cargo run           — impl vs dyn 全段
-//   cargo run -- vtable_story — 10.2.8 虚表通俗流程
+//   cargo run -- vtable_story — 10.2.6 虚表通俗流程
 
 trait Animal {
     fn cry(&self);
@@ -56,7 +56,7 @@ fn make_adder() -> impl Fn(i32) -> i32 {
 }
 
 fn demo_vtable_story() {
-    println!("=== 10.2.8 虚表通俗流程 ===\n");
+    println!("=== 10.2.6 虚表通俗流程 ===\n");
 
     println!("【impl Animal】编译期直接绑定，不查虚表：");
     println!("  call(Dog) → 编译器写死 Dog::cry");
@@ -89,7 +89,7 @@ fn demo_vtable_story() {
 }
 
 fn demo_vtable() {
-    println!("=== 10.2.6 胖指针 = 数据 ptr + vtable ptr（同时存好）===");
+    println!("=== 10.2.7 胖指针 = 数据 ptr + vtable ptr（同时存好）===");
 
     let dog = Dog;
     let p_animal: &dyn Animal = &dog;
@@ -117,7 +117,7 @@ fn demo_vtable() {
     println!("\nok: vtable 胖指针 demo 完成");
 }
 
-// ── 10.2.7：A 实现 T1/T2/T3 → 3 张虚表 ───────────────
+// ── 10.2.8：A 实现 T1/T2/T3 → 3 张虚表 ───────────────
 trait T1 {
     fn f1(&self);
 }
@@ -157,7 +157,7 @@ fn use_t3(x: &dyn T3) {
 }
 
 fn demo_multi_vtable() {
-    println!("=== 10.2.7 A 实现 T1+T2+T3 → 3 张独立虚表 ===");
+    println!("=== 10.2.8 A 实现 T1+T2+T3 → 3 张独立虚表 ===");
     let a = A;
 
     println!("\n  dyn T1（vtable → A 的 T1 表）:");
