@@ -65,6 +65,12 @@ pub fn lazy_map_filter(arr: [i32; 3]) -> Vec<i32> {
 
 // ── 13.2.4 惰性分步演示（带 println）──────────────────
 
+pub fn demo_lazy_pipeline_only() {
+    let v = vec![1, 2, 3, 4, 5];
+    let _pipeline = v.iter().map(|x| x * 2).filter(|&x| x > 5);
+    println!("  流水线搭建完成，还没有开始加工！（map/filter 未执行）");
+}
+
 pub fn demo_lazy_map_collect() {
     let v = vec![1, 2, 3];
     let iter = v.iter().map(|x| {
@@ -138,7 +144,10 @@ pub fn demo_lazy_consume_once() {
 }
 
 pub fn demo_lazy_all() {
-    println!("--- §1 map + collect ---");
+    println!("--- §0 只搭流水线（无消费器）---");
+    demo_lazy_pipeline_only();
+
+    println!("\n--- §1 map + collect ---");
     demo_lazy_map_collect();
 
     println!("\n--- §2 map + filter 链 ---");

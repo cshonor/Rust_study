@@ -249,6 +249,7 @@
 | 13.1.5 | [move 闭包详解](./13-iterators-closures/13.1.5-move闭包详解.md) | ↑ |
 | 13.2 迭代器 | [13.2](./13-iterators-closures/13.2-使用迭代器处理元素序列.md) | [13.2-iterators-demo](./13-iterators-closures/13.2-iterators-demo/) |
 | 13.2.1 | [迭代器精讲](./13-iterators-closures/13.2.1-迭代器精讲.md) | ↑ |
+| 13.2.5 | [适配器与消费器详解](./13-iterators-closures/13.2.5-适配器与消费器详解.md) | ↑ |
 | 13.2.4 | [惰性演示（适配器/消费器）](./13-iterators-closures/13.2.4-惰性演示-适配器与消费器.md) | ↑ |
 | 13.2.2 | [三种 iter 生成方式](./13-iterators-closures/13.2.2-三种迭代生成方式.md) | ↑ |
 | 13.2.3 | [迭代器结构体与生命周期](./13-iterators-closures/13.2.3-迭代器结构体与生命周期.md) | ↑ |
