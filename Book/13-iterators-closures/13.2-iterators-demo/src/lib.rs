@@ -129,6 +129,47 @@ pub fn demo_lazy_consumers() {
     println!("  count: 组装完成");
     let cnt = iter.count();
     println!("  偶数个数: {}", cnt);
+
+    demo_lazy_while_let();
+}
+
+/// map + filter 链，闭包内 println，供三种消费器对比
+fn lazy_traced(v: &Vec<i32>) -> impl Iterator<Item = i32> + '_ {
+    v.iter().map(|x| {
+        println!("    map: {}", x);
+        x * 2
+    }).filter(|&x| {
+        println!("    filter: {}", x);
+        x > 5
+    })
+}
+
+pub fn demo_lazy_while_let() {
+    let v = vec![1, 2, 3, 4, 5];
+    let mut iter = v.iter().map(|x| x * 2).filter(|&x| x > 5);
+    println!("  while let: 流水线搭好，手动 next()");
+    while let Some(x) = iter.next() {
+        println!("    拿到元素: {}", x);
+    }
+}
+
+pub fn demo_lazy_three_consumers() {
+    let v = vec![1, 2, 3, 4, 5];
+
+    println!("  A) while let — 每轮显式 next()");
+    let mut iter = lazy_traced(&v);
+    while let Some(x) = iter.next() {
+        println!("      while let 拿到: {}", x);
+    }
+
+    println!("  B) for — 语法糖，内部反复 next()");
+    for x in lazy_traced(&v) {
+        println!("      for 拿到: {}", x);
+    }
+
+    println!("  C) collect — 内部收齐，只出 Vec");
+    let res: Vec<_> = lazy_traced(&v).collect();
+    println!("      collect 成品: {:?}", res);
 }
 
 pub fn demo_lazy_consume_once() {
@@ -172,10 +213,13 @@ pub fn demo_lazy_all() {
     println!("\n--- §3 skip / take ---");
     demo_lazy_skip_take();
 
-    println!("\n--- §4 sum / for / count ---");
+    println!("\n--- §4 sum / for / count / while let ---");
     demo_lazy_consumers();
 
-    println!("\n--- §5 消费后不能复用 ---");
+    println!("\n--- §5 三种消费器同链对比 ---");
+    demo_lazy_three_consumers();
+
+    println!("\n--- §6 消费后不能复用 ---");
     demo_lazy_consume_once();
 }
 
@@ -283,6 +327,27 @@ mod tests {
     fn lazy_until_collect() {
         let out = lazy_map_filter([1, 2, 3]);
         assert_eq!(out, vec![4, 6]);
+    }
+
+    #[test]
+    fn while_let_same_as_for_and_collect() {
+        let v = vec![1, 2, 3, 4, 5];
+        fn pipeline(v: &Vec<i32>) -> impl Iterator<Item = i32> + '_ {
+            v.iter().map(|x| x * 2).filter(|&x| x > 5)
+        }
+
+        let mut iter = pipeline(&v);
+        let mut manual = Vec::new();
+        while let Some(x) = iter.next() {
+            manual.push(x);
+        }
+
+        let from_for: Vec<_> = pipeline(&v).collect();
+        let from_collect: Vec<_> = pipeline(&v).collect();
+
+        assert_eq!(manual, vec![6, 8, 10]);
+        assert_eq!(from_for, manual);
+        assert_eq!(from_collect, manual);
     }
 
     #[test]
