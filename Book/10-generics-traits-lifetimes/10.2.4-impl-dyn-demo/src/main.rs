@@ -1,6 +1,6 @@
 // 10.2.4 impl vs dyn · 10.2.6 胖指针与虚表 demo
 //   cargo run           — impl vs dyn 全段
-//   cargo run -- multi_vtable — 10.2.7 多 Trait 多虚表
+//   cargo run -- vtable_story — 10.2.8 虚表通俗流程
 
 trait Animal {
     fn cry(&self);
@@ -53,6 +53,39 @@ fn get_animal_dyn(flag: bool) -> Box<dyn Animal> {
 
 fn make_adder() -> impl Fn(i32) -> i32 {
     |x| x + 5
+}
+
+fn demo_vtable_story() {
+    println!("=== 10.2.8 虚表通俗流程 ===\n");
+
+    println!("【impl Animal】编译期直接绑定，不查虚表：");
+    println!("  call(Dog) → 编译器写死 Dog::cry");
+    speak_impl(Dog);
+    println!("  call(Cat) → 编译器写死 Cat::cry");
+    speak_impl(Cat);
+
+    println!("\n【dyn Animal】胖指针 = 数据 ptr + 虚表 ptr（同时存好）");
+    let dog = Dog;
+    let cat = Cat;
+    let p_dog: &dyn Animal = &dog;
+    let p_cat: &dyn Animal = &cat;
+
+    println!("  &Dog → dyn Animal：");
+    println!("    数据指针 → dog 实例");
+    println!("    虚表指针 → Dog 的 Animal 地址簿（cry → Dog::cry）");
+    p_dog.cry();
+
+    println!("  &Cat → dyn Animal：");
+    println!("    虚表指针 → Cat 的 Animal 地址簿（cry → Cat::cry）");
+    p_cat.cry();
+
+    println!("\n【异构 Vec<Box<dyn Animal>>】每个元素各自一本地址簿：");
+    for a in [Box::new(Dog) as Box<dyn Animal>, Box::new(Cat)] {
+        a.cry();
+    }
+
+    println!("\n  impl：直接喊人 | dyn：先翻地址簿再干活");
+    println!("\nok: vtable_story 完成");
 }
 
 fn demo_vtable() {
@@ -178,6 +211,11 @@ fn run_full() {
 fn main() {
     let arg = std::env::args().nth(1);
     let mode = arg.as_deref().unwrap_or("full");
+
+    if mode == "vtable_story" {
+        demo_vtable_story();
+        return;
+    }
 
     if mode == "vtable" {
         demo_vtable();
