@@ -326,7 +326,7 @@
 | 19.2 高级 trait | [19.2](./19-advanced-features/19.2-高级trait.md)（关联类型 · FQS · supertrait · newtype · 完整 demo） | [19.2-advanced-traits-demo](./19-advanced-features/19.2-advanced-traits-demo/) |
 | 19.3 高级类型 | [19.3](./19-advanced-features/19.3-高级类型.md)（newtype · `!` · DST · `?Sized` · 完整 demo） | [19.3-advanced-types-demo](./19-advanced-features/19.3-advanced-types-demo/) |
 | 19.4 高级函数与闭包 | [19.4](./19-advanced-features/19.4-高级函数与闭包.md)（`fn` · `F:Fn` · 返回 `Box<dyn Fn>` · 完整 demo） | [19.4-advanced-functions-closures-demo](./19-advanced-features/19.4-advanced-functions-closures-demo/) |
-| 19.5 宏 | [19.5](./19-advanced-features/19.5-宏.md)（`macro_rules!` · 过程宏 · hygiene） | [19.5-macros-demo](./19-advanced-features/19.5-macros-demo/) |
+| 19.5 宏 | [19.5](./19-advanced-features/19.5-宏.md)（macro_rules! · 过程宏 workspace · cargo expand） | [19.5-macros-demo](./19-advanced-features/19.5-macros-demo/) |
 
 ---
 
