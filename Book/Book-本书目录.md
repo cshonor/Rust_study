@@ -318,13 +318,15 @@
 
 ## 第 19 章 — 高级特性
 
+→ **章节导读**：[19-章节导读](./19-advanced-features/19-章节导读.md)（结构 · 考点速览 · 一键 Demo）
+
 | 节 | 笔记 | demo |
 |----|------|------|
-| 19.1 不安全 Rust | [19.1](./19-advanced-features/19.1-不安全Rust.md) | [19.1-unsafe-rust-demo](./19-advanced-features/19.1-unsafe-rust-demo/) |
-| 19.2 高级 trait | [19.2](./19-advanced-features/19.2-高级trait.md) | [19.2-advanced-traits-demo](./19-advanced-features/19.2-advanced-traits-demo/) |
-| 19.3 高级类型 | [19.3](./19-advanced-features/19.3-高级类型.md) | [19.3-advanced-types-demo](./19-advanced-features/19.3-advanced-types-demo/) |
-| 19.4 高级函数与闭包 | [19.4](./19-advanced-features/19.4-高级函数与闭包.md) | [19.4-advanced-functions-closures-demo](./19-advanced-features/19.4-advanced-functions-closures-demo/) |
-| 19.5 宏 | [19.5](./19-advanced-features/19.5-宏.md) | [19.5-macros-demo](./19-advanced-features/19.5-macros-demo/) |
+| 19.1 不安全 Rust | [19.1](./19-advanced-features/19.1-不安全Rust.md)（五大超能力 · FFI · 封装） | [19.1-unsafe-rust-demo](./19-advanced-features/19.1-unsafe-rust-demo/) |
+| 19.2 高级 trait | [19.2](./19-advanced-features/19.2-高级trait.md)（关联类型 · 完全限定语法 · newtype） | [19.2-advanced-traits-demo](./19-advanced-features/19.2-advanced-traits-demo/) |
+| 19.3 高级类型 | [19.3](./19-advanced-features/19.3-高级类型.md)（`!` · DST · ZST · `?Sized`） | [19.3-advanced-types-demo](./19-advanced-features/19.3-advanced-types-demo/) |
+| 19.4 高级函数与闭包 | [19.4](./19-advanced-features/19.4-高级函数与闭包.md)（`fn` · `Fn*` · 返回闭包） | [19.4-advanced-functions-closures-demo](./19-advanced-features/19.4-advanced-functions-closures-demo/) |
+| 19.5 宏 | [19.5](./19-advanced-features/19.5-宏.md)（`macro_rules!` · 过程宏 · hygiene） | [19.5-macros-demo](./19-advanced-features/19.5-macros-demo/) |
 
 ---
 

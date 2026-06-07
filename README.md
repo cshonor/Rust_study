@@ -132,16 +132,15 @@ cd Book/02-guessing-game
 cargo run
 ```
 
-### 第 19 章「高级特性」部分 demo（The Book）
+### 第 19 章「高级特性」（The Book）
+
+→ [章节导读](Book/19-advanced-features/19-章节导读.md)
 
 ```bash
-cd Book/19-advanced-features/19.2-advanced-traits-demo
-cargo run
-```
-
-过程宏 workspace 示例：
-
-```bash
+cd Book/19-advanced-features/19.1-unsafe-rust-demo && cargo run
+cd Book/19-advanced-features/19.2-advanced-traits-demo && cargo run
+cd Book/19-advanced-features/19.3-advanced-types-demo && cargo run
+cd Book/19-advanced-features/19.4-advanced-functions-closures-demo && cargo run
 cd Book/19-advanced-features/19.5-macros-demo
 cargo run -p decl_macro_demo
 cargo run -p pancakes
