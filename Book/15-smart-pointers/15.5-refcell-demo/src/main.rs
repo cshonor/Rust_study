@@ -1,27 +1,29 @@
-use std::cell::RefCell;
-use std::rc::Rc;
+// 15.5 RefCell demo
+//   cargo run           — Rc<RefCell> 共享尾链表
+//   cargo run -- cell   — Rc<Cell<i32>>
+//   cargo run -- refcell — Rc<RefCell<String>>
 
-/// 示例 15-24：`Rc<RefCell<i32>>` 与共享尾列表，修改共享结点上的值。
-#[derive(Debug)]
-#[allow(dead_code)]
-enum List {
-    Cons(Rc<RefCell<i32>>, Rc<List>),
-    Nil,
-}
-
-use crate::List::{Cons, Nil};
+use refcell_demo::{demo_rc_cell, demo_rc_refcell_list, demo_rc_refcell_string};
 
 fn main() {
-    let value = Rc::new(RefCell::new(5));
+    let arg = std::env::args().nth(1);
+    let mode = arg.as_deref().unwrap_or("full");
 
-    let a = Rc::new(Cons(Rc::clone(&value), Rc::new(Nil)));
+    if mode == "cell" {
+        println!("=== 15.5 §三 Rc<Cell<i32>> ===\n");
+        demo_rc_cell();
+        println!("\nok: cell demo 完成");
+        return;
+    }
 
-    let b = Cons(Rc::new(RefCell::new(6)), Rc::clone(&a));
-    let c = Cons(Rc::new(RefCell::new(10)), Rc::clone(&a));
+    if mode == "refcell" {
+        println!("=== 15.5 §四 Rc<RefCell<String>> ===\n");
+        demo_rc_refcell_string();
+        println!("\nok: refcell demo 完成");
+        return;
+    }
 
-    *value.borrow_mut() += 10;
-
-    println!("a after = {a:?}");
-    println!("b after = {b:?}");
-    println!("c after = {c:?}");
+    println!("=== 15.5 §四 Rc<RefCell> 共享尾链表 ===\n");
+    demo_rc_refcell_list();
+    println!("\nok: refcell demo 完成（-- cell | -- refcell）");
 }

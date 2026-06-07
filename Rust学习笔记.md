@@ -283,12 +283,10 @@
 - [x] `strong_count` · 限制/循环引用 → [15.4.1](./Book/15-smart-pointers/15.4.1-Rc限制对比与循环引用.md)
 
 ### 15.5 RefCell\<T\> 与内部可变性模式
-- [ ] 运行时借用检查
-- [ ] 内部可变性
+- [x] 运行时借用 · `Rc<Cell>` / `Rc<RefCell>` → [15.5](./Book/15-smart-pointers/15.5-RefCell与内部可变性.md)
 
 ### 15.6 引用循环会导致内存泄漏
-- [ ] 循环引用问题
-- [ ] `Weak<T>` 弱引用
+- [x] 循环引用 · `Weak<T>` → [15.6](./Book/15-smart-pointers/15.6-引用循环与Weak.md)
 
 ---
 

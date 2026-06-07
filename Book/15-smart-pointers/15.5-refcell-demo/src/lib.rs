@@ -1,78 +1,65 @@
-pub trait Messenger {
-    fn send(&self, msg: &str);
+//! 15.5 RefCell / Rc 组合 demo
+
+use std::cell::{Cell, RefCell};
+use std::rc::Rc;
+
+#[derive(Debug)]
+#[allow(dead_code)]
+pub enum List {
+    Cons(Rc<RefCell<i32>>, Rc<List>),
+    Nil,
 }
 
-pub struct LimitTracker<'a, T: Messenger> {
-    messenger: &'a T,
-    value: usize,
-    max: usize,
+use List::{Cons, Nil};
+
+/// §三 Rc<Cell<i32>>
+pub fn demo_rc_cell() {
+    let num = Rc::new(Cell::new(10));
+    let n1 = Rc::clone(&num);
+    let n2 = Rc::clone(&num);
+    n1.set(20);
+    println!("  Rc<Cell>: n2.get() = {}（n1.set(20) 后）", n2.get());
 }
 
-impl<'a, T: Messenger> LimitTracker<'a, T> {
-    pub fn new(messenger: &'a T, max: usize) -> LimitTracker<'a, T> {
-        LimitTracker {
-            messenger,
-            value: 0,
-            max,
-        }
-    }
+/// §四 Rc<RefCell<String>>
+pub fn demo_rc_refcell_string() {
+    let s = Rc::new(RefCell::new(String::from("hello")));
+    let s1 = Rc::clone(&s);
+    let s2 = Rc::clone(&s);
+    s1.borrow_mut().push_str(" world");
+    println!("  Rc<RefCell>: s2.borrow() = {}", s2.borrow());
+}
 
-    pub fn set_value(&mut self, value: usize) {
-        self.value = value;
+/// §四 Book 共享尾链表 + 修改共享 value
+pub fn demo_rc_refcell_list() {
+    let value = Rc::new(RefCell::new(5));
+    let a = Rc::new(Cons(Rc::clone(&value), Rc::new(Nil)));
+    let b = Cons(Rc::new(RefCell::new(6)), Rc::clone(&a));
+    let c = Cons(Rc::new(RefCell::new(10)), Rc::clone(&a));
 
-        let percentage_of_max = self.value as f64 / self.max as f64;
+    *value.borrow_mut() += 10;
 
-        if percentage_of_max >= 1.0 {
-            self.messenger.send("Error: You are over your quota!");
-        } else if percentage_of_max >= 0.9 {
-            self.messenger
-                .send("Urgent warning: You've used up over 90% of your quota!");
-        } else if percentage_of_max >= 0.75 {
-            self.messenger
-                .send("Warning: You've used up over 75% of your quota!");
-        }
-    }
+    println!("  value 改为 15 后:");
+    println!("    a = {a:?}");
+    println!("    b = {b:?}");
+    println!("    c = {c:?}");
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::cell::RefCell;
 
-    struct MockMessenger {
-        sent_messages: RefCell<Vec<String>>,
-    }
-
-    impl MockMessenger {
-        fn new() -> MockMessenger {
-            MockMessenger {
-                sent_messages: RefCell::new(vec![]),
-            }
-        }
-    }
-
-    impl Messenger for MockMessenger {
-        fn send(&self, message: &str) {
-            self.sent_messages.borrow_mut().push(String::from(message));
-        }
+    #[test]
+    fn rc_cell_shared_mutate() {
+        let n = Rc::new(Cell::new(1));
+        Rc::clone(&n).set(99);
+        assert_eq!(n.get(), 99);
     }
 
     #[test]
-    fn it_sends_an_over_75_percent_warning_message() {
-        let mock_messenger = MockMessenger::new();
-        let mut limit_tracker = LimitTracker::new(&mock_messenger, 100);
-
-        limit_tracker.set_value(80);
-
-        assert_eq!(mock_messenger.sent_messages.borrow().len(), 1);
-    }
-
-    /// 示例 15-23：同一作用域两次 `borrow_mut` 会在运行时 panic（请勿在业务代码中这样写）。
-    #[test]
-    #[should_panic(expected = "already borrowed")]
-    fn refcell_double_borrow_mut_panics() {
-        let cell = RefCell::new(vec![0i32]);
-        let _a = cell.borrow_mut();
-        let _b = cell.borrow_mut();
+    fn rc_refcell_borrow_mut() {
+        let s = Rc::new(RefCell::new(String::from("x")));
+        Rc::clone(&s).borrow_mut().push('y');
+        assert_eq!(*s.borrow(), "xy");
     }
 }
