@@ -276,7 +276,7 @@
 
 | 节 | 笔记 | demo |
 |----|------|------|
-| 15.1 Box | [15.1](./15-smart-pointers/15.1-使用Box指向堆上的数据.md)（Cons · Deref · Drop） | [15.1-box-demo](./15-smart-pointers/15.1-box-demo/) |
+| 15.1 Box | [15.1](./15-smart-pointers/15.1-使用Box指向堆上的数据.md) · [15.1.1 `&**self`](./15-smart-pointers/15.1.1-Box的Deref与双层星号.md) | [15.1-box-demo](./15-smart-pointers/15.1-box-demo/) |
 | 15.2 Deref | [15.2](./15-smart-pointers/15.2-通过Deref将智能指针当作引用.md) · [15.2.1 嵌套/坑点](./15-smart-pointers/15.2.1-Deref嵌套可变与编译坑.md) | [15.2-deref-demo](./15-smart-pointers/15.2-deref-demo/) |
 | 15.3 Drop | [15.3](./15-smart-pointers/15.3-使用Drop运行清理代码.md) · [15.3.1](./15-smart-pointers/15.3.1-Drop顺序与进阶场景.md) · [15.3.2 Socket RAII](./15-smart-pointers/15.3.2-Drop与网络Socket-RAII.md) | [15.3-drop-demo](./15-smart-pointers/15.3-drop-demo/) |
 | 15.4 Rc | [15.4](./15-smart-pointers/15.4-Rc引用计数智能指针.md) | [15.4-rc-demo](./15-smart-pointers/15.4-rc-demo/) |

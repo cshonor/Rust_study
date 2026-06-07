@@ -268,7 +268,7 @@
 
 ### 15.1 使用 Box\<T\> 指向堆上的数据
 - [x] 堆分配 · Deref · Drop → [15.1](./Book/15-smart-pointers/15.1-使用Box指向堆上的数据.md)
-- [x] 递归类型 · Cons 链表 → [15.1 §二](./Book/15-smart-pointers/15.1-使用Box指向堆上的数据.md#二递归类型报错--cons-链表完整)
+- [x] 递归类型 · Cons · `&**self` → [15.1.1](./Book/15-smart-pointers/15.1.1-Box的Deref与双层星号.md)
 
 ### 15.2 使用 Deref trait 将智能指针当作常规引用处理
 - [x] 解引用 `*` → [15.2](./Book/15-smart-pointers/15.2-通过Deref将智能指针当作引用.md)

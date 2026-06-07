@@ -1,5 +1,7 @@
 //! 15.1 Box demo — 基础 · Cons 链表 · Deref · Drop
 
+use std::ops::Deref;
+
 #[derive(Debug)]
 pub enum List {
     Cons(i32, Box<List>),
@@ -69,6 +71,37 @@ pub fn demo_box_drop_scope() {
     println!("  --- 内层结束，堆已释放 ---");
 }
 
+/// 15.1.1：与 `Box` 标准库相同的 `deref` 写法（`&**self`）
+struct TeachBox<T>(Box<T>);
+
+impl<T> Deref for TeachBox<T> {
+    type Target = T;
+
+    fn deref(&self) -> &Self::Target {
+        &**&self.0 // self.0 为 &Box<T>，与标准库 deref 体内 &**self 同形
+    }
+}
+
+/// 模拟标准库 `Box::deref` 方法体：`self` 为 `&Box<T>`
+fn peel_box_ref<T>(bx: &Box<T>) -> &T {
+    &**bx
+}
+
+/// §一 `&**self` / `&*b` / `deref()` 等价演示
+pub fn demo_deref_steps() {
+    let b = Box::new(10_i32);
+    let via_star: &i32 = &*b;
+    let via_deref: &i32 = b.deref();
+    let via_peel: &i32 = peel_box_ref(&b); // 等价于 impl 内 &**self
+    println!("  &*b           → {}", *via_star);
+    println!("  b.deref()     → {}", *via_deref);
+    println!("  peel(&b)      → {}（= impl 内 &**self）", *via_peel);
+    println!("  println!(\"{{}}\", b) → {}", b);
+
+    let t = TeachBox(Box::new(99_i32));
+    println!("  TeachBox（impl 内 &**self.0）→ {}", *t.deref());
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -84,5 +117,13 @@ mod tests {
     fn box_deref() {
         let b = Box::new(42);
         assert_eq!(*b, 42);
+    }
+
+    #[test]
+    fn deref_steps_equivalent() {
+        let b = Box::new(10_i32);
+        assert_eq!(*&*b, 10);
+        assert_eq!(*b.deref(), 10);
+        assert_eq!(*peel_box_ref(&b), 10);
     }
 }
