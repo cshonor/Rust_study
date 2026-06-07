@@ -77,6 +77,15 @@ fn make_adder() -> impl Fn(i32) -> i32 {
     |x| x + 5
 }
 
+// --- 常见误区：impl Display（静态）vs &dyn Display（动态）---
+fn print_impl(x: impl Display) {
+    println!("  impl Display: {x}");
+}
+
+fn print_dyn(x: &dyn Display) {
+    println!("  dyn Display:  {x}");
+}
+
 // --- 4) where 从句 ---
 fn print_two<T, U>(t: T, u: U)
 where
@@ -119,6 +128,46 @@ fn largest_ref<T: PartialOrd>(list: &[T]) -> &T {
 }
 
 // --- 6) 条件实现 Pair<T> ---
+#[derive(Debug, Clone)]
+struct MyStruct<T> {
+    data: T,
+}
+
+impl<T> MyStruct<T> {
+    fn new(data: T) -> Self {
+        Self { data }
+    }
+}
+
+impl<T> MyStruct<T>
+where
+    T: Display,
+{
+    fn print_data(&self) {
+        println!("  data = {}", self.data);
+    }
+}
+
+impl<T: Clone> MyStruct<T> {
+    fn dup(&self) -> Self {
+        Self {
+            data: self.data.clone(),
+        }
+    }
+}
+
+// --- blanket impl 示例：Display → PrintMe ---
+trait PrintMe {
+    fn print_me(&self);
+}
+
+impl<T: Display> PrintMe for T {
+    fn print_me(&self) {
+        println!("  PrintMe: {self}");
+    }
+}
+
+// --- 7) 条件实现 Pair<T> ---
 #[derive(Debug)]
 struct Pair<T> {
     x: T,
@@ -178,16 +227,30 @@ fn main() {
     println!("largest_ref(words) = {}", largest_ref(&words));
     println!("largest_clone(words) = {}", largest_clone(&words));
 
-    println!("\n=== 5) 条件实现 Pair<T> ===");
+    println!("\n=== 5) 条件 impl：MyStruct — where T: Display 才有 print_data ===");
+    let s1 = MyStruct::new(10);
+    s1.print_data();
+    let s2 = s1.dup();
+    println!("dup.data = {}", s2.data);
+
+    println!("\n=== 6) 条件 impl：Pair<T: Display + PartialOrd> 才有 cmp_display ===");
     let p = Pair::new(3, 7);
     p.cmp_display();
 
-    println!("\n=== 6) Blanket impl: Display → ToString ===");
+    println!("\n=== 7) Blanket impl: Display → PrintMe + ToString ===");
+    42.print_me();
+    "hello".print_me();
     println!("10.to_string() = {}", 10_i32.to_string());
 
-    println!("\n=== 7) -> impl Trait 返回 ===");
+    println!("\n=== 8) -> impl Trait 返回 ===");
     let msg = get_msg();
     println!("get_msg() = {}", msg.summarize());
     println!("make_adder()(3) = {}", make_adder()(3));
+
+    println!("\n=== 9) impl Display vs dyn Display（静态 vs 动态）===");
+    print_impl(42);
+    print_impl("hello");
+    print_dyn(&42);
+    print_dyn(&"hello");
 }
 
