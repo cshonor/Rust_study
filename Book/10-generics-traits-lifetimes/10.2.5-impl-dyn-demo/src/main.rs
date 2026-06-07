@@ -73,6 +73,17 @@ fn get_hello(flag: bool) -> Box<dyn Hello> {
     }
 }
 
+static HELLO_A: Ha = Ha;
+static HELLO_B: Hb = Hb;
+
+fn get_choose_dyn(flag: bool) -> &'static dyn Hello {
+    if flag {
+        &HELLO_A
+    } else {
+        &HELLO_B
+    }
+}
+
 fn hetero_hello_array() {
     let a = Ha;
     let b = Hb;
@@ -250,10 +261,15 @@ fn run_full() {
     let mut m = || println!("  FnMut call");
     call_mut_fn(&mut m);
 
-    println!("\n=== §0b 异构 [&dyn Hello; 2] + 运行时分支 Box<dyn Hello> ===");
+    println!("\n=== §0b 异构 [&dyn Hello; 2] + 运行时二选一 ===");
     hetero_hello_array();
     get_hello(true).say();
     get_hello(false).say();
+    get_choose_dyn(true).say();
+    get_choose_dyn(false).say();
+    // fn get_choose_impl(flag: bool) -> impl Hello {
+    //     if flag { Ha } else { Hb } // ❌ E0308 — 见 10.2.5 §二
+    // }
 
     println!("\n=== §1 speak_impl — 静态单态化 ===");
     speak_impl(Dog);
