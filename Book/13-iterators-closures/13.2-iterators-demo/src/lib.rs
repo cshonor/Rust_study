@@ -143,6 +143,22 @@ pub fn demo_lazy_consume_once() {
     println!("  第二次 collect: {:?}（已耗尽）", res2);
 }
 
+pub fn demo_lazy_call_chain() {
+    let v = vec![1, 2, 3];
+
+    let iter = v.iter().map(|x| {
+        println!("  【map】处理元素: {}", x);
+        x * 2
+    }).filter(|&x| {
+        println!("  【filter】判断元素: {}", x);
+        x > 3
+    });
+
+    println!("  === 所有适配器包装完毕，等待消费 ===");
+    let result: Vec<_> = iter.collect();
+    println!("  最终结果: {:?}", result);
+}
+
 pub fn demo_lazy_all() {
     println!("--- §0 只搭流水线（无消费器）---");
     demo_lazy_pipeline_only();
