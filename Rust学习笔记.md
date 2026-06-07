@@ -271,8 +271,8 @@
 - [ ] 递归类型
 
 ### 15.2 使用 Deref trait 将智能指针当作常规引用处理
-- [ ] 解引用 `*`
-- [ ] `Deref` 与 `DerefMut`
+- [x] 解引用 `*` → [15.2](./Book/15-smart-pointers/15.2-通过Deref将智能指针当作引用.md)
+- [x] `Deref` 与 `DerefMut` → [15.2.1 嵌套/坑点](./Book/15-smart-pointers/15.2.1-Deref嵌套可变与编译坑.md)
 
 ### 15.3 使用 Drop Trait 运行清理代码
 - [ ] 析构逻辑
