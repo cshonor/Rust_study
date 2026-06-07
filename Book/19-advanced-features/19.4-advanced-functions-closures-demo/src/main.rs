@@ -1,60 +1,23 @@
-fn add_one(x: i32) -> i32 {
-    x + 1
-}
+// 19.4 高级函数与闭包 demo
+//   cargo run           — 完整 demo
+//   cargo run -- pitfalls — 易错点对照
 
-fn do_twice(f: fn(i32) -> i32, arg: i32) -> i32 {
-    f(arg) + f(arg)
-}
-
-#[derive(Debug, PartialEq, Eq)]
-struct Wrapper(u32);
-
-#[derive(Debug, PartialEq, Eq)]
-enum Status {
-    Value(u32),
-    Stop,
-}
-
-fn returns_closure() -> Box<dyn Fn(i32) -> i32> {
-    Box::new(|x| x + 1)
-}
+use advanced_functions_closures_demo::{
+    demo_all_functions_closures, demo_compile_error_notes,
+};
 
 fn main() {
-    println!("--- function pointer `fn` ---");
-    let answer = do_twice(add_one, 5);
-    println!("The answer is: {answer}");
+    let arg = std::env::args().nth(1);
+    let mode = arg.as_deref().unwrap_or("full");
 
-    println!("--- map: closure vs function/method item ---");
-    let list_of_numbers = vec![1, 2, 3];
-    let list_of_strings1: Vec<String> = list_of_numbers.iter().map(|i| i.to_string()).collect();
-    let list_of_strings2: Vec<String> = list_of_numbers
-        .iter()
-        .map(ToString::to_string)
-        .collect();
-    assert_eq!(list_of_strings1, list_of_strings2);
-    println!("map(ToString::to_string) ok: {:?}", list_of_strings2);
+    if mode == "pitfalls" {
+        println!("=== 19.4 易错点 & 易混点对照 ===\n");
+        demo_compile_error_notes();
+        println!("\nok: pitfalls demo 完成");
+        return;
+    }
 
-    println!("--- tuple struct / enum variant constructors as functions ---");
-    let wrappers: Vec<Wrapper> = (0u32..3).map(Wrapper).collect();
-    assert_eq!(wrappers, vec![Wrapper(0), Wrapper(1), Wrapper(2)]);
-    println!("wrappers = {:?}", wrappers);
-
-    let statuses: Vec<Status> = (0u32..5).map(Status::Value).collect();
-    let _ = Status::Stop;
-    assert_eq!(
-        statuses,
-        vec![
-            Status::Value(0),
-            Status::Value(1),
-            Status::Value(2),
-            Status::Value(3),
-            Status::Value(4)
-        ]
-    );
-    println!("statuses = {:?}", statuses);
-
-    println!("--- returning a closure (trait object) ---");
-    let f = returns_closure();
-    println!("f(10) = {}", f(10));
+    println!("=== 19.4 高级函数与闭包 Demo ===\n");
+    demo_all_functions_closures();
+    println!("\nok: functions & closures demo 完成（-- pitfalls）");
 }
-
