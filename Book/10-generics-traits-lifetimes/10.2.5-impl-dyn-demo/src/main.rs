@@ -6,12 +6,30 @@ trait Animal {
     fn cry(&self);
 }
 
+trait Hello {
+    fn say(&self);
+}
+
 trait Run {
     fn run(&self);
 }
 
 struct Dog;
 struct Cat;
+
+struct Ha;
+struct Hb;
+
+impl Hello for Ha {
+    fn say(&self) {
+        println!("  A");
+    }
+}
+impl Hello for Hb {
+    fn say(&self) {
+        println!("  B");
+    }
+}
 
 impl Animal for Dog {
     fn cry(&self) {
@@ -37,6 +55,14 @@ fn speak_impl(animal: impl Animal) {
 
 fn speak_dyn(animal: &dyn Animal) {
     animal.cry();
+}
+
+fn static_call<T: Hello>(t: T) {
+    t.say();
+}
+
+fn dynamic_call(t: &dyn Hello) {
+    t.say();
 }
 
 fn get_animal_impl() -> impl Animal {
@@ -71,7 +97,17 @@ fn call_mut_fn(f: &mut dyn FnMut()) {
 fn demo_vtable_story() {
     println!("=== 10.2.6 虚表通俗流程 ===\n");
 
-    println!("【impl Animal】编译期直接绑定，不查虚表：");
+    println!("【泛型 static_call — 编译期绑定，不查虚表】");
+    static_call(Ha);
+    static_call(Hb);
+
+    println!("\n【&dyn Hello — 胖指针 + 运行时查表】");
+    let a = Ha;
+    let b = Hb;
+    dynamic_call(&a);
+    dynamic_call(&b);
+
+    println!("\n【impl Animal】编译期直接绑定，不查虚表：");
     println!("  call(Dog) → 编译器写死 Dog::cry");
     speak_impl(Dog);
     println!("  call(Cat) → 编译器写死 Cat::cry");
