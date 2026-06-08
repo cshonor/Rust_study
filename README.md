@@ -4,12 +4,14 @@ Rust 学习笔记 + 每章 demo。
 
 - **主线**：《Rust 程序设计语言》（The Book），章节在 `Book/01-*`～`Book/19-*`，导航 [`Book/Book-本书目录.md`](Book/Book-本书目录.md)。
 - **扩展**：[Effective Rust](https://www.effective-rust.com/)（David Drysdale，35 条建议），本地索引见 [`ER/ER-本书目录.md`](ER/ER-本书目录.md)。
+- **并发 / 异步**：[rust-concurrency-async-practice](https://github.com/cshonor/rust-concurrency-async-practice) — 多线程、原子与锁、Tokio/async、crossbeam/rayon、网络与 TLPI 等并列学习仓（与本仓库并行，非子目录）。
 - **网络（UNP）**：[UNIX 网络编程](UNP/UNP-本书目录.md) 卷 1 精读（HFT 向），与 Rust 主线并行。
 
 ## 目录结构
 
 - **Book（The Book）**：[`Book/Book-本书目录.md`](Book/Book-本书目录.md) + `Book/01-*`～`Book/19-*`（笔记与 demo）
 - **ER（Effective Rust）**：`ER/Chapter-01-Types/` … `Chapter-06-Beyond-Standard-Rust/`，每条 Item 一个目录（`README.md` + 可选 `demo/`），见 [`ER/目录结构.md`](ER/目录结构.md)
+- **并发 / 异步（外部仓）**：[rust-concurrency-async-practice](https://github.com/cshonor/rust-concurrency-async-practice) — `atomic/`、`async_tokio/`、`rust_network_programming/`、`TLPI/`、`RFR/`、`llvm_insight/` 等
 - **UNP**：[`UNP/UNP-本书目录.md`](UNP/UNP-本书目录.md) + `UNP/Vol1/`（网络编程精读，HFT 批注）
 - **笔记**：每章/小节为一个 `*.md`
 - **demo**：从第 3 章起，按规则 **“一个 md 对应一个独立 Cargo project”**
