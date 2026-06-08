@@ -1,6 +1,6 @@
 # Item 13: Use default implementations to minimize required trait methods
 
-> **Effective Rust** · [Chapter 2 — Traits](../ER-本书目录.md)  
+> **Effective Rust** · [Chapter 2 — Traits](../../ER-本书目录.md)  
 > **中文**：用默认实现最小化 trait 中必需的方法  
 > 原文：[effective-rust.com](https://www.effective-rust.com/print.html)
 
@@ -15,34 +15,33 @@
 
 | 主题 | 本仓库 |
 |------|--------|
-| trait 定义、默认方法 | [10.2 trait](../../Book/10-generics-traits-lifetimes/10.2-trait.md) |
-| `Iterator` / `next` | [13.2 迭代器](../../Book/13-iterators-closures/13.2-使用迭代器处理元素序列.md) |
+| trait 定义、默认方法 | [10.2 trait](../../../Book/10-generics-traits-lifetimes/10.2-trait.md) |
+| `Iterator` / `next` | [13.2 迭代器](../../../Book/13-iterators-closures/13.2-使用迭代器处理元素序列.md) |
 | 对象安全、`Sized` | [Item 12](../Item-12-generics-vs-trait-objects/README.md) |
-| 迭代器适配器 | [Item 9](../Chapter-01-Types/Item-09-iterator-transforms/README.md) |
+| 迭代器适配器 | [Item 9](../../Chapter-01-Types/Item-09-iterator-transforms/README.md) |
 
 ---
 
-## 1. 核心知识点与关键定义
+## 一句话
 
-### 两类受众的张力
-
-| 受众 | 诉求 |
-|------|------|
-| **实现者 (Implementors)** | 尽量少写方法 |
-| **使用者 (Users)** | 方法越多越好、越方便 |
-
-### 默认实现（Default Implementations）
-
-- 在 **trait 定义里**直接写方法体，基于更「基元」的操作组合出高阶 API。
-- 实现类型**只需**实现少量必需项；其余自动继承默认逻辑。
-
-### 方法上的 Trait Bound
-
-- 默认方法可带 **`where`**：仅当类型满足额外契约时，该方法才对调用方**可见/可用**。
+**小强制面 + 大可用面**
 
 ---
 
-## 2. 逻辑脉络
+## 专项笔记（按需点开）
+
+| # | 专题 | 阅读 |
+|---|------|------|
+| 01 | 核心知识点 | [topics/01-core-concepts.md](./topics/01-core-concepts.md) |
+| 02 | 逻辑脉络 | [topics/02-logic-flow.md](./topics/02-logic-flow.md) |
+| 03 | 重点结论 | [topics/03-key-takeaways.md](./topics/03-key-takeaways.md) |
+| 04 | 案例与代码 | [topics/04-examples.md](./topics/04-examples.md) |
+| 05 | 易错细节 | [topics/05-pitfalls.md](./topics/05-pitfalls.md) |
+| — | 背诵提纲 | [topics/cheat-sheet.md](./topics/cheat-sheet.md) |
+
+---
+
+## 逻辑脉络
 
 ```text
 强制少量基元方法（如 next / len）
@@ -52,94 +51,12 @@
   → 具体类型可 override 更高效实现
 ```
 
-### 向后兼容
-
-- 已发布 trait **新增带 default body 的方法** → 旧 impl **不必改**，通常 **不破坏** API。
-- 对比：新增**无默认**的必需方法 → 所有 impl 必须补实现 → **破坏性**。
-
-### 可覆盖（Override）
-
-- 默认实现是**后备**；若类型有 O(1) 捷径（如 `is_empty`），可 **override** 默认的 O(n) 逻辑。
-
 ---
 
-## 3. 重点结论与实用要点
+## 后续拓展
 
-1. **小强制面 + 大可用面**——学标准库：`Iterator` 只强制 `next()`，赠送 50+ 方法。
-2. **`where` 做条件增强**——如 `cloned()` 仅在 `T: Clone` 时可用，不增加基元 impl 负担。
-3. **公共库 API 演进**——优先用**默认实现**扩展 trait，而非逼所有下游改 impl。
-4. 与 **Item 12**：默认方法若含泛型 / `Self`，用 **`where Self: Sized`** 保护 **对象安全**（见 §6）。
-
----
-
-## 4. 案例与代码要点
-
-### `ExactSizeIterator::is_empty`
-
-```rust
-trait ExactSizeIterator: Iterator {
-    fn len(&self) -> usize; // 必需
-
-    fn is_empty(&self) -> bool {
-        self.len() == 0     // 默认实现
-    }
-}
-```
-
-### `Iterator`：只写 `next()`
-
-```rust
-trait Iterator {
-    type Item;
-    fn next(&mut self) -> Option<Self::Item>; // 唯一必需
-
-    // map, filter, fold, collect, ... 均有 default
-}
-```
-
-### 带 bound 的默认方法：`cloned`
-
-```rust
-fn cloned<'a, T>(self) -> Cloned<Self>
-where
-    T: 'a + Clone,
-    Self: Sized + Iterator<Item = &'a T>,
-{
-    Cloned::new(self)
-}
-```
-
-仅当 `Item` 为 `&T` 且 `T: Clone` 时，调用方才能用 `.cloned()`。
-
----
-
-## 5. 易错细节
-
-### 默认 trait 方法 vs 固有方法同名
-
-- trait **新增**带 default 的方法名，若与类型 **inherent impl** 同名：
-  - 普通调用 **`obj.method()`** → **固有方法优先**（遮蔽 trait 默认）。
-  - 要调 trait 版本：**完全限定语法**  
-    `<Concrete as Trait>::method(&obj)`
-
-→ 演进 public trait 时注意命名，避免与常见 inherent 方法冲突。
-
----
-
-## 6. 后续拓展
-
-> 展开版：[ER-拓展索引 § Item 13](../ER-拓展索引.md#item-13)
+> 展开版：[ER-拓展索引 § Item 13](../../ER-拓展索引.md#item-13)
 
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
-
-## 记忆卡片
-
-| 要点 | 一句 |
-|------|------|
-| 张力 | 实现者要少写，使用者要多用 |
-| 模式 | 基元方法 + default 派生 |
-| 演进 | 新 default 方法通常兼容 |
-| override | 有更优算法就重写 |
-| 冲突 | inherent 遮蔽 → UFCS |
