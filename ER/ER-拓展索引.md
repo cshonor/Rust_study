@@ -6,33 +6,33 @@
 
 ## Item 01 {#item-01}
 
-- [x] **Option / Result 链** → [Item 3](./Chapter-01-Types/Item-03-option-result-transforms.md)；Book [9.2](../Book/09-error-handling/9.2-Result-与可恢复的错误.md)
+- [x] **Option / Result 链** → [Item 3](./Chapter-01-Types/Item-03-option-result-transforms/README.md)；Book [9.2](../Book/09-error-handling/9.2-Result-与可恢复的错误.md)
 - [ ] **类型状态机实战**：HTTP 解析、协议状态用 enum 消无效组合；对照 [17.3 博客工作流](../Book/17-oop/17.3-状态模式与博客工作流.md)
 
 ## Item 02 {#item-02}
 
-- [x] **单态化 vs trait 对象** → [Item 12](./Chapter-02-Traits/Item-12-generics-vs-trait-objects.md)
+- [x] **单态化 vs trait 对象** → [Item 12](./Chapter-02-Traits/Item-12-generics-vs-trait-objects/README.md)
 - [ ] **闭包 + Send/Sync**：`move` 闭包跨线程；Book [16.4](../Book/16-fearless-concurrency/16.4-Send与Sync.md)
 
 ## Item 03 {#item-03}
 
-- [x] **Demo**：[item-03-option-result](./ER-demos/item-03-option-result/) — `ok_or`、`transpose`、`and_then` 链
+- [x] **Demo**：[item-03-option-result](./Chapter-01-Types/Item-03-option-result-transforms/demo/) — `ok_or`、`transpose`、`and_then` 链
 - [x] **Option ↔ Result 拓扑**：`ok_or` / `ok_or_else`、`transpose`、`and_then`；Book [9.2](../Book/09-error-handling/9.2-Result-与可恢复的错误.md)
-- [x] **`?` + `From`** → [Item 4](./Chapter-01-Types/Item-04-idiomatic-error-types.md)
+- [x] **`?` + `From`** → [Item 4](./Chapter-01-Types/Item-04-idiomatic-error-types/README.md)
 
 ## Item 04 {#item-04}
 
-- [x] **Demo**：[item-04-error-types](./ER-demos/item-04-error-types/) — 库 `thiserror` + 应用 `anyhow`
-- [x] **`core::error::Error` + `no_std`**：[item-04-core-error](./ER-demos/item-04-core-error/) — 手动 `impl Error` + `alloc`
+- [x] **Demo**：[item-04-error-types](./Chapter-01-Types/Item-04-idiomatic-error-types/demo/) — 库 `thiserror` + 应用 `anyhow`
+- [x] **`core::error::Error` + `no_std`**：[item-04-core-error](./Chapter-01-Types/Item-04-idiomatic-error-types/demo-core-error/) — 手动 `impl Error` + `alloc`
 
 ## Item 05 {#item-05}
 
-- [x] **Demo**：[item-05-06-newtype](./ER-demos/item-05-06-newtype/) — `Deref` 强制转换 + `print_len(&Wrapper)`
+- [x] **Demo**：[item-05-06-newtype](./Chapter-01-Types/Item-05-type-conversions/demo/) — `Deref` 强制转换 + `print_len(&Wrapper)`
 - [x] **`AsRef` vs `Into`**：同 demo 模块 `as_ref_vs_into.rs` — 只读 `AsRef<str>` vs 存盘 `Into<String>`
 
 ## Item 06 {#item-06}
 
-- [x] **Demo**：[item-05-06-newtype](./ER-demos/item-05-06-newtype/) — `derive_more` 的 `From`/`Add`/`Display`
+- [x] **Demo**：[item-05-06-newtype](./Chapter-01-Types/Item-05-type-conversions/demo/) — `derive_more` 的 `From`/`Add`/`Display`
 - [x] **过度 Deref**：同 demo 模块 `over_deref.rs` — `LeakyDb` 绕过校验 vs `UserDb` 受控 API
 
 ## Item 07 {#item-07}
@@ -63,7 +63,7 @@
 ## Item 12 {#item-12}
 
 - [x] **trait upcasting (1.76+)**：`dyn SubTrait` → `dyn SuperTrait`；`Any` 仍无 supertrait
-- [ ] **bench**：同逻辑 `impl Trait` vs `dyn Trait` → [item-30-black-box](./ER-demos/item-30-black-box/) + criterion
+- [ ] **bench**：同逻辑 `impl Trait` vs `dyn Trait` → [item-30-black-box](./Chapter-05-Tooling/Item-30-beyond-unit-tests/demo/) + criterion
 
 ## Item 13 {#item-13}
 
@@ -73,11 +73,11 @@
 ## Item 14 {#item-14}
 
 - [ ] **HRTB** `for<'a> fn(&'a str) -> &'a str`：高阶生命周期；Fn trait 与 GAT
-- [x] **图结构** → [Item 15](./Chapter-03-Concepts/Item-15-borrow-checker.md) + Book [10.3](../Book/10-generics-traits-lifetimes/10.3-生命周期与引用有效性.md)
+- [x] **图结构** → [Item 15](./Chapter-03-Concepts/Item-15-borrow-checker/README.md) + Book [10.3](../Book/10-generics-traits-lifetimes/10.3-生命周期与引用有效性.md)
 
 ## Item 15 {#item-15}
 
-- [x] **Demo**：[item-15-borrow-checker](./ER-demos/item-15-borrow-checker/)
+- [x] **Demo**：[item-15-borrow-checker](./Chapter-03-Concepts/Item-15-borrow-checker/demo/)
 - [ ] **`Pin` + async**：自引用状态机；`!Unpin` 堆固定
 - [ ] **Polonius**：NLL 后继；减少「活得太久」误报
 
@@ -95,8 +95,8 @@
 
 ## Item 18 {#item-18}
 
-- [x] **Demo**：[item-18-dont-panic](./ER-demos/item-18-dont-panic/)
-- [ ] **`no_panic` crate** + CI（[Item 32](./Chapter-05-Tooling/Item-32-ci.md)）
+- [x] **Demo**：[item-18-dont-panic](./Chapter-03-Concepts/Item-18-dont-panic/demo/)
+- [ ] **`no_panic` crate** + CI（[Item 32](./Chapter-05-Tooling/Item-32-ci/README.md)）
 - [ ] **`AssertUnwindSafe`**：`catch_unwind` 与 exception safety
 
 ## Item 19 {#item-19}
@@ -106,29 +106,29 @@
 
 ## Item 20 {#item-20}
 
-- [x] **Demo**：[item-20-tlv](./ER-demos/item-20-tlv/)
-- [x] **black_box / bench** → [item-30-black-box](./ER-demos/item-30-black-box/)
+- [x] **Demo**：[item-20-tlv](./Chapter-03-Concepts/Item-20-avoid-over-optimize/demo/)
+- [x] **black_box / bench** → [item-30-black-box](./Chapter-05-Tooling/Item-30-beyond-unit-tests/demo/)
 - [ ] **`Cow<'_, [u8]>`**：解析时借或拥有
 
 ## Item 21 {#item-21}
 
-- [x] **`cargo-semver-checks`**：CI `semver-checks` job（PR vs base）+ [item-24 README](./ER-demos/item-24-re-export/README.md)
+- [x] **`cargo-semver-checks`**：CI `semver-checks` job（PR vs base）+ [item-24 README](./Chapter-04-Dependencies/Item-24-re-export-api-types/demo/README.md)
 - [x] **MSRV**：[WORKSPACE.md](./ER-demos/WORKSPACE.md) + CI `msrv` job（`rust-version = "1.70"`）
 
 ## Item 22 {#item-22}
 
-- [x] **Demo**：[item-22-visibility](./ER-demos/item-22-visibility/) + Book [7.2](../Book/07-packages-modules/7.2-定义模块来控制作用域与私有性.md)
+- [x] **Demo**：[item-22-visibility](./Chapter-04-Dependencies/Item-22-minimize-visibility/demo/) + Book [7.2](../Book/07-packages-modules/7.2-定义模块来控制作用域与私有性.md)
 - [ ] **`mod.rs` vs `foo.rs`**：2018 edition 模块树；[7.5](../Book/07-packages-modules/7.5-将模块分割进不同文件.md)
-- [ ] **门面 `pub use`** → [Item 24](./Chapter-04-Dependencies/Item-24-re-export-api-types.md)
+- [ ] **门面 `pub use`** → [Item 24](./Chapter-04-Dependencies/Item-24-re-export-api-types/README.md)
 
 ## Item 23 {#item-23}
 
-- [x] **Clippy `wildcard_imports`** → [Item 29](./Chapter-05-Tooling/Item-29-clippy.md)
+- [x] **Clippy `wildcard_imports`** → [Item 29](./Chapter-05-Tooling/Item-29-clippy/README.md)
 - [ ] **crate prelude 设计**：`pub mod prelude { pub use ... }` 精选导出
 
 ## Item 24 {#item-24}
 
-- [x] **Demo**：[item-24-re-export](./ER-demos/item-24-re-export/) — `pub use rand` 与 **newtype** 两方案
+- [x] **Demo**：[item-24-re-export](./Chapter-04-Dependencies/Item-24-re-export-api-types/demo/) — `pub use rand` 与 **newtype** 两方案
 - [x] **诊断**：`cargo tree -p consumer -d rand`
 - [x] **`cargo-public-api`**：CI `public-api` job + README 用法
 - [x] **newtype 隐藏**：`dep-lib-newtype` / `consumer-newtype`
@@ -136,11 +136,11 @@
 ## Item 25 {#item-25}
 
 - [x] **Dependabot + `cargo deny check`**：[dependabot.yml](../.github/dependabot.yml) + [deny.toml](../deny.toml) + CI `cargo-deny`
-- [x] **`[workspace.dependencies]`**：[ER-demos/Cargo.toml](./ER-demos/Cargo.toml) + [WORKSPACE.md](./ER-demos/WORKSPACE.md)
+- [x] **`[workspace.dependencies]`**：[Cargo.toml](./Cargo.toml) + [WORKSPACE.md](./ER-demos/WORKSPACE.md)
 
 ## Item 26 {#item-26}
 
-- [x] **Demo**：[item-26-feature-creep](./ER-demos/item-26-feature-creep/) + README 中 `cargo hack --feature-powerset`
+- [x] **Demo**：[item-26-feature-creep](./Chapter-04-Dependencies/Item-26-feature-creep/demo/) + README 中 `cargo hack --feature-powerset`
 - [x] **docs.rs**：demo `Cargo.toml` 注释 `[package.metadata.docs.rs] all-features = true`
 
 ## Item 27 {#item-27}
@@ -162,7 +162,7 @@
 
 ## Item 30 {#item-30}
 
-- [x] **Demo**：[item-30-black-box](./ER-demos/item-30-black-box/)
+- [x] **Demo**：[item-30-black-box](./Chapter-05-Tooling/Item-30-beyond-unit-tests/demo/)
 - [x] **CI matrix**：`matrix-demo` job — `os × rust × features`（Item 26 / 30）
 - [ ] **`cargo-fuzz` corpus**：`fuzz/corpus/` 入仓
 
@@ -178,18 +178,18 @@
 
 ## Item 33 {#item-33}
 
-- [x] **Demo**：[item-33-no-std](./ER-demos/item-33-no-std/)（`cargo test -p item-33-no-std`）
+- [x] **Demo**：[item-33-no-std](./Chapter-06-Beyond-Standard-Rust/Item-33-no-std/demo/)（`cargo test -p item-33-no-std`）
 - [ ] **`no_global_oom_handling`** + `#![cfg(all(not(feature = "std")))]`
 - [ ] **`embedded-hal`** 分层
 
 ## Item 34 {#item-34}
 
-- [x] **Demo**：[item-34-ffi-box](./ER-demos/item-34-ffi-box/)
-- [x] **bindgen** → [Item 35](./Chapter-06-Beyond-Standard-Rust/Item-35-bindgen.md)
+- [x] **Demo**：[item-34-ffi-box](./Chapter-06-Beyond-Standard-Rust/Item-34-ffi-boundaries/demo/)
+- [x] **bindgen** → [Item 35](./Chapter-06-Beyond-Standard-Rust/Item-35-bindgen/README.md)
 - [ ] **`cxx`**：Rust ↔ C++ schema
 
 ## Item 35 {#item-35}
 
-- [x] **Demo**：[item-35-bindgen](./ER-demos/item-35-bindgen/) — 单 crate 内 bindgen + safe 封装
-- [x] **`-sys` / safe 双层**：[item-35-sys-workspace](./ER-demos/item-35-sys-workspace/) — `er-add-sys` + `er-add`
+- [x] **Demo**：[item-35-bindgen](./Chapter-06-Beyond-Standard-Rust/Item-35-bindgen/demo-bindgen/) — 单 crate 内 bindgen + safe 封装
+- [x] **`-sys` / safe 双层**：[item-35-sys-workspace](./Chapter-06-Beyond-Standard-Rust/Item-35-bindgen/demo-sys-workspace/) — `er-add-sys` + `er-add`
 - [x] **rerun-if-changed**：见各 crate `build.rs`

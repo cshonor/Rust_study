@@ -57,8 +57,8 @@ Rust 语法符号速查；可重载的运算符对应 `std::ops` trait。
 | 所有权与引用 | [第 4 章](../04-ownership/) |
 | 错误 `?` | [9.2 Result](../09-error-handling/9.2-Result-与可恢复的错误.md) |
 | 范围与迭代 | [13 章迭代器](../13-iterators-closures/) |
-| `Deref` 强制转换 | [ER Item 05](../../ER/Chapter-01-Types/Item-05-type-conversions.md) |
-| 运算符 trait | [ER Item 10](../../ER/Chapter-02-Traits/Item-10-standard-traits.md) |
+| `Deref` 强制转换 | [ER Item 05](../../ER/Chapter-01-Types/Item-05-type-conversions/README.md) |
+| 运算符 trait | [ER Item 10](../../ER/Chapter-02-Traits/Item-10-standard-traits/README.md) |
 
 ---
 

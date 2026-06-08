@@ -1,6 +1,6 @@
 # Item 21：MSRV 与 `rust-version`
 
-本 workspace 根 `Cargo.toml` 声明：
+Workspace 根 [`../Cargo.toml`](../Cargo.toml) 声明：
 
 ```toml
 [workspace.package]
@@ -13,6 +13,7 @@ CI 见 [er-study-ci.yml](../../../.github/workflows/er-study-ci.yml) 的 `msrv` 
 
 ```bash
 rustup toolchain install 1.70.0
+cd ER
 cargo +1.70.0 check --workspace
 ```
 
@@ -20,7 +21,7 @@ cargo +1.70.0 check --workspace
 
 Rust 工具链基础概念（`main` / Stable / Nightly / Edition）见仓库根目录 [README.md](../../README.md#rust-工具链stablenightly--edition)。
 
-[`rust-toolchain.toml`](./rust-toolchain.toml) 钉 **Stable**（fmt / clippy / test / MSRV 日常开发）：
+[`rust-toolchain.toml`](../rust-toolchain.toml) 钉 **Stable**（fmt / clippy / test / MSRV 日常开发）：
 
 ```toml
 [toolchain]
@@ -71,7 +72,7 @@ cargo deny check all
 未发布 crate 用 **git baseline** 对比 PR 与 base 分支的 public API：
 
 ```bash
-cd ER/ER-demos/item-24-re-export
+cd ER/Chapter-04-Dependencies/Item-24-re-export-api-types/demo
 cargo install cargo-semver-checks --locked
 cargo semver-checks --package dep-lib --baseline-rev main
 ```

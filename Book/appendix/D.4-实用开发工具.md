@@ -37,7 +37,7 @@ cargo clippy -- -D warnings   # 警告当错误（CI 常用）
 ```
 
 - 捕获常见 mistake、性能与风格问题。
-- 本仓库：[ER Item 29](../../ER/Chapter-05-Tooling/Item-29-clippy.md)、[`ER-demos/clippy.toml`](../../ER/ER-demos/clippy.toml)。
+- 本仓库：[ER Item 29](../../ER/Chapter-05-Tooling/Item-29-clippy/README.md)、[`ER-demos/clippy.toml`](../../ER/ER-demos/clippy.toml)。
 
 ---
 
@@ -56,7 +56,7 @@ cargo clippy -- -D warnings   # 警告当错误（CI 常用）
 | `cargo doc` | 生成 / 打开文档 | [14.2](../14-cargo-crates/14.2-将crate发布到Crates.io.md) |
 | `cargo test` | 测试 | [11 章](../11-testing/) |
 | `cargo publish` | 发布 crate | [14.2](../14-cargo-crates/14.2-将crate发布到Crates.io.md) |
-| Miri | UB 检测 | [ER Item 16 demo](../../ER/ER-demos/item-16-miri/) |
+| Miri | UB 检测 | [ER Item 16 demo](../../ER/Chapter-03-Concepts/Item-16-avoid-unsafe/demo/) |
 
 ---
 

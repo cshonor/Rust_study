@@ -34,7 +34,7 @@ struct Point { x: i32, y: i32 }
 | Trait | 原因 |
 |-------|------|
 | **Display** | 面向用户的格式无统一默认 |
-| **From / Into** | 转换语义因类型而异 → 手写或 `derive_more`（[ER Item 05](../../ER/Chapter-01-Types/Item-05-type-conversions.md)） |
+| **From / Into** | 转换语义因类型而异 → 手写或 `derive_more`（[ER Item 05](../../ER/Chapter-01-Types/Item-05-type-conversions/README.md)） |
 | **Drop** | 资源释放逻辑需定制（[15 章智能指针](../15-smart-pointers/)） |
 
 ---
@@ -46,7 +46,7 @@ struct Point { x: i32, y: i32 }
 | [5.1 结构体](../05-structs/) | `Debug` |
 | [5.3 结构体方法](../05-structs/) | `Debug` |
 | [10.2 Trait](../10-generics-traits-lifetimes/10.2-定义与实现Trait.md) | 默认方法 vs derive |
-| [ER Item 06 newtype](../../ER/Chapter-01-Types/Item-06-newtype-pattern.md) | derive + 手写转发 |
+| [ER Item 06 newtype](../../ER/Chapter-01-Types/Item-06-newtype-pattern/README.md) | derive + 手写转发 |
 
 ---
 

@@ -9,7 +9,7 @@ Rust 学习笔记 + 每章 demo。
 ## 目录结构
 
 - **Book（The Book）**：[`Book/Book-本书目录.md`](Book/Book-本书目录.md) + `Book/01-*`～`Book/19-*`（笔记与 demo）
-- **ER（Effective Rust）**：`ER/Chapter-01-Types/` … `Chapter-06-Beyond-Standard-Rust/`，每条 Item 一个 `Item-NN-*.md` 占位（与 The Book 并行，按需填写）
+- **ER（Effective Rust）**：`ER/Chapter-01-Types/` … `Chapter-06-Beyond-Standard-Rust/`，每条 Item 一个目录（`README.md` + 可选 `demo/`），见 [`ER/目录结构.md`](ER/目录结构.md)
 - **UNP**：[`UNP/UNP-本书目录.md`](UNP/UNP-本书目录.md) + `UNP/Vol1/`（网络编程精读，HFT 批注）
 - **笔记**：每章/小节为一个 `*.md`
 - **demo**：从第 3 章起，按规则 **“一个 md 对应一个独立 Cargo project”**

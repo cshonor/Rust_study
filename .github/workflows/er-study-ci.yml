@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ER/ER-demos
+        working-directory: ER
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -31,19 +31,19 @@ jobs:
         run: cargo test --workspace
       - name: item-24 re-export
         run: |
-          cd item-24-re-export
+          cd Chapter-04-Dependencies/Item-24-re-export-api-types/demo
           cargo run -p consumer
           cargo run -p consumer-newtype
       - name: item-35 sys workspace
         run: |
-          cd item-35-sys-workspace
+          cd Chapter-06-Beyond-Standard-Rust/Item-35-bindgen/demo-sys-workspace
           cargo test --workspace
 
   msrv:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ER/ER-demos
+        working-directory: ER
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@1.70.0
@@ -57,7 +57,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - name: no_std lib check (alloc only)
         run: cargo check -p item-33-no-std --no-default-features --features alloc
-        working-directory: ER/ER-demos
+        working-directory: ER/Chapter-06-Beyond-Standard-Rust/Item-33-no-std/demo
 
   public-api:
     runs-on: ubuntu-latest
@@ -68,12 +68,12 @@ jobs:
       - uses: dtolnay/rust-toolchain@nightly
       - uses: Swatinem/rust-cache@v2
         with:
-          workspaces: ER/ER-demos/item-24-re-export -> target
+          workspaces: ER/Chapter-04-Dependencies/Item-24-re-export-api-types/demo -> target
       - name: Install cargo-public-api
         run: cargo install cargo-public-api --locked
       - name: List dep-lib public API (Item 24)
         run: cargo public-api
-        working-directory: ER/ER-demos/item-24-re-export/dep-lib
+        working-directory: ER/Chapter-04-Dependencies/Item-24-re-export-api-types/demo/dep-lib
 
   semver-checks:
     if: github.event_name == 'pull_request'
@@ -85,7 +85,7 @@ jobs:
       - name: Semver vs base branch (Item 21)
         uses: obi1kenobi/cargo-semver-checks-action@v2
         with:
-          manifest-path: ER/ER-demos/item-24-re-export/Cargo.toml
+          manifest-path: ER/Chapter-04-Dependencies/Item-24-re-export-api-types/demo/Cargo.toml
           package: dep-lib
           baseline-rev: ${{ github.event.pull_request.base.ref }}
 
@@ -98,7 +98,7 @@ jobs:
           command: check
           command-arguments: all
           arguments: ""
-          manifest-path: ./ER/ER-demos/Cargo.toml
+          manifest-path: ./ER/Cargo.toml
 
   miri:
     runs-on: ubuntu-latest
@@ -106,7 +106,7 @@ jobs:
       RUSTUP_TOOLCHAIN: nightly
     defaults:
       run:
-        working-directory: ER/ER-demos
+        working-directory: ER
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@nightly
@@ -150,7 +150,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     defaults:
       run:
-        working-directory: ER/ER-demos
+        working-directory: ER
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@master

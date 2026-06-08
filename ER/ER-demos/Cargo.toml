@@ -1,29 +1,7 @@
-[workspace]
-resolver = "2"
-members = [
-    "item-03-option-result",
-    "item-04-error-types",
-    "item-04-core-error",
-    "item-05-06-newtype",
-    "item-16-miri",
-    "item-15-borrow-checker",
-    "item-18-dont-panic",
-    "item-20-tlv",
-    "item-22-visibility",
-    "item-26-feature-creep",
-    "item-30-black-box",
-    "item-33-no-std",
-    "item-34-ffi-box",
-    "item-35-bindgen",
-]
-
-[workspace.package]
-edition = "2021"
-rust-version = "1.70"
-license = "MIT OR Apache-2.0"
-publish = false
-
-[workspace.dependencies]
-anyhow = "1"
-thiserror = "1"
-derive_more = { version = "1", features = ["from", "display", "add"] }
+# Workspace 根目录已迁至 [`../Cargo.toml`](../Cargo.toml)。
+# 本目录保留 MSRV / Clippy 配置与文档；运行 demo 请：
+#
+#   cd ER
+#   cargo test --workspace
+#
+# 详见 [README.md](./README.md)、[WORKSPACE.md](./WORKSPACE.md)。
