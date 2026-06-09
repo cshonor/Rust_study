@@ -38,6 +38,7 @@
 | 03 | 重点结论 | [topics/03-key-takeaways.md](./topics/03-key-takeaways.md) |
 | 04 | 案例与代码 | [topics/04-examples.md](./topics/04-examples.md) |
 | 05 | 易错细节 | [topics/05-pitfalls.md](./topics/05-pitfalls.md) |
+| 06 | `FnOnce<()>` 与 `'env` 辨析 | [topics/06-trait-generic-params.md](./topics/06-trait-generic-params.md) |
 | — | 背诵提纲 | [topics/cheat-sheet.md](./topics/cheat-sheet.md) |
 
 ---

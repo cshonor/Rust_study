@@ -30,6 +30,8 @@
 | **`FnMut`** | `&mut` 借用环境 | 可多次调用并修改环境 |
 | **`Fn`** | `&` 借用环境 | 可多次只读调用 |
 
+→ `FnOnce<()>` 里 `<>` 的含义、与 `'env` 的区别：[06-trait-generic-params.md](./06-trait-generic-params.md)
+
 ### Trait（特征）
 
 - 一组**共享行为的契约**；类似 Go/Java 接口、C++ 纯虚类。
