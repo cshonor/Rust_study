@@ -26,7 +26,7 @@ impl Display for MyStruct {}
 
 impl FnOnce<()> for MyFunc {}
 
-impl<'env> SomeTrait<'env> for S {}
+impl<'a> BufRead<'a> for File {}  // trait 顶层生命周期，见 07 / 08
 ```
 
 尖括号本质：**给 trait 传静态配置**，让编译器在编译期确定本次实现对应的类型 / 生命周期。和 `Vec<T>` 的泛型逻辑一致。
@@ -87,35 +87,14 @@ Rust trait 静态分发，编译期必须确定：
 
 ---
 
-## 三、对比 `scope` 的 `'env`：两种「传进 `<>` 的东西」
+## 三、对比 `scope` 的 `'env`（概要）
 
-### 生命周期参数 `'env`（带撇号）
+`thread::scope` 里 `'env` 绑定的是 **Scope 结构体 + 外层局部环境**，不是 trait 方法里的引用约束。
 
-```rust
-thread::scope<'env, F>(f: F)
-where
-    F: FnOnce(&Scope<'env>),
-```
+- `'env`：scope 内外层变量的存活区间；子线程借用不能超过它。
+- `()` / `(T,)`：FnOnce 的**入参元组**（与 `'env` 无关）。
 
-- `'env` 是**生命周期标记**；
-- 约束：scope 内线程可借用外部、生命周期为 `'env` 的局部变量；
-- 管 **借用存活时长**，与函数入参类型无关。
-
-→ 深入：[Item 14 生命周期](../../Chapter-03-Concepts/Item-14-lifetimes/README.md)、[Item 15 借用检查器](../../Chapter-03-Concepts/Item-15-borrow-checker/README.md)
-
-### 类型参数 `()`（元组，无撇号）
-
-- `()` 是**空元组类型**；
-- 描述 **函数调用时的入参列表**，与生命周期无关。
-
-### 一句话
-
-| 尖括号里 | 管什么 |
-|----------|--------|
-| `'a` / `'env` | 借用能活多久 |
-| `(T,)` / `()` 等元组 | 调用时要传什么参数 |
-
-语法长得像，一个管生命周期、一个管可调用对象签名。
+→ **精准说明**（Scope 不是 trait、与 `BufRead<'buf>` 的差异）：[08-scope-env-lifetime.md](./08-scope-env-lifetime.md)
 
 ---
 

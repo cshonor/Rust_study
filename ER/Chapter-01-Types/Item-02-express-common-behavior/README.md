@@ -40,6 +40,7 @@
 | 05 | 易错细节 | [topics/05-pitfalls.md](./topics/05-pitfalls.md) |
 | 06 | `FnOnce<()>` 与 `'env` 辨析 | [topics/06-trait-generic-params.md](./topics/06-trait-generic-params.md) |
 | 07 | 尖括号：生命周期 vs 类型参数 | [topics/07-lifetime-vs-type-in-angle-brackets.md](./topics/07-lifetime-vs-type-in-angle-brackets.md) |
+| 08 | `'env` 与 `Scope`（不是 trait） | [topics/08-scope-env-lifetime.md](./topics/08-scope-env-lifetime.md) |
 | — | 背诵提纲 | [topics/cheat-sheet.md](./topics/cheat-sheet.md) |
 
 ---
