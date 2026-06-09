@@ -166,6 +166,7 @@ impl FnOnce<(i32,)> for FuncObj2 {
 
 ## 相关
 
+- 尖括号两类参数（顶层 `'a` vs 元组内 `&'a`）→ [07-lifetime-vs-type-in-angle-brackets.md](./07-lifetime-vs-type-in-angle-brackets.md)
 - 闭包 trait 概览 → [01-core-concepts.md](./01-core-concepts.md)
 - API 对比示例 → [04-examples.md](./04-examples.md)
 - 单态化 vs trait 对象 → [Item 12](../../Chapter-02-Traits/Item-12-generics-vs-trait-objects/README.md)

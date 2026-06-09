@@ -39,6 +39,7 @@
 | 04 | 案例与代码 | [topics/04-examples.md](./topics/04-examples.md) |
 | 05 | 易错细节 | [topics/05-pitfalls.md](./topics/05-pitfalls.md) |
 | 06 | `FnOnce<()>` 与 `'env` 辨析 | [topics/06-trait-generic-params.md](./topics/06-trait-generic-params.md) |
+| 07 | 尖括号：生命周期 vs 类型参数 | [topics/07-lifetime-vs-type-in-angle-brackets.md](./topics/07-lifetime-vs-type-in-angle-brackets.md) |
 | — | 背诵提纲 | [topics/cheat-sheet.md](./topics/cheat-sheet.md) |
 
 ---
