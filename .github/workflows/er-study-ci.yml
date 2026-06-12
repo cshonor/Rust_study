@@ -46,7 +46,7 @@ jobs:
         working-directory: 01-ER
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@1.70.0
+      - uses: dtolnay/rust-toolchain@1.100.0
       - name: MSRV check (Item 21)
         run: cargo check --workspace
 
