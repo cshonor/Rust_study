@@ -14,7 +14,18 @@
 ```rust
 struct Point { x: i32, y: i32 }
 struct Color(u8, u8, u8); // 元组结构体
+
+// HFT：一根 K 线用 struct 绑在一起，比零散标量好管
+struct Bar {
+    open: f64,
+    high: f64,
+    low: f64,
+    close: f64,
+    ts_ms: u64,
+}
 ```
+
+标量（`f64`、`u64` 等）描述**单个量**；聚合类型把多个量**绑成一个类型**，字段布局编译期确定（见 [01 固定大小](./01-fundamental-types.md)）。
 
 > 数组越界在 debug 通常 panic；release 下仍可能 panic——答题说「越界 panic」足够，别当成 C 式静默读错内存。
 
