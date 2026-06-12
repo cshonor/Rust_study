@@ -16,6 +16,82 @@
 3. **库 API 有诊断价值时保留 `Result`**——别偷换成 `Option`（Item 3 展开）。
 4. **与 `?`、转换方法配合**——见 [Item 3](../Item-03-option-result-transforms/README.md)、[Item 4](../Item-04-idiomatic-error-types/README.md)。
 
+---
+
+## `Result` 和 `Option` 怎么分工？
+
+两者**不是二选一**，而是回答**两个不同的问题**：
+
+| 类型 | 问的问题 | 两个答案 |
+|------|----------|----------|
+| **`Result<T, E>`** | 这次操作**成不成功**？ | `Ok(T)` 成功 · `Err(E)` 失败（可恢复错误） |
+| **`Option<T>`** | 这个值**在不在**？ | `Some(T)` 在 · `None` 不在（不是错误，只是缺失） |
+
+### ⚠️ 先纠正一个极易说反的误区
+
+有人会把 `Option` 说成「报文回没回来」——**这是错的**：
+
+| ❌ 错误说法 | ✅ 正确归属 |
+|------------|------------|
+| `None` = 报文没回来、超时、断连 | **`Result::Err`** —— 通信 / 解析失败 |
+| `Some` = 报文回来了 | **`Result::Ok`** —— 已成功拿到并解析合法响应 |
+| `None` = 报文回来了但没有某字段 | **`Ok(None)`** —— 在**成功**前提下，字段不存在 |
+| `Some(vec![])` = 报文回来了、payload 空数组 | **`Ok(Some(vec![]))`** —— 字段存在，内容为空 |
+
+**记忆口诀**：
+
+```text
+Result  outer → 「链路通不通 / 解析过不过」
+Option  inner → 「成功之后，这个字段在不在」（仅当需要区分存在性时）
+Vec     inside → 「在的话，有几条」
+```
+
+### 报文例子：到底用 `Option` 还是 `Result`？
+
+**都要用**——但包在不同层：
+
+```rust
+// 拉取盘口档位
+Result<Option<Vec<OrderBookLevel>>, NetworkError>
+```
+
+**处理顺序**（HFT 里建议严格按层 `match`，别混）：
+
+```rust
+match fetch_order_book(symbol) {
+    Err(e) => {
+        // ① Result 层：网络 / 解析 / 权限级错误 → 重连、告警、熔断
+        log::error!("request failed: {e}");
+    }
+    Ok(None) => {
+        // ② Option 层：请求成功，但该品种/用户「无此数据字段」
+        show_no_data_for_symbol();
+    }
+    Ok(Some(levels)) if levels.is_empty() => {
+        // ③ Vec 层：字段在，但当前 0 档挂单
+        show_empty_book();
+    }
+    Ok(Some(levels)) => {
+        // ③ Vec 层：有有效档位
+        render_book(levels);
+    }
+}
+```
+
+| 只用 `Result` 够吗？ | 只用 `Option` 够吗？ |
+|---------------------|---------------------|
+| 若 API **永远**返回列表字段（最多 `[]`）→ `Result<Vec<T>, E>` 即可 | **不够**——`Option` 无法携带错误原因，超时 / 断网只能变 `None`，和「字段缺失」混在一起 |
+| 若还要区分「字段缺失」vs「字段为空」→ 内层加 `Option` | 网络失败必须用 **`Result::Err`** |
+
+### 和「Option 区分空跟无」的关系
+
+- **`Option`**：在**已经成功**的前提下，区分 **无（不存在）** vs **有（Some）**；有之后若类型是 `Vec`，再区分 **空集合** vs **非空**。
+- **`Result`**：区分 **对（Ok）** vs **错（Err）**——错的是整个操作（没拿到可用响应），不是「某个字段缺了」。
+
+所以：**`Result` 管成败，`Option` 管存在性**——报文场景里，`Err` 才是「报文没回来」，`Ok(None)` 是「报文回来了，但没有你要的那个字段」。
+
+---
+
 ## `Result` 与 `Error` trait（预告）
 
 `Result<T, E>` 里的 **`E` 不强制**实现 `std::error::Error`，但自定义错误类型**惯例**应实现它，以便：

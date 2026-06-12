@@ -28,9 +28,9 @@
 | `mut` | **绑定**级可变，非「值类型/引用类型」默认规则 |
 | ADT | **积** struct/tuple · **和** enum · `()` = 零元积 |
 | `usize`/`isize` | 指针同宽；`len`/索引；业务字段别滥用 |
-| `Option` | `Some` / `None` → 无 null；`None`=不存在，`Some([])`=存在但空 |
-| `Result` | `Ok` / `Err` → 可恢复错误；与 `Option` 管不同层 |
-| `Result<Option<Vec>>` | `Err`=请求失败；`Ok(None)`=无字段；`Ok(Some([]))`=空列表 |
+| `Option` | `Some` / `None` → 无 null；管**存在性**（不是成败） |
+| `Result` | `Ok` / `Err` → 管**成败**；断网/超时走 `Err`，不是 `None` |
+| `Result<Option<Vec>>` | 先 `Result` 再 `Option` 再 `Vec`；三层别混 |
 
 ## Item 1 设计主张
 
