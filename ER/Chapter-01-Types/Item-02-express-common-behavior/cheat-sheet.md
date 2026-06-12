@@ -7,6 +7,8 @@
 | `self` 三种 | `&` 读、`&mut` 改、`self` 拿走 → [09](./09-methods-and-self.md) |
 | `fn` vs 闭包 | `fn` 无捕获；闭包有唯一类型 + `Fn*` |
 | 四条结论 | ①Fn* 非 fn ②FnOnce 最宽 ③T:Trait 非 File ④裸 T 只能 move → [03](./03-key-takeaways.md) |
+| 对象安全 | 无返回 Self、无方法泛型、Sized supertrait → [05](./05-pitfalls.md) |
+| C++ vs Rust | 鸭子类型晚报错 vs 显式 bound 早拦截 |
 | `Fn*` 选宽 | 只调一次写 FnOnce；能宽别收紧 |
 | 逻辑链 | 函数→方法→fn→闭包→Trait→静/动态 → [02](./02-logic-flow.md) |
 | `Fn*` 兼容 | 要求 FnOnce 最宽；call_once 会消耗闭包 |
