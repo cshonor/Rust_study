@@ -143,6 +143,7 @@ trait NotObjectSafe {
 | vtable 里有方法代码 | 只有**地址**；实体代码在代码段 |
 | `impl` 了 trait 就一定有 vtable | 只有用到 **`dyn Trait`** 才生成 |
 | 静态 / 动态二选一 | 同一类型可**并存** → [Item 12 §09](../../Chapter-02-Traits/Item-12-generics-vs-trait-objects/06-dispatch-beginner-guide.md) |
+| 裸 `dyn Trait` | **DST 不能裸用** → `&dyn` / `Box<dyn>` → [Item 12 §07](../../Chapter-02-Traits/Item-12-generics-vs-trait-objects/07-dyn-trait-dst-carriers.md) |
 
 ---
 

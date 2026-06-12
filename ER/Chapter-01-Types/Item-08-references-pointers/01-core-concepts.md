@@ -16,7 +16,7 @@
 |------|------|
 | **`&[T]`** | 数据指针 + **length** |
 | **`&str`** | 同上（DST 视图） |
-| **`&dyn Trait`** | 数据指针 + **vtable** 指针（vtable 在静态区，方法代码在代码段） |
+| **`&dyn Trait`** | 数据指针 + **vtable** 指针 —— **DST，不能裸写 `dyn Trait`** → [Item 12 §07](../../Chapter-02-Traits/Item-12-generics-vs-trait-objects/07-dyn-trait-dst-carriers.md) |
 
 ### 智能指针（Smart Pointers）
 

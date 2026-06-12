@@ -18,4 +18,4 @@
 | 两种 `'a` | 顶层 `Trait<'a>` vs 元组内 `&'a` → [07](./07-lifetime-vs-type-in-angle-brackets.md) |
 | `'env` | **Scope 环境**，非 trait 内引用 → [08](./08-scope-env-lifetime.md) |
 | 泛型 | 无 bound 的 `T` 几乎只能 move |
-| `dyn Trait` | 要对象安全；否则用泛型 |
+| `dyn Trait` | 要对象安全；**DST 不能裸用** → Item 12 §07 |

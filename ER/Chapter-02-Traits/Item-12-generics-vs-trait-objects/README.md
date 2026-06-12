@@ -39,6 +39,7 @@
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
 | 06 | 单态化与静/动态分发（大白话） | [06-dispatch-beginner-guide.md](./06-dispatch-beginner-guide.md) |
+| 07 | `dyn Trait` 是 DST，不能裸用 | [07-dyn-trait-dst-carriers.md](./07-dyn-trait-dst-carriers.md) |
 | — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
