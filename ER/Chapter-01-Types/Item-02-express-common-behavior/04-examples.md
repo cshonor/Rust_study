@@ -38,4 +38,34 @@ fn apply_fn(f: fn(i32) -> i32, x: i32) -> i32 { f(x) }
 fn apply<F: FnOnce(i32) -> i32>(f: F, x: i32) -> i32 { f(x) }
 ```
 
+### Trait bound vs 绑死具体类型
+
+```rust
+use std::io::{Cursor, Read};
+
+fn bytes_from<R: Read>(r: &mut R) -> std::io::Result<Vec<u8>> {
+    let mut v = Vec::new();
+    r.read_to_end(&mut v)?;
+    Ok(v)
+}
+
+// 文件、网络、内存、测试 mock 同一套 API
+let data = bytes_from(&mut Cursor::new(b"hello"))?;
+```
+
+### 裸泛型 `T` vs 加 bound
+
+```rust
+fn only_move<T>(x: T) {
+    drop(x); // OK
+    // x.clone(); // ❌ 需要 T: Clone
+}
+
+fn need_display<T: std::fmt::Display>(x: T) {
+    println!("{x}");
+}
+```
+
+→ 四条结论展开 → [03-key-takeaways.md](./03-key-takeaways.md)
+
 ---

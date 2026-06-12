@@ -6,7 +6,8 @@
 |------|------|
 | `self` 三种 | `&` 读、`&mut` 改、`self` 拿走 → [09](./09-methods-and-self.md) |
 | `fn` vs 闭包 | `fn` 无捕获；闭包有唯一类型 + `Fn*` |
-| `Fn*` 选宽 | 能 `FnOnce` 就别写死 `Fn`；Fn > FnMut > FnOnce 能力 |
+| 四条结论 | ①Fn* 非 fn ②FnOnce 最宽 ③T:Trait 非 File ④裸 T 只能 move → [03](./03-key-takeaways.md) |
+| `Fn*` 选宽 | 只调一次写 FnOnce；能宽别收紧 |
 | 逻辑链 | 函数→方法→fn→闭包→Trait→静/动态 → [02](./02-logic-flow.md) |
 | `Fn*` 兼容 | 要求 FnOnce 最宽；call_once 会消耗闭包 |
 | 静/动态 | 静态=编译硬编码地址；dyn=运行查 vtable → Item 12 §06 |
