@@ -32,14 +32,14 @@
 
 | 专题 | 内容 | 阅读 |
 |------|------|------|
-| 01 | 整数、无隐式转换 | [topics/01-fundamental-types.md](./topics/01-fundamental-types.md) |
-| 02 | `bool` / 浮点 / `()` / `char` | [topics/02-scalar-types.md](./topics/02-scalar-types.md) |
-| 03 | 数组、元组、结构体 | [topics/03-aggregate-types.md](./topics/03-aggregate-types.md) |
-| 04 | 枚举与 ADT | [topics/04-enum-adt.md](./topics/04-enum-adt.md) |
-| 05 | `Option` / `Result` | [topics/05-option-result.md](./topics/05-option-result.md) |
-| 06 | 设计模式与重构案例 | [topics/06-design-patterns.md](./topics/06-design-patterns.md) |
-| 07 | 易错细节 | [topics/07-pitfalls.md](./topics/07-pitfalls.md) |
-| — | 背诵提纲（考前速览） | [topics/cheat-sheet.md](./topics/cheat-sheet.md) |
+| 01 | 整数、无隐式转换 | [01-fundamental-types.md](./01-fundamental-types.md) |
+| 02 | `bool` / 浮点 / `()` / `char` | [02-scalar-types.md](./02-scalar-types.md) |
+| 03 | 数组、元组、结构体 | [03-aggregate-types.md](./03-aggregate-types.md) |
+| 04 | 枚举与 ADT | [04-enum-adt.md](./04-enum-adt.md) |
+| 05 | `Option` / `Result` | [05-option-result.md](./05-option-result.md) |
+| 06 | 设计模式与重构案例 | [06-design-patterns.md](./06-design-patterns.md) |
+| 07 | 易错细节 | [07-pitfalls.md](./07-pitfalls.md) |
+| — | 背诵提纲（考前速览） | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 

@@ -120,10 +120,10 @@ $body
             [IO.File]::WriteAllText($outPath, $topicContent.TrimEnd() + "`n")
             $label = $tm.File -replace '\.md$','' -replace '^0','' -replace '^cheat-sheet','—'
             if ($tm.File -eq 'cheat-sheet.md') {
-                $tableRows += "| — | 背诵提纲 | [topics/cheat-sheet.md](./topics/cheat-sheet.md) |"
+                $tableRows += "| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |"
             } else {
                 $n = $tm.File.Substring(0, 2)
-                $tableRows += "| $n | $($tm.Title) | [topics/$($tm.File)](./topics/$($tm.File)) |"
+                $tableRows += "| $n | $($tm.Title) | [$($tm.File)](./$($tm.File)) |"
             }
         }
 
@@ -139,7 +139,7 @@ $body
         $hubHeaderText = Fix-HubLinks ($hubHeader -join "`n")
 
         # one-liner from section 3
-        $oneLiner = '见 [03-key-takeaways.md](./topics/03-key-takeaways.md)。'
+        $oneLiner = '见 [03-key-takeaways.md](./03-key-takeaways.md)。'
         if ($sections.ContainsKey('03-key-takeaways.md')) {
             $t3 = $sections['03-key-takeaways.md']
             if ($t3 -match '(?m)^1\.\s+\*\*(.+?)\*\*') {

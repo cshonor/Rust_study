@@ -108,12 +108,12 @@ def split_readme(readme: Path) -> None:
         (topics_dir / fname).write_text(content, encoding="utf-8")
         if fname == "cheat-sheet.md":
             table_rows.append(
-                f"| — | 背诵提纲 | [topics/cheat-sheet.md](./topics/cheat-sheet.md) |"
+                f"| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |"
             )
         else:
             n = fname[:2]
             table_rows.append(
-                f"| {n} | {title} | [topics/{fname}](./topics/{fname}) |"
+                f"| {n} | {title} | [{fname}](./{fname}) |"
             )
 
     header_lines: list[str] = []
@@ -123,7 +123,7 @@ def split_readme(readme: Path) -> None:
         header_lines.append(hl)
     hub_header = fix_hub_links("\n".join(header_lines).rstrip())
 
-    one_liner = "见 [03-key-takeaways.md](./topics/03-key-takeaways.md)。"
+    one_liner = "见 [03-key-takeaways.md](./03-key-takeaways.md)。"
     if "03-key-takeaways.md" in sections:
         t3 = sections["03-key-takeaways.md"]
         m = re.search(r"(?m)^1\.\s+\*\*(.+?)\*\*", t3) or re.search(

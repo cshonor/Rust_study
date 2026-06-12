@@ -33,15 +33,15 @@
 
 | # | 专题 | 阅读 |
 |---|------|------|
-| 01 | 核心知识点 | [topics/01-core-concepts.md](./topics/01-core-concepts.md) |
-| 02 | 逻辑脉络 | [topics/02-logic-flow.md](./topics/02-logic-flow.md) |
-| 03 | 重点结论 | [topics/03-key-takeaways.md](./topics/03-key-takeaways.md) |
-| 04 | 案例与代码 | [topics/04-examples.md](./topics/04-examples.md) |
-| 05 | 易错细节 | [topics/05-pitfalls.md](./topics/05-pitfalls.md) |
-| 06 | `FnOnce<()>` 与 `'env` 辨析 | [topics/06-trait-generic-params.md](./topics/06-trait-generic-params.md) |
-| 07 | 尖括号：生命周期 vs 类型参数 | [topics/07-lifetime-vs-type-in-angle-brackets.md](./topics/07-lifetime-vs-type-in-angle-brackets.md) |
-| 08 | `'env` 与 `Scope`（不是 trait） | [topics/08-scope-env-lifetime.md](./topics/08-scope-env-lifetime.md) |
-| — | 背诵提纲 | [topics/cheat-sheet.md](./topics/cheat-sheet.md) |
+| 01 | 核心知识点 | [01-core-concepts.md](./01-core-concepts.md) |
+| 02 | 逻辑脉络 | [02-logic-flow.md](./02-logic-flow.md) |
+| 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
+| 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
+| 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
+| 06 | `FnOnce<()>` 与 `'env` 辨析 | [06-trait-generic-params.md](./06-trait-generic-params.md) |
+| 07 | 尖括号：生命周期 vs 类型参数 | [07-lifetime-vs-type-in-angle-brackets.md](./07-lifetime-vs-type-in-angle-brackets.md) |
+| 08 | `'env` 与 `Scope`（不是 trait） | [08-scope-env-lifetime.md](./08-scope-env-lifetime.md) |
+| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 
