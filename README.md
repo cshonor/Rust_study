@@ -7,6 +7,10 @@ Rust 学习笔记 + 每章 demo。
 - **并发 / 异步**：[rust-concurrency-async-practice](https://github.com/cshonor/rust-concurrency-async-practice) — 多线程、原子与锁、Tokio/async、crossbeam/rayon、网络与 TLPI 等并列学习仓（与本仓库并行，非子目录）。
 - **网络（UNP）**：[UNIX 网络编程](UNP/UNP-本书目录.md) 卷 1 精读（HFT 向），与 Rust 主线并行。
 
+### 纯阅读路线（跳过并发/async 练习仓）
+
+**RFR 通读 → Effective Rust 通读 → Rust Nomicon** —— 详见 [`docs/纯阅读路线.md`](docs/纯阅读路线.md)。
+
 ## 目录结构
 
 - **Book（The Book）**：[`Book/Book-本书目录.md`](Book/Book-本书目录.md) + `Book/01-*`～`Book/19-*`（笔记与 demo）
