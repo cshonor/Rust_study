@@ -84,7 +84,7 @@ impl<'a> Demo<'a> for Vec<i32> {}
 | `FnOnce<()>` | `()` | 类型参数 | 入参列表为空 |
 | `FnOnce<(i32,)>` | `(i32,)` | 类型参数 | 入参为单个 `i32` |
 | `Read<'buf>` | `'buf` | 生命周期参数 | 约束 trait 内引用 |
-| `scope<'env, F>` | `'env` + `F` | 生命周期 + 类型 | `'env` 管借用；`F` 是闭包类型 |
+| `scope<'env, F>` | `'env` + `F` | 生命周期 + 类型 | `'env` = Scope **环境**；详见 [08](./08-scope-env-lifetime.md) |
 | `FnOnce<(&'a str,)>` | 元组内含 `'a` | 类型参数位 + 内部生命周期 | 入参是带生命周期的 `&str` |
 
 ---
@@ -125,3 +125,4 @@ fn run<'s, F: FnOnce((&'s str,))>(f: F) {
 - `FnOnce<()>` 入门 → [06-trait-generic-params.md](./06-trait-generic-params.md)
 - 生命周期专题 → [Item 14 生命周期](../../Chapter-03-Concepts/Item-14-lifetimes/README.md)
 - 借用检查 → [Item 15 借用检查器](../../Chapter-03-Concepts/Item-15-borrow-checker/README.md)
+- `'env` 与 `Scope` → [08-scope-env-lifetime.md](./08-scope-env-lifetime.md)
