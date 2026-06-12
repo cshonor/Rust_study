@@ -125,6 +125,85 @@ a.rs 用 MyStruct，b.rs 用 OtherStruct
 3. **动态分发**：运行查 vtable，灵活稍慢，靠 `dyn Trait`
 4. **闭包 Fn\***：Fn > FnMut > FnOnce（能力）；要求 FnOnce 时三者皆可，要求 Fn 时只能 Fn
 
+---
+
+## 7. 同一类型：单态化代码和 vtable 能同时存在吗？
+
+**能。核心结论：两套机制并行、互不冲突，按需走不同路径。**
+
+```rust
+trait Say {
+    fn hello(&self);
+}
+
+struct A;
+impl Say for A {
+    fn hello(&self) { println!("A hello"); }
+}
+```
+
+### 场景 1：静态分发（泛型 / 单态化，不走 `dyn`）
+
+```rust
+fn call_static<T: Say>(x: T) {
+    x.hello();
+}
+
+call_static(A);
+```
+
+1. 编译期**单态化** → 生成 `call_static` 针对 `A` 的专属版本
+2. 运行时**直接调用** `<A as Say>::hello`，**不查 vtable**
+3. 此路径**用不到虚表**
+
+### 场景 2：动态分发（`&dyn Trait`）
+
+```rust
+fn call_dyn(x: &dyn Say) {
+    x.hello();
+}
+
+let a = A;
+call_dyn(&a);
+```
+
+1. 代码里出现 `dyn Say` 且用到 `A` → 编译器为 **`A + Say`** 生成一张 **vtable**（方法地址表）
+2. `&dyn Say` = **胖指针**：数据指针（指向 `a`）+ vtable 指针
+3. 运行时：查 vtable → 拿到 `hello` 地址 → 间接调用
+4. 底层执行的仍是 `<A as Say>::hello` 那份**本体代码**——vtable 只是「找地址的中间层」
+
+### 回答核心问题
+
+> 同一个 `A`，既走泛型静态调用，又走 `&dyn Say`，是不是同时有单态化代码 + vtable？
+
+**是的。**
+
+| 产物 | 何时有 | 给谁用 |
+|------|--------|--------|
+| **Trait 方法本体代码**（如 `<A as Say>::hello`） | `impl Say for A` 就有 | 静态路径直接调；vtable 里存它的地址 |
+| **单态化出来的泛型实例**（如 `call_static` 的 `A` 版） | 泛型函数被 `A` 实例化时 | 静态分发路径 |
+| **vtable（A + Say）** | 程序里**实际用到** `dyn Say` 且包含 `A` 时 | 动态分发路径 |
+
+两者**并行**：
+
+- 走静态 → 用单态化 / 直接调用，**跳过 vtable**
+- 走动态 → 查 vtable，**最终仍跳进同一份方法代码**
+
+### 两个易混点
+
+1. **vtable 按「具体类型 + Trait」只生成一份**  
+   全项目多少处 `&dyn Say` 指向 `A`，`A` 的 `Say` vtable 通常也只有一份，不重复造表。
+
+2. **vtable 不是「impl 了就一定有」**  
+   只有代码里**真的出现** `dyn Trait` 并链接到该类型时才生成；只 `impl`、从不走 `dyn`，可以没有 vtable（但方法本体代码仍在）。
+
+### 四句话总结
+
+1. `impl Trait for Type` → **方法本体代码**永久存在
+2. 静态 / 泛型 / 单态化 → 编译定地址，**不查 vtable**，快
+3. `dyn Trait` → 运行时查**专属 vtable**，再调到本体代码，灵活略慢
+4. 同一类型可同时被两种方式使用——**代码与 vtable 并存，互不冲突**
+
 ## 相关
 
 - 形式化定义 → [01-core-concepts.md](./01-core-concepts.md)
