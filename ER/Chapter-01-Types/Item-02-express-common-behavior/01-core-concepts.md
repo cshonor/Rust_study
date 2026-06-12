@@ -30,7 +30,24 @@
 | **`FnMut`** | `&mut` 借用环境 | 可多次调用并修改环境 |
 | **`Fn`** | `&` 借用环境 | 可多次只读调用 |
 
+**向下兼容**（API 要求越弱，传入选择越多）：
+
+| 参数要求 | 可传入 |
+|----------|--------|
+| `F: FnOnce` | `Fn` / `FnMut` / `FnOnce` 闭包都行 |
+| `F: FnMut` | `FnMut` / `Fn` |
+| `F: Fn` | 仅 `Fn` |
+
 → `FnOnce<()>` 里 `<>` 的含义、与 `'env` 的区别：[06-trait-generic-params.md](./06-trait-generic-params.md)
+
+### 静/动态分发（与 Item 12 衔接）
+
+| 写法 | 分发方式 |
+|------|----------|
+| 泛型 / `F: FnOnce()` | **静态分发**（单态化，编译期定调用） |
+| `Box<dyn Fn()>` / `&dyn Trait` | **动态分发**（运行期查 vtable） |
+
+大白话版 → [Item 12 §06](../../Chapter-02-Traits/Item-12-generics-vs-trait-objects/06-dispatch-beginner-guide.md)
 
 ### Trait（特征）
 

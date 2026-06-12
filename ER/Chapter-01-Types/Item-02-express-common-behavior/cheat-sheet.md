@@ -6,7 +6,8 @@
 |------|------|
 | `self` 三种 | `&` 读、`&mut` 改、`self` 拿走 |
 | `fn` vs 闭包 | `fn` 无捕获；闭包有唯一类型 + `Fn*` |
-| `Fn*` 选宽 | 能 `FnOnce` 就别写死 `Fn` |
+| `Fn*` 选宽 | 能 `FnOnce` 就别写死 `Fn`；Fn > FnMut > FnOnce 能力 |
+| 静/动态 | 泛型 `F: Fn*` = 静态；`dyn Trait` = vtable 动态 → Item 12 §06 |
 | `FnOnce<()>` | `<>` 里是**入参元组**，不是返回值；`()` = 无入参 |
 | `<>` 两种 | `'a` 管生命周期；`(T,)` 管调用签名 → [06](./06-trait-generic-params.md) |
 | 两种 `'a` | 顶层 `Trait<'a>` vs 元组内 `&'a` → [07](./07-lifetime-vs-type-in-angle-brackets.md) |

@@ -38,6 +38,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
+| 06 | 单态化与静/动态分发（大白话） | [06-dispatch-beginner-guide.md](./06-dispatch-beginner-guide.md) |
 | — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
