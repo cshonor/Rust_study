@@ -4,7 +4,7 @@
 
 | 要点 | 一句 |
 |------|------|
-| `self` 三种 | `&` 读、`&mut` 改、`self` 拿走 |
+| `self` 三种 | `&` 读、`&mut` 改、`self` 拿走 → [09](./09-methods-and-self.md) |
 | `fn` vs 闭包 | `fn` 无捕获；闭包有唯一类型 + `Fn*` |
 | `Fn*` 选宽 | 能 `FnOnce` 就别写死 `Fn`；Fn > FnMut > FnOnce 能力 |
 | 逻辑链 | 函数→方法→fn→闭包→Trait→静/动态 → [02](./02-logic-flow.md) |

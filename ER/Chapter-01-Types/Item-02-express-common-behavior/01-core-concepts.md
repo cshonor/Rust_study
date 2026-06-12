@@ -12,6 +12,8 @@
 | `&mut self` | 可变借用，可改实例 |
 | `self` | 按值接收，**消耗**所有权 |
 
+→ 展开（三种 self、struct/enum 示例、关联函数）→ [09-methods-and-self.md](./09-methods-and-self.md)
+
 ### 函数指针 `fn`
 
 - 指向代码地址，**不捕获环境**。

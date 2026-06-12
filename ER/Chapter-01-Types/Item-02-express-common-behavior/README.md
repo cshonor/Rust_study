@@ -41,6 +41,7 @@
 | 06 | `FnOnce<()>` 与 `'env` 辨析 | [06-trait-generic-params.md](./06-trait-generic-params.md) |
 | 07 | 尖括号：生命周期 vs 类型参数 | [07-lifetime-vs-type-in-angle-brackets.md](./07-lifetime-vs-type-in-angle-brackets.md) |
 | 08 | `'env` 与 `Scope`（不是 trait） | [08-scope-env-lifetime.md](./08-scope-env-lifetime.md) |
+| 09 | 方法与三种 `self` | [09-methods-and-self.md](./09-methods-and-self.md) |
 | — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
