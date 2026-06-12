@@ -38,6 +38,9 @@
 | 核心主张 | 设计写进类型，无效状态编译不过 |
 | 无效状态 | struct+`Option` 字段易留非法组合 → 用 enum 变体各带合法字段 |
 | 订单例 | `Pending`/`Filled`/`Cancelled` 各带自己的 time/price，不能混搭 |
+| 布尔→枚举 | 别用 `print_page(true,false)`；用 `Sides`/`Output` 具名变体 |
+| 状态依赖 | 前态影响后态 → enum 变体转换 + 各分支只开放合法操作 |
+| 状态功能 | 优先 `impl Enum { match self { ... } }`，trait 对象作进阶 |
 | ADT | `enum` 变体可带数据 |
 | 哨兵 | 用 `Option`，别用魔法值 |
 | 失败 | 用 `Result`，别用特殊返回码 |

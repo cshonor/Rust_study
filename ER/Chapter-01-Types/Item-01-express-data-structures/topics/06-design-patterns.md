@@ -90,15 +90,145 @@ struct ScreenColor {
 
 ## 布尔参数 → 具名枚举
 
-```rust
-// ❌ 易填错、顺序可颠倒而不报错
-// print_page(true, false);
+标题拆开读：**布尔参数** = 用 `true`/`false` 传选项；**具名枚举** = 给每个选项起**有意义的名字**，放进 `enum` 里。
 
-// ✅ 意图清晰，错序/错值更易被类型拦住
-enum Sides { One, Both }
-enum Output { BlackAndWhite, Color }
-fn print_page(sides: Sides, output: Output) { /* ... */ }
+### 枚举（enum）是什么？
+
+先搞懂「枚举」本身（语法细节见 [04-enum-adt.md](./04-enum-adt.md)）：
+
+- **枚举** = 一个值**只能是几种选项之一**（互斥），比如「单面 / 双面」「黑白 / 彩色」。
+- 每个选项叫**变体**（variant），如 `Sides::One`、`Output::Color`。
+- 和 `bool` 只有 `true`/`false` 两个匿名值不同，变体**自带名字**，读代码的人一眼知道在选什么。
+
+一句话：**enum 把「只能选其一的几种情况」写进类型**。
+
+### 问题：`print_page(true, false)` 在说什么？
+
+```rust
+// ❌ 布尔参数：意图模糊，顺序还容易传反
+print_page(true, false);
+//        ^^^^  ^^^^^ 第一个 true 是单面还是双面？
+//               ^^^^^ 第二个 false 是黑白还是彩色？
 ```
+
+`true`/`false` 本身**没有业务含义**——只能靠参数位置、注释或文档猜。两个 `bool` 参数还可以**传反**而编译器不报错（都是 `bool`，类型一样）。
+
+### 重构：给选项「上户口」
+
+```rust
+enum Sides {
+    One,   // 单面
+    Both,  // 双面
+}
+
+enum Output {
+    BlackAndWhite,
+    Color,
+}
+
+fn print_page(sides: Sides, output: Output) { /* ... */ }
+
+// ✅ 调用处意图一眼能看懂
+print_page(Sides::One, Output::BlackAndWhite);
+```
+
+| 对比 | 布尔参数 | 具名枚举 |
+|------|----------|----------|
+| 可读性 | `true, false` 看不出含义 | `Sides::One, Output::Color` 自解释 |
+| 传参顺序 | 两个 `bool` 传反也编译通过 | `Sides` 和 `Output` **不同类型**，传反会编译错误 |
+| 扩展 | 再加选项只能堆更多 `bool`，组合爆炸 | 新改变体，编译器逼你补全 `match` |
+
+**具名枚举** = 不再用裸 `true`/`false`，而是给每个选项一个**有名字、有类型**的身份。
+
+---
+
+## 前后状态有依赖时怎么设计？
+
+业务里常见：**前一个状态决定后面能做什么**（未支付不能发货、已成交不能再挂单）。设计目标：
+
+1. **每个状态只带该状态下合法的字段**（见上文 `OrderStatus`）。
+2. **每个状态只开放合法操作**——非法操作在类型或 `match` 里直接拦住。
+3. **状态转换显式**——从 A 到 B 是一次明确的转换，不是改几个字段。
+
+### 订单：未支付 → 已支付 → 已发货
+
+```rust
+enum Order {
+    Unpaid { amount: u64 },
+    Paid { amount: u64, paid_at: u64 },
+    Shipped { amount: u64, paid_at: u64, tracking: String },
+}
+```
+
+- `Unpaid`：只有金额，**没有**物流单号——类型上就不存在「未支付却有 tracking」。
+- 支付成功：`Unpaid` **变成** `Paid`（新变体，带上 `paid_at`）。
+- 发货：只有 `Paid` 才能变成 `Shipped`；`Unpaid` 走发货路径应在 `match` 里返回错误。
+
+前序状态对后续的影响，通过**变体转换**写清楚，而不是在一个 struct 里改 flag。
+
+---
+
+## 不同状态对应不同功能：怎么做到？
+
+常见两种写法；**Item 1 阶段优先掌握 enum + `match`**（逻辑集中、一眼看清差异）。
+
+### 写法一：enum 上的方法 + `match`（推荐入门）
+
+把「当前状态能做什么」写进 `match` 各分支；**不合法的分支直接 `Err` 或编译期就写不出来**：
+
+```rust
+enum Color {
+    Monochrome,
+    Foreground(RgbColor),
+}
+
+impl Color {
+    fn draw(&self) {
+        match self {
+            Color::Monochrome => { /* 只走灰度渲染 */ }
+            Color::Foreground(rgb) => { /* 走彩色渲染，用 rgb */ }
+        }
+    }
+}
+```
+
+订单支付同理——方法消费 `self`，成功则**返回新状态的 enum 值**：
+
+```rust
+impl Order {
+    fn pay(self) -> Result<Order, &'static str> {
+        match self {
+            Order::Unpaid { amount } => Ok(Order::Paid {
+                amount,
+                paid_at: now(),
+            }),
+            Order::Paid { .. } => Err("already paid"),
+            Order::Shipped { .. } => Err("already shipped"),
+        }
+    }
+
+    fn ship(self) -> Result<Order, &'static str> {
+        match self {
+            Order::Paid { amount, paid_at } => Ok(Order::Shipped {
+                amount,
+                paid_at,
+                tracking: assign_tracking(),
+            }),
+            Order::Unpaid { .. } => Err("must pay first"),
+            Order::Shipped { .. } => Err("already shipped"),
+        }
+    }
+}
+```
+
+- 持有一个 `Order::Unpaid { ... }` 时，调用 `pay()` 得到 `Order::Paid`；**类型变了，能调的方法语义也跟着变**。
+- 在 `Unpaid` 上误调 `ship()` → 运行时 `Err`；若把状态拆成不同 struct + 不同 impl（类型状态模式，Item 进阶），部分非法调用可提升到**编译期**报错。
+
+### 写法二：trait 对象（了解即可，Item 2 再深入）
+
+给每个状态单独 `impl OrderState trait`，用 `Box<dyn OrderState>` 动态分发。灵活，但样板多、间接层也多；**同等逻辑用 enum + `match` 往往更直观**。见 [Item 2](../../Item-02-express-common-behavior/README.md) trait 专题。
+
+---
 
 ## 相关
 
