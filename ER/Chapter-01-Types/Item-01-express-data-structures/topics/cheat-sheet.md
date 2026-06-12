@@ -36,9 +36,12 @@
 | 要点 | 一句 |
 |------|------|
 | 核心主张 | 设计写进类型，无效状态编译不过 |
+| 无效状态 | struct+`Option` 字段易留非法组合 → 用 enum 变体各带合法字段 |
+| 订单例 | `Pending`/`Filled`/`Cancelled` 各带自己的 time/price，不能混搭 |
 | ADT | `enum` 变体可带数据 |
 | 哨兵 | 用 `Option`，别用魔法值 |
 | 失败 | 用 `Result`，别用特殊返回码 |
+| `Error` | 自定义 `E` 惯例实现 `Error`；库用 `thiserror`（→ Item 4） |
 | `match` | 穷尽；公开 enum 加变体要小心破坏性 |
 
 ## 专题索引

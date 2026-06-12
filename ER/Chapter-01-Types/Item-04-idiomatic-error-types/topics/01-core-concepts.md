@@ -19,4 +19,14 @@
 - 只有「trait 或类型至少一方定义在当前 crate」才能 `impl`。
 - **不能**写 `impl Error for String`（`String` 与 `Error` 都在标准库）。
 
+### 谁实现了 `Error`？
+
+| 来源 | 例子 |
+|------|------|
+| **标准库** | `std::io::Error`、`ParseIntError`、`FromUtf8Error` 等 |
+| **手写 `impl`** | 见 [04-examples.md](./04-examples.md) 里的 `MyError` enum |
+| **`thiserror` 派生** | `#[derive(Error)]` 自动生成 `impl Error` + 把 `#[error("...")]` 绑到 `Display` |
+
+`thiserror` 适合**库**：省掉重复的 `impl Display` / `impl Error` / `source()` 样板，让你专注错误语义本身。应用层汇总多库异构错误时更常用 `anyhow`（见 [03-key-takeaways.md](./03-key-takeaways.md)）。
+
 ---
