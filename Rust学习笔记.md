@@ -1,7 +1,7 @@
 # Rust 学习笔记
 
 > 基于《Rust程序设计语言》教程大纲整理  
-> **全书导航**（笔记 + demo 链接）：[Book/Book-本书目录.md](Book/Book-本书目录.md)
+> **全书导航**（笔记 + demo 链接）：[00-Book/Book-本书目录.md](00-Book/Book-本书目录.md)
 
 ---
 
@@ -172,13 +172,13 @@
 - [ ] 常见 trait：`Debug`、`Clone`、`Copy` 等
 
 ### 10.3 生命周期与引用有效性
-- [ ] [10.3 索引](Book/10-generics-traits-lifetimes/10.3-生命周期与引用有效性.md)
-- [ ] [10.3.1 悬垂引用](Book/10-generics-traits-lifetimes/10.3.1-悬垂引用.md)
-- [ ] [10.3.2 同 `'a` 与红线](Book/10-generics-traits-lifetimes/10.3.2-同a约束与红线.md)
-- [ ] [10.3.3 生命周期基础](Book/10-generics-traits-lifetimes/10.3.3-生命周期基础.md)
-- [ ] [10.3.4 longest / get_first](Book/10-generics-traits-lifetimes/10.3.4-longest与get_first.md)
-- [ ] [10.3.5 显式与隐式](Book/10-generics-traits-lifetimes/10.3.5-显式与隐式生命周期.md)
-- [ ] [10.3.6 结构体 / static / 泛型](Book/10-generics-traits-lifetimes/10.3.6-结构体-static与泛型.md)
+- [ ] [10.3 索引](00-Book/10-generics-traits-lifetimes/10.3-生命周期与引用有效性.md)
+- [ ] [10.3.1 悬垂引用](00-Book/10-generics-traits-lifetimes/10.3.1-悬垂引用.md)
+- [ ] [10.3.2 同 `'a` 与红线](00-Book/10-generics-traits-lifetimes/10.3.2-同a约束与红线.md)
+- [ ] [10.3.3 生命周期基础](00-Book/10-generics-traits-lifetimes/10.3.3-生命周期基础.md)
+- [ ] [10.3.4 longest / get_first](00-Book/10-generics-traits-lifetimes/10.3.4-longest与get_first.md)
+- [ ] [10.3.5 显式与隐式](00-Book/10-generics-traits-lifetimes/10.3.5-显式与隐式生命周期.md)
+- [ ] [10.3.6 结构体 / static / 泛型](00-Book/10-generics-traits-lifetimes/10.3.6-结构体-static与泛型.md)
 
 ---
 
@@ -267,26 +267,26 @@
 ## 15. 智能指针
 
 ### 15.1 使用 Box\<T\> 指向堆上的数据
-- [x] 堆分配 · Deref · Drop → [15.1](./Book/15-smart-pointers/15.1-使用Box指向堆上的数据.md)
-- [x] 递归类型 · Cons · `&**self` → [15.1.1](./Book/15-smart-pointers/15.1.1-Box的Deref与双层星号.md)
+- [x] 堆分配 · Deref · Drop → [15.1](./00-Book/15-smart-pointers/15.1-使用Box指向堆上的数据.md)
+- [x] 递归类型 · Cons · `&**self` → [15.1.1](./00-Book/15-smart-pointers/15.1.1-Box的Deref与双层星号.md)
 
 ### 15.2 使用 Deref trait 将智能指针当作常规引用处理
-- [x] 解引用 `*` → [15.2](./Book/15-smart-pointers/15.2-通过Deref将智能指针当作引用.md)
-- [x] `Deref` 与 `DerefMut` → [15.2.1 嵌套/坑点](./Book/15-smart-pointers/15.2.1-Deref嵌套可变与编译坑.md)
+- [x] 解引用 `*` → [15.2](./00-Book/15-smart-pointers/15.2-通过Deref将智能指针当作引用.md)
+- [x] `Deref` 与 `DerefMut` → [15.2.1 嵌套/坑点](./00-Book/15-smart-pointers/15.2.1-Deref嵌套可变与编译坑.md)
 
 ### 15.3 使用 Drop Trait 运行清理代码
-- [x] 析构逻辑 → [15.3](./Book/15-smart-pointers/15.3-使用Drop运行清理代码.md)
-- [x] `drop` 函数 · `mem::drop` → [15.3.1](./Book/15-smart-pointers/15.3.1-Drop顺序与进阶场景.md)
+- [x] 析构逻辑 → [15.3](./00-Book/15-smart-pointers/15.3-使用Drop运行清理代码.md)
+- [x] `drop` 函数 · `mem::drop` → [15.3.1](./00-Book/15-smart-pointers/15.3.1-Drop顺序与进阶场景.md)
 
 ### 15.4 Rc\<T\> 引用计数智能指针
-- [x] 多所有权 · vs Box → [15.4](./Book/15-smart-pointers/15.4-Rc引用计数智能指针.md)
-- [x] `strong_count` · 限制/循环引用 → [15.4.1](./Book/15-smart-pointers/15.4.1-Rc限制对比与循环引用.md)
+- [x] 多所有权 · vs Box → [15.4](./00-Book/15-smart-pointers/15.4-Rc引用计数智能指针.md)
+- [x] `strong_count` · 限制/循环引用 → [15.4.1](./00-Book/15-smart-pointers/15.4.1-Rc限制对比与循环引用.md)
 
 ### 15.5 RefCell\<T\> 与内部可变性模式
-- [x] 运行时借用 · `Rc<Cell>` / `Rc<RefCell>` → [15.5](./Book/15-smart-pointers/15.5-RefCell与内部可变性.md)
+- [x] 运行时借用 · `Rc<Cell>` / `Rc<RefCell>` → [15.5](./00-Book/15-smart-pointers/15.5-RefCell与内部可变性.md)
 
 ### 15.6 引用循环会导致内存泄漏
-- [x] 循环引用 · `Weak<T>` → [15.6](./Book/15-smart-pointers/15.6-引用循环与Weak.md)
+- [x] 循环引用 · `Weak<T>` → [15.6](./00-Book/15-smart-pointers/15.6-引用循环与Weak.md)
 
 ---
 
@@ -313,10 +313,10 @@
 ## 17. Rust 的面向对象编程特性
 
 ### 17.1 面向对象语言的特点
-- [x] 对象 · 封装 · 继承替代 · 多态 → [17.1](./Book/17-oop/17.1-面向对象语言的特征.md)
+- [x] 对象 · 封装 · 继承替代 · 多态 → [17.1](./00-Book/17-oop/17.1-面向对象语言的特征.md)
 
 ### 17.2 为使用不同类型的值而设计的 trait 对象
-- [x] dyn Trait · DST · 对象安全 · 易错点 → [17.2](./Book/17-oop/17.2-为使用不同类型的值而设计的trait对象.md)
+- [x] dyn Trait · DST · 对象安全 · 易错点 → [17.2](./00-Book/17-oop/17.2-为使用不同类型的值而设计的trait对象.md)
 
 ### 17.3 面向对象设计模式的实现
 - [ ] 状态模式等
@@ -326,34 +326,34 @@
 ## 18. 模式和匹配
 
 ### 18.1 所有可能会用到模式的位置
-- [x] match / if let / while let / for / let / 参数 → [18.1](./Book/18-patterns/18.1-所有可能会用到模式的位置.md)
+- [x] match / if let / while let / for / let / 参数 → [18.1](./00-Book/18-patterns/18.1-所有可能会用到模式的位置.md)
 
 ### 18.2 Refutability（可反驳性）：模式是否会匹配失效
-- [x] 可反驳 vs 不可反驳 · 边界表 → [18.2](./Book/18-patterns/18.2-可反驳性-模式是否会匹配失效.md)
+- [x] 可反驳 vs 不可反驳 · 边界表 → [18.2](./00-Book/18-patterns/18.2-可反驳性-模式是否会匹配失效.md)
 
 ### 18.3 模式语法
-- [x] 字面量 · 解构 · `_`/`..` · 守卫 · `@ → [18.3](./Book/18-patterns/18.3-模式语法.md)
+- [x] 字面量 · 解构 · `_`/`..` · 守卫 · `@ → [18.3](./00-Book/18-patterns/18.3-模式语法.md)
 
 ---
 
 ## 19. 高级特征
 
-→ [19 章导读](./Book/19-advanced-features/19-章节导读.md)
+→ [19 章导读](./00-Book/19-advanced-features/19-章节导读.md)
 
 ### 19.1 不安全的 Rust
-- [x] 五大超能力 · 示例 · 易错点 → [19.1](./Book/19-advanced-features/19.1-不安全Rust.md)
+- [x] 五大超能力 · 示例 · 易错点 → [19.1](./00-Book/19-advanced-features/19.1-不安全Rust.md)
 
 ### 19.2 高级 trait
-- [x] 关联类型 · FQS · supertrait · newtype → [19.2](./Book/19-advanced-features/19.2-高级trait.md)
+- [x] 关联类型 · FQS · supertrait · newtype → [19.2](./00-Book/19-advanced-features/19.2-高级trait.md)
 
 ### 19.3 高级类型
-- [x] `!` · DST · ZST · 别名 vs newtype → [19.3](./Book/19-advanced-features/19.3-高级类型.md)
+- [x] `!` · DST · ZST · 别名 vs newtype → [19.3](./00-Book/19-advanced-features/19.3-高级类型.md)
 
 ### 19.4 高级函数与闭包
-- [x] `fn` · `Fn*` · 返回闭包 → [19.4](./Book/19-advanced-features/19.4-高级函数与闭包.md)
+- [x] `fn` · `Fn*` · 返回闭包 → [19.4](./00-Book/19-advanced-features/19.4-高级函数与闭包.md)
 
 ### 19.5 宏
-- [x] `macro_rules!` · 过程宏 · hygiene → [19.5](./Book/19-advanced-features/19.5-宏.md)
+- [x] `macro_rules!` · 过程宏 · hygiene → [19.5](./00-Book/19-advanced-features/19.5-宏.md)
 
 ---
 

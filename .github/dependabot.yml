@@ -4,7 +4,7 @@
 version: 2
 updates:
   - package-ecosystem: cargo
-    directory: /ER
+    directory: /01-ER
     schedule:
       interval: weekly
     labels:
@@ -12,7 +12,7 @@ updates:
       - er-demos
 
   - package-ecosystem: cargo
-    directory: /ER/Chapter-04-Dependencies/Item-24-re-export-api-types/demo
+    directory: /01-ER/Chapter-04-Dependencies/Item-24-re-export-api-types/demo
     schedule:
       interval: weekly
     labels:
@@ -20,7 +20,7 @@ updates:
       - item-24
 
   - package-ecosystem: cargo
-    directory: /ER/Chapter-06-Beyond-Standard-Rust/Item-35-bindgen/demo-sys-workspace
+    directory: /01-ER/Chapter-06-Beyond-Standard-Rust/Item-35-bindgen/demo-sys-workspace
     schedule:
       interval: weekly
     labels:
