@@ -2,6 +2,12 @@
 
 ← [Item 2 目录](./README.md)
 
+> **可运行完整示例** → [`demo/`](./demo/)（`cargo run -p item-02-callbacks-generics`）
+
+## 四条结论配套代码（摘要）
+
+详见 demo；下面为片段速查。
+
 ### 函数名 ≠ 可直接比较的 `fn`
 
 ```rust
@@ -66,6 +72,4 @@ fn need_display<T: std::fmt::Display>(x: T) {
 }
 ```
 
-→ 四条结论展开 → [03-key-takeaways.md](./03-key-takeaways.md)
-
----
+→ 四条结论展开 → [03-key-takeaways.md](./03-key-takeaways.md) · 可运行 → [demo/](./demo/)

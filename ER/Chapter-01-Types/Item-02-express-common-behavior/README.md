@@ -7,7 +7,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
-- [ ] demo（见 [ER-demos 索引](../../ER-demos/README.md) / Book demo）
+- [x] [demo](./demo/) · `item-02-callbacks-generics`（四条结论可运行示例）
 
 ---
 

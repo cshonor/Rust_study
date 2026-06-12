@@ -119,6 +119,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0cc23270f6e1808e30a928bdc84dea0b9b4136a8bc82338574f23baf47bbd280"
 
 [[package]]
+name = "item-02-callbacks-generics"
+version = "0.1.0"
+
+[[package]]
 name = "item-03-option-result"
 version = "0.1.0"
 

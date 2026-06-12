@@ -126,6 +126,7 @@ C++ 模板有时「有同名方法就能用」；Rust **必须在签名处显式
 
 ## 相关
 
+- **可运行 demo** → [demo/](./demo/)（`cargo run -p item-02-callbacks-generics`）
 - 逻辑脉络 → [02-logic-flow.md](./02-logic-flow.md)
 - 案例 → [04-examples.md](./04-examples.md)
 - 闭包 `FnOnce<()>` → [06-trait-generic-params.md](./06-trait-generic-params.md)

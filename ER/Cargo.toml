@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+    "Chapter-01-Types/Item-02-express-common-behavior/demo",
     "Chapter-01-Types/Item-03-option-result-transforms/demo",
     "Chapter-01-Types/Item-04-idiomatic-error-types/demo",
     "Chapter-01-Types/Item-04-idiomatic-error-types/demo-core-error",
