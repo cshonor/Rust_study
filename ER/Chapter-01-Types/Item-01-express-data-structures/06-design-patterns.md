@@ -88,7 +88,54 @@ struct ScreenColor {
 
 ---
 
-## 布尔参数 → 具名枚举
+## 核心套路：互斥字段 → 合成一个 enum 字段
+
+你最后那句总结**完全正确**。可以记成三步：
+
+```text
+① 发现 struct 里若干字段「不能同时成立 / 只能选一种」
+② 把这些字段抽出来，做成 enum 的互斥变体
+③ struct 里删掉原字段，只留一个 enum 类型的字段
+```
+
+### 屏幕颜色：从两个字段变成一个字段
+
+**重构前**——两个字段可能打架：
+
+```rust
+struct ScreenColor {
+    monochrome: bool,      // 是否单色
+    fg_color: RgbColor,    // 彩色值（注释说：单色时应为 0）
+}
+// ❌ 非法但写得出来：monochrome = true 且 fg_color 有彩色值
+```
+
+`monochrome` 和 `fg_color` **互斥**：单色模式不该有有效彩色值，彩色模式又不该标成单色。它们不是两个独立开关，而是**同一维度的两种状态**。
+
+**重构后**——合成一个 `Color` enum，struct 只留一个字段：
+
+```rust
+enum Color {
+    Monochrome,              // 变体 1：单色，不带 RGB
+    Foreground(RgbColor),    // 变体 2：彩色，必须带 RGB
+}
+
+struct ScreenColor {
+    color: Color,   // ✅ 只有一个字段，当前只能是两种之一
+}
+```
+
+| 原来 | 现在 |
+|------|------|
+| `monochrome: bool` + `fg_color: RgbColor` 两个字段 | `color: Color` **一个**字段 |
+| 可能「单色 + 有彩色值」 | `Monochrome` 变体**根本没有** RGB 字段 |
+| 靠注释约定 | 靠类型**写不出来**非法组合 |
+
+订单 `OrderStatus` 同理：四个 `Option` 字段 → **一个** `status: OrderStatus` 枚举字段。
+
+---
+
+## 布尔参数 → 具名枚举（像「带校验的下拉框」）
 
 标题拆开读：**布尔参数** = 用 `true`/`false` 传选项；**具名枚举** = 给每个选项起**有意义的名字**，放进 `enum` 里。
 
@@ -101,6 +148,17 @@ struct ScreenColor {
 - 和 `bool` 只有 `true`/`false` 两个匿名值不同，变体**自带名字**，读代码的人一眼知道在选什么。
 
 一句话：**enum 把「只能选其一的几种情况」写进类型**。
+
+### 类比：带类型校验的下拉列表
+
+| 概念 | 对应 |
+|------|------|
+| 下拉框里的选项 | enum 的变体（`Sides::One`、`Output::Color`） |
+| 用户选其中一项 | 传参时写 `Sides::Both` 或 `Output::BlackAndWhite` |
+| 只能选一个 | 枚举**互斥**——不能同时是 `One` 和 `Both` |
+| 类型校验 | `Sides` 和 `Output` 是**不同类型**，塞错参数位编译报错 |
+
+布尔参数像只有两个没标签的按钮（`true`/`false`）；具名枚举像**每个选项都有名字的下拉框**，而且不同下拉框类型不同，选错框都过不去编译。
 
 ### 问题：`print_page(true, false)` 在说什么？
 
