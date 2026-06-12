@@ -16,7 +16,7 @@
 |------|------|
 | **`&[T]`** | 数据指针 + **length** |
 | **`&str`** | 同上（DST 视图） |
-| **`&dyn Trait`** | 数据指针 + **vtable** 指针 |
+| **`&dyn Trait`** | 数据指针 + **vtable** 指针（vtable 在静态区，方法代码在代码段） |
 
 ### 智能指针（Smart Pointers）
 
