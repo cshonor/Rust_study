@@ -4,10 +4,15 @@
 
 ## `Option` 与「空集合」
 
+核心：**`None` = 不存在；`Some(vec![])` = 存在但空** —— 详见 [05-option-result.md](./05-option-result.md) 三层分工。
+
 | 表达 | 何时用 |
 |------|--------|
-| `Vec<T>` / `String` 为空 | 通常已表示「没有内容」 |
-| `Option<Vec<T>>` | 必须区分 **未提供** vs **提供了空集合** 时才嵌套 |
+| `Vec<T>` / `String` 为空 | 字段**必定出现**，空 = 没内容 → `Result<Vec<T>, E>` 即可 |
+| `Option<Vec<T>>` | 必须区分 **字段不存在**（`None`）vs **字段存在但空**（`Some(vec![])`) |
+| `Result::Err` | 断网、超时、无权限 —— **不是** `None` |
+
+常见误区：把 `None` 当空集合；把 `Some` 理解成「必须有元素」。
 
 ---
 
