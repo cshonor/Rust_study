@@ -47,6 +47,12 @@ enum Either {
     B(u64),
 }
 
+enum Demo {
+    A(u8),
+    B(u32),
+    C(u16),
+}
+
 enum Void {}
 
 macro_rules! show_layout {
@@ -103,21 +109,31 @@ fn main() {
     );
 
     show_layout!("enum Either { A(u32), B(u64) }", Either);
+    show_layout!("enum Demo { A(u8), B(u32), C(u16) }", Demo);
     show_layout!("enum Void {}", Void);
 
-    println!("--- Niche optimization ---");
-    println!("  size_of::<&i32>()         = {}", size_of::<&i32>());
+    println!("--- enum payload intuition ---");
+    println!("  max payload in Demo: u32 = {} B", size_of::<u32>());
+    println!("  size_of::<Demo>()   = {} B (payload + tag + align pad)", size_of::<Demo>());
+    println!();
+
+    println!("--- Niche / Option ---");
+    println!("  u32                   = {}", size_of::<u32>());
+    println!("  Option<u32>           = {}", size_of::<Option<u32>>());
+    println!("  &u32                  = {}", size_of::<&u32>());
+    println!("  Option<&u32>          = {}", size_of::<Option<&u32>>());
     println!(
-        "  size_of::<Option<&i32>>() = {}",
-        size_of::<Option<&i32>>()
+        "  Option<NonNull<u32>>  = {}",
+        size_of::<Option<NonNull<u32>>>()
+    );
+    use std::num::NonZeroU32;
+    println!(
+        "  Option<NonZeroU32>    = {}",
+        size_of::<Option<NonZeroU32>>()
     );
     println!(
-        "  size_of::<NonNull<i32>>() = {}",
-        size_of::<NonNull<i32>>()
-    );
-    println!(
-        "  size_of::<Option<NonNull<i32>>>() = {}",
-        size_of::<Option<NonNull<i32>>>()
+        "  Option<Box<u32>>      = {}",
+        size_of::<Option<Box<u32>>>()
     );
     println!();
 

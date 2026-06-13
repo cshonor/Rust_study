@@ -44,36 +44,106 @@ struct DefaultOrderC { a: u8, b: u32, c: u16 }
 
 ## 2. 枚举 (`enum`)
 
-### 标签 + 载荷
+### 变体是什么
 
-枚举 = **判别式 (discriminant)** + **当前变体的载荷**：
+**变体 (variant)** = 枚举里每一个独立分支 = **标签** + **可选载荷 (payload)**：
+
+```rust
+enum Color {
+    Red,           // 变体 1：无载荷
+    Green(u8),     // 变体 2：1 字节
+    Blue(u32, u16) // 变体 3：tuple 载荷（按 tuple layout）
+}
+```
+
+同一时刻**只有一个变体生效**。
+
+---
+
+### 共享载荷区（联合体）— 大小规则
+
+所有变体的数据放在**同一块共享内存**（类似 C `union`）：
+
+> **共享载荷区大小 = 所有变体载荷大小的最大值**（再按对齐规则向上取整）
+
+```rust
+enum Demo {
+    A(u8),   // 载荷 1 B
+    B(u32),  // 载荷 4 B  ← 最大
+    C(u16),  // 载荷 2 B
+}
+// 共享载荷区 = 4 字节（由 B 的 u32 决定）
+// x86_64 实测 size_of::<Demo>() = 8（4 载荷 + 判别式 + 对齐 padding）
+```
+
+**无载荷变体**（如 `Red`、`None`）**不增大**载荷区 — 仍由**有数据变体里最大的**决定。
+
+还要加上 **alignment / padding** — 不是简单相加；以 `size_of` 为准 → [`layout-demo`](./layout-demo/)。
+
+---
+
+### 普通枚举整体布局（无 Niche）
+
+```text
++------------------+----------------------+
+| 判别式 (tag)      | 共享载荷区 (max 变体)  |
++------------------+----------------------+
+```
 
 ```rust
 enum Either { A(u32), B(u64) }
-// x86_64 实测：size_of = 16, align_of = 8
-// 需容纳最大变体 B(u64) + 判别式 / 对齐 padding
+// x86_64：size_of = 16 — 载荷区要能装 u64 + tag + 对齐
 ```
 
-变体越大、越不对齐，enum 整体 `size` 越大 — 具体以 `size_of` 为准。
+---
+
+### `Option<T>` 串起来
+
+```rust
+enum Option<T> {
+    None,      // 载荷 0
+    Some(T),   // 载荷 = size_of::<T>()
+}
+```
+
+**共享载荷区 = `T` 的大小**（`None` 不占载荷）。
+
+| `T` | 典型 x86_64 | 原因 |
+|-----|-------------|------|
+| **`u32`** | `Option<u32>` = **8** | `u32` 无「非法值」可编码 `None` → **独立 tag** + 4B 载荷 + 对齐 |
+| **`&u32`** | `Option<&u32>` = **8** = `&u32` | **Niche**：`null` = `None`，指针 = `Some` → **无额外 tag** |
+| **`NonZeroU32`** | `Option<NonZeroU32>` = **4** = `u32` | **Niche**：`0` = `None` |
+| **`Box<u32>`** | `Option<Box<u32>>` = **8** | **Niche**：空指针 = `None` |
+
+```rust
+assert_eq!(size_of::<Option<&u32>>(), size_of::<&u32>());
+assert_eq!(size_of::<Option<NonZeroU32>>(), size_of::<u32>());
+```
+
+---
 
 ### Niche optimization（空位优化）
 
-利用类型的**非法比特模式**编码「无值」，**省掉额外 discriminant**：
+**Niche** = 类型二进制表示里**永远不会出现**的比特模式；编译器用它编码另一变体（如 `None`），**省掉独立判别式**。
 
-| 类型 | x86_64 `size_of` | 原理 |
-|------|------------------|------|
-| `&i32` | 8 | 正常指针 |
-| `Option<&i32>` | **8** | **`null` = `None`**，非空指针 = `Some` |
-| `NonNull<i32>` | 8 | 已排除 null |
-| `Option<NonNull<i32>>` | **8** | 同样 niche |
+| 类型 | Niche（非法模式） | 典型 |
+|------|-------------------|------|
+| `&T` / `&mut T` | null | `Option<&T>` |
+| `NonNull<T>` / `Box<T>` | null | `Option<NonNull<T>>`, `Option<Box<T>>` |
+| `NonZeroU32` 等 | `0` | `Option<NonZeroU32>` |
+| `fn()` | null | `Option<fn()>` |
 
-```rust
-assert_eq!(size_of::<Option<&i32>>(), size_of::<&i32>());
-```
+**特性**：
 
-**零成本抽象**的典型：逻辑上有 `Option`，机器上与裸指针同大。
+1. **零成本抽象** — 编译器自动完成，源码仍写 `Option<T>`
+2. **不要依赖具体比特布局** — 实现细节可随版本/平台变；FFI 用 `repr(C)` 等显式固定
+3. **`#[repr(transparent)]` 单字段 newtype** — 可**继承**内部类型的 niche
 
-→ 宽指针 / DST → [04 DST 与宽指针](./04-dst-wide-pointers.md)
+自定义类型要自动 niche 需编译器识别（如 std 的 `NonZero*`）；手写 struct **不会**自动获得 niche。
+
+→ 运行对比 → [`layout-demo`](./layout-demo/) · 宽指针 → [04 DST](./04-dst-wide-pointers.md)
+
+---
 
 ### 空枚举 `enum Void {}`
 
