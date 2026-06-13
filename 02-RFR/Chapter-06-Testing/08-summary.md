@@ -16,7 +16,7 @@
 
 ## 下一章
 
-→ [第 7 章 Macros](../Chapter-07-Macros/7-宏-Macros-深度解析.md)
+→ [第 7 章 Macros](../Chapter-07-Macros/README.md)
 
 ## 索引
 

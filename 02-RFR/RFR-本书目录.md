@@ -99,10 +99,15 @@
 
 ## 第 7 章：宏 (Macros) — `Chapter-07-Macros/`
 
-- **声明式宏 (Declarative Macros)**：何时使用、工作原理、编写技巧。
-- **过程宏 (Procedural Macros)**：类型（派生、属性、函数式）、成本分析、工作原理。
+**3 个主节**（含二级子节共 **10 个部分**）：
 
-本仓库笔记（深度解析）：[`Chapter-07-Macros/7-宏-Macros-深度解析.md`](Chapter-07-Macros/7-宏-Macros-深度解析.md)
+| 主节 | 子节 / 笔记 |
+|------|-------------|
+| **Declarative Macros** | [01 何时使用](Chapter-07-Macros/01-when-to-use-declarative-macros.md) · [02 如何工作](Chapter-07-Macros/02-how-declarative-macros-work.md) · [03 如何编写](Chapter-07-Macros/03-how-to-write-declarative-macros.md) |
+| **Procedural Macros** | [04 过程宏类型](Chapter-07-Macros/04-types-of-procedural-macros.md) · [05 代价](Chapter-07-Macros/05-cost-of-procedural-macros.md) · [06 你真的需要宏吗](Chapter-07-Macros/06-so-you-think-you-want-a-macro.md) · [07 如何工作](Chapter-07-Macros/07-how-procedural-macros-work.md) |
+| **Summary** | [08 小结](Chapter-07-Macros/08-summary.md) |
+
+章索引：[Chapter-07-Macros/README.md](Chapter-07-Macros/README.md)
 
 ## 第 8 章：异步编程 (Asynchronous Programming) — `Chapter-08-Asynchronous-Programming/`
 
