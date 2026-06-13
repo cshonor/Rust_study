@@ -26,6 +26,7 @@
 | 宏入门 | [19.5 宏](../../00-Book/19-advanced-features/19.5-宏.md) |
 | 可运行 demo | [19.5-macros-demo](../../00-Book/19-advanced-features/19.5-macros-demo/) |
 | 展开宏排错 | [第 13 章 · cargo-expand](../Chapter-13-Rust-Ecosystem/01-tools.md) |
+| **过程宏动手** | [**proc-macro-workshop 实验**](./proc-macro-workshop-lab.md) → [dtolnay/proc-macro-workshop](https://github.com/dtolnay/proc-macro-workshop) |
 
 ## 旧版单文件
 

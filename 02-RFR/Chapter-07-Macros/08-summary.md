@@ -9,6 +9,10 @@
 3. **过程宏** = `TokenStream` 函数；derive / 属性 / 类函数三形态；管 **Span** 与**编译代价**。  
 4. 排错靠 **`cargo-expand`** 看展开，不靠猜。
 
+## 动手（过程宏）
+
+→ [**proc-macro-workshop 实验**](./proc-macro-workshop-lab.md) — [dtolnay/proc-macro-workshop](https://github.com/dtolnay/proc-macro-workshop)（5 项目：derive / attribute / function-like）
+
 ## 下一章
 
 → [第 8 章 Async](../Chapter-08-Async/README.md)
