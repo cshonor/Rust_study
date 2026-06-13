@@ -209,26 +209,105 @@ assert_eq!(size_of::<Option<NonZeroU32>>(), size_of::<u32>());
 
 ---
 
-### Niche optimization（空位优化）
+### 一句话总结
 
-**Niche** = 类型二进制表示里**永远不会出现**的比特模式；编译器用它编码另一变体（如 `None`），**省掉独立判别式**。
+1. **原生枚举**：**独立判别标签 + 联合体载荷** — 标签选变体，联合体存数据。  
+2. **Niche 优化**：用载荷类型自带的**非法比特**顶替标签 → **只剩联合体**，零额外开销（逻辑上）。  
+3. **别依赖具体比特** — 实现随编译器/平台变；FFI 用 `repr(C)` 等显式固定。
 
-| 类型 | Niche（非法模式） | 典型 |
-|------|-------------------|------|
-| `&T` / `&mut T` | null | `Option<&T>` |
-| `NonNull<T>` / `Box<T>` | null | `Option<NonNull<T>>`, `Option<Box<T>>` |
-| `NonZeroU32` 等 | `0` | `Option<NonZeroU32>` |
-| `fn()` | null | `Option<fn()>` |
+---
 
-**特性**：
+### Niche 是什么？（先字面 → 再原理 → 看效果）
 
-1. **零成本抽象** — 编译器自动完成，源码仍写 `Option<T>`
-2. **不要依赖具体比特布局** — 实现细节可随版本/平台变；FFI 用 `repr(C)` 等显式固定
-3. **`#[repr(transparent)]` 单字段 newtype** — 可**继承**内部类型的 niche
+#### 1. 字面：niche = 夹缝、空位
 
-自定义类型要自动 niche 需编译器识别（如 std 的 `NonZero*`）；手写 struct **不会**自动获得 niche。
+英文 **niche** = **夹缝、空位、没人占的位置**。
 
-→ 运行对比 → [`layout-demo`](./layout-demo/) · 宽指针 → [04 DST](./04-dst-wide-pointers.md)
+在内存里：
+
+> 某类型的二进制表示中，存在**永远不会合法出现**的取值 = **内存空位（Niche）**
+
+编译器**复用这个「废值」**来编码枚举的另一态（如 `None`），省掉独立判别式 → **Niche 优化**。
+
+---
+
+#### 2. 原理：钥匙盒比喻（一秒懂）
+
+盒子只放钥匙；**正常钥匙永远不会是「空盒子」**。
+
+要表达两种状态：**有钥匙（Some）** / **没钥匙（None）**。
+
+| 做法 | 怎么做 | 开销 |
+|------|--------|------|
+| **普通** | 盒里放钥匙 + **额外贴标签**「有/无」 | 多占标签空间 |
+| **Niche** | **空盒 = None**，**非空 = Some** — 不贴标签 | **零额外空间** |
+
+Rust 里：`&T` 合法时**绝不**是地址 `0` → **`0` 就是 Niche**。
+
+---
+
+#### 3. 效果：`Option<T>` 两场景
+
+```rust
+enum Option<T> { Some(T), None }
+```
+
+**场景 A：`T = u32`（无 Niche）**
+
+- `0..=u32::MAX` **全是合法值**，没有「废值」可用  
+- 编译器：**载荷 4B + 独立判别式** → x86_64 **`Option<u32>` = 8**
+
+**场景 B：`T = &u32`（有 Niche）**
+
+- 合法引用 **≠ null** → **地址 0 = None**，非 0 = Some  
+- **无独立 tag** → **`Option<&u32>` = 8 = `&u32`**
+
+**场景 C：`T = NonZeroU32`（0 是 Niche）**
+
+- 合法值 **≠ 0** → **0 = None**  
+- **`Option<NonZeroU32>` = 4 = `u32` 大小**
+
+---
+
+#### 4. 一句话
+
+> **Niche 优化 = 用类型「永远不会出现的非法取值」兼任枚举状态标记，省去专门判别式，实现零额外内存（相对载荷类型）。**
+
+---
+
+#### 5. 谁自带 Niche？（速查）
+
+| 类型 | 非法值（Niche） | `Option<…>` 是否膨胀 |
+|------|-----------------|----------------------|
+| `&T` / `&mut T` | null (0) | ❌ 通常不 |
+| `Box<T>` / `NonNull<T>` | null | ❌ 通常不 |
+| `NonZeroU32` 等 | 0 | ❌ 通常不 |
+| `fn()` | null | ❌ 通常不 |
+| **`u32` 等普通整数** | 无 | ✅ **`Option<u32>` 更大** |
+
+---
+
+#### 6. 跑一遍（layout-demo 已含）
+
+```rust
+use std::mem::size_of;
+use std::num::NonZeroU32;
+
+println!("u32: {}", size_of::<u32>());                    // 4
+println!("Option<u32>: {}", size_of::<Option<u32>>());      // 8
+println!("Option<&u32>: {}", size_of::<Option<&u32>>());    // 8 (= &u32)
+println!("Option<NonZeroU32>: {}", size_of::<Option<NonZeroU32>>()); // 4
+```
+
+```bash
+cargo run --manifest-path 02-RFR/Chapter-02-Types/layout-demo/Cargo.toml
+```
+
+**注意**：Niche 是**编译器内部优化** — 不要依赖具体比特布局做协议；FFI 用 `repr(C)` 等显式约定。
+
+**其它**：`#[repr(transparent)]` 单字段 newtype 可**继承**内部类型的 niche；手写 struct **不会**自动 niche。
+
+→ 宽指针 → [04 DST](./04-dst-wide-pointers.md)
 
 ---
 
