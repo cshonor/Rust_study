@@ -87,7 +87,7 @@ struct Example {
 | **是不是 malloc 式碎片？** | **不是** — padding 跟类型/变量绑定，随变量/分配块一起释放，不会像堆 free list 那样产生传统外部碎片 |
 | **谁管** | 编译器 / 分配器 **自动**完成 |
 
-字段重排、padding 细节 → [02 布局](./02-layout.md)
+字段重排、padding 细节 → [02 布局](./02-layout.md)（`repr(Rust)` / `repr(C)` / `packed`）
 
 ---
 
