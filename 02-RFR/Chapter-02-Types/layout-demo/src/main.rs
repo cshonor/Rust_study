@@ -120,4 +120,34 @@ fn main() {
         size_of::<Option<NonNull<i32>>>()
     );
     println!();
+
+    // --- raw bytes demo (repr(C) only) ---
+    #[repr(C)]
+    struct MyStruct {
+        a: u8,
+        b: u32,
+        c: u16,
+    }
+
+    println!("--- repr(C) MyStruct + raw bytes ---");
+    println!("  size_of  = {}", size_of::<MyStruct>());
+    println!("  align_of = {}", align_of::<MyStruct>());
+    println!("  a @ {}", std::mem::offset_of!(MyStruct, a));
+    println!("  b @ {}", std::mem::offset_of!(MyStruct, b));
+    println!("  c @ {}", std::mem::offset_of!(MyStruct, c));
+
+    let s = MyStruct {
+        a: 0x12,
+        b: 0x5678_abcd,
+        c: 0xef90,
+    };
+    dump_bytes("MyStruct", &s);
+}
+
+fn dump_bytes<T>(label: &str, val: &T) {
+    let n = size_of::<T>();
+    let ptr = val as *const T as *const u8;
+    let bytes = unsafe { std::slice::from_raw_parts(ptr, n) };
+    println!("  {label} raw ({n} B): {:02x?}", bytes);
+    println!("  (padding slots may show stack garbage; use offset_of for layout)");
 }

@@ -191,28 +191,114 @@ fn main() {
 
 ---
 
-## 观测工具
+## 如何查看布局（由浅入深）
 
-| API | 作用 |
-|-----|------|
-| **`size_of::<T>()`** | 类型**总占用**字节（含尾部 padding） |
-| **`align_of::<T>()`** | 类型整体 **alignment** 要求 |
-| **`offset_of!(Type, field)`** | 字段相对 struct 起始的**字节偏移** |
+### 1. 标准库 — 最常用（无第三方）
+
+**stable** 可用：`offset_of!` 自 **Rust 1.77** 起稳定（不必 nightly / 1.79）。
 
 ```rust
 use std::mem::{align_of, offset_of, size_of};
 
-#[repr(C)]
-struct Example { a: u8, b: u64 }
+#[repr(C)] // 固定顺序，便于对照 padding
+struct MyStruct {
+    a: u8,
+    b: u32,
+    c: u16,
+}
 
-assert_eq!(offset_of!(Example, a), 0);
-assert_eq!(offset_of!(Example, b), 8);
-assert_eq!(size_of::<Example>(), 16);
-assert_eq!(align_of::<Example>(), 8);
+fn main() {
+    println!("size_of  = {}", size_of::<MyStruct>());   // x86_64: 12
+    println!("align_of = {}", align_of::<MyStruct>());   // 4
+    println!("a @ {}", offset_of!(MyStruct, a));        // 0
+    println!("b @ {}", offset_of!(MyStruct, b));        // 4  ← a 后 3 字节 pad
+    println!("c @ {}", offset_of!(MyStruct, c));        // 8
+}
 ```
 
-- 堆分配 layout → `std::alloc::Layout`（size + align 一起交给分配器）
-- IR 里的 `align` → [llvm_insight ch05](../../llvm_insight/part02_src_to_machine/chapter05_ir_advanced_type/README.md)
+**读 offset**：`b@4` 说明 `a`（1 字节）后有 **3 字节 padding**；总长 12 = 8+2 字段 + 2 尾部 pad（对齐到 4 的倍数）。
+
+完整可运行示例 → [`layout-demo/`](./layout-demo/)（含 `repr(Rust)` vs `repr(C)` 对比）。
+
+| API | 作用 |
+|-----|------|
+| **`size_of::<T>()`** | 类型总字节（含尾部 padding） |
+| **`align_of::<T>()`** | 整体 alignment |
+| **`offset_of!(T, field)`** | 字段字节偏移 |
+
+---
+
+### 2. 原始字节 — 调试 padding（`unsafe`，仅学习）
+
+把 struct 当字节切片打印，**padding 区可能是栈上垃圾值**，但**位置**仍能从 `offset_of` 推断：
+
+```rust
+use std::mem::size_of;
+
+#[repr(C)]
+struct MyStruct { a: u8, b: u32, c: u16 }
+
+fn dump_bytes<T>(label: &str, val: &T) {
+    let n = size_of::<T>();
+    let ptr = val as *const T as *const u8;
+    let bytes = unsafe { std::slice::from_raw_parts(ptr, n) };
+    println!("{label} ({n} bytes): {:02x?}", bytes);
+}
+
+fn main() {
+    let s = MyStruct { a: 0x12, b: 0x5678_abcd, c: 0xef90 };
+    dump_bytes("MyStruct", &s);
+    // 典型 x86_64：字段字节可见；offset 1–3、10–11 为 padding（值随机）
+}
+```
+
+⚠️ **仅调试**；生产勿靠此解析 struct。Prefer `offset_of!` + 协议文档。
+
+---
+
+### 3. 第三方 / 工具链
+
+| 工具 | 用途 |
+|------|------|
+| **[`memoffset`](https://docs.rs/memoffset)** crate | 旧 Rust 无内置 `offset_of!` 时的替代 |
+| **`rust-layout`** 等 CLI | 终端打印字段树 + padding 区间（需单独 `cargo install`，版本依 crate 而定） |
+| **GDB / LLDB / VS Code 调试器** | 查看变量地址与内存窗口 |
+| **`readelf` / `objdump` / LLVM IR** | 链接后类型、`*alloca` `align` → [llvm_insight ch05](../../llvm_insight/part02_src_to_machine/chapter05_ir_advanced_type/README.md) |
+
+旧版 offset 示例：
+
+```toml
+# Cargo.toml — 仅 Rust < 1.77 时需要
+memoffset = "0.9"
+```
+
+```rust
+use memoffset::offset_of;
+println!("{}", offset_of!(MyStruct, b));
+```
+
+---
+
+### 4. 固定布局 + 反汇编
+
+依赖布局的代码（FFI、磁盘格式）：
+
+```rust
+#[repr(C)]
+struct MyStruct { a: u8, b: u32, c: u16 }
+```
+
+配合调试器 / IR / `layout-demo` 验证。**不要**依赖默认 `repr(Rust)` 的 offset。
+
+---
+
+### 关键注意事项
+
+1. **`repr(Rust)` 布局不保证稳定** — 编译器可重排；跨版本可能变。依赖布局 → **`repr(C)`** / **`repr(transparent)`** 等。
+2. **枚举 niche** — `Option<&T>` 可能与 `&T` 同大 → [03 复合类型](./03-complex-types.md)。
+3. **padding 为性能** — 满足 alignment；见 [01 对齐](./01-alignment.md)。
+
+堆分配 layout → `std::alloc::Layout`（size + align 交给分配器）。
 
 ---
 
@@ -235,6 +321,7 @@ assert_eq!(align_of::<Example>(), 8);
 | 「默认 struct 字段顺序 = 源码顺序」 | **只有 `repr(C)` / `packed`** 保证顺序 |
 | 「`packed` 只是体积小」 | 可能 **UB / crash**，不是免费午餐 |
 | 「padding = 堆碎片」 | struct **内部**填充；随对象一起释放 |
+| 「`offset_of` 要 nightly / 1.79+」 | **stable 1.77+** 内置 `offset_of!` |
 
 ---
 
