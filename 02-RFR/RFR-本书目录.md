@@ -24,7 +24,7 @@
 
 | 主节 | 子节 / 笔记 |
 |------|-------------|
-| **Talking About Memory** | [01 内存术语](Chapter-01-Foundations/01-memory-terminology.md) · [02 变量深入](Chapter-01-Foundations/02-variables-in-depth.md) · [03 内存区域](Chapter-01-Foundations/03-memory-regions.md) |
+| **Talking About Memory** | [01 内存术语](Chapter-01-Foundations/01-memory-terminology.md) · [02 变量深入](Chapter-01-Foundations/02-variables-in-depth.md) · [03 内存区域](Chapter-01-Foundations/03-memory-regions.md)（[03.1 Rust](Chapter-01-Foundations/03-1-rust-memory-model.md) · [03.2 OS/LLVM](Chapter-01-Foundations/03-2-os-memory-layout.md)） |
 | **Ownership** | [04 所有权](Chapter-01-Foundations/04-ownership.md) |
 | **Borrowing and Lifetimes** | [05 共享引用](Chapter-01-Foundations/05-shared-references.md) · [06 可变引用](Chapter-01-Foundations/06-mutable-references.md) · [07 内部可变性](Chapter-01-Foundations/07-interior-mutability.md) · [08 生命周期](Chapter-01-Foundations/08-lifetimes.md) |
 | **Summary** | [09 小结](Chapter-01-Foundations/09-summary.md) |
