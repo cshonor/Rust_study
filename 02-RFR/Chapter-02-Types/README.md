@@ -9,7 +9,7 @@
 
 | 主节 | 英文 | 子节 / 笔记 |
 |------|------|-------------|
-| **1** | Types in Memory | [01 对齐](./01-alignment.md) · [02 布局](./02-layout.md) · [03 复合类型](./03-complex-types.md) · [04 DST 与宽指针](./04-dst-wide-pointers.md) |
+| **1** | Types in Memory | [01 对齐](./01-alignment.md) · [02 布局](./02-layout.md) · [layout-demo](./layout-demo/) · [03 复合类型](./03-complex-types.md) · [04 DST 与宽指针](./04-dst-wide-pointers.md) |
 | **2** | Traits and Trait Bounds | [05 编译与分发](./05-compilation-dispatch.md) · [06 泛型 Trait](./06-generic-traits.md) · [07 相干性与孤儿规则](./07-coherence-orphan-rule.md) · [08 Trait 限定](./08-trait-bounds.md) · [09 标记 Trait](./09-marker-traits.md) |
 | **3** | Existential Types | [10 存在类型](./10-existential-types.md) |
 | **4** | Summary | [11 小结](./11-summary.md) |

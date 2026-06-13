@@ -98,7 +98,61 @@ struct Packed {
 
 ---
 
-## 同一字段集：三种 repr 对比（观测）
+## 实测：`Test { a: u8, b: u32, c: u8 }`（x86_64）
+
+可运行 demo → [`layout-demo/`](./layout-demo/)：
+
+```bash
+cargo run --manifest-path 02-RFR/Chapter-02-Types/layout-demo/Cargo.toml
+```
+
+```rust
+#[derive(Debug)]
+struct TestRust { a: u8, b: u32, c: u8 }
+
+#[repr(C)]
+#[derive(Debug)]
+struct TestC { a: u8, b: u32, c: u8 }
+```
+
+**本机 x86_64（Windows）实测输出**（stable，`offset_of!` 已稳定）：
+
+```text
+--- repr(Rust) default ---
+  size_of  = 8
+  align_of = 4          ← 取字段 align 最大值（u32=4）；无 u64 时不是 8
+  offset a = 4          ← 编译器重排：b 放到 offset 0
+  offset b = 0
+  offset c = 5
+
+--- repr(C) ---
+  size_of  = 12
+  align_of = 4
+  offset a = 0          ← 严格源码顺序；a 后 3 字节 padding
+  offset b = 4
+  offset c = 8          ← c 后还有 3 字节 tail padding（凑整 struct align）
+
+--- repr(packed) ---
+  size_of  = 6
+  align_of = 1
+  offset a = 0
+  offset b = 1          ← 无 padding，b 从未对齐地址开始
+  offset c = 5
+```
+
+**读图**：
+
+| | `repr(Rust)` | `repr(C)` |
+|---|--------------|-----------|
+| **size** | **8**（重排压缩） | **12**（a + 3 pad + b + c + 3 pad） |
+| **字段顺序** | **源码 ≠ 内存顺序**（`b` 被挪到最前） | **源码 = 内存顺序** |
+| **`offset_of!(Test, b)`** | **0** | **4**（a 占 1 + 3 字节 pad） |
+
+若 struct 含 **`u64` / `i64`**，`align_of` 在 x86_64 上才会到 **8** — 取决于**最大字段对齐**，不是「64 位系统一律 8」。
+
+---
+
+## 同一字段集：三种 repr 对比（代码模板）
 
 ```rust
 use std::mem::{align_of, offset_of, size_of};
@@ -133,13 +187,7 @@ fn main() {
 }
 ```
 
-**典型现象（x86_64，以你机器打印为准）**：
-
-| 类型 | size 趋势 | 说明 |
-|------|-----------|------|
-| `RustLayout` | 常 **8** | 重排后压缩 |
-| `CLayout` | 常 **12** | `a` + 3 pad + `b` + `c` + 3 pad |
-| `PackedLayout` | 常 **6** | 无 pad；`b`/`c` 可能 misaligned |
+**不要死记上表数字** — 以本机 `cargo run` 为准；换字段或 `#[repr(C, align(8))]` 结果会变。
 
 ---
 
