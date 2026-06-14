@@ -122,6 +122,11 @@ fn main() {
     println!("  Option<u32>           = {}", size_of::<Option<u32>>());
     println!("  u64                   = {}", size_of::<u64>());
     println!("  Option<u64>           = {} (separate monomorph layout)", size_of::<Option<u64>>());
+    println!("  String                = {}", size_of::<String>());
+    println!(
+        "  Option<String>        = {} (payload = String; niche may drop tag)",
+        size_of::<Option<String>>()
+    );
     println!("  &u32                  = {}", size_of::<&u32>());
     println!("  Option<&u32>          = {}", size_of::<Option<&u32>>());
     println!(
