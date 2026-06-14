@@ -7,7 +7,7 @@
 - `atomic_ir/`：`ch04_fence_seqcst_O0.ll`、`ch07_release_acquire_opt3.ll`  
 - `async_tokio_ir/`：注明对应 `async_tokio/chNN_*/` 源文件与 rustc 版本  
 - `network_ir/`：与 `rust_network_programming` 阶段 demo 对应  
-- `optimize_compare/`：**成对**存放 `*_O0.ll` / `*_O3.ll` 或 debug vs release  
+- `optimize_compare/`：**成对**存放 `*_O0.ll` / `*_O3.ll` — 如 `ch04_dispatch_O0.ll`（静态 vs dyn 分发）
 
 ## Git 注意
 

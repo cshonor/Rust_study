@@ -266,6 +266,14 @@ fn ticks() -> impl Iterator<Item = u64> { /* ... */ }
 - 配置驱动的异构 handler 列表，且**不在**纳秒级 inner loop
 - 接受 vtable + 宽指针成本，换表达力
 
+### 5. 二进制体积：泛型组合过多时
+
+策略层若对 **几十种 `T: Strategy`** 全 monomorph，release 二进制可从 MB 级涨到 **数十 MB**（视依赖与 LTO 而定）。HFT 常见做法：
+
+- **订单簿 / 撮合**：1～3 个具体类型 + 泛型，或 **enum Strategy**；
+- **序列化 / 日志 / 配置**：边界用 `dyn` 或具体类型，**不**把泛型传进 inner loop；
+- 发版前跑 **`cargo bloat --release -n 20`** 看哪几个单态化符号占体积。
+
 FFI 边界通常 **不用 `dyn`** → [第 11 章 FFI](../Chapter-11-Foreign-Function-Interfaces/README.md)
 
 ---
@@ -278,7 +286,7 @@ FFI 边界通常 **不用 `dyn`** → [第 11 章 FFI](../Chapter-11-Foreign-Fun
 | 优化器 | 常能 **devirtualize**（若类型可证唯一） | 难 inline 跨 vtable |
 | 排查 | `cargo asm` / llvm_insight | 对比同逻辑泛型版 |
 
-→ [llvm_insight](../../llvm_insight/part02_src_to_machine/chapter04_ir_basic/README.md)
+→ [llvm_insight · ch04 分发 IR 对照](../../llvm_insight/part02_src_to_machine/chapter04_ir_basic/notes/ch04_dispatch_static_vs_dyn.md) · [ch04_dispatch_O0.ll](../../llvm_insight/ir_samples/optimize_compare/ch04_dispatch_O0.ll)
 
 ---
 
@@ -291,6 +299,8 @@ FFI 边界通常 **不用 `dyn`** → [第 11 章 FFI](../Chapter-11-Foreign-Fun
 | 所有 trait 都能 `Box<dyn T>` | 须 **object-safe** |
 | HFT 里到处 `dyn` 没问题 | 热路径 **优先 monomorph / enum** |
 | `Option<u32>` 和 `Option<u64>` 共用 layout | **不同 T → 不同单态化 → 不同 layout** |
+| `#[inline]` 一定 inline | **提示**；跨 crate 还需 LTO 等配合 |
+| flow-directed monomorph 已默认启用 | **Pre-RFC 方向**；stable 仍 mainly MIR collector |
 
 ---
 
