@@ -16,7 +16,7 @@ Existential Types（impl Trait）
 
 1. **对齐与 `repr`** 决定 FFI 与 UB 边界。  
 2. **DST + 宽指针** 是理解 `str`、slice、`dyn Trait` 的钥匙。  
-3. **单态化 vs vtable** 是性能与体积的核心权衡。  
+3. **单态化 vs vtable** 是性能与体积的核心权衡；**HFT 热路径优先静态 / enum**。  
 4. **`impl Trait`** 隐藏具体类型，仍走静态分发。
 
 ## 下一章
