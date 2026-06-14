@@ -10,4 +10,4 @@
 
 单条指令的原子性**不足以**表达跨线程的**可见性**契约 → 需要 **memory ordering**。
 
-→ [09 内存序](./09-memory-ordering.md) · [05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter07_ir_optimize/README.md)
+→ [09 内存序](./09-memory-ordering.md) · [04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17](../../04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter07_ir_optimize/README.md)

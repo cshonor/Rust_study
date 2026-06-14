@@ -9,4 +9,4 @@
 
 与 **CAS 循环** 相比：单指令 RMW 在硬件上可能更高效，但语义更窄。
 
-`05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17` → diff `Relaxed` vs `SeqCst` 的 `.ll` 片段。
+`04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17` → diff `Relaxed` vs `SeqCst` 的 `.ll` 片段。

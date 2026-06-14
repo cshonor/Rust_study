@@ -20,7 +20,7 @@
 01 → … → 11
 ```
 
-## 与 The Book / ER / 05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 对照
+## 与 The Book / ER / 04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 对照
 
 | 主题 | 本仓库 |
 |------|--------|
@@ -28,7 +28,7 @@
 | trait 对象 | [17.2 trait 对象](../../00-Book/17-oop/17.2-为使用不同类型的值而设计的trait对象.md) |
 | `impl Trait` | [10.2.3 impl Trait 全解](../../00-Book/10-generics-traits-lifetimes/10.2.3-impl-Trait全解.md) |
 | 静/动态分发 | [ER Item 12](../../01-ER/Chapter-01-Types/Item-12-generics-vs-trait-objects/README.md) |
-| 布局 / unsafe | [RFR 第 9 章](../Chapter-09-Unsafe-Code/9-不安全代码-Unsafe-Code-深度解析.md) · [05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch05](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter05_ir_advanced_type/README.md) |
+| 布局 / unsafe | [RFR 第 9 章](../Chapter-09-Unsafe-Code/9-不安全代码-Unsafe-Code-深度解析.md) · [04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch05](../../04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter05_ir_advanced_type/README.md) |
 
 ## 旧版单文件
 
