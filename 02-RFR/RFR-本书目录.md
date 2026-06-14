@@ -104,6 +104,8 @@
 | 主节 | 子节 / 笔记 |
 |------|-------------|
 | **Declarative Macros** | [01 何时使用](Chapter-07-Macros/01-when-to-use-declarative-macros.md) · [02 如何工作](Chapter-07-Macros/02-how-declarative-macros-work.md) · [03 如何编写](Chapter-07-Macros/03-how-to-write-declarative-macros.md) |
+
+总览：[00 宏核心总览](Chapter-07-Macros/00-macros-overview.md) · 动手：[proc-macro-workshop 实验](Chapter-07-Macros/proc-macro-workshop-lab.md)
 | **Procedural Macros** | [04 过程宏类型](Chapter-07-Macros/04-types-of-procedural-macros.md) · [05 代价](Chapter-07-Macros/05-cost-of-procedural-macros.md) · [06 你真的需要宏吗](Chapter-07-Macros/06-so-you-think-you-want-a-macro.md) · [07 如何工作](Chapter-07-Macros/07-how-procedural-macros-work.md) |
 | **Summary** | [08 小结](Chapter-07-Macros/08-summary.md) |
 
