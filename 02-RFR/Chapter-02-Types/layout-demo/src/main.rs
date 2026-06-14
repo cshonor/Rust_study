@@ -137,6 +137,15 @@ fn main() {
     );
     println!();
 
+    println!("--- DST / wide pointers (x86_64) ---");
+    println!("  &u32 (thin)              = {}", size_of::<&u32>());
+    println!("  &[u32] (fat)             = {}", size_of::<&[u32]>());
+    println!("  &str (fat)               = {}", size_of::<&str>());
+    println!("  &dyn Debug (fat)          = {}", size_of::<&dyn std::fmt::Debug>());
+    println!("  Vec<u32> handle          = {}", size_of::<Vec<u32>>());
+    println!("  (fat = data ptr + metadata: len or vtable)");
+    println!();
+
     // --- raw bytes demo (repr(C) only) ---
     #[repr(C)]
     struct MyStruct {

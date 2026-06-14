@@ -2,7 +2,7 @@
 
 RFR 第 2 章 · [02 布局](../02-layout.md) 配套可运行示例。
 
-对比 `Test { a: u8, b: u32, c: u8 }`、`DefaultOrder { a: u8, b: u32, c: u16 }`、`enum Either`、`Option<&T>` niche 等的 `size_of` / `align_of` / `offset_of`。
+对比 `Test`、`DefaultOrder`、enum niche、**DST 宽指针**、`MyStruct` 的 `size_of` / offset / 字节 dump。
 
 ```bash
 # 在仓库根目录
