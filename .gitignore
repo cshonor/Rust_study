@@ -25,6 +25,9 @@ Thumbs.db
 *.pdb
 *.dSYM/
 
+# 04_llvm_insight 临时 rustc 输出
+04_llvm_insight/*.exe
+
 # demos may generate runtime files
 09-error-handling/9.2-result-demo/hello.txt
 
