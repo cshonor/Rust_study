@@ -2,12 +2,16 @@
 
 > 所属：[Compilers & LLVM Learning](../README.md) · **立刻能看、零成本**
 
+![封面](./cover.png)
+
 | 项目 | 说明 |
 |------|------|
 | **书** | *Crafting Interpreters*（Bob Nystrom） |
 | **英文免费在线** | [craftinginterpreters.com](https://craftinginterpreters.com/) |
 | **中文在线（推荐）** | [craftinginterpreters-zh-jet.vercel.app](https://craftinginterpreters-zh-jet.vercel.app/)（[GuoYaxiang/craftinginterpreters_zh](https://github.com/GuoYaxiang/craftinginterpreters_zh)） |
 | **本目录** | 读书笔记；按 Part I（树遍历 jlox）/ Part II（字节码 clox）建 `notes/` |
+
+封面上的「编译之山」：Scanning → Parsing → AST →（Tree-Walk / VM / IR / Code Gen）→ Machine Code，与 **04 LLVM**、**02 编译器工程** 路线图一致。
 
 ## 为什么先读这本
 
