@@ -319,15 +319,53 @@ enum Option<T> { Some(T), None }
 
 #### 5. 谁自带 Niche？（速查）
 
-| 类型 | 非法值（Niche） | `Option<…>` 是否膨胀 |
-|------|-----------------|----------------------|
-| `&T` / `&mut T` | null (0) | ❌ 通常不 |
-| `Box<T>` / `NonNull<T>` | null | ❌ 通常不 |
-| `NonZeroU32` 等 | 0 | ❌ 通常不 |
-| `fn()` | null | ❌ 通常不 |
-| **`u32` 等普通整数** | 无 | ✅ **`Option<u32>` 更大** |
+**原则**：载荷类型在内存里必须有 **「合法取值」的真子集** — 剩下比特模式才是空位。  
+**`u8` / `u32` 等普通整数**：`0..=MAX` **全合法** → **没有** niche → `Option<u32>` 要比 `u32` 大。
 
----
+##### 常见自带 niche 的类型
+
+| 类别 | 类型 | 什么值「非法 / 空着」 | `Option<…>` 典型 |
+|------|------|------------------------|-------------------|
+| **指针** | `&T` / `&mut T` | **null (0)** — Rust 引用永非 null | 与指针同大 |
+| **堆指针** | `Box<T>`、`NonNull<T>` | null | 与 `Box` / 指针同大 |
+| **函数指针** | `fn()` / `extern "C" fn()` | null | 通常不膨胀 |
+| **NonZero\*** | `NonZeroU8` … `NonZeroU128`、`NonZero*` | **0** | 与底层整数同大 |
+| **bool** | `bool` | 存储为 1 字节时 **仅 0/1 合法**，**2..=255 无效** | **`Option<bool>` = 1 B** |
+| **char** | `char` | 非合法 Unicode 标量（ surrogate 等） | 与 `char` 同大（4 B） |
+| **Never / 空类型** | `!`、`enum Void {}` | 无合法值 | 特殊 layout |
+
+标准库还有一批 **newtype** 带 niche（本质同上）：`NonNull`、`Unique`（内部）、`Alignment` 等 — 文档写 **「null / 0 非法」** 的，多半能优化。
+
+##### 不会自动 niche 的
+
+| | 原因 |
+|---|------|
+| **`u8`…`u128`、`i8`…`i128`** | 每个比特模式都可合法出现 |
+| **普通 `struct { x: u32, … }`** | 字段组合无全局非法模式 |
+| **`f32` / `f64`** | 几乎全位模式有对应浮点语义（含 NaN）— 一般不拿来做 niche |
+
+##### 间接获得 niche：`#[repr(transparent)]`
+
+单字段 newtype **透明包装** niche 内层时，**继承**其 niche：
+
+```rust
+#[repr(transparent)]
+struct UserId(NonZeroU32);
+
+// Option<UserId> 常与 NonZeroU32 / u32 同宽（4 B），而非 8 B
+```
+
+枚举里某变体字段是 niche 类型（`NonZeroU8`、`&T` 等）→ 整个枚举 **可能** 用这些空位编 tag（变体多时见 §7 实测）。
+
+##### 和 `u8` 的对比（你问的 0..=255）
+
+```text
+u8：     256 种比特模式 → 256 种合法 E(数据)  → 偷不出 tag
+bool：   256 种比特模式 → 只有 2 种合法 bool   → 254 种空位（Option<bool> 用其中一种表 None）
+NonZeroU8：256 种 → 255 种合法（1..=255）   → 至少 0 是空位
+```
+
+→ 跑一遍见下节 + [`layout-demo`](./layout-demo/)
 
 #### 6. 跑一遍（layout-demo 已含）
 
@@ -337,8 +375,12 @@ use std::num::NonZeroU32;
 
 println!("u32: {}", size_of::<u32>());                    // 4
 println!("Option<u32>: {}", size_of::<Option<u32>>());      // 8
+println!("bool: {}", size_of::<bool>());                    // 1
+println!("Option<bool>: {}", size_of::<Option<bool>>());    // 1 — 2..=255 为 niche
 println!("Option<&u32>: {}", size_of::<Option<&u32>>());    // 8 (= &u32)
 println!("Option<NonZeroU32>: {}", size_of::<Option<NonZeroU32>>()); // 4
+println!("char: {}", size_of::<char>());                    // 4
+println!("Option<char>: {}", size_of::<Option<char>>());    // 4 — 非法 Unicode 为 niche
 ```
 
 ```bash

@@ -120,6 +120,13 @@ fn main() {
     println!("--- Niche / Option ---");
     println!("  u32                   = {}", size_of::<u32>());
     println!("  Option<u32>           = {}", size_of::<Option<u32>>());
+    println!("  bool                  = {}", size_of::<bool>());
+    println!("  Option<bool>          = {} (niche: byte values 2..=255)", size_of::<Option<bool>>());
+    println!("  char                  = {}", size_of::<char>());
+    println!(
+        "  Option<char>          = {} (invalid Unicode scalars = niche)",
+        size_of::<Option<char>>()
+    );
     println!("  u64                   = {}", size_of::<u64>());
     println!("  Option<u64>           = {} (separate monomorph layout)", size_of::<Option<u64>>());
     println!("  String                = {}", size_of::<String>());
