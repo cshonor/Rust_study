@@ -63,7 +63,72 @@ let handlers: Vec<Box<dyn Handler>> = vec![/* 异构实现 */];
 
 ---
 
-## 二、对象安全 (Object Safety)
+## 二、单态化与内存：不同 `T` = 不同类型
+
+**核心结论**：不同泛型实参在编译后是**完全独立的类型、独立内存布局、独立机器码** — **不会共用同一份内存模板**。
+
+### 1. 泛型枚举会被单态化
+
+Rust **没有** C++ 式「统一类模板实例」的运行时概念；编译器为**每一组不同的泛型实参**生成一份具体类型：
+
+| 源码里写的 | 编译后 |
+|------------|--------|
+| `Option<u32>` | 类型 A：载荷 4B → 一套 tag+union 布局 |
+| `Option<u64>` | 类型 B：载荷 8B → **另一套**布局 |
+
+二者在类型系统里**互不相干** — `Option<u32>` 与 `Option<u64>` 不能互相赋值，内存尺寸、对齐、niche 规则都可能不同。
+
+### 2. 对应「标签 + 联合体」怎么变
+
+枚举底层模型 → [03 复合类型 · 枚举](./03-complex-types.md)
+
+```text
+Option<u32>                    Option<u64>
+┌──────┬──────────┐           ┌──────┬──────────┐
+│ tag  │ union T  │           │ tag  │ union T  │
+│      │  u32 4B  │           │      │  u64 8B  │
+└──────┴──────────┘           └──────┴──────────┘
+size_of 通常 8B                size_of 通常 16B（x86_64 实测见 layout-demo）
+```
+
+- 联合体大小 = **该次单态化里 `T` 的大小**（再 + tag / padding / niche）
+- `u32` 与 `u64` 触发**两次**独立 layout 计算，**不共享**载荷区模板
+
+### 3. 跨文件（`a.rs` / `b.rs`）不影响规则
+
+同一 **crate** 内，文件边界只是模块组织；编译器**遍历整个 crate**：
+
+1. `a.rs` 用到 `Option<u32>` → 单态化，生成布局 + 代码
+2. `b.rs` 用到 `Option<u64>` → 再单态化，**另一套**
+3. 最终二进制里两份类型、两份 layout、相关函数各用各的格式
+
+成千上万个文件用不同 `T`，就会生成对应数量的版本。
+
+### 4. 两个细节
+
+| 情况 | 行为 |
+|------|------|
+| **相同 `T` 跨文件** | 全 crate **只生成一份** `Option<u32>` — 布局与代码**复用** |
+| **`T` 是 DST**（`[u8]`、`str`、`dyn Trait`） | 不能直接作枚举载荷；须 `Box<T>` / `&T` 等 **Sized 包装** — 单态化逻辑不变，载荷变成指针 |
+
+```rust
+// ❌ enum Bad<T> { Some(T) }  // T = [u8] 不行
+// ✅ Option<Box<[u8]>>         // 载荷是指针，Sized
+```
+
+### 极简对照
+
+| | |
+|---|---|
+| `Option<u32>` vs `Option<u64>` | **两套**独立枚举 + **两套** layout |
+| 跨文件不同 `T` | **不**共用内存结构 |
+| 跨文件相同 `T` | **共用**一份 layout 与代码 |
+
+→ 实测：`Option<u32>` / `Option<u64>` → [`layout-demo`](./layout-demo/)
+
+---
+
+## 三、对象安全 (Object Safety)
 
 **并非所有 trait 都能 `dyn Trait`** — vtable 必须为**固定布局**的方法表。
 
@@ -94,7 +159,7 @@ trait Good {
 
 ---
 
-## 三、选型速记（实战）
+## 四、选型速记（实战）
 
 | 场景 | 推荐 | 说明 |
 |------|------|------|
@@ -105,7 +170,7 @@ trait Good {
 
 ---
 
-## 四、HFT 场景要点
+## 五、HFT 场景要点
 
 ### 1. 热路径：静态分发优先
 
@@ -154,7 +219,7 @@ FFI 边界通常 **不用 `dyn`** → [第 11 章 FFI](../Chapter-11-Foreign-Fun
 
 ---
 
-## 五、与汇编 / 优化的直觉（不背指令，记现象）
+## 六、与汇编 / 优化的直觉（不背指令，记现象）
 
 | | 静态 | `dyn` |
 |---|------|-------|
@@ -174,6 +239,7 @@ FFI 边界通常 **不用 `dyn`** → [第 11 章 FFI](../Chapter-11-Foreign-Fun
 | `impl Trait` = 动态分发 | **静态** — 只是隐藏类型名 |
 | 所有 trait 都能 `Box<dyn T>` | 须 **object-safe** |
 | HFT 里到处 `dyn` 没问题 | 热路径 **优先 monomorph / enum** |
+| `Option<u32>` 和 `Option<u64>` 共用 layout | **不同 T → 不同单态化 → 不同 layout** |
 
 ---
 
@@ -181,4 +247,4 @@ FFI 边界通常 **不用 `dyn`** → [第 11 章 FFI](../Chapter-11-Foreign-Fun
 
 - ER → [Item 12 · 泛型 vs trait object](../../01-ER/Chapter-02-Traits/Item-12-generics-vs-trait-objects/README.md) · [06 dispatch 入门](../../01-ER/Chapter-02-Traits/Item-12-generics-vs-trait-objects/06-dispatch-beginner-guide.md)
 - Book → [17.2 trait 对象](../../00-Book/17-oop/17.2-为使用不同类型的值而设计的trait对象.md) · [10.2.3 impl Trait](../../00-Book/10-generics-traits-lifetimes/10.2.3-impl-Trait全解.md)
-- 下一节 → [06 泛型 Trait](./06-generic-trait.md)
+- 下一节 → [06 泛型 Trait](./06-generic-traits.md)
