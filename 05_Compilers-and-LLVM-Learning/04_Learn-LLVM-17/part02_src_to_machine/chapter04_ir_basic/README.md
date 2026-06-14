@@ -8,7 +8,7 @@
 ## 本目录用途
 
 - **吃透** IR 文本、`module` / `function` / **基本块** / **SSA**。  
-- **实操**：以仓库根 `04_llvm_insight/src/lib.rs` 为主战场，改内存序、增函数后反复 `cargo rustc … --emit=llvm-ir`。
+- **实操**：以仓库根 `05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/src/lib.rs` 为主战场，改内存序、增函数后反复 `cargo rustc … --emit=llvm-ir`。
 - **04 分发对照**：`lib.rs` 中 `process_static` / `process_dyn` → 笔记 [`notes/04_dispatch_static_vs_dyn.md`](./notes/04_dispatch_static_vs_dyn.md) · IR `ir_samples/optimize_compare/04_dispatch_O*.ll`
 
 ## 目录约定

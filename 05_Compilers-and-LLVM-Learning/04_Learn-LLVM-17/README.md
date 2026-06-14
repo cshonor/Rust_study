@@ -1,11 +1,14 @@
-# 04_llvm_insight — LLVM IR 透视（不学 LLVM C++ 源码）
+# 04 — Learn LLVM 17 · LLVM IR 透视
 
-与 `atomic/`、`async_tokio/`、`rust_network_programming/` **平级**：**笔记 + 可运行小 crate + IR 样本归档** 三件事分目录完成；不要求啃 LLVM 工程源码、不要求写 C++ 编译器。
+> 所属：[Compilers & LLVM Learning](../README.md)  
+> 与 RFR **第 2、9、10 章** 对照读 IR；**不学 LLVM C++ 源码**。
+
+**笔记 + 可运行 crate `llvm_insight_lab` + `ir_samples/`** 分目录完成。
 
 ## 总览：与《Learn LLVM 17》13 章对齐的目录树
 
 ```text
-04_llvm_insight/
+04_Learn-LLVM-17/
 ├── Cargo.toml                 # 包名 llvm_insight_lab：统一 IR 导出入口
 ├── src/lib.rs                 # 最小复现（原子/栅栏等），配合 ch04/ch07 精读改这里
 ├── Learn-LLVM-17-学习取舍.md  # 全书精读/浏览/跳过清单 + 与仓库学习顺序
@@ -48,17 +51,17 @@
 
 ## 统一 IR 实验 crate（根目录 `Cargo.toml`）
 
-包名：**`llvm_insight_lab`**（避免与目录名 `04_llvm_insight` 在部分工具里混淆）。
+包名：**`llvm_insight_lab`**（避免与目录名 `05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17` 在部分工具里混淆）。
 
 在**仓库根**执行：
 
 ```bash
-cargo build --manifest-path 04_llvm_insight/Cargo.toml
-cargo rustc --manifest-path 04_llvm_insight/Cargo.toml -- --emit=llvm-ir
-cargo rustc --manifest-path 04_llvm_insight/Cargo.toml --release -- --emit=llvm-ir
+cargo build --manifest-path 05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/Cargo.toml
+cargo rustc --manifest-path 05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/Cargo.toml -- --emit=llvm-ir
+cargo rustc --manifest-path 05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/Cargo.toml --release -- --emit=llvm-ir
 ```
 
-若仓库根 **`Cargo.toml`** 的 **`[workspace].members`** 已包含 **`04_llvm_insight`**，也可：
+若仓库根 **`Cargo.toml`** 的 **`[workspace].members`** 已包含 **`05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17`**，也可：
 
 ```bash
 cargo build -p llvm_insight_lab

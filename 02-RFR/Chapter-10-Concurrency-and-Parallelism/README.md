@@ -22,7 +22,7 @@
 |------|--------|
 |  fearless concurrency | [16 章](../../00-Book/16-fearless-concurrency/) |
 | Send/Sync | [16.4](../../00-Book/16-fearless-concurrency/16.4-Send与Sync.md) |
-| 原子 / 内存序 | `atomic/` · [04_llvm_insight](../../04_llvm_insight/src/lib.rs) |
+| 原子 / 内存序 | `atomic/` · [05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/src/lib.rs) |
 | ER Item 17 | [共享状态并行](../../01-ER/Chapter-03-Concepts/Item-17-shared-state-parallelism/README.md) |
 
 ## 旧版单文件

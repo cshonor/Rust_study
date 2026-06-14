@@ -1,12 +1,12 @@
 # ch04 — 静态分发 vs 动态分发（IR 对照）
 
-> 源码：`04_llvm_insight/src/lib.rs` · IR 归档：`ir_samples/optimize_compare/04_dispatch_O0.ll`（及 `O3`）  
+> 源码：`05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/src/lib.rs` · IR 归档：`ir_samples/optimize_compare/04_dispatch_O0.ll`（及 `O3`）  
 > RFR 理论 → [05 编译与分发](../../../../02-RFR/Chapter-02-Types/05-compilation-dispatch.md)
 
 ## 复现
 
 ```bash
-cargo rustc --manifest-path 04_llvm_insight/Cargo.toml -p llvm_insight_lab -- -C opt-level=0 --emit=llvm-ir
+cargo rustc --manifest-path 05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/Cargo.toml -p llvm_insight_lab -- -C opt-level=0 --emit=llvm-ir
 # .ll 在 target/debug/deps/；或直接使用 ir_samples 已归档副本
 ```
 

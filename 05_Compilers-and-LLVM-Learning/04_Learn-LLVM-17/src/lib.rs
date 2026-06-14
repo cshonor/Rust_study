@@ -1,5 +1,5 @@
 //! 统一 IR 实验入口：从仓库根执行
-//! `cargo rustc --manifest-path 04_llvm_insight/Cargo.toml -p llvm_insight_lab -- --emit=llvm-ir`
+//! `cargo rustc --manifest-path 05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/Cargo.toml -p llvm_insight_lab -- --emit=llvm-ir`
 //! （若在 workspace 中已加入本目录，则可用 `-p llvm_insight_lab`。）
 //!
 //! 精读第 4、7 章时在此增删函数；归档时将 `.ll` 复制到 `ir_samples/` 对应子目录。

@@ -1,6 +1,6 @@
 # IR 样本归档（`ir_samples/`）
 
-从 **`04_llvm_insight/src/lib.rs`** 或从 **`atomic/`**、**`async_tokio/`**、**`rust_network_programming/`** 相关代码导出 `.ll` 后，将**脱敏、可复现**的片段统一放在此目录，便于 diff 与版本管理。
+从 **`05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/src/lib.rs`** 或从 **`atomic/`**、**`async_tokio/`**、**`rust_network_programming/`** 相关代码导出 `.ll` 后，将**脱敏、可复现**的片段统一放在此目录，便于 diff 与版本管理。
 
 ## 命名建议
 
