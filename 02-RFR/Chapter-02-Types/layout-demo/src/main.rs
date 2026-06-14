@@ -133,7 +133,7 @@ fn main() {
         "  Option<NonNull<u32>>  = {}",
         size_of::<Option<NonNull<u32>>>()
     );
-    use std::num::NonZeroU32;
+    use std::num::{NonZeroU32, NonZeroU8};
     println!(
         "  Option<NonZeroU32>    = {}",
         size_of::<Option<NonZeroU32>>()
@@ -142,6 +142,34 @@ fn main() {
         "  Option<Box<u32>>      = {}",
         size_of::<Option<Box<u32>>>()
     );
+    println!();
+
+    println!("--- Multi-variant + NonZeroU8 niche ---");
+    enum TwoNiche {
+        A,
+        E(NonZeroU8),
+    }
+    enum FiveNiche {
+        A,
+        B,
+        C,
+        D,
+        E(NonZeroU8),
+    }
+    enum FivePlain {
+        A,
+        B,
+        C,
+        D,
+        E(u8),
+    }
+    println!("  Two {{ A, E(NonZeroU8) }}           = {} B (tag+payload in 1 byte)", size_of::<TwoNiche>());
+    println!("  Five {{ A..D, E(NonZeroU8) }}       = {} B", size_of::<FiveNiche>());
+    println!("  Five {{ A..D, E(u8) }}  (no niche)  = {} B", size_of::<FivePlain>());
+    let two_a = TwoNiche::A;
+    let two_e5 = TwoNiche::E(NonZeroU8::new(5).unwrap());
+    let raw = |v: &TwoNiche| unsafe { *(v as *const _ as *const u8) };
+    println!("  TwoNiche::A raw byte = {}, E(5) raw byte = {}", raw(&two_a), raw(&two_e5));
     println!();
 
     println!("--- DST / wide pointers (x86_64) ---");
