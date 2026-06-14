@@ -89,6 +89,74 @@
 
 → 分节：[01–03 声明宏](./01-when-to-use-declarative-macros.md) · [04–07 过程宏](./04-types-of-procedural-macros.md)
 
+### 声明宏 vs 过程宏：谁更「灵活」？（别搞反）
+
+**容易记反**：不是「声明宏更灵活」，而是 **过程宏更灵活**。
+
+| | **声明宏** `macro_rules!` | **过程宏** `proc_macro` |
+|---|---------------------------|-------------------------|
+| **比喻** | **固定模具** — 规则提前写死 | **小程序** — 用 Rust 写展开逻辑 |
+| **输入** | 必须 **严格匹配** 预设 token 模式 | **`TokenStream` 任意解析**（常 `syn` 成 AST） |
+| **逻辑** | **静态**模式匹配 + 模板替换 | **动态**：条件、`if`、`for` 循环生成代码 |
+| **能做什么** | 几种固定语法形状（如逗号分隔列表） | 读 struct 字段名/类型，每个 type **不同** `impl` |
+| **搞不定时** | 不匹配 → **立刻报错**，不会「猜」 | 可写复杂校验、自定义错误信息 |
+
+**一句话**：声明宏 = **静态 pattern match**；过程宏 = **动态代码逻辑**处理输入。
+
+#### 例子 1：声明宏 = 固定模具（`vec!` / `my_vec!`）
+
+模具里写死了：**「括号里是逗号分隔的表达式列表」**。
+
+```rust
+// 标准库 vec! / 本仓库 demo：my_vec!
+vec![1, 2, 3];           // ✅ 匹配 $( $x:expr ),*
+vec!["a", "b"];          // ✅ 元素类型可以变，形状不变
+vec![];                  // ✅ 空列表也有对应分支
+
+vec! { let x = 1; };     // ❌ 不匹配任何分支 → 编译错误
+vec!(1, 2, 3);           // ❌ 圆括号不是 vec! 的模具形状
+```
+
+展开（概念上）：
+
+```rust
+// vec![1, 2, 3]  →
+{
+    let mut temp_vec = Vec::new();
+    temp_vec.push(1);
+    temp_vec.push(2);
+    temp_vec.push(3);
+    temp_vec
+}
+```
+
+规则在 **`macro_rules!` 定义里写死** — 不会根据「你是不是 struct」换逻辑。  
+→ 跟写 demo：[19.5-macros-demo · my_vec!](../../00-Book/19-advanced-features/19.5-macros-demo/decl_macro_demo/src/lib.rs)
+
+#### 例子 2：过程宏 = 小程序（`#[derive(Debug)]`）
+
+输入是 **整个 struct 的定义**；过程宏 **读字段名、类型**，为 **每个 struct 生成不同的** `fmt` 代码：
+
+```rust
+#[derive(Debug)]
+struct Point { x: i32, y: i32 }
+
+#[derive(Debug)]
+struct Person { name: String, age: u8 }
+// 两次 derive 展开的 impl Debug 内容完全不同 — 靠 Rust 代码逻辑生成
+```
+
+声明宏 **做不到**「先解析 struct 有哪些字段再生成 impl」— 它没有 AST 级别的自由逻辑，只有 **几条固定 pattern**。
+
+#### 和「impl / derive」的对应
+
+| 口语 | 对应 |
+|------|------|
+| **声明宏** | 像 **`macro_rules!` 里写死的 match 分支** — 几种输入形状，几种输出模板 |
+| **过程宏** | 像 **`derive` 背后那套生成 `impl` 的 Rust 程序** — 输入一变，生成逻辑跟着变 |
+
+→ 看展开：`cargo expand` · [第 13 章工具](../Chapter-13-Rust-Ecosystem/01-tools.md)
+
 ### 过程宏三子类
 
 | 子类 | 形态 | 作用 |
