@@ -12,4 +12,4 @@
 
 **Validity ≠ 已初始化** — Nomicon 区分更细；写 unsafe 须两者兼顾。
 
-→ [llvm_insight](../../llvm_insight/README.md) 读 IR 时可见 optimizer 假设
+→ [04_llvm_insight](../../04_llvm_insight/README.md) 读 IR 时可见 optimizer 假设

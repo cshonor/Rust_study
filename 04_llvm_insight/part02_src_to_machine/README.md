@@ -8,6 +8,6 @@
 | `chapter06_ir_extend` | 第 6 章 异常与调试元数据 | **浏览**：知道存在即可 |
 | `chapter07_ir_optimize` | 第 7 章 优化流水线 | **精读**：与原子/内存屏障约束对照 |
 
-**统一 IR 实验 crate**：本目录上一级的 `llvm_insight/Cargo.toml` + `src/lib.rs`（包名 `llvm_insight_lab`），导出命令见根 `llvm_insight/README.md`。
+**统一 IR 实验 crate**：本目录上一级的 `04_llvm_insight/Cargo.toml` + `src/lib.rs`（包名 `llvm_insight_lab`），导出命令见根 `04_llvm_insight/README.md`。
 
 从 `atomic/`、`async_tokio/`、`rust_network_programming` 相关 Rust 抄最小复现进 `src/lib.rs` 后，将生成的 `.ll` **复制到** `ir_samples/` 下对应子目录。

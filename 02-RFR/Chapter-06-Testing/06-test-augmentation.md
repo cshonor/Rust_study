@@ -19,6 +19,6 @@
 
 与 [RFR 第 10 章](../Chapter-10-Concurrency-and-Parallelism/10-并发与并行-Concurrency-and-Parallelism-深度解析.md) 衔接。
 
-## llvm_insight
+## 04_llvm_insight
 
-排错时可对照 IR / 优化是否改变测试假设 → [llvm_insight](../../llvm_insight/README.md)
+排错时可对照 IR / 优化是否改变测试假设 → [04_llvm_insight](../../04_llvm_insight/README.md)

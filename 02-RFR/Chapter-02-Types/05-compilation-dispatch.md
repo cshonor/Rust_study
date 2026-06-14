@@ -284,9 +284,9 @@ FFI 边界通常 **不用 `dyn`** → [第 11 章 FFI](../Chapter-11-Foreign-Fun
 |---|------|-------|
 | 典型 call | 直接 `call` 已知符号，或 **inline 消失** | `call [vtable+offset]` 类间接 |
 | 优化器 | 常能 **devirtualize**（若类型可证唯一） | 难 inline 跨 vtable |
-| 排查 | `cargo asm` / llvm_insight | 对比同逻辑泛型版 |
+| 排查 | `cargo asm` / 04_llvm_insight | 对比同逻辑泛型版 |
 
-→ [llvm_insight · ch04 分发 IR 对照](../../llvm_insight/part02_src_to_machine/chapter04_ir_basic/notes/ch04_dispatch_static_vs_dyn.md) · [ch04_dispatch_O0.ll](../../llvm_insight/ir_samples/optimize_compare/ch04_dispatch_O0.ll)
+→ [04_llvm_insight · ch04 分发 IR 对照](../../04_llvm_insight/part02_src_to_machine/chapter04_ir_basic/notes/04_dispatch_static_vs_dyn.md) · [04_dispatch_O0.ll](../../04_llvm_insight/ir_samples/optimize_compare/04_dispatch_O0.ll)
 
 ---
 

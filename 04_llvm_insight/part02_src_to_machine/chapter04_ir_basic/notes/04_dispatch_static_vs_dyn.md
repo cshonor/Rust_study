@@ -1,12 +1,12 @@
 # ch04 — 静态分发 vs 动态分发（IR 对照）
 
-> 源码：`llvm_insight/src/lib.rs` · IR 归档：`ir_samples/optimize_compare/ch04_dispatch_O0.ll`（及 `O3`）  
+> 源码：`04_llvm_insight/src/lib.rs` · IR 归档：`ir_samples/optimize_compare/04_dispatch_O0.ll`（及 `O3`）  
 > RFR 理论 → [05 编译与分发](../../../../02-RFR/Chapter-02-Types/05-compilation-dispatch.md)
 
 ## 复现
 
 ```bash
-cargo rustc --manifest-path llvm_insight/Cargo.toml -p llvm_insight_lab -- -C opt-level=0 --emit=llvm-ir
+cargo rustc --manifest-path 04_llvm_insight/Cargo.toml -p llvm_insight_lab -- -C opt-level=0 --emit=llvm-ir
 # .ll 在 target/debug/deps/；或直接使用 ir_samples 已归档副本
 ```
 
@@ -17,7 +17,7 @@ cargo rustc --manifest-path llvm_insight/Cargo.toml -p llvm_insight_lab -- -C op
 | `process_static<T: TickHandler>(h: &T)` | **单态化** — 每个 `T` 一份 `define` |
 | `process_dyn(h: &dyn TickHandler)` | **vtable** — 间接 `call` |
 
-## IR 要点（O0，`ch04_dispatch_O0.ll`）
+## IR 要点（O0，`04_dispatch_O0.ll`）
 
 ### 1. 两份 `process_static`（monomorph）
 
@@ -63,9 +63,9 @@ define i64 @...process_dyn...(ptr align 1 %h.0, ptr align 8 %h.1) {
 
 ## O0 vs O3
 
-本仓库 `ch04_dispatch_O3.ll` 在 `-C opt-level=3` 下生成。因 `#[inline(never)]`，`process_*` 仍保留为独立 `define`；若去掉 `never` 并开 LTO，static 路径更易被 inline 进 `demo_static_dispatch`，dyn 路径仍难消除间接 call。
+本仓库 `04_dispatch_O3.ll` 在 `-C opt-level=3` 下生成。因 `#[inline(never)]`，`process_*` 仍保留为独立 `define`；若去掉 `never` 并开 LTO，static 路径更易被 inline 进 `demo_static_dispatch`，dyn 路径仍难消除间接 call。
 
 ## 与 HFT
 
 - 热路径 inner loop：IR 里应看到 **直接 `call` 已知符号**（或 inline 后消失），而非 `call i64 %fn_ptr(...)`。
-- 排查：`diff ch04_dispatch_O0.ll` 中 `process_dyn` vs 任一 `process_static` 基本块。
+- 排查：`diff 04_dispatch_O0.ll` 中 `process_dyn` vs 任一 `process_static` 基本块。

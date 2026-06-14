@@ -16,6 +16,6 @@
 
 ## 与第 7 章优化
 
-基准数字需结合 [llvm_insight ch07](../../llvm_insight/part02_src_to_machine/chapter07_ir_optimize/README.md) 理解编译器做了什么。
+基准数字需结合 [04_llvm_insight ch07](../../04_llvm_insight/part02_src_to_machine/chapter07_ir_optimize/README.md) 理解编译器做了什么。
 
 ER → [Item 20 避免过度优化](../../01-ER/Chapter-03-Concepts/Item-20-avoid-over-optimize/README.md)

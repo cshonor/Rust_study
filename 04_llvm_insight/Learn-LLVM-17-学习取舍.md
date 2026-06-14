@@ -112,8 +112,8 @@
 
 ---
 
-## 与 `llvm_insight/` 目录结构的配合
+## 与 `04_llvm_insight/` 目录结构的配合
 
-- **精读**第 4、7 章：改根目录 **`llvm_insight/src/lib.rs`**（包名 **`llvm_insight_lab`**），用 `cargo rustc --manifest-path llvm_insight/Cargo.toml -p llvm_insight_lab -- --emit=llvm-ir`（或 workspace 下 `-p llvm_insight_lab`）导出 IR；笔记写在 **`part02_src_to_machine/chapter04_ir_basic/notes/`**、**`chapter07_ir_optimize/notes/`**。  
+- **精读**第 4、7 章：改根目录 **`04_llvm_insight/src/lib.rs`**（包名 **`llvm_insight_lab`**），用 `cargo rustc --manifest-path 04_llvm_insight/Cargo.toml -p llvm_insight_lab -- --emit=llvm-ir`（或 workspace 下 `-p llvm_insight_lab`）导出 IR；笔记写在 **`part02_src_to_machine/chapter04_ir_basic/notes/`**、**`chapter07_ir_optimize/notes/`**。  
 - **精读**第 5 章：类型 lowering 笔记在 **`chapter05_ir_advanced_type/notes/`**；`.ll` 片段统一归档到 **`ir_samples/atomic_ir/`** 等（见 **`ir_samples/README.md`**）。  
-- 全书目录与 **精读/浏览/跳过** 的文件夹对照见 **`llvm_insight/README.md`** 顶部树状图。
+- 全书目录与 **精读/浏览/跳过** 的文件夹对照见 **`04_llvm_insight/README.md`** 顶部树状图。

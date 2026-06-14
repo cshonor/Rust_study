@@ -13,7 +13,7 @@ rustup component add miri
 ## 编译器洞察
 
 - **`rustc -Zprint-type-sizes`**（通常 nightly）— 类型大小、对齐、布局
-- 与 [第 2 章 Layout](../Chapter-02-Types/02-layout.md)、[llvm_insight](../../llvm_insight/README.md) 配合
+- 与 [第 2 章 Layout](../Chapter-02-Types/02-layout.md)、[04_llvm_insight](../../04_llvm_insight/README.md) 配合
 
 ## 编辑器
 

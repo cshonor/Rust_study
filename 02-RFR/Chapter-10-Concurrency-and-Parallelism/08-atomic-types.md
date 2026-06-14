@@ -7,6 +7,6 @@
 - 读/写/RMW 在硬件层原子（对对齐地址）。
 - 须配对正确的 **Ordering** → [09](./09-memory-ordering.md)
 
-实验 → [llvm_insight/src/lib.rs](../../llvm_insight/src/lib.rs) 改 `Ordering` 导出 IR diff。
+实验 → [04_llvm_insight/src/lib.rs](../../04_llvm_insight/src/lib.rs) 改 `Ordering` 导出 IR diff。
 
 Book · `atomic/` 仓库（狗熊书）深化。
