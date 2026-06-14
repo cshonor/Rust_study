@@ -146,6 +146,23 @@ fn main() {
     println!("  (fat = data ptr + metadata: len or vtable)");
     println!();
 
+    trait Animal {
+        fn make_sound(&self);
+    }
+    struct Cat;
+    impl Animal for Cat {
+        fn make_sound(&self) {
+            println!("meow");
+        }
+    }
+    let cat = Cat;
+    let animal: &dyn Animal = &cat;
+    println!("--- dyn Trait / vtable demo ---");
+    println!("  size_of::<&dyn Animal>() = {}", size_of::<&dyn Animal>());
+    println!("  size_of_val(animal)      = {} (concrete Cat)", size_of_val(animal));
+    println!("  size_of::<Cat>()         = {}", size_of::<Cat>());
+    println!();
+
     // --- raw bytes demo (repr(C) only) ---
     #[repr(C)]
     struct MyStruct {
