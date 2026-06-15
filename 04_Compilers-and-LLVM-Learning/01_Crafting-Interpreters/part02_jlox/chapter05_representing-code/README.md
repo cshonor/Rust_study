@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/representing-code.html](https://craftinginterpreters.com/representing-code.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/05-representing-code.md`](./notes/05-representing-code.md) |
