@@ -21,4 +21,4 @@
 | **08** | Concurrency and Parallelism | [00-overview.md](./08_Concurrency_Atomic/00-overview.md) | [08_Concurrency_Atomic/](./08_Concurrency_Atomic/) |
 | **09** | Implementing Vec / Arc | [00-overview.md](./09_Impl_Vec_Arc/00-overview.md) | [09_Impl_Vec_Arc/](./09_Impl_Vec_Arc/) |
 | **10** | FFI | [00-overview.md](./10_FFI/00-overview.md) | [10_FFI/](./10_FFI/) |
-| **11** | Beneath std | （待建） | [11_NoStd/](./11_NoStd/) |
+| **11** | Beneath std | [00-overview.md](./11_NoStd/00-overview.md) | [11_NoStd/](./11_NoStd/) |
