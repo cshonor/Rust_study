@@ -7,7 +7,7 @@
 ## 本章速记
 
 ```text
-§1.1  DSL 实用 + 数据结构综合练 + 没有魔法
+§1.1  DSL 实用 + 通用语言/DSL 对照 + jlox/clox/LLVM 预告 + 没有魔法
 §1.2  三 Part · 一章一特性 · Code/Asides/Challenges/Design notes
 §1.3  jlox（Java 语义）→ clox（C 性能与底层）
 ```
