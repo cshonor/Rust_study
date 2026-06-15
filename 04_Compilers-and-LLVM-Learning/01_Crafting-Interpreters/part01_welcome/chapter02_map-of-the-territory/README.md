@@ -23,6 +23,7 @@
 | §2.1 | 语言的组成部分（The Parts of a Language） | [01-the-parts-of-a-language.md](./01-the-parts-of-a-language.md) |
 | §2.2 | 捷径与替代方案（Shortcuts and Alternate Routes） | [02-shortcuts-and-alternate-routes.md](./02-shortcuts-and-alternate-routes.md) |
 | ·4 | 「编译之山」与本书两趟实现 | [03-a-map-of-the-territory.md](./03-a-map-of-the-territory.md) |
+| 延伸 | Rust/HFT · 上山前端 + 下山后端分层 | [04-rust-hft-编译流水线对照.md](./04-rust-hft-编译流水线对照.md) |
 | — | 速记 · 自测 · 进度 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---

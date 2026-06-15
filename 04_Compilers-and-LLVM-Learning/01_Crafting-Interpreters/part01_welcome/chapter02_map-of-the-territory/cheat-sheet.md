@@ -10,6 +10,7 @@
 §2.1  扫描→Token · 解析→AST · IR · 代码生成 · VM/字节码 · Runtime/GC
 §2.2  单遍（省 AST）· 树遍历（jlox）· 转译（换高级语言）
 全书  = 先 §2.2.2 再 §2.1.7 的 clox 路线
+Rust  = 源码→AST→LLVM IR→机器码→ELF（见 04-rust-hft-编译流水线对照.md）
 ```
 
 ---

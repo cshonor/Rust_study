@@ -105,4 +105,6 @@ Source Code（源码）
 
 **本仓库**：RFR 第 1 章内存区域 · 第 9～10 章 unsafe/并发 · **Nomicon** 布局与有效性。
 
+→ **Rust/HFT 分层对照**（上山前端 + 下山后端 · `no_std` · `dyn` · FFI）：[04-rust-hft-编译流水线对照.md](./04-rust-hft-编译流水线对照.md)
+
 ---
