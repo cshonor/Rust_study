@@ -24,8 +24,13 @@
 | **§24.4～§24.5** | **`OP_CALL`** · 参数/局部 **栈重叠** |
 | **§24.6** | **`return`** · **`OP_RETURN`** |
 | **§24.7** | **`ObjNative`** · **`clock()`** |
+| **闭包续** | 见 [ch25 Closures 笔记](../chapter25_objects/notes/25-closures.md)（原书 §24.8+ Upvalue） |
 
-**（书中同章后续：Upvalue / 闭包——见 §24.8+；你回复「25」时可继续梳理。）**
+---
+
+## 闭包 / Upvalue（原书同章续）
+
+完整梳理见 **[第 25 批 · Closures](../chapter25_objects/notes/25-closures.md)**：`ObjUpvalue` · flattening · **`OP_CLOSE_UPVALUE`**。
 
 ---
 
@@ -175,7 +180,7 @@ OP_RETURN:
 §24.4–5 OP_CALL · 参数槽与 locals 窗口重叠
 §24.6   OP_RETURN 弹帧 · 返回值压回 caller
 §24.7   ObjNative · clock()
-后续    Upvalue / 闭包（同章 §24.8+）
+后续    [ch25 Closures](../chapter25_objects/notes/25-closures.md)
 ```
 
 ---
@@ -184,7 +189,7 @@ OP_RETURN:
 
 | 章 / 节 | 内容 |
 |---------|------|
-| **ch24 续** | **Upvalue** · **`OP_CLOSE_UPVALUE`** · 真·闭包 |
+| **ch24 续** | [ch25 · Closures](../chapter25_objects/notes/25-closures.md) | **Upvalue** · **`OP_CLOSE_UPVALUE`** |
 | **25** | [chapter25 · Objects](../chapter25_objects/) | 实例字段 |
 | **26** | Garbage Collection | **mark-sweep** |
 

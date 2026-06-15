@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/garbage-collection.html](https://craftinginterpreters.com/garbage-collection.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/26-garbage-collection.md`](./notes/26-garbage-collection.md) |

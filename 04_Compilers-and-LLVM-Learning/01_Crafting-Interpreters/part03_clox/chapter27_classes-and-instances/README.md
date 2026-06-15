@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/classes-and-instances.html](https://craftinginterpreters.com/classes-and-instances.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/27-classes-and-instances.md`](./notes/27-classes-and-instances.md) |

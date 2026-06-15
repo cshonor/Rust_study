@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/objects.html](https://craftinginterpreters.com/objects.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/25-closures.md`](./notes/25-closures.md)（Upvalue / 闭包 · 原书 ch24 续） |
