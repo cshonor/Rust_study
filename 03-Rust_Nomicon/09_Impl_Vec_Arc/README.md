@@ -1,17 +1,18 @@
-﻿# 09 · Implementing Vec (and Arc)
+﻿# 09 · Implementing Vec and Arc
 
 > **The Rustonomicon** · [03 Rust Nomicon](../README.md) · [全书笔记](../notes.md)
 
 ## 状态
 
 - [x] Vec 已读（笔记 + `MyVec` 实现）
-- [ ] Arc/Mutex（Nomicon 下一章，待建）
+- [x] Arc 已读（笔记 + `MyArc` 实现，无 Weak）
+- [ ] Mutex（Nomicon 同章延伸，待建）
 
 ---
 
 ## 一句话
 
-**Vec 实战章** — stable 徒手 `MyVec`：NonNull 布局、alloc/write/read、Deref、insert/remove、RawVec/IntoIter/Drain、ZST 特判。
+**Vec + Arc 实战** — stable 徒手 `MyVec` 与简化 `MyArc`：NonNull/PhantomData、原子 refcount、Release/Acquire fence。
 
 ---
 
@@ -20,6 +21,7 @@
 | 小节 | 主题 | 阅读 |
 |------|------|------|
 | — | Vec 全章要点 | [00-overview.md](./00-overview.md) |
+| — | Arc 实现要点 | [01-arc-overview.md](./01-arc-overview.md) |
 
 ---
 
@@ -27,12 +29,12 @@
 
 | 文件 | 演示 |
 |------|------|
-| [src/raw_vec.rs](./src/raw_vec.rs) | 分配/释放、ZST cap |
-| [src/my_vec.rs](./src/my_vec.rs) | push/pop/Drop/Deref/insert/remove |
-| [src/into_iter.rs](./src/into_iter.rs) | 消费迭代器 |
-| [src/drain.rs](./src/drain.rs) | Drain（len=0 异常安全） |
+| [src/my_vec.rs](./src/my_vec.rs) | Vec：push/pop/Deref/… |
+| [src/my_arc.rs](./src/my_arc.rs) | Arc：Clone Relaxed / Drop Release+Acquire |
+| [src/raw_vec.rs](./src/raw_vec.rs) | RawVec 分配 |
+| [src/into_iter.rs](./src/into_iter.rs) | IntoIter |
+| [src/drain.rs](./src/drain.rs) | Drain |
 | [src/zst.rs](./src/zst.rs) | ZST 辅助 |
-| [src/lib.rs](./src/lib.rs) | 模块导出 |
 | [src/main.rs](./src/main.rs) | 运行入口 |
 
 ```bash
@@ -47,9 +49,8 @@ cargo test
 
 | 主题 | 对照 |
 |------|------|
-| MaybeUninit / set_len | [05_Uninit_Mem](../05_Uninit_Mem/README.md) |
-| forget Drain | [06_OBRM_RAII](../06_OBRM_RAII/README.md) |
-| Arc 原子 refcount | [08_Concurrency_Atomic](../08_Concurrency_Atomic/README.md) |
+| 原子内存序 | [08_Concurrency_Atomic](../08_Concurrency_Atomic/README.md) |
+| forget / Rc | [06_OBRM_RAII](../06_OBRM_RAII/README.md) |
 | 上一章 | [08_Concurrency_Atomic](../08_Concurrency_Atomic/README.md) |
 | 下一章 | [10_FFI](../10_FFI/README.md) |
 
@@ -57,4 +58,4 @@ cargo test
 
 ## 逻辑脉络
 
-Layout → alloc → push/pop → Drop/Deref → 高级迭代器 → ZST →（待）Arc。
+MyVec 全链路 → MyArc 布局/refcount/屏障 →（待）Mutex → FFI。

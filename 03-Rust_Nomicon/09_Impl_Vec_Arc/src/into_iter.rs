@@ -62,7 +62,6 @@ impl<T> Drop for IntoIter<T> {
 
 #[cfg(test)]
 mod tests {
-    use super::IntoIter;
     use crate::my_vec::MyVec;
 
     #[test]

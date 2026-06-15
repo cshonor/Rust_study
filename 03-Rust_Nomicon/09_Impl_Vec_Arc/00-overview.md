@@ -6,7 +6,7 @@
 
 官方标题 **Example: Implementing Vec**。全书使用 **stable Rust** 从零实现标准库 `Vec` 的实战章，展示如何用 unsafe 原语构建安全、高性能底层结构。
 
-> 同目录 **Arc/Mutex** 为 Nomicon 下一章（Implementing Arc and Mutex），笔记与代码待补。
+> 同目录 **Arc** 见 [01-arc-overview.md](./01-arc-overview.md)；**Mutex** 为同章延伸，待建。
 
 | 对照 | 路径 |
 |------|------|
