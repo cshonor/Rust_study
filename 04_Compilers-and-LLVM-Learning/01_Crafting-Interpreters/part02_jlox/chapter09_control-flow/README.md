@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/control-flow.html](https://craftinginterpreters.com/control-flow.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/09-control-flow.md`](./notes/09-control-flow.md) |

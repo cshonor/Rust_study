@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/evaluating-expressions.html](https://craftinginterpreters.com/evaluating-expressions.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/07-evaluating-expressions.md`](./notes/07-evaluating-expressions.md) |

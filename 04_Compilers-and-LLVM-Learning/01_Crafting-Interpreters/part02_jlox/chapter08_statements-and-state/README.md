@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/statements-and-state.html](https://craftinginterpreters.com/statements-and-state.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/08-statements-and-state.md`](./notes/08-statements-and-state.md) |
