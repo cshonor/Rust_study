@@ -1,6 +1,6 @@
 # 第 4 章 · 词法分析 · 本章定位
 
-← [本章目录](./README.md) · 上一章：[ch3 语法分析的概要](../chapter03_parse-overview/README.md) · 下一章：[ch5 基于 JavaCC 的解析器的描述](../chapter05_javacc-parser/)（待建） · 下一节：[01-javacc-regex.md](./01-javacc-regex.md)
+← [本章目录](./README.md) · 上一章：[ch4 词法分析](../chapter04_lexical/README.md) · 下一章：[ch5 基于 JavaCC 的解析器的描述](../chapter05_javacc-parser/README.md) · 下一节：[01-javacc-regex.md](./01-javacc-regex.md)
 
 ---
 
