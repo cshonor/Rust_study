@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/methods.html](https://craftinginterpreters.com/methods.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/28-methods.md`](./notes/28-methods.md) |
