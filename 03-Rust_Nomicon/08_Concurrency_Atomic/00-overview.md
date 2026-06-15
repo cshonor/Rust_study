@@ -1,12 +1,10 @@
 # 08 · Concurrency and Parallelism · 本章定位
 
-← [本章目录](./README.md) · [全书笔记](../notes.md) · 上一章：[07 Panic Safety](../07_Panic_Safety/README.md) · 下一章：[09 Impl Vec/Arc](../09_Impl_Vec_Arc/README.md)
+← [本章目录](./README.md) · [全书笔记](../notes.md) · 上一章：[06 OBRM](../06_OBRM_RAII/README.md) · 下一章：[09 Impl Vec/Arc](../09_Impl_Vec_Arc/README.md)
 
 ---
 
 官方标题 **Concurrency and Parallelism**。Rust 不预设「消息传递 vs 绿色线程」等底层立场，但类型系统使**线程安全抽象**相对易写。本章三主题：数据竞争、Send/Sync、原子与内存序。
-
-> 本仓库 **07** 为 OBRM 延伸（Panic 安全）；官方并发主题对应 **`08_Concurrency_Atomic/`**。
 
 | 对照 | 路径 |
 |------|------|

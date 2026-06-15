@@ -16,7 +16,6 @@
 | [04_Type_Cast/](./04_Type_Cast/) | Type Conversions |
 | [05_Uninit_Mem/](./05_Uninit_Mem/) | Working With Uninitialized Memory |
 | [06_OBRM_RAII/](./06_OBRM_RAII/) | The Perils Of OBRM |
-| [07_Panic_Safety/](./07_Panic_Safety/) | （OBRM 延伸：panic / 异常安全） |
 | [08_Concurrency_Atomic/](./08_Concurrency_Atomic/) | Concurrency and Parallelism |
 | [09_Impl_Vec_Arc/](./09_Impl_Vec_Arc/) | Implementing Vec / Arc and Mutex |
 | [10_FFI/](./10_FFI/) | Foreign Function Interface |

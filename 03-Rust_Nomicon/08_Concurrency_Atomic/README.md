@@ -45,7 +45,7 @@ cargo run
 |------|------|
 | Send/Sync 入门 | [Book 16.4 demo](../../00-Book/16-fearless-concurrency/16.4-send-sync-demo/) |
 | 内部可变性 | [RFR 07-interior-mutability](../../02-RFR/Chapter-01-Foundations/07-interior-mutability.md) |
-| 上一章 | [07_Panic_Safety](../07_Panic_Safety/README.md) |
+| 上一章 | [06_OBRM_RAII](../06_OBRM_RAII/README.md) |
 | 下一章 | [09_Impl_Vec_Arc](../09_Impl_Vec_Arc/README.md) · 实现 Arc |
 
 ---
