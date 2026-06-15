@@ -1,6 +1,6 @@
 # 第 9 章 · 语义分析（1）引用的消解 · 本章定位
 
-← [本章目录](./README.md) · 上一章：[ch8 抽象语法树的生成](../chapter08_build-ast/README.md) · 下一章：[ch10 语义分析（2）静态类型检查](../chapter10_type-check/)（待建） · 下一节：[01-semantic-overview-visitor.md](./01-semantic-overview-visitor.md)
+← [本章目录](./README.md) · 上一章：[ch9 语义分析（1）](../chapter09_name-resolution/README.md) · 下一章：[ch10 静态类型检查](../chapter10_type-check/README.md) · 下一节：[01-type-definition-check.md](./01-type-definition-check.md)
 
 ---
 
