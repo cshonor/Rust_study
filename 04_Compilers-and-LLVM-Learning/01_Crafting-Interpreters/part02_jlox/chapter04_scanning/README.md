@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/scanning.html](https://craftinginterpreters.com/scanning.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/04-scanning.md`](./notes/04-scanning.md) |
