@@ -1,6 +1,6 @@
 # 第 6 章 · 语法分析 · 本章定位
 
-← [本章目录](./README.md) · 上一章：[ch5 基于 JavaCC 的解析器的描述](../chapter05_javacc-parser/README.md) · 下一章：[ch7 JavaCC 的 action 和抽象语法树](../chapter07_javacc-ast/)（待建） · 下一节：[01-definitions.md](./01-definitions.md)
+← [本章目录](./README.md) · 上一章：[ch6 语法分析](../chapter06_parsing/README.md) · 下一章：[ch7 JavaCC 的 action 和抽象语法树](../chapter07_javacc-ast/README.md) · 下一节：[01-definitions.md](./01-definitions.md)
 
 ---
 
