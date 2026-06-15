@@ -9,7 +9,7 @@
 | **书** | *Crafting Interpreters*（Robert Nystrom / Bob Nystrom） |
 | **英文免费在线** | [craftinginterpreters.com](https://craftinginterpreters.com/) |
 | **中文在线（推荐）** | [craftinginterpreters-zh-jet.vercel.app](https://craftinginterpreters-zh-jet.vercel.app/)（[GuoYaxiang/craftinginterpreters_zh](https://github.com/GuoYaxiang/craftinginterpreters_zh)） |
-| **本目录** | 读书笔记；按 Part I（树遍历 jlox）/ Part II（字节码 clox）建 `notes/` |
+| **本目录** | 读书笔记 · [`本书目录.md`](./本书目录.md)（**30 章** + 附录） |
 
 ## 本书定位
 
@@ -48,15 +48,27 @@ Source Code
 | 字节码 VM | RFR 第 8 章 async 状态机 · 第 2 章分发 |
 | 闭包 / 类 | RFR 第 1、2、3 章 |
 
+## 全书结构（30 章 + 附录）
+
+| 部分 | 章 | 项目 |
+|------|:--:|------|
+| **I · Welcome** | 1～3 | Lox 语言与「编译之山」 |
+| **II · Tree-Walk Interpreter** | 4～13 | **jlox**（Java）：扫描 ch4 → 解析 ch6 → 求值 ch7 → … → 继承 ch13 |
+| **III · Bytecode Virtual Machine** | 14～30 | **clox**（C）：字节码 ch14 → 哈希表/GC/闭包 → **Optimization ch30**（最后一章新代码） |
+| **Backmatter** | 附录 I～II | Lox 完整语法 · jlox AST Java 生成代码 |
+
+完整章表与在线链接 → [`本书目录.md`](./本书目录.md)
+
 ## 精读建议
 
 | 范围 | 说明 |
 |------|------|
-| **Part I（jlox）** | 优先；建立 parser + 树遍历解释器全流程 |
-| **Part II（clox）** | 字节码 + VM；与 **04** IR / 优化对照时再精读 |
-| **Part III 语言设计** | 按需；与 **03** 设计子集语言时回看 |
+| **Part I（1～3）** | 先读；建立术语与 Lox 规格 |
+| **Part II（4～13）** | 优先动手；树遍历解释器全流程 |
+| **Part III（14～30）** | 字节码 VM；与 **04** IR / 优化对照时再精读；**ch30** 对接 O0/O3 |
+| **附录** | 写 parser / 查语法时当参考 |
 
 ## 待办
 
-- [ ] 添加 `本书目录.md`（章 ↔ `notes/`）
-- [ ] 确定 Part I only vs 全书精读
+- [ ] 按章建 `notes/01-introduction.md` … `notes/30-optimization.md`
+- [ ] 确定 Part II only vs 读至 ch30
