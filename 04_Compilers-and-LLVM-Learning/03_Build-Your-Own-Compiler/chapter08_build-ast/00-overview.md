@@ -1,6 +1,6 @@
 # 第 8 章 · 抽象语法树的生成 · 本章定位
 
-← [本章目录](./README.md) · 上一章：[ch7 action 和 AST](../chapter07_javacc-ast/README.md) · 下一章：[ch9 语义分析（1）引用的消解](../chapter09_name-resolution/)（待建） · 下一节：[01-expr-ast.md](./01-expr-ast.md)
+← [本章目录](./README.md) · 上一章：[ch7 action 和 AST](../chapter07_javacc-ast/README.md) · 下一章：[ch9 语义分析（1）引用的消解](../chapter09_name-resolution/README.md) · 下一节：[01-expr-ast.md](./01-expr-ast.md)
 
 ---
 
