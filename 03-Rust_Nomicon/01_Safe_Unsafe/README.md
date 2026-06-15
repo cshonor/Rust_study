@@ -1,11 +1,54 @@
-﻿# 01 Safe Unsafe — Meet Safe and Unsafe
+﻿# 01 · Meet Safe and Unsafe
 
-← [全书笔记](../notes.md#01-safe-and-unsafe-01_safe_unsafe)
+> **The Rustonomicon** · [03 Rust Nomicon](../README.md) · [全书笔记](../notes.md) · 开篇
 
-安全 / 非安全边界、`unsafe` 契约、五种额外能力、信任不对称、安全性非局部性。
+## 状态
+
+- [x] 已读（笔记整理）
+- [x] 示例 crate（五种 unsafe 能力 + privacy 封装）
+
+---
+
+## 一句话
+
+**心智模型章** — Safe / Unsafe 双重世界、`unsafe` 契约、五种额外能力、信任不对称、安全性非局部性；为全书 unsafe 编程定调。
+
+---
+
+## 专项笔记
+
+| 小节 | 主题 | 阅读 |
+|------|------|------|
+| — | 本章定位与要点 | [00-overview.md](./00-overview.md) |
+
+---
+
+## 示例源码
+
+| 文件 | 演示 |
+|------|------|
+| [src/five_powers.rs](./src/five_powers.rs) | 五种 unsafe 能力 |
+| [src/privacy.rs](./src/privacy.rs) | 模块边界封装 invariant |
+| [src/main.rs](./src/main.rs) | 运行入口 |
 
 ```bash
-rustup run nightly cargo build --manifest-path Cargo.toml
+cd 03-Rust_Nomicon/01_Safe_Unsafe
+cargo run
 ```
 
-（待在本目录添加 `Cargo.toml` 与示例源码）
+---
+
+## 与仓库其他部分
+
+| 主题 | 对照 |
+|------|------|
+| unsafe 入门 | [The Book 19.1](../../00-Book/19-advanced-features/19.1-不安全Rust.md) |
+| 深入 | [RFR Ch09 Unsafe](../../02-RFR/Chapter-09-Unsafe-Code/README.md) |
+| Miri 验证 | [ER Item 16 demo](../../01-ER/Chapter-03-Concepts/Item-16-avoid-unsafe/demo/) |
+| 下一章 | [02_Data_Layout](../02_Data_Layout/README.md) · 数据布局 |
+
+---
+
+## 逻辑脉络
+
+概念与契约 → 五种能力逐项对照源码 → privacy 封装 → 进入 Data Layout。

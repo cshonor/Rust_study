@@ -24,14 +24,14 @@
 
 | 资料 | 路径 |
 |------|------|
-| 读书笔记 | [notes.md](./notes.md) |
-| 各章源码 | 各章目录下 `Cargo.toml`（待补齐） |
+| 全书进度 | [notes.md](./notes.md) |
+| 各章笔记 + 源码 | 各章 `00-overview.md` + `Cargo.toml` |
 
 ## 编译示例
 
 ```bash
-cd 03-Rust_Nomicon/09_Impl_Vec_Arc
-rustup run nightly cargo build   # 待 Cargo.toml 补齐
+cd 03-Rust_Nomicon/01_Safe_Unsafe
+cargo run
 ```
 
 与本仓库其它板块对照：`atomic/`（Ch08 并发）、`02-RFR/`（类型与 unsafe 进阶）、`rust_network_programming/stage08`（TLS）。
