@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/compiling-expressions.html](https://craftinginterpreters.com/compiling-expressions.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/17-compiling-expressions.md`](./notes/17-compiling-expressions.md) |

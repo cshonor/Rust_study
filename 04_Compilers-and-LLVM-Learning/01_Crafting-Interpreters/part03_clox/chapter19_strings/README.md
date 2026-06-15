@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/strings.html](https://craftinginterpreters.com/strings.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/19-strings.md`](./notes/19-strings.md) |

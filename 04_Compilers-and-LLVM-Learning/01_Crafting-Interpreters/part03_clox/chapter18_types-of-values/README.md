@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/types-of-values.html](https://craftinginterpreters.com/types-of-values.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/18-types-of-values.md`](./notes/18-types-of-values.md) |

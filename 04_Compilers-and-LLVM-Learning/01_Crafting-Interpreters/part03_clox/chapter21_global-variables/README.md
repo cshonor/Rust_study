@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/global-variables.html](https://craftinginterpreters.com/global-variables.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/21-global-variables.md`](./notes/21-global-variables.md) |

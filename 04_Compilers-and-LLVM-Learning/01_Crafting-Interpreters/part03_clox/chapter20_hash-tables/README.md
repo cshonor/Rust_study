@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/hash-tables.html](https://craftinginterpreters.com/hash-tables.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/20-hash-tables.md`](./notes/20-hash-tables.md) |
