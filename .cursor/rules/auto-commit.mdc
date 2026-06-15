@@ -7,6 +7,11 @@ alwaysApply: true
 
 用户已要求：**完成实质性改动后自动 commit**，不必再等用户说「提交」。（已确认：以后默认自动提交。）
 
+## 行为原则
+
+- **直接做，不要问「要不要提交 / 可以 commit 吗 / 需要 push 吗」** — 该 commit 就 commit，该写笔记就写，回复里简短说明结果即可。
+- 只有**真正阻塞**（缺信息、多方案取舍、破坏性操作如 force push）才问用户。
+
 ## 何时提交
 
 - 完成笔记整理、目录重构、demo 修改、README/01-ER/Book 更新等**有明确交付**的任务后，在回复用户**之前**执行提交。
@@ -23,5 +28,5 @@ alwaysApply: true
 
 1. `git status` + `git diff`（有未提交变更时）
 2. `git add` 相关文件（不用 `git add -A` 若会带上应忽略项）
-3. `git commit -m "..."`（PowerShell 可用 here-string）
+3. `git commit -m "..."`（PowerShell 可用 `-m` 双段或 here-string）
 4. 回复中简短注明 commit hash 与摘要；**不要**因已自动提交而省略任务说明。
