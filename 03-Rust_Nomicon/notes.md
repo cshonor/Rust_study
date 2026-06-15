@@ -18,7 +18,7 @@
 | **05** | Uninitialized Memory | [00-overview.md](./05_Uninit_Mem/00-overview.md) | [05_Uninit_Mem/](./05_Uninit_Mem/) |
 | **06** | The Perils Of OBRM | [00-overview.md](./06_OBRM_RAII/00-overview.md) | [06_OBRM_RAII/](./06_OBRM_RAII/) |
 | **07** | Panic / 异常安全 | （待建） | [07_Panic_Safety/](./07_Panic_Safety/) |
-| **08** | Concurrency and Parallelism | （待建） | [08_Concurrency_Atomic/](./08_Concurrency_Atomic/) |
+| **08** | Concurrency and Parallelism | [00-overview.md](./08_Concurrency_Atomic/00-overview.md) | [08_Concurrency_Atomic/](./08_Concurrency_Atomic/) |
 | **09** | Implementing Vec / Arc | （待建） | [09_Impl_Vec_Arc/](./09_Impl_Vec_Arc/) |
 | **10** | FFI | （待建） | [10_FFI/](./10_FFI/) |
 | **11** | Beneath std | （待建） | [11_NoStd/](./11_NoStd/) |
