@@ -1,6 +1,8 @@
-﻿# 01 Safe Unsafe — Safe and Unsafe
+﻿# 01 Safe Unsafe — Meet Safe and Unsafe
 
-**Nightly** 源码目录。可含 `#![feature(...)]` 与书中 unstable 写法。
+← [全书笔记](../notes.md#01-safe-and-unsafe-01_safe_unsafe)
+
+安全 / 非安全边界、`unsafe` 契约、五种额外能力、信任不对称、安全性非局部性。
 
 ```bash
 rustup run nightly cargo build --manifest-path Cargo.toml
