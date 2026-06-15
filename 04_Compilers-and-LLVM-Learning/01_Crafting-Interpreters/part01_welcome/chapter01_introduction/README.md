@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/introduction.html](https://craftinginterpreters.com/introduction.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/01-welcome-introduction.md`](./notes/01-welcome-introduction.md) |
