@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/a-map-of-the-territory.html](https://craftinginterpreters.com/a-map-of-the-territory.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/02-map-of-the-territory.md`](./notes/02-map-of-the-territory.md) |
