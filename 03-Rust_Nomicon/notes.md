@@ -16,7 +16,7 @@
 | **03** | Ownership and Lifetimes | [00-overview.md](./03_Lifetime_Variance/00-overview.md) | [03_Lifetime_Variance/](./03_Lifetime_Variance/) |
 | **04** | Type Conversions | [00-overview.md](./04_Type_Cast/00-overview.md) | [04_Type_Cast/](./04_Type_Cast/) |
 | **05** | Uninitialized Memory | [00-overview.md](./05_Uninit_Mem/00-overview.md) | [05_Uninit_Mem/](./05_Uninit_Mem/) |
-| **06** | The Perils Of OBRM | （待建） | [06_OBRM_RAII/](./06_OBRM_RAII/) |
+| **06** | The Perils Of OBRM | [00-overview.md](./06_OBRM_RAII/00-overview.md) | [06_OBRM_RAII/](./06_OBRM_RAII/) |
 | **07** | Panic / 异常安全 | （待建） | [07_Panic_Safety/](./07_Panic_Safety/) |
 | **08** | Concurrency and Parallelism | （待建） | [08_Concurrency_Atomic/](./08_Concurrency_Atomic/) |
 | **09** | Implementing Vec / Arc | （待建） | [09_Impl_Vec_Arc/](./09_Impl_Vec_Arc/) |
