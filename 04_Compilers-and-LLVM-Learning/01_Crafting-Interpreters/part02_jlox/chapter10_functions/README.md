@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/functions.html](https://craftinginterpreters.com/functions.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/10-functions.md`](./notes/10-functions.md) |

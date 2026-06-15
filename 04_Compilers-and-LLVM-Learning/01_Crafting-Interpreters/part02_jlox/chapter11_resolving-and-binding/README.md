@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/resolving-and-binding.html](https://craftinginterpreters.com/resolving-and-binding.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/11-resolving-and-binding.md`](./notes/11-resolving-and-binding.md) |

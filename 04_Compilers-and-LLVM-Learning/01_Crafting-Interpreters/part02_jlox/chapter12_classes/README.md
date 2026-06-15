@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/classes.html](https://craftinginterpreters.com/classes.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/12-classes.md`](./notes/12-classes.md) |
