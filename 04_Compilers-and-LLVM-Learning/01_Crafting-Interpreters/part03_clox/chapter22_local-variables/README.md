@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/local-variables.html](https://craftinginterpreters.com/local-variables.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/22-local-variables.md`](./notes/22-local-variables.md) |

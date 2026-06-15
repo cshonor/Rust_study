@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/jumping-back-and-forth.html](https://craftinginterpreters.com/jumping-back-and-forth.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/23-jumping-back-and-forth.md`](./notes/23-jumping-back-and-forth.md) |

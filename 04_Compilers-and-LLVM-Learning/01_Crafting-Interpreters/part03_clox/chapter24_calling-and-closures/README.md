@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/calling-and-closures.html](https://craftinginterpreters.com/calling-and-closures.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/24-calling-and-closures.md`](./notes/24-calling-and-closures.md) |
