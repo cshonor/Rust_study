@@ -1,4 +1,4 @@
-use nomicon_09_impl_vec::{MyArc, MyVec};
+use nomicon_08_impl_vec::{MyArc, MyVec};
 use std::thread;
 
 fn main() {

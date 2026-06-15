@@ -1,4 +1,4 @@
-﻿# 08 · Concurrency and Parallelism
+﻿# 07 · Concurrency and Parallelism
 
 > **The Rustonomicon** · [03 Rust Nomicon](../README.md) · [全书笔记](../notes.md)
 
@@ -33,7 +33,7 @@
 | [src/main.rs](./src/main.rs) | 运行入口 |
 
 ```bash
-cd 03-Rust_Nomicon/08_Concurrency_Atomic
+cd 03-Rust_Nomicon/07_Concurrency_Atomic
 cargo run
 ```
 
@@ -46,7 +46,7 @@ cargo run
 | Send/Sync 入门 | [Book 16.4 demo](../../00-Book/16-fearless-concurrency/16.4-send-sync-demo/) |
 | 内部可变性 | [RFR 07-interior-mutability](../../02-RFR/Chapter-01-Foundations/07-interior-mutability.md) |
 | 上一章 | [06_OBRM_RAII](../06_OBRM_RAII/README.md) |
-| 下一章 | [09_Impl_Vec_Arc](../09_Impl_Vec_Arc/README.md) · 实现 Arc |
+| 下一章 | [08_Impl_Vec_Arc](../08_Impl_Vec_Arc/README.md) · 实现 Arc |
 
 ---
 

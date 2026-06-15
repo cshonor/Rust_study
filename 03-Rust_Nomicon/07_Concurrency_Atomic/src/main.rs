@@ -1,4 +1,4 @@
-use nomicon_08_concurrency_atomic::{atomics, data_races, send_sync};
+use nomicon_07_concurrency_atomic::{atomics, data_races, send_sync};
 
 fn main() {
     println!("=== 1 data races / safe access ===");

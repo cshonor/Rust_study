@@ -1,5 +1,5 @@
 [package]
-name = "nomicon-10-ffi"
+name = "nomicon-09-ffi"
 version = "0.1.0"
 edition = "2018"
 publish = false
@@ -12,5 +12,5 @@ publish = false
 path = "src/lib.rs"
 
 [[bin]]
-name = "nomicon-10-ffi"
+name = "nomicon-09-ffi"
 path = "src/main.rs"

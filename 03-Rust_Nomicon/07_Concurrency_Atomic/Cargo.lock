@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "nomicon-09-impl-vec"
+name = "nomicon-07-concurrency-atomic"
 version = "0.1.0"

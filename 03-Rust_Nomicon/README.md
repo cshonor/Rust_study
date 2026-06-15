@@ -1,6 +1,6 @@
 # Rustonomicon 学习仓库
 
-配套 **[The Rustonomicon](https://doc.rust-lang.org/nomicon/)** — 围绕 *The Dark Arts of Unsafe Rust* 的 11 个主题板块。
+配套 **[The Rustonomicon](https://doc.rust-lang.org/nomicon/)** — 围绕 *The Dark Arts of Unsafe Rust* 的 10 个主题板块。
 
 ## 基准 Edition
 
@@ -16,10 +16,10 @@
 | [04_Type_Cast/](./04_Type_Cast/) | Type Conversions |
 | [05_Uninit_Mem/](./05_Uninit_Mem/) | Working With Uninitialized Memory |
 | [06_OBRM_RAII/](./06_OBRM_RAII/) | The Perils Of OBRM |
-| [08_Concurrency_Atomic/](./08_Concurrency_Atomic/) | Concurrency and Parallelism |
-| [09_Impl_Vec_Arc/](./09_Impl_Vec_Arc/) | Implementing Vec / Arc and Mutex |
-| [10_FFI/](./10_FFI/) | Foreign Function Interface |
-| [11_NoStd/](./11_NoStd/) | Beneath std |
+| [07_Concurrency_Atomic/](./07_Concurrency_Atomic/) | Concurrency and Parallelism |
+| [08_Impl_Vec_Arc/](./08_Impl_Vec_Arc/) | Implementing Vec / Arc and Mutex |
+| [09_FFI/](./09_FFI/) | Foreign Function Interface |
+| [10_NoStd/](./10_NoStd/) | Beneath std |
 
 | 资料 | 路径 |
 |------|------|
@@ -33,4 +33,4 @@ cd 03-Rust_Nomicon/01_Safe_Unsafe
 cargo run
 ```
 
-与本仓库其它板块对照：`atomic/`（Ch08 并发）、`02-RFR/`（类型与 unsafe 进阶）、`rust_network_programming/stage08`（TLS）。
+与本仓库其它板块对照：`atomic/`（Ch07 并发）、`02-RFR/`（类型与 unsafe 进阶）、`rust_network_programming/stage08`（TLS）。

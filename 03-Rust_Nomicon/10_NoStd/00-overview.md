@@ -1,6 +1,6 @@
-# 11 · Beneath std · 本章定位
+# 10 · Beneath std · 本章定位
 
-← [本章目录](./README.md) · [全书笔记](../notes.md) · 上一章：[10 FFI](../10_FFI/README.md)
+← [本章目录](./README.md) · [全书笔记](../notes.md) · 上一章：[09 FFI](../09_FFI/README.md)
 
 ---
 
@@ -10,7 +10,7 @@
 |------|------|
 | ER Item 33 | [no-std](../../01-ER/Chapter-06-Beyond-Standard-Rust/Item-33-no-std/README.md) |
 | RFR no_std | [Ch12 Without std](../../02-RFR/Chapter-12-Rust-Without-Standard-Library/README.md) |
-| panic_handler | [10_FFI](../10_FFI/00-overview.md) §7 |
+| panic_handler | [09_FFI](../09_FFI/00-overview.md) §7 |
 
 **读完应能回答**：为何 `libc` 要关 default-features、`no_main` 做什么、`#[panic_handler]` 签名与唯一性。
 

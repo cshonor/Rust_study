@@ -17,7 +17,7 @@
 | **04** | Type Conversions | [00-overview.md](./04_Type_Cast/00-overview.md) | [04_Type_Cast/](./04_Type_Cast/) |
 | **05** | Uninitialized Memory | [00-overview.md](./05_Uninit_Mem/00-overview.md) | [05_Uninit_Mem/](./05_Uninit_Mem/) |
 | **06** | The Perils Of OBRM | [00-overview.md](./06_OBRM_RAII/00-overview.md) | [06_OBRM_RAII/](./06_OBRM_RAII/) |
-| **08** | Concurrency and Parallelism | [00-overview.md](./08_Concurrency_Atomic/00-overview.md) | [08_Concurrency_Atomic/](./08_Concurrency_Atomic/) |
-| **09** | Implementing Vec / Arc | [00-overview.md](./09_Impl_Vec_Arc/00-overview.md) | [09_Impl_Vec_Arc/](./09_Impl_Vec_Arc/) |
-| **10** | FFI | [00-overview.md](./10_FFI/00-overview.md) | [10_FFI/](./10_FFI/) |
-| **11** | Beneath std | [00-overview.md](./11_NoStd/00-overview.md) | [11_NoStd/](./11_NoStd/) |
+| **07** | Concurrency and Parallelism | [00-overview.md](./07_Concurrency_Atomic/00-overview.md) | [07_Concurrency_Atomic/](./07_Concurrency_Atomic/) |
+| **08** | Implementing Vec / Arc | [00-overview.md](./08_Impl_Vec_Arc/00-overview.md) | [08_Impl_Vec_Arc/](./08_Impl_Vec_Arc/) |
+| **09** | FFI | [00-overview.md](./09_FFI/00-overview.md) | [09_FFI/](./09_FFI/) |
+| **10** | Beneath std | [00-overview.md](./10_NoStd/00-overview.md) | [10_NoStd/](./10_NoStd/) |

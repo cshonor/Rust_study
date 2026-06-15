@@ -1,4 +1,4 @@
-﻿# 10 · Foreign Function Interface
+﻿# 09 · Foreign Function Interface
 
 > **The Rustonomicon** · [03 Rust Nomicon](../README.md) · [全书笔记](../notes.md)
 
@@ -38,7 +38,7 @@
 | [src/main.rs](./src/main.rs) | 运行入口 |
 
 ```bash
-cd 03-Rust_Nomicon/10_FFI
+cd 03-Rust_Nomicon/09_FFI
 cargo run
 cargo test
 ```
@@ -53,8 +53,8 @@ cargo test
 |------|------|
 | RFR FFI | [Ch11](../../02-RFR/Chapter-11-Foreign-Function-Interfaces/README.md) |
 | bindgen | [ER Item 35](../../01-ER/Chapter-06-Beyond-Standard-Rust/Item-35-bindgen/README.md) |
-| 上一章 | [09_Impl_Vec_Arc](../09_Impl_Vec_Arc/README.md) |
-| 下一章 | [11_NoStd](../11_NoStd/README.md) |
+| 上一章 | [08_Impl_Vec_Arc](../08_Impl_Vec_Arc/README.md) |
+| 下一章 | [10_NoStd](../10_NoStd/README.md) |
 
 ---
 

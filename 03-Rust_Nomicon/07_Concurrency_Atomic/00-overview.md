@@ -1,6 +1,6 @@
-# 08 · Concurrency and Parallelism · 本章定位
+# 07 · Concurrency and Parallelism · 本章定位
 
-← [本章目录](./README.md) · [全书笔记](../notes.md) · 上一章：[06 OBRM](../06_OBRM_RAII/README.md) · 下一章：[09 Impl Vec/Arc](../09_Impl_Vec_Arc/README.md)
+← [本章目录](./README.md) · [全书笔记](../notes.md) · 上一章：[06 OBRM](../06_OBRM_RAII/README.md) · 下一章：[08 Impl Vec/Arc](../08_Impl_Vec_Arc/README.md)
 
 ---
 
@@ -10,7 +10,7 @@
 |------|------|
 | Send / Sync | [Book 16.4 Send与Sync](../../00-Book/16-fearless-concurrency/16.4-Send与Sync.md) |
 | RFR 并发 | [Ch10 Concurrency](../../02-RFR/Chapter-10-Concurrency-and-Parallelism/README.md) |
-| 实现 Arc（后续） | [09_Impl_Vec_Arc](../09_Impl_Vec_Arc/README.md) |
+| 实现 Arc（后续） | [08_Impl_Vec_Arc](../08_Impl_Vec_Arc/README.md) |
 
 **读完应能回答**：数据竞争 vs 竞争条件、Send/Sync 含义、Relaxed/Acquire-Release/SeqCst 如何选用。
 

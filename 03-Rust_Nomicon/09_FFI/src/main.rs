@@ -1,4 +1,4 @@
-use nomicon_10_ffi::{
+use nomicon_09_ffi::{
     abs_i32_safe, callbacks, globals, interop, nullable, opaque, rust_add, unwind,
 };
 

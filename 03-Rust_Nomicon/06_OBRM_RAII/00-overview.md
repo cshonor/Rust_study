@@ -1,6 +1,6 @@
 # 06 · The Perils Of OBRM · 本章定位
 
-← [本章目录](./README.md) · [全书笔记](../notes.md) · 上一章：[05 Uninit Mem](../05_Uninit_Mem/README.md) · 下一章：[08 Concurrency](../08_Concurrency_Atomic/README.md)
+← [本章目录](./README.md) · [全书笔记](../notes.md) · 上一章：[05 Uninit Mem](../05_Uninit_Mem/README.md) · 下一章：[07 Concurrency](../07_Concurrency_Atomic/README.md)
 
 ---
 
@@ -11,7 +11,7 @@
 | Drop / RAII | [Book 15.3 Drop](../../00-Book/15-smart-pointers/15.3-使用Drop运行清理代码.md) |
 | ManuallyDrop | [15.3.1](../../00-Book/15-smart-pointers/15.3.1-Drop顺序与进阶场景.md) |
 | ER Item 11 | [drop-raii](../../01-ER/Chapter-02-Traits/Item-11-drop-raii/README.md) |
-| catch_unwind | [10_FFI](../10_FFI/00-overview.md) §7 |
+| catch_unwind | [09_FFI](../09_FFI/00-overview.md) §7 |
 
 **读完应能回答**：Rust 构造/析构与 C++ 有何不同、为何 `forget` 仍算内存安全、代理类型泄漏为何危险、Guard 如何保异常安全。
 

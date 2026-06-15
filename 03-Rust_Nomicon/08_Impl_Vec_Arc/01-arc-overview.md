@@ -1,4 +1,4 @@
-# 09 · Example: Implementing Arc · 本章定位
+# 08 · Example: Implementing Arc · 本章定位
 
 ← [本章目录](./README.md) · [Vec 笔记](./00-overview.md) · [全书笔记](../notes.md)
 
@@ -8,7 +8,7 @@
 
 | 对照 | 路径 |
 |------|------|
-| Send / Sync / 内存序 | [08_Concurrency_Atomic](../08_Concurrency_Atomic/00-overview.md) |
+| Send / Sync / 内存序 | [07_Concurrency_Atomic](../07_Concurrency_Atomic/00-overview.md) |
 | forget 与 Rc 溢出 | [06_OBRM_RAII](../06_OBRM_RAII/00-overview.md) |
 | PhantomData | [03_Lifetime_Variance](../03_Lifetime_Variance/00-overview.md) |
 | Book Arc | [16.3 Mutex/Arc](../../00-Book/16-fearless-concurrency/16.3-共享状态并发.md) |

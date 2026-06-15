@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "nomicon-11-no-std"
+name = "nomicon-10-no-std"
 version = "0.1.0"

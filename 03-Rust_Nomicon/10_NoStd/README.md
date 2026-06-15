@@ -1,4 +1,4 @@
-﻿# 11 · Beneath std (no_std)
+﻿# 10 · Beneath std (no_std)
 
 > **The Rustonomicon** · [03 Rust Nomicon](../README.md) · [全书笔记](../notes.md) · 全书收官
 
@@ -33,7 +33,7 @@
 | [templates/no_main_linux.md](./templates/no_main_linux.md) | `_start` / `eh_personality` 参考 |
 
 ```bash
-cd 03-Rust_Nomicon/11_NoStd
+cd 03-Rust_Nomicon/10_NoStd
 cargo run                              # std 宿主 demo
 cargo build --no-default-features      # 纯 no_std 库
 cargo test                             # std 下单元测试
@@ -53,8 +53,8 @@ cargo test                             # std 下单元测试
 |------|------|
 | ER no_std | [Item 33 demo](../../01-ER/Chapter-06-Beyond-Standard-Rust/Item-33-no-std/demo/) |
 | OBRM / panic | [06_OBRM_RAII](../06_OBRM_RAII/README.md) |
-| FFI 入口 | [10_FFI](../10_FFI/README.md) |
-| 上一章 | [10_FFI](../10_FFI/README.md) |
+| FFI 入口 | [09_FFI](../09_FFI/README.md) |
+| 上一章 | [09_FFI](../09_FFI/README.md) |
 
 ---
 

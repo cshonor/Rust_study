@@ -1,6 +1,6 @@
-# 09 · Example: Implementing Vec · 本章定位
+# 08 · Example: Implementing Vec · 本章定位
 
-← [本章目录](./README.md) · [全书笔记](../notes.md) · 上一章：[08 Concurrency](../08_Concurrency_Atomic/README.md) · 下一章：[10 FFI](../10_FFI/README.md)
+← [本章目录](./README.md) · [全书笔记](../notes.md) · 上一章：[07 Concurrency](../07_Concurrency_Atomic/README.md) · 下一章：[09 FFI](../09_FFI/README.md)
 
 ---
 
@@ -13,7 +13,7 @@
 | 未初始化 / ptr::write | [05_Uninit_Mem](../05_Uninit_Mem/README.md) |
 | OBRM / Drain 泄漏放大 | [06_OBRM_RAII](../06_OBRM_RAII/README.md) |
 | ZST | [02_Data_Layout](../02_Data_Layout/00-overview.md) |
-| Send/Sync | [08_Concurrency_Atomic](../08_Concurrency_Atomic/00-overview.md) |
+| Send/Sync | [07_Concurrency_Atomic](../07_Concurrency_Atomic/00-overview.md) |
 
 **读完应能回答**：MyVec 三字段布局、为何用 `ptr::write/read`、`RawVec` 为何存在、ZST 为何要特判。
 

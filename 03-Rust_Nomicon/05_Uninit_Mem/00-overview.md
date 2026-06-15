@@ -10,7 +10,7 @@
 |------|------|
 | RFR unsafe 调用 | [03-calling-unsafe-functions](../../02-RFR/Chapter-09-Unsafe-Code/03-calling-unsafe-functions.md) |
 | no_std 动态内存 | [02-dynamic-memory-allocation](../../02-RFR/Chapter-12-Rust-Without-Standard-Library/02-dynamic-memory-allocation.md) |
-| 实现 Vec（后续） | [09_Impl_Vec_Arc](../09_Impl_Vec_Arc/README.md) |
+| 实现 Vec（后续） | [08_Impl_Vec_Arc](../08_Impl_Vec_Arc/README.md) |
 
 **读完应能回答**：Safe 如何静态阻止读未初始化栈变量、Drop flags 解决什么、`MaybeUninit` 与 `ptr::write` 的分工。
 

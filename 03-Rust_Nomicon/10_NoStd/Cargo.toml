@@ -1,5 +1,5 @@
 [package]
-name = "nomicon-11-no-std"
+name = "nomicon-10-no-std"
 version = "0.1.0"
 edition = "2018"
 publish = false
@@ -15,6 +15,6 @@ std = []
 path = "src/lib.rs"
 
 [[bin]]
-name = "nomicon-11-no-std"
+name = "nomicon-10-no-std"
 path = "src/main.rs"
 required-features = ["std"]

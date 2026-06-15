@@ -49,7 +49,7 @@ cargo run -- --drop-order    # 观察递归 Drop 顺序
 | Drop 基础 | [Book 15.3](../../00-Book/15-smart-pointers/15.3-使用Drop运行清理代码.md) |
 | 未初始化 / set_len | [05_Uninit_Mem](../05_Uninit_Mem/README.md) |
 | 上一章 | [05_Uninit_Mem](../05_Uninit_Mem/README.md) |
-| 下一章 | [08_Concurrency_Atomic](../08_Concurrency_Atomic/README.md) |
+| 下一章 | [07_Concurrency_Atomic](../07_Concurrency_Atomic/README.md) |
 
 ---
 

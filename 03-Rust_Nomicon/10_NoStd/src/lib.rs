@@ -1,4 +1,4 @@
-//! Nomicon ch11：`#![no_std]` 库 + `#[panic_handler]`。
+//! Nomicon ch10：`#![no_std]` 库 + `#[panic_handler]`。
 //!
 //! 默认 feature `std` 便于宿主测试；`--no-default-features` 构建纯 no_std。
 

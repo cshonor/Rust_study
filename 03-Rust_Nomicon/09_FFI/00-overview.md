@@ -1,6 +1,6 @@
-# 10 · Foreign Function Interface · 本章定位
+# 09 · Foreign Function Interface · 本章定位
 
-← [本章目录](./README.md) · [全书笔记](../notes.md) · 上一章：[09 Vec/Arc](../09_Impl_Vec_Arc/README.md) · 下一章：[11 NoStd](../11_NoStd/README.md)
+← [本章目录](./README.md) · [全书笔记](../notes.md) · 上一章：[08 Vec/Arc](../08_Impl_Vec_Arc/README.md) · 下一章：[10 NoStd](../10_NoStd/README.md)
 
 ---
 

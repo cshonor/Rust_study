@@ -1,4 +1,4 @@
-﻿# 09 · Implementing Vec and Arc
+﻿# 08 · Implementing Vec and Arc
 
 > **The Rustonomicon** · [03 Rust Nomicon](../README.md) · [全书笔记](../notes.md)
 
@@ -38,7 +38,7 @@
 | [src/main.rs](./src/main.rs) | 运行入口 |
 
 ```bash
-cd 03-Rust_Nomicon/09_Impl_Vec_Arc
+cd 03-Rust_Nomicon/08_Impl_Vec_Arc
 cargo run
 cargo test
 ```
@@ -49,10 +49,10 @@ cargo test
 
 | 主题 | 对照 |
 |------|------|
-| 原子内存序 | [08_Concurrency_Atomic](../08_Concurrency_Atomic/README.md) |
+| 原子内存序 | [07_Concurrency_Atomic](../07_Concurrency_Atomic/README.md) |
 | forget / Rc | [06_OBRM_RAII](../06_OBRM_RAII/README.md) |
-| 上一章 | [08_Concurrency_Atomic](../08_Concurrency_Atomic/README.md) |
-| 下一章 | [10_FFI](../10_FFI/README.md) |
+| 上一章 | [07_Concurrency_Atomic](../07_Concurrency_Atomic/README.md) |
+| 下一章 | [09_FFI](../09_FFI/README.md) |
 
 ---
 
