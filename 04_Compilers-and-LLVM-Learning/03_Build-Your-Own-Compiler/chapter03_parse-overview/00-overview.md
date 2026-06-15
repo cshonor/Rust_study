@@ -1,6 +1,6 @@
 # 第 3 章 · 语法分析的概要 · 本章定位
 
-← [本章目录](./README.md) · 上一章：[ch3 语法分析的概要](../chapter03_parse-overview/README.md) · 下一章：[ch4 词法分析](../chapter04_lexical/README.md) · 下一节：[02-parser-generators.md](./02-parser-generators.md)
+← [本章目录](./README.md) · 上一章：[ch2 C♭ 和 cbc](../chapter02_cflat-cbc/README.md) · 下一章：[ch4 词法分析](../chapter04_lexical/README.md) · 下一节：[01-analysis-phases-and-tokens.md](./01-analysis-phases-and-tokens.md)
 
 ---
 
