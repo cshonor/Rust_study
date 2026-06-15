@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/inheritance.html](https://craftinginterpreters.com/inheritance.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/13-inheritance.md`](./notes/13-inheritance.md) |

@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/scanning-on-demand.html](https://craftinginterpreters.com/scanning-on-demand.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/16-scanning-on-demand.md`](./notes/16-scanning-on-demand.md) |

@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/a-virtual-machine.html](https://craftinginterpreters.com/a-virtual-machine.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/15-a-virtual-machine.md`](./notes/15-a-virtual-machine.md) |
