@@ -1,7 +1,7 @@
 # 第 20 章 · Hash Tables（哈希表）
 
 > **Crafting Interpreters** · [Part III · clox](../README.md) · [本书目录](../../本书目录.md)  
-> 在线：[craftinginterpreters.com](https://craftinginterpreters.com/hash-tables.html)
+> 在线：[craftinginterpreters.com](https://craftinginterpreters.com/hash-tables.html) · [中文在线](https://craftinginterpreters.com/hash-tables.html)
 
 ## 状态
 
@@ -15,14 +15,19 @@
 
 ---
 
-## 专项笔记
+## 专项笔记（一小节一文件）
 
-| 阅读 |
-|------|
-| [20-hash-tables.md](./20-hash-tables.md) |
+| 小节 | 主题 | 阅读 |
+|------|------|------|
+| — | 本章定位 | [00-overview.md](./00-overview.md) |
+| ·2 | 开放寻址与线性探测（Open Addressing and Linear Probing） | [01-open-addressing-and-linear-probing.md](./01-open-addressing-and-linear-probing.md) |
+| ·3 | 哈希函数与负载因子（Hash Functions and Load Factor） | [02-hash-functions-and-load-factor.md](./02-hash-functions-and-load-factor.md) |
+| ·4 | 字符串驻留（String Interning） | [03-string-interning.md](./03-string-interning.md) |
+| ·5 | Table API（概念） | [04-hash-tables-table-api.md](./04-hash-tables-table-api.md) |
+| — | 速记 · 自测 · 进度 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 
 ## 逻辑脉络
 
-见 [20-hash-tables.md](./20-hash-tables.md) 内 § 小节与速记。
+按上表 **§ 顺序** 阅读；`cheat-sheet.md` 含速记与自测。

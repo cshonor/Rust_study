@@ -1,7 +1,7 @@
 # 第 2 章 · A Map of the Territory（领域地图）
 
 > **Crafting Interpreters** · [Part I · Welcome](../README.md) · [本书目录](../../本书目录.md)  
-> 在线：[craftinginterpreters.com](https://craftinginterpreters.com/a-map-of-the-territory.html)
+> 在线：[craftinginterpreters.com](https://craftinginterpreters.com/a-map-of-the-territory.html) · [中文在线](https://craftinginterpreters.com/a-map-of-the-territory.html)
 
 ## 状态
 
@@ -15,14 +15,18 @@
 
 ---
 
-## 专项笔记
+## 专项笔记（一小节一文件）
 
-| 阅读 |
-|------|
-| [02-map-of-the-territory.md](./02-map-of-the-territory.md) |
+| 小节 | 主题 | 阅读 |
+|------|------|------|
+| — | 本章定位 | [00-overview.md](./00-overview.md) |
+| §2.1 | 语言的组成部分（The Parts of a Language） | [01-the-parts-of-a-language.md](./01-the-parts-of-a-language.md) |
+| §2.2 | 捷径与替代方案（Shortcuts and Alternate Routes） | [02-shortcuts-and-alternate-routes.md](./02-shortcuts-and-alternate-routes.md) |
+| ·4 | 「编译之山」与本书两趟实现 | [03-a-map-of-the-territory.md](./03-a-map-of-the-territory.md) |
+| — | 速记 · 自测 · 进度 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 
 ## 逻辑脉络
 
-见 [02-map-of-the-territory.md](./02-map-of-the-territory.md) 内 § 小节与速记。
+按上表 **§ 顺序** 阅读；`cheat-sheet.md` 含速记与自测。
