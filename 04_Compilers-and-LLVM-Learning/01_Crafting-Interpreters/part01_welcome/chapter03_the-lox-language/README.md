@@ -5,4 +5,4 @@
 | 项目 | 说明 |
 |------|------|
 | **在线** | [craftinginterpreters.com/the-lox-language.html](https://craftinginterpreters.com/the-lox-language.html) |
-| **笔记** | `notes/` |
+| **笔记** | [`notes/03-the-lox-language.md`](./notes/03-the-lox-language.md) |
