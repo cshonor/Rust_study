@@ -1,6 +1,6 @@
 # 第 7 章 · JavaCC 的 action 和抽象语法树 · 本章定位
 
-← [本章目录](./README.md) · 上一章：[ch6 语法分析](../chapter06_parsing/README.md) · 下一章：[ch8 抽象语法树的生成](../chapter08_build-ast/)（待建） · 下一节：[01-javacc-actions.md](./01-javacc-actions.md)
+← [本章目录](./README.md) · 上一章：[ch6 语法分析](../chapter06_parsing/README.md) · 下一章：[ch8 抽象语法树的生成](../chapter08_build-ast/README.md) · 下一节：[01-javacc-actions.md](./01-javacc-actions.md)
 
 ---
 
