@@ -1,8 +1,28 @@
-# 第 14 章 · Chunks of Bytecode
+# 第 14 章 · Chunks of Bytecode（字节码块）
 
-> 所属：[part03_clox](../part03_clox/README.md) · [本书目录](../../本书目录.md)
+> **Crafting Interpreters** · [Part III · clox](../README.md) · [本书目录](../../本书目录.md)  
+> 在线：[craftinginterpreters.com](https://craftinginterpreters.com/chunks-of-bytecode.html)
 
-| 项目 | 说明 |
-|------|------|
-| **在线** | [craftinginterpreters.com/chunks-of-bytecode.html](https://craftinginterpreters.com/chunks-of-bytecode.html) |
-| **笔记** | [`notes/14-chunks-of-bytecode.md`](./notes/14-chunks-of-bytecode.md) |
+## 状态
+
+- [x] 已读（笔记整理）
+
+---
+
+## 一句话
+
+Part III 奠基：在造 VM 之前，先定义 字节码如何存放。clox 用 C 手写 紧凑指令序列 + 常量池 + 行号表，告别 jlox 的 AST 指针树。
+
+---
+
+## 专项笔记
+
+| 阅读 |
+|------|
+| [14-chunks-of-bytecode.md](./14-chunks-of-bytecode.md) |
+
+---
+
+## 逻辑脉络
+
+见 [14-chunks-of-bytecode.md](./14-chunks-of-bytecode.md) 内 § 小节与速记。

@@ -9,7 +9,7 @@
 | **书** | *Crafting Interpreters*（Robert Nystrom / Bob Nystrom） |
 | **英文免费在线** | [craftinginterpreters.com](https://craftinginterpreters.com/) |
 | **中文在线（推荐）** | [craftinginterpreters-zh-jet.vercel.app](https://craftinginterpreters-zh-jet.vercel.app/)（[GuoYaxiang/craftinginterpreters_zh](https://github.com/GuoYaxiang/craftinginterpreters_zh)） |
-| **本目录** | [`本书目录.md`](./本书目录.md) · `part01_welcome/` · `part02_jlox/` · `part03_clox/` · `backmatter/` |
+| **本目录** | [`本书目录.md`](./本书目录.md) · [`目录结构.md`](./目录结构.md)（同 [01-ER](../../01-ER/目录结构.md) 约定） · `part01_welcome/` · `part02_jlox/` · `part03_clox/` · `backmatter/` |
 
 ## 本书定位
 
@@ -70,5 +70,6 @@ Source Code
 
 ## 待办
 
-- [ ] 按章在 `notes/` 写读书笔记
-- [ ] 确定 Part II only vs 读至 ch30
+- [x] 正文 30 章笔记（与 README 同级 · 见 [`目录结构.md`](./目录结构.md)）
+- [ ] 附录 A1 / A2 笔记
+- [ ] 可选：各章 `demo/` 或 `cheat-sheet.md`

@@ -1,8 +1,28 @@
-# 第 29 章 · Wrappers and API
+# 第 29 章 · Superclasses（超类与继承）
 
-> 所属：[part03_clox](../part03_clox/README.md) · [本书目录](../../本书目录.md)
+> **Crafting Interpreters** · [Part III · clox](../README.md) · [本书目录](../../本书目录.md)  
+> 在线：[craftinginterpreters.com](https://craftinginterpreters.com/methods.html)
 
-| 项目 | 说明 |
-|------|------|
-| **在线** | [craftinginterpreters.com/wrappers-and-api.html](https://craftinginterpreters.com/wrappers-and-api.html) |
-| **笔记** | [`notes/29-superclasses.md`](./notes/29-superclasses.md)（继承/super · 原书 Wrappers 见[在线](https://craftinginterpreters.com/wrappers-and-api.html)） |
+## 状态
+
+- [x] 已读（笔记整理）
+
+---
+
+## 一句话
+
+OOP 最后一块：`<` 继承 · copy-down 方法表 · `super` 静态绑定 · `OP_SUPER_INVOKE`。
+
+---
+
+## 专项笔记
+
+| 阅读 |
+|------|
+| [29-superclasses.md](./29-superclasses.md) |
+
+---
+
+## 逻辑脉络
+
+见 [29-superclasses.md](./29-superclasses.md) 内 § 小节与速记。

@@ -1,8 +1,28 @@
-# 第 27 章 · Classes and Instances
+# 第 27 章 · Classes and Instances（类与实例）
 
-> 所属：[part03_clox](../part03_clox/README.md) · [本书目录](../../本书目录.md)
+> **Crafting Interpreters** · [Part III · clox](../README.md) · [本书目录](../../本书目录.md)  
+> 在线：[craftinginterpreters.com](https://craftinginterpreters.com/classes-and-instances.html)
 
-| 项目 | 说明 |
-|------|------|
-| **在线** | [craftinginterpreters.com/classes-and-instances.html](https://craftinginterpreters.com/classes-and-instances.html) |
-| **笔记** | [`notes/27-classes-and-instances.md`](./notes/27-classes-and-instances.md) |
+## 状态
+
+- [x] 已读（笔记整理）
+
+---
+
+## 一句话
+
+GC（ch26） 就绪后，安全引入 OOP：类是一等堆对象，调用类 = 构造实例；实例用 哈希表 存字段。
+
+---
+
+## 专项笔记
+
+| 阅读 |
+|------|
+| [27-classes-and-instances.md](./27-classes-and-instances.md) |
+
+---
+
+## 逻辑脉络
+
+见 [27-classes-and-instances.md](./27-classes-and-instances.md) 内 § 小节与速记。
