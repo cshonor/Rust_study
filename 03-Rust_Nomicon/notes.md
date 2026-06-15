@@ -13,7 +13,7 @@
 |:--:|----------|------|------|
 | **01** | Meet Safe and Unsafe | [00-overview.md](./01_Safe_Unsafe/00-overview.md) | [01_Safe_Unsafe/](./01_Safe_Unsafe/) |
 | **02** | Data Representation | [00-overview.md](./02_Data_Layout/00-overview.md) | [02_Data_Layout/](./02_Data_Layout/) |
-| **03** | Ownership and Lifetimes | （待建） | [03_Lifetime_Variance/](./03_Lifetime_Variance/) |
+| **03** | Ownership and Lifetimes | [00-overview.md](./03_Lifetime_Variance/00-overview.md) | [03_Lifetime_Variance/](./03_Lifetime_Variance/) |
 | **04** | Type Conversions | （待建） | [04_Type_Cast/](./04_Type_Cast/) |
 | **05** | Uninitialized Memory | （待建） | [05_Uninit_Mem/](./05_Uninit_Mem/) |
 | **06** | The Perils Of OBRM | （待建） | [06_OBRM_RAII/](./06_OBRM_RAII/) |

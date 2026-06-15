@@ -1,9 +1,58 @@
-﻿# 03 Lifetime Variance — Lifetime and Variance
+﻿# 03 · Ownership and Lifetimes
 
-**Nightly** 源码目录。可含 `#![feature(...)]` 与书中 unstable 写法。
+> **The Rustonomicon** · [03 Rust Nomicon](../README.md) · [全书笔记](../notes.md)
+
+## 状态
+
+- [x] 已读（笔记整理）
+- [x] 示例 crate（生命周期 / 型变 / PhantomData / split_at_mut）
+
+---
+
+## 一句话
+
+**理论门槛章** — 所有权与引用法则、别名与优化、生命周期/HRTB/无界 lifetime、型变三分类、Drop Check、PhantomData、unsafe 拆分借用。
+
+---
+
+## 专项笔记
+
+| 小节 | 主题 | 阅读 |
+|------|------|------|
+| — | 本章定位与要点 | [00-overview.md](./00-overview.md) |
+
+---
+
+## 示例源码
+
+| 文件 | 演示 |
+|------|------|
+| [src/ownership.rs](./src/ownership.rs) | 字段级可变借用拆分（safe） |
+| [src/lifetimes.rs](./src/lifetimes.rs) | Elision、HRTB、无界 lifetime 警示 |
+| [src/variance.rs](./src/variance.rs) | 协变 / 不变性直觉 |
+| [src/phantom.rs](./src/phantom.rs) | `PhantomData` 标记逻辑所有权 |
+| [src/split_borrows.rs](./src/split_borrows.rs) | `split_at_mut` 式 unsafe 拆分 |
+| [src/main.rs](./src/main.rs) | 运行入口 |
 
 ```bash
-rustup run nightly cargo build --manifest-path Cargo.toml
+cd 03-Rust_Nomicon/03_Lifetime_Variance
+cargo run
 ```
 
-（待在本目录添加 `Cargo.toml` 与示例源码）
+---
+
+## 与仓库其他部分
+
+| 主题 | 对照 |
+|------|------|
+| 生命周期基础 | [RFR 08-lifetimes](../../02-RFR/Chapter-01-Foundations/08-lifetimes.md) |
+| HRTB | [RFR 08-trait-bounds](../../02-RFR/Chapter-02-Types/08-trait-bounds.md) |
+| split_at_mut | [Book 19.1 demo](../../00-Book/19-advanced-features/19.1-unsafe-rust-demo/) |
+| 上一章 | [02_Data_Layout](../02_Data_Layout/README.md) |
+| 下一章 | [04_Type_Cast](../04_Type_Cast/README.md) · 类型转换 |
+
+---
+
+## 逻辑脉络
+
+引用法则 → 生命周期机制 → 型变 → Drop Check / PhantomData → unsafe 拆分借用 → 进入 Type Conversions。
