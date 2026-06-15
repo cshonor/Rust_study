@@ -32,7 +32,7 @@
 |----------|------|
 | 三阶段 / 流水线 | [CI ch2 编译之山](../../../01_Crafting-Interpreters/part01_welcome/chapter02_map-of-the-territory/04-rust-hft-编译流水线对照.md) |
 | 编译总览 | [EaC ch1](../../../02_Compiler-Principles/chapter01_overview/README.md) |
-| ch2 下一章 | [chapter02_cflat-cbc/](../chapter02_cflat-cbc/)（待建）· C♭ 语法与 cbc 结构 |
+| ch2 下一章 | [chapter02_cflat-cbc/](../chapter02_cflat-cbc/README.md) · C♭ 语法与 cbc 结构 |
 | Rust 编译链 | RFR [05 编译与分发](../../../../02-RFR/Chapter-02-Types/05-compilation-dispatch.md) |
 
 ---

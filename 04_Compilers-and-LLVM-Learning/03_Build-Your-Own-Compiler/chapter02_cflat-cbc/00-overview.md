@@ -1,6 +1,6 @@
 # 第 2 章 · C♭ 和 cbc · 本章定位
 
-← [本章目录](./README.md) · 上一章：[ch1 开始制作编译器](../chapter01_start/README.md) · 下一章：[ch3 语法分析的概要](../chapter03_parse-overview/)（待建） · 下一节：[01-cflat-language.md](./01-cflat-language.md)
+← [本章目录](./README.md) · 上一章：[ch2 C♭ 和 cbc](../chapter02_cflat-cbc/README.md) · 下一章：[ch4 词法分析](../chapter04_lexical/)（待建） · 下一节：[01-cflat-language.md](./01-cflat-language.md)
 
 ---
 
