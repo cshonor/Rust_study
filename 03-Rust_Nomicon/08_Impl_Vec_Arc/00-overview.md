@@ -19,72 +19,48 @@
 
 ---
 
-## 1. 数据布局 (Layout)
+## 小节路线图
 
-`Vec` = **指针 + cap + len**。stable 路径用 **`NonNull<T>`**（协变、非空保证、支持 niche）。因非 `Unique`，`T: Send/Sync` 时需 **`unsafe impl Send/Sync`**。
+```text
+01  布局 NonNull + Send/Sync
+  ↓
+02  RawVec 分配 · OOM · cap 上限
+  ↓
+03  push ptr::write · pop ptr::read
+  ↓
+04  Drop → dealloc
+  ↓
+05  Deref → slice
+  ↓
+06  insert/remove ptr::copy
+  ↓
+07  RawVec / IntoIter / Drain
+  ↓
+08  ZST 特判
+  ↓
+Arc  简化 MyArc（无 Weak）
+  ↓
+09 FFI
+```
 
-→ 源码：[src/my_vec.rs](./src/my_vec.rs)
-
----
-
-## 2. 内存分配 (Allocating)
-
-| 要点 | 做法 |
-|------|------|
-| 延迟分配 | 空 Vec 不 alloc；`NonNull::dangling()` + `cap == 0` |
-| OOM | `handle_alloc_error` |
-| 容量上限 | 分配字节 ≤ `isize::MAX`（防 GEP inbounds 溢出） |
-
-→ 源码：[src/raw_vec.rs](./src/raw_vec.rs)
-
----
-
-## 3. Push 与 Pop
-
-| 操作 | API | 原因 |
-|------|-----|------|
-| **push** | `ptr::write` | 普通 `*ptr = x` 会先 Drop **未初始化**旧比特 → UB |
-| **pop** | `ptr::read` | 不能直接 move 出（会留下逻辑未初始化槽位） |
-
----
-
-## 4. 内存释放 (Dealloc)
-
-`Drop`：循环 `pop` 清理元素（无 Drop 的类型可被优化掉）→ `dealloc`；`cap == 0` 或未 alloc 则跳过。
-
----
-
-## 5. 切片解引用 (Deref)
-
-`Deref` / `DerefMut` → `slice::from_raw_parts(_mut)(ptr, len)`。
-
----
-
-## 6. Insert 与 Remove
-
-移动元素用 **`ptr::copy`**（memmove，允许重叠）。
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | 本页 |
+| 1 | 数据布局 | [01-layout.md](./01-layout.md) |
+| 2 | 内存分配 | [02-allocating.md](./02-allocating.md) |
+| 3 | Push 与 Pop | [03-push-pop.md](./03-push-pop.md) |
+| 4 | 内存释放 | [04-dealloc.md](./04-dealloc.md) |
+| 5 | 切片解引用 | [05-deref.md](./05-deref.md) |
+| 6 | Insert 与 Remove | [06-insert-remove.md](./06-insert-remove.md) |
+| 7 | IntoIter / Drain / RawVec | [07-iterators.md](./07-iterators.md) |
+| 8 | 零大小类型 | [08-zst.md](./08-zst.md) |
+| — | Arc 实现要点 | [01-arc-overview.md](./01-arc-overview.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 
-## 7. IntoIter、Drain 与 RawVec
+## 一句话
 
-| 组件 | 职责 |
-|------|------|
-| **`RawVec`** | 指针 + cap；分配/释放逻辑复用 |
-| **`IntoIter`** | 双指针 `start`/`end`；`ptr::read` + 推进 |
-| **`Drain`** | 借用 Vec；**初始化时 `len = 0`** 防泄漏放大 / panic 不安全 |
+**Vec + Arc 实战** — stable 徒手 `MyVec` 与简化 `MyArc`：NonNull/PhantomData、原子 refcount、Release/Acquire fence。
 
-→ 源码：[src/raw_vec.rs](./src/raw_vec.rs) · [src/into_iter.rs](./src/into_iter.rs) · [src/drain.rs](./src/drain.rs)
-
----
-
-## 8. 零大小类型 (ZST)
-
-| 问题 | 对策 |
-|------|------|
-| alloc(0) → UB | 不调用分配器；`cap = usize::MAX` |
-| `ptr.offset` 为 no-op | 迭代用 **usize 计数**，指针 cast 推进 |
-| 读 ZST | 从 **`NonNull::dangling()`** 对齐地址 read |
-| Drop RawVec | ZST 跳过 `dealloc` |
-
-→ 源码：[src/raw_vec.rs](./src/raw_vec.rs) · [src/zst.rs](./src/zst.rs)
+→ 从 [01-layout.md](./01-layout.md) 起读；Arc 见 [01-arc-overview.md](./01-arc-overview.md)。

@@ -18,10 +18,19 @@
 
 ## 专项笔记
 
-| 小节 | 主题 | 阅读 |
-|------|------|------|
-| — | Vec 全章要点 | [00-overview.md](./00-overview.md) |
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | [00-overview.md](./00-overview.md) |
+| 1 | 数据布局 | [01-layout.md](./01-layout.md) |
+| 2 | 内存分配 | [02-allocating.md](./02-allocating.md) |
+| 3 | Push 与 Pop | [03-push-pop.md](./03-push-pop.md) |
+| 4 | 内存释放 | [04-dealloc.md](./04-dealloc.md) |
+| 5 | 切片解引用 | [05-deref.md](./05-deref.md) |
+| 6 | Insert 与 Remove | [06-insert-remove.md](./06-insert-remove.md) |
+| 7 | IntoIter / Drain / RawVec | [07-iterators.md](./07-iterators.md) |
+| 8 | 零大小类型 | [08-zst.md](./08-zst.md) |
 | — | Arc 实现要点 | [01-arc-overview.md](./01-arc-overview.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 
@@ -58,4 +67,4 @@ cargo test
 
 ## 逻辑脉络
 
-MyVec 全链路 → MyArc 布局/refcount/屏障 →（待）Mutex → FFI。
+MyVec 布局 → 分配 → push/pop → dealloc → deref → insert/remove → 迭代器/Drain → ZST → MyArc →（待）Mutex → FFI。

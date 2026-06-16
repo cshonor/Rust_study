@@ -67,3 +67,7 @@ unsafe impl<T: Send + Sync> Sync for MyArc<T> {}
 **Release + Acquire fence**：保证其它线程对 `T` 的业务访问，在时间上先于本线程的物理回收；否则硬件重排可能使 dealloc 早于其它线程读写 → 灾难。
 
 → 源码：[src/my_arc.rs](./src/my_arc.rs)
+
+---
+
+← 上一节：[08-zst.md](./08-zst.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)

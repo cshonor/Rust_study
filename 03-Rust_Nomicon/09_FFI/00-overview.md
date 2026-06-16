@@ -17,91 +17,45 @@
 
 ---
 
-## 1. 从 Rust 调用 C (Calling foreign functions)
+## 小节路线图
 
-| 要点 | 说明 |
-|------|------|
-| 声明 | `extern "C" { fn foo(...); }` + `#[link(name = "...")]` |
-| Unsafe | 所有 C 调用 **`unsafe`** — 编译器无法检查 C 的内存/线程安全 |
-| 最佳实践 | 用 Rust 类型（`Vec`、切片）**包装**成 Safe API |
+```text
+01  Rust → C（extern + link）
+  ↓
+02  C → Rust（cdylib + no_mangle）
+  ↓
+03  回调与 *mut 状态
+  ↓
+04  repr(C) / CString
+  ↓
+05  外部 static mut
+  ↓
+06  Option niche
+  ↓
+07  panic / catch_unwind
+  ↓
+08  opaque struct
+  ↓
+10 no_std
+```
 
-→ 源码：[src/call_c.rs](./src/call_c.rs)
-
----
-
-## 2. 从 C 调用 Rust (Calling Rust from C)
-
-| 要点 | 说明 |
-|------|------|
-| 调用约定 | `pub extern "C" fn` |
-| 符号名 | `#[no_mangle]`（新版亦见 `#[unsafe(no_mangle)]`）禁用名称重整 |
-| 产物 | `Cargo.toml` 中 `crate-type = ["cdylib"]` 生成 C 动态库 |
-
-→ 源码：[src/export_to_c.rs](./src/export_to_c.rs)
-
----
-
-## 3. 回调 (Callbacks)
-
-| 模式 | 说明 |
-|------|------|
-| 全局回调 | `extern "C" fn` 直接传给 C |
-| 带状态 | `*mut RustObject` 传入，回调内 `unsafe` 转回 |
-| 异步/异线程 | **极危险** — 须 `Mutex`/通道，销毁前**注销**回调 |
-
-→ 源码：[src/callbacks.rs](./src/callbacks.rs)
-
----
-
-## 4. 互操作与数据表示 (Interoperability)
-
-| 类型 | 规则 |
-|------|------|
-| 结构体 | 跨边界须 **`#[repr(C)]`** |
-| 字符串 | Rust `str` 无 `\0` → 用 **`CString`** |
-| 可变参数 | `extern` 块可**声明** C 的 `...`；Rust **不能定义** variadic fn |
-
-→ 源码：[src/interop.rs](./src/interop.rs)
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | 本页 |
+| 1 | 从 Rust 调用 C | [01-call-c.md](./01-call-c.md) |
+| 2 | 从 C 调用 Rust | [02-export-to-c.md](./02-export-to-c.md) |
+| 3 | 回调 | [03-callbacks.md](./03-callbacks.md) |
+| 4 | 互操作与数据表示 | [04-interop.md](./04-interop.md) |
+| 5 | 外部全局变量 | [05-globals.md](./05-globals.md) |
+| 6 | 可空指针优化 | [06-nullable.md](./06-nullable.md) |
+| 7 | 异常与栈展开 | [07-unwind.md](./07-unwind.md) |
+| 8 | 不透明结构体 | [08-opaque.md](./08-opaque.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 
-## 5. 外部全局变量 (Foreign globals)
+## 一句话
 
-C 库常导出 `static` 全局状态 → Rust 用 `extern { static mut ... }` 声明；**读写均为 unsafe**，极度危险。
+**FFI 避坑章** — Rust↔C 互调、`repr(C)`/`CString`、回调与全局变量风险、Option niche、panic 不可跨界、`catch_unwind`、opaque struct。
 
-→ 注释见 [src/globals.rs](./src/globals.rs)
-
----
-
-## 6. 可空指针优化 (Nullable pointer optimization)
-
-Rust 无 null；FFI 中 **`Option<extern "C" fn(...)>`** / **`Option<NonNull<T>>`** 的 `None` 即底层 `null`，无额外 tag。
-
-→ 源码：[src/nullable.rs](./src/nullable.rs)
-
----
-
-## 7. 异常与栈展开 (FFI and unwinding)
-
-**Rust `panic!` 跨入 C，或 C++ 异常跨入 Rust → UB**。
-
-| 对策 | API |
-|------|-----|
-| 捕获 panic | **`catch_unwind`** 于 FFI 边界 |
-| 显式允许展开 | `extern "C-unwind"`（特定场景） |
-
-→ 源码：[src/unwind.rs](./src/unwind.rs)
-
----
-
-## 8. 不透明结构体 (Opaque structs)
-
-C 只给指针、不公开布局 → Rust 用 **`#[repr(C)]` struct + 私有字段 + `PhantomData`**，优于空枚举或裸 `c_void`（类型更安全）。
-
-→ 源码：[src/opaque.rs](./src/opaque.rs)
-
----
-
-## 总结
-
-利用 **`repr(C)`、裸指针、`Option` niche、`catch_unwind`** 等机制，在获得底层控制力的同时尽量维护安全边界。
+→ 从 [01-call-c.md](./01-call-c.md) 起读。

@@ -17,10 +17,14 @@
 
 ## 专项笔记
 
-| 小节 | 主题 | 阅读 |
-|------|------|------|
-| — | 本章要点 | [00-overview.md](./00-overview.md) |
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | [00-overview.md](./00-overview.md) |
+| 1 | 引入 libc 依赖 | [01-libc.md](./01-libc.md) |
+| 2 | 无 std 可执行程序 | [02-no-main.md](./02-no-main.md) |
+| 3 | 自定义 panic 处理 | [03-panic-handler.md](./03-panic-handler.md) |
 | — | no_main 裸机模板 | [templates/no_main_linux.md](./templates/no_main_linux.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 

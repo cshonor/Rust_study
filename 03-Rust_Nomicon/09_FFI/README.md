@@ -17,9 +17,18 @@
 
 ## 专项笔记
 
-| 小节 | 主题 | 阅读 |
-|------|------|------|
-| — | 本章定位与要点 | [00-overview.md](./00-overview.md) |
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | [00-overview.md](./00-overview.md) |
+| 1 | 从 Rust 调用 C | [01-call-c.md](./01-call-c.md) |
+| 2 | 从 C 调用 Rust | [02-export-to-c.md](./02-export-to-c.md) |
+| 3 | 回调 | [03-callbacks.md](./03-callbacks.md) |
+| 4 | 互操作与数据表示 | [04-interop.md](./04-interop.md) |
+| 5 | 外部全局变量 | [05-globals.md](./05-globals.md) |
+| 6 | 可空指针优化 | [06-nullable.md](./06-nullable.md) |
+| 7 | 异常与栈展开 | [07-unwind.md](./07-unwind.md) |
+| 8 | 不透明结构体 | [08-opaque.md](./08-opaque.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 
@@ -60,4 +69,4 @@ cargo test
 
 ## 逻辑脉络
 
-Rust→C → C→Rust → 类型/字符串 → 回调与全局 → panic 边界 → opaque → no_std。
+Rust→C → C→Rust → 类型/字符串 → 回调与全局 → Option niche → panic 边界 → opaque → no_std。
