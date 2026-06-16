@@ -1,6 +1,6 @@
 # 速记 · Safe & Unsafe · 自测
 
-← [本章目录](./README.md) · [00-overview.md](./00-overview.md)
+← [本章目录](./README.md) · 上一节：[06-hft-practice.md](./06-hft-practice.md) · [00-overview.md](./00-overview.md)
 
 ---
 
@@ -12,7 +12,7 @@
 
 ## 5 种能力（仅 unsafe 块内）
 
-1. 解引用 raw pointer（定义指针本身 Safe）
+1. 解引用 raw pointer（**创建**指针本身 Safe；解引用/偏移/转引用须 unsafe）
 2. 调用 unsafe fn（含 FFI / intrinsic）
 3. `unsafe impl` unsafe trait
 4. 读/写 `static mut`
@@ -24,7 +24,8 @@
 - [ ] 能说明 `unsafe fn` 空函数体为何调用仍需 `unsafe {}`
 - [ ] 能举例说明「Safe 改一行 → 全库 unsound」
 - [ ] 能列出 HFT 场景下 unsafe 的典型用途（FFI / DPDK / 自定义分配器）
-- [ ] 能对照 [five_powers.rs](./src/five_powers.rs) 说出每项能力对应代码
+- [ ] 能区分「创建裸指针 Safe」与「解引用须 unsafe」
+- [ ] 能对照 [raw_pointers.rs](./src/raw_pointers.rs) 说明 `*const` vs `*mut`
 
 ## 术语表（本章）
 
@@ -33,4 +34,4 @@
 | UB | 未定义行为；编译器可任意假设未发生 |
 | unsound | 库在 Safe 接口下仍可能 UB |
 | invariant | unsafe 层维护的全局不变量（如 Vec len/cap/ptr） |
-| 契约 | unsafe fn/trait 文档中的前置条件 |
+| 裸指针 | 无生命周期/借用的地址；解引用须 unsafe |

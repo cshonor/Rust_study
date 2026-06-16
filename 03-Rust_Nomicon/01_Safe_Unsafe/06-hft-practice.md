@@ -1,6 +1,6 @@
 # 六 · 实操落地规范（Rust + HFT）
 
-← [本章目录](./README.md) · 上一节：[05-faq.md](./05-faq.md) · [cheat-sheet.md](./cheat-sheet.md)
+← [本章目录](./README.md) · 上一节：[05-faq.md](./05-faq.md) · 下一节：[07-raw-pointers.md](./07-raw-pointers.md)
 
 ---
 

@@ -38,7 +38,7 @@ let ptr = 0xdeadbeef as *mut i32;
 // unsafe { *ptr = 1; }  // UB：地址无效
 ```
 
-→ 本 crate：`raw_pointer_and_unsafe_fn()` · [five_powers.rs](./src/five_powers.rs)
+→ 本 crate：`raw_pointer_and_unsafe_fn()` · [five_powers.rs](./src/five_powers.rs) · 深度解读：[07-raw-pointers.md](./07-raw-pointers.md)
 
 ## 2. 调用 unsafe fn
 

@@ -27,6 +27,7 @@
 | 四 | 信任与非局部性 | [04-trust-and-nonlocality.md](./04-trust-and-nonlocality.md) |
 | 五 | 易错疑问 | [05-faq.md](./05-faq.md) |
 | 六 | HFT 实操规范 | [06-hft-practice.md](./06-hft-practice.md) |
+| 七 | 裸指针完整解读 | [07-raw-pointers.md](./07-raw-pointers.md) |
 | — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
@@ -36,6 +37,7 @@
 | 文件 | 演示 |
 |------|------|
 | [src/five_powers.rs](./src/five_powers.rs) | 五种 unsafe 能力 |
+| [src/raw_pointers.rs](./src/raw_pointers.rs) | `*const` / `*mut` 创建 vs 解引用 |
 | [src/privacy.rs](./src/privacy.rs) | 模块边界封装 invariant |
 | [src/main.rs](./src/main.rs) | 运行入口 |
 

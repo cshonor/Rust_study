@@ -29,7 +29,11 @@
   ↓
 05  易错 FAQ
   ↓
-06  HFT 实操规范 → 02 Data Layout
+06  HFT 实操规范
+  ↓
+07  裸指针 *const / *mut 深度解读 → raw_pointers.rs
+  ↓
+cheat-sheet
 ```
 
 | 节 | 主题 | 阅读 |
@@ -41,6 +45,7 @@
 | 四 | 信任与非局部性 | [04-trust-and-nonlocality.md](./04-trust-and-nonlocality.md) |
 | 五 | 易错疑问 | [05-faq.md](./05-faq.md) |
 | 六 | HFT 实操规范 | [06-hft-practice.md](./06-hft-practice.md) |
+| 七 | 裸指针完整解读 | [07-raw-pointers.md](./07-raw-pointers.md) |
 | — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
