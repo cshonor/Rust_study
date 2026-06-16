@@ -2,7 +2,7 @@
 
 > 所属：**Traits and Trait Bounds** · [← 章索引](./README.md)
 
-前置 → [05 编译与分发](./05-compilation-dispatch.md) · [07 孤儿规则](./07-coherence-orphan-rule.md) · 下一节 → [09 标记 Trait](./09-marker-traits.md)
+前置 → [08 Trait 限定](./08-trait-bounds.md) · 下一节 → [09 标记 Trait](./09-marker-traits.md) · [10 存在类型](./10-existential-types.md)
 
 ---
 
