@@ -16,52 +16,37 @@
 
 ---
 
-## 1. Safe Rust 与 Unsafe Rust 的双重世界
+## 小节路线图
 
-Rust 可视为两种语言的结合：
+```text
+01  为何分 Safe/Unsafe（C++ 对比 · HFT 场景）
+  ↓
+02  unsafe 契约：声明 vs 履行（Vec::push 案例）
+  ↓
+03  五种高危能力 → five_powers.rs
+  ↓
+04  信任不对称 · 非局部性 → privacy.rs
+  ↓
+05  易错 FAQ
+  ↓
+06  HFT 实操规范 → 02 Data Layout
+```
 
-| | Safe Rust | Unsafe Rust |
-|---|-----------|-------------|
-| 定位 | 真正的 Rust 语言 | 与 Safe 语义相同，但开放额外能力 |
-| 保证 | 类型安全、内存安全；无悬垂指针、use-after-free、UB | 无上述保证——误用即 UB |
-| 用途 | 日常开发 | 系统级底层控制（类似 C） |
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | 本页 |
+| 一 | 设计出发点 | [01-why-safe-unsafe.md](./01-why-safe-unsafe.md) |
+| 二 | unsafe 两种作用 | [02-unsafe-contract.md](./02-unsafe-contract.md) |
+| 三 | 五种高危能力 | [03-five-powers.md](./03-five-powers.md) |
+| 四 | 信任与非局部性 | [04-trust-and-nonlocality.md](./04-trust-and-nonlocality.md) |
+| 五 | 易错疑问 | [05-faq.md](./05-faq.md) |
+| 六 | HFT 实操规范 | [06-hft-practice.md](./06-hft-practice.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
-## 2. `unsafe` 关键字的两种用法
+---
 
-`unsafe` 是安全与非安全世界的**边界**：
+## 一句话
 
-1. **声明契约（caller/implementor 责任）**  
-   在函数或 trait **声明**上加 `unsafe`，表示调用者或实现者必须阅读文档并手动保证前提条件成立。  
-   例：`unsafe fn`、`unsafe trait Send`。
+**Safe = 编译器兜底内存安全；Unsafe = 放开 5 种能力、程序员自行维护不变量** — 不是独立语言，所有权/借用仍是底层约束。
 
-2. **履行契约（程序员已验证）**  
-   在代码块或 trait **实现**上加 `unsafe`，表示程序员已确认此处所有 unsafe 操作合法、符合契约。  
-   例：`unsafe { ... }`、`unsafe impl Send for MyType`。
-
-→ 源码对照：[src/five_powers.rs](./src/five_powers.rs)
-
-## 3. Unsafe Rust 的 5 种额外能力
-
-仅此五项；**任意一项误用 → 未定义行为 (UB)**：
-
-1. 解引用**原生指针**（raw pointers）
-2. 调用 **`unsafe` 函数**（含 FFI、编译器 intrinsics）
-3. 实现 **`unsafe` trait**（如 `Send`、`Sync`）
-4. 访问或修改**可变静态变量**（`static mut`）
-5. 访问 **`union` 字段**
-
-## 4. 信任不对称原则
-
-- **Safe → Unsafe**：Safe Rust 必须**无条件信任** Unsafe 代码被正确编写。
-- **Unsafe → Safe**：Unsafe 代码**不能**假设用户提供的 Safe 代码一定正确。
-
-例：`BTreeMap` 内部用 unsafe，若用户自定义 `Ord` 有逻辑 bug，unsafe 层必须足够健壮——**不能**因此产生内存 UB，最多 panic 或逻辑错误。
-
-## 5. 安全性的非局部性（Non-locality）
-
-**本章最重要洞察**：修改一段看似无害的 Safe 代码，也可能让整个库 **unsound** 并触发 UB。
-
-原因：unsafe 正确性依赖程序其他处的 invariant（如 `Vec` 的 `len`/`cap`）。  
-**对策**：用**模块可见性（privacy）**在边界封装，对外只暴露 Safe API。
-
-→ 源码对照：[src/privacy.rs](./src/privacy.rs)
+→ 深度总结从 [01-why-safe-unsafe.md](./01-why-safe-unsafe.md) 起读；源码从 [03-five-powers.md](./03-five-powers.md) 对照 [five_powers.rs](./src/five_powers.rs)。

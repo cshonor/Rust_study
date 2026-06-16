@@ -5,6 +5,7 @@
 ## 状态
 
 - [x] 已读（笔记整理）
+- [x] 深度总结（Safe/Unsafe · HFT 适配）
 - [x] 示例 crate（五种 unsafe 能力 + privacy 封装）
 
 ---
@@ -17,9 +18,16 @@
 
 ## 专项笔记
 
-| 小节 | 主题 | 阅读 |
-|------|------|------|
-| — | 本章定位与要点 | [00-overview.md](./00-overview.md) |
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | [00-overview.md](./00-overview.md) |
+| 一 | 为何分 Safe/Unsafe | [01-why-safe-unsafe.md](./01-why-safe-unsafe.md) |
+| 二 | unsafe 两种作用 | [02-unsafe-contract.md](./02-unsafe-contract.md) |
+| 三 | 五种高危能力 | [03-five-powers.md](./03-five-powers.md) |
+| 四 | 信任与非局部性 | [04-trust-and-nonlocality.md](./04-trust-and-nonlocality.md) |
+| 五 | 易错疑问 | [05-faq.md](./05-faq.md) |
+| 六 | HFT 实操规范 | [06-hft-practice.md](./06-hft-practice.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 
@@ -51,4 +59,4 @@ cargo run
 
 ## 逻辑脉络
 
-概念与契约 → 五种能力逐项对照源码 → privacy 封装 → 进入 Data Layout。
+设计出发点 → 契约机制 → 五种能力对照源码 → 信任与非局部性 → FAQ → HFT 规范 → 进入 Data Layout。
