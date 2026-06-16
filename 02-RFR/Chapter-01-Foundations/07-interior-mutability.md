@@ -119,7 +119,7 @@ let _c = r2.borrow(); // ✅ 上一段 mut borrow 已结束
 | 违反规则 | 编译失败 | `RefCell` panic；`Mutex` 死锁/中毒 |
 | 典型场景 | 单路径清晰修改 | 多共享句柄、图、缓存、并发 |
 
-→ 速记对照：[06-07-mutability-cheat-sheet.md](./06-07-mutability-cheat-sheet.md)
+→ 全章速记：[05-08-borrowing-lifetimes-cheat-sheet.md](./05-08-borrowing-lifetimes-cheat-sheet.md)
 
 ---
 
