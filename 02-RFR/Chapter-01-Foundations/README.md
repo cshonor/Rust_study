@@ -10,7 +10,7 @@
 | 主节 | 英文 | 子节 / 笔记 |
 |------|------|-------------|
 | **1** | Talking About Memory | [01 内存术语](./01-memory-terminology.md) · [02 变量深入](./02-variables-in-depth.md) · [03 内存区域](./03-memory-regions.md)（[03.1 Rust 模型](./03-1-rust-memory-model.md) · [03.2 OS/LLVM 布局](./03-2-os-memory-layout.md)） |
-| **2** | Ownership | [04 所有权](./04-ownership.md) |
+| **2** | Ownership | [04 所有权](./04-ownership.md)（[04.1](./04-1-three-rules.md) · [04.2](./04-2-move-copy-clone.md) · [04.3](./04-3-drop.md) · [04.4](./04-4-drop-order.md) · [04.5](./04-5-refs-and-panic.md) · [04.6](./04-6-pitfalls.md)） |
 | **3** | Borrowing and Lifetimes | [05 共享引用](./05-shared-references.md) · [06 可变引用](./06-mutable-references.md) · [07 内部可变性](./07-interior-mutability.md) · [08 生命周期](./08-lifetimes.md) |
 | **4** | Summary | [09 小结](./09-summary.md) |
 

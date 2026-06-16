@@ -8,321 +8,53 @@
 
 ---
 
-## 三条核心规则
+## 三条核心规则（速览）
 
 | # | 规则 | 含义 |
 |---|------|------|
-| 1 | **每个值有且只有一个所有者** | 同一时刻只有一个绑定「负责 drop」；避免多指针重复释放、悬垂 |
-| 2 | **所有者离开作用域时，值被 drop** | RAII：自动调 `Drop`，释放堆/关闭句柄等 |
-| 3 | **所有权可转移（move）；非 `Copy` 类型不能隐式复制** | `let s2 = s1;` 后 `s1` 失效（若 `String`）；`i32` 等 `Copy` 类型除外 |
+| 1 | **每个值有且只有一个所有者** | 同一时刻只有一个绑定「负责 drop」 |
+| 2 | **所有者离开作用域时，值被 drop** | RAII：自动调 `Drop` |
+| 3 | **所有权可转移（move）；非 `Copy` 类型不能隐式复制** | `let s2 = s1;` 后 `s1` 失效（`String`）；`i32` 等 `Copy` 除外 |
 
-```rust
-let s1 = String::from("hello");
-let s2 = s1;   // move：堆上字符串的所有权 s1 → s2
-// println!("{s1}"); // ❌ s1 不再负责这块堆
+→ 展开：[04-1 三条规则](./04-1-three-rules.md)
+
+---
+
+## 子节导航
+
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| 04.1 | 三条核心规则 | [04-1-three-rules.md](./04-1-three-rules.md) |
+| 04.2 | Move / Copy / Clone | [04-2-move-copy-clone.md](./04-2-move-copy-clone.md) |
+| 04.3 | Drop 基础 · `Box` · 自定义 Drop | [04-3-drop.md](./04-3-drop.md) |
+| 04.4 | Drop 顺序（局部 vs 字段） | [04-4-drop-order.md](./04-4-drop-order.md) |
+| 04.5 | 引用与 move · panic / unwind | [04-5-refs-and-panic.md](./04-5-refs-and-panic.md) |
+| 04.6 | 易错点 · 延伸 | [04-6-pitfalls.md](./04-6-pitfalls.md) |
+| — | 速记 · 自测 | [04-cheat-sheet.md](./04-cheat-sheet.md) |
+
+---
+
+## 阅读顺序
+
+```text
+04.1  三条规则
+  ↓
+04.2  Move / Copy / Clone（Copy trait，非栈/堆决定）
+  ↓
+04.3  Drop 是什么 · Box
+  ↓
+04.4  Drop 顺序（逆声明 vs 正字段 — 易混）
+  ↓
+04.5  引用不拥有 · panic 仍 drop
+  ↓
+04.6  易错点 → 05 共享引用
 ```
 
 ---
 
-## Move / Copy / Clone（一次讲透）
+## 一句话
 
-### 核心：不是「堆 Move、栈 Copy」，而是 **`Copy` trait**
-
-Rust **不按栈/堆**决定 Move 还是 Copy，而看**类型是否实现 `Copy`**：
-
-| | **实现了 `Copy`** | **未实现 `Copy`（默认）** |
-|---|-------------------|---------------------------|
-| **赋值 / 传参** | 自动**按位复制**栈上表示；**原绑定仍有效** | **Move**：所有权转移；**原绑定失效** |
-| **堆上 payload** | Copy 类型通常**没有**需 drop 的堆（或整值在栈） | Move **不复制堆数据**，只转移所有权 |
-
-**反例 — 栈上也可以 Move**：
-
-```rust
-let a = Box::new(10);  // 句柄在栈，数据在堆；Box 无 Copy
-let b = a;             // Move，a 失效
-
-struct Point { x: i32, y: i32 }  // 全在栈，默认仍无 Copy
-let p1 = Point { x: 1, y: 2 };
-let p2 = p1;           // Move，p1 失效
-```
-
-**为何有「栈 Copy、堆 Move」的错觉？**  
-大部分**小标量**默认 `Copy`（在栈）；`String` / `Vec` / `Box` 等**带堆或自定义 Drop** 的类型默认**不** `Copy` — 相关，但不是因果。
-
----
-
-### 典型 Copy 类型
-
-- 整数 / 浮点：`i32`、`u64`、`f64` …
-- `bool`、`char`
-- `[T; N]`（`T: Copy` 时）
-- `(T1, T2, …)`（各元素均 `Copy` 时）
-- **`&T`**（共享引用是 Copy）
-- **不是 Copy**：`&mut T`、`String`、`Vec`、`Box<T>`、多数自定义 struct/enum
-
-```rust
-let a: i32 = 10;
-let b = a;              // Copy：复制 4 字节，a、b 都有效
-println!("{a} {b}");
-```
-
----
-
-### Move 的本质：转移所有权，不是复制堆
-
-`let s2 = s1;`（`String`）时：
-
-1. **栈上** `{ ptr, len, cap }` **按位复制**一份给 `s2`（机器层面像 memcpy）
-2. **堆上**字节**只有一份** — 所有权从 `s1` 转到 `s2`，**不**做堆深拷贝
-3. 编译器标记 **`s1` 失效**，不能再访问
-4. 作用域结束时只有 **`s2`** 负责 `Drop` 堆
-
-```rust
-let s1 = String::from("hello");
-let s2 = s1;   // Move
-// println!("{s1}"); // ❌
-```
-
-→ 需要**两份堆数据**时用 **`clone()`**，不是赋值。
-
----
-
-### Copy vs Clone
-
-| | **Copy** | **Clone** |
-|---|----------|-----------|
-| **何时发生** | 赋值、传参时**隐式** | 必须**显式** `.clone()` |
-| **语义** | 按位复制**栈上表示**（浅拷贝） | 可**自定义**；`String::clone()` 会**复制堆** |
-| **开销** | 极小（几个字节） | 可能很大（整段堆分配 + 拷贝） |
-| **实现** | `Copy` + `Clone`（通常 `derive`）；**不能**自定义 Copy 逻辑 | `impl Clone` 可手写 |
-| **与 Drop** | 有自定义 **`Drop` 则不能 `Copy`** | 与 Drop 可共存 |
-
-```rust
-let a = 10;
-let b = a;                    // Copy
-
-let s1 = String::from("hello");
-let s2 = s1.clone();          // Clone：堆上完整复制一份
-println!("{s1} {s2}");         // 两者都有效
-
-let s3 = s1;                    // Move（若写这句则 s1 失效）
-```
-
-**记忆**：**Copy = 隐式、便宜、原变量还在；Clone = 显式、可能贵、两份独立数据。**
-
----
-
-### 一句话
-
-> **Move / Copy 由 `Copy` trait 决定，不由栈/堆决定：**  
-> 有 `Copy` → 赋值时自动按位复制，原绑定有效；  
-> 无 `Copy` → Move，原绑定失效，堆数据不复制、只转移所有权；  
-> 要 duplicate 堆内容 → **`.clone()`**。
-
-```rust
-let v = vec![1, 2];
-let w = v;           // Move
-// let u = v.clone(); // 若先要 v 再用，先 clone 再分别 move
-
-let x = 5;
-let y = x;           // Copy
-println!("{x} {y}");
-```
-
----
-
-## Drop 是什么
-
-- 类型可实现 **`Drop` trait**：离开作用域时编译器插入 **`drop()`** 调用。
-- **`String` / `Vec` / `Box`**：drop 时释放堆（见 [03.1](./03-1-rust-memory-model.md)）。
-- **引用 `&T` / `&mut T`**：**不拥有**值，drop 引用**不会**释放被指向的数据；只有**所有者** drop 时才释放。
-
-```rust
-let x = String::from("hi");
-let k = &x;     // k 是借用，不是所有者
-// 作用域结束：只 drop x（释放堆）；k 作为引用无堆责任
-```
-
----
-
-## Drop 顺序（重点 · 易混）
-
-**核心结论**：局部变量的销毁遵循栈 **LIFO（后进先出）** — **后声明 → 先 Drop；先声明 → 后 Drop**。这和声明顺序**正好相反**。
-
-复合类型（struct / 元组）**内部字段**则按**定义正序** Drop — 与局部变量**方向相反**，最易混。
-
----
-
-### 1. 局部变量、函数参数：栈 LIFO → **逆声明顺序**
-
-后压栈的先出栈：**后声明的先 drop**。
-
-```rust
-fn main() {
-    let a = String::from("A"); // 先声明，先入栈（栈底侧）
-    let b = String::from("B"); // 后声明，后入栈（栈顶侧）
-} // 出栈：Drop(b) → Drop(a)
-```
-
-**原因**：后声明的绑定可能依赖先声明的（`let a = ...; let r = &a;`）。若先 drop `a`，`r` 可能悬垂 → 故**先结束 / drop 后声明的**，再 drop 先声明的所有者。
-
-```rust
-let x = String::from("x");
-let r = &x;   // r 后声明 → r 先结束 → 再 drop x
-```
-
-**引用 `&T` / `&mut T`**：无所有权，**不触发**对被指向值的 Drop；只影响「借用何时结束」，不改变所有者 drop 的时机。
-
----
-
-### 2. 嵌套作用域：内层先于外层（仍是 LIFO）
-
-内层块里的变量在外层之前销毁：
-
-```rust
-fn main() {
-    let outer = String::from("外");
-
-    {
-        let inner = String::from("内");
-    } // 块结束：Drop(inner) — 立刻
-
-} // 函数结束：Drop(outer)
-```
-
-执行顺序：`Drop(inner)` → … → `Drop(outer)`。
-
----
-
-### 3. 复合类型内部字段：**正序（定义顺序）**
-
-结构体、元组、数组元素等：**先定义的字段先 drop**（与 §1 局部变量**相反**）。
-
-```rust
-struct Foo {
-    x: String, // 先定义
-    y: String, // 后定义
-}
-
-fn main() {
-    let f = Foo { x: "X".into(), y: "Y".into() };
-} // Drop(x) → Drop(y)
-```
-
----
-
-### 对照（面试常考）
-
-| 场景 | Drop 顺序 | 记忆 |
-|------|-----------|------|
-| **函数内多个局部变量** | 逆声明（栈 LIFO） | 后声明先死 |
-| **嵌套 `{ }` 块** | 内层先于外层 | 小块先结束 |
-| **同一 struct / 元组字段** | 正定义序 | 先定义先死 |
-| **函数参数** | 逆参数列表顺序 | 同局部变量 |
-
-**⚠️ 局部变量（逆）vs struct 字段（正）— 方向相反。**
-
-### 一句话区分
-
-1. **函数里单独的 `let`**：栈 LIFO → **逆声明顺序**销毁  
-2. **struct / 元组成员**：按源码定义顺序 → **正序**销毁  
-3. **`&T`**：不拥有、不 Drop 目标，只结束借用
-
----
-
-## 自定义 `Drop`：亲眼看到逆序
-
-```rust
-struct Custom {
-    name: String,
-}
-
-impl Drop for Custom {
-    fn drop(&mut self) {
-        println!("Dropping Custom: {}", self.name);
-    }
-}
-
-fn main() {
-    let a = Custom { name: "A".into() };
-    let b = Custom { name: "B".into() };
-}
-// 输出：
-// Dropping Custom: B
-// Dropping Custom: A
-```
-
----
-
-## `Box<T>`、嵌套类型的 drop
-
-```rust
-let b = Box::new(String::from("hi"));
-// drop 时：先 drop Box 管理的堆上 String，再清理 Box 自身（栈上句柄）
-```
-
-- **`Box<String>`**：栈上 `Box` 句柄 + 堆上 `String`；drop **`Box` 时**按 `Box` 的规则释放堆上 `T`。
-- **struct 多字段**：外层 struct 按字段正序 drop；每个字段再按自己的类型规则 drop（如 `String` 释堆）。
-
----
-
-## 引用与 move
-
-| | 是否拥有 | 赋值时 | 作用域结束 |
-|---|----------|--------|------------|
-| **`String` / `Box<T>`** | 拥有 | 默认 **move** | **Drop** 释放资源 |
-| **`&T` / `&mut T`** | 不拥有 | **Copy**（复制指针+生命周期） | 只结束借用，**不** drop 目标 |
-
-→ 借用细节 [05 共享引用](./05-shared-references.md) · [06 可变引用](./06-mutable-references.md)
-
----
-
-## panic、unwind 与 Drop
-
-| 情况 | Drop 行为 |
-|------|-----------|
-| **正常 return** | 按上述顺序 drop 栈上变量 |
-| **panic + unwind**（默认） | 栈展开，**仍按正常 Drop 顺序**析构已构造的对象 → 一般不泄漏 |
-| **`catch_unwind`** | 捕获 panic；**被展开帧里的 Drop 已执行** |
-| **abort 模式**（`panic=abort`） | **不 unwind**，栈上 Drop **可能不跑** → 依赖 OS 回收 |
-
-```rust
-use std::panic;
-
-let r = panic::catch_unwind(|| {
-    let s = String::from("leak?");
-    panic!("boom");
-});
-// unwind 路径上 s 仍会被 drop
-```
-
-**实践**：需要 panic 时也释放锁/文件 → 用 `Drop` / RAII；关键资源勿假设 abort 下会 drop。
-
----
-
-## 易错点速查
-
-| 易错 | 正确理解 |
-|------|----------|
-| 堆一定 Move、栈一定 Copy | 看 **`Copy` trait**；栈上 struct 也可 Move |
-| 赋值 = 复制 | 仅 **`Copy`** 类型；`String` 等默认 **move** |
-| Move = 复制整段堆 | Move **只转移所有权**；堆复制要用 **`.clone()`** |
-| Copy 和 Clone 是一回事 | **Copy** 隐式按位；**Clone** 显式、可深拷贝堆 |
-| 局部变量与 struct 字段 drop 同序 | **相反**：局部逆声明，字段正定义 |
-| `&x` 会 drop `x` | **不会**；只有所有者 drop |
-| panic 一定泄漏 | **unwind 默认会 drop**；`abort` 除外 |
-| `Copy` 与自定义 `Drop` | 有自定义 **`Drop` 则不能 `Copy`** |
-
----
-
-## 延伸（深入另读）
-
-| 主题 | 去向 |
-|------|------|
-| `ManuallyDrop`、故意泄漏 | Nomicon · [第 9 章 Unsafe](../Chapter-09-Unsafe-Code/README.md) |
-| `Pin` 与位置不可移动 | [第 8 章 Async](../Chapter-08-Async/README.md) |
-| `async` 状态机里的 drop / cancel | [08 Async](../Chapter-08-Async/README.md) |
-| RAII 惯用法 | ER [Item 11 Drop/RAII](../../01-ER/Chapter-02-Traits/Item-11-drop-raii/README.md) |
+> **Move / Copy 由 `Copy` trait 决定，不由栈/堆决定** — 无 `Copy` 则 move；要 duplicate 堆 → `.clone()`。
 
 ---
 
