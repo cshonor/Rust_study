@@ -138,7 +138,7 @@ Rust 把「这段期间无其它别名」写进类型系统，不必像 C 那样
 | 触发 Drop | ✅ | ❌（只结束借用） |
 | 修改数据 | 通过绑定本身 | 通过解引用 `*r` |
 
-→ [04.5 引用与 move](./04-5-refs-and-panic.md) · 下一节 [07 内部可变性](./07-interior-mutability.md)
+→ 速记对照：[06-07-mutability-cheat-sheet.md](./06-07-mutability-cheat-sheet.md) · 下一节 [07 内部可变性](./07-interior-mutability.md)
 
 ---
 
