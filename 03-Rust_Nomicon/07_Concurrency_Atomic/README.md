@@ -17,9 +17,13 @@
 
 ## 专项笔记
 
-| 小节 | 主题 | 阅读 |
-|------|------|------|
-| — | 本章定位与要点 | [00-overview.md](./00-overview.md) |
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | [00-overview.md](./00-overview.md) |
+| 1 | 数据竞争 | [01-data-races.md](./01-data-races.md) |
+| 2 | Send / Sync | [02-send-sync.md](./02-send-sync.md) |
+| 3 | 原子操作 | [03-atomics.md](./03-atomics.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 

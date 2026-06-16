@@ -17,9 +17,15 @@
 
 ## 专项笔记
 
-| 小节 | 主题 | 阅读 |
-|------|------|------|
-| — | 本章定位与要点 | [00-overview.md](./00-overview.md) |
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | [00-overview.md](./00-overview.md) |
+| 1 | 构造与析构 | [01-construct-drop.md](./01-construct-drop.md) |
+| 2 | 泄漏与 forget | [02-forget-leak.md](./02-forget-leak.md) |
+| 3 | 代理类型 | [03-proxy-types.md](./03-proxy-types.md) |
+| 4 | 栈展开与异常安全 | [04-unwinding.md](./04-unwinding.md) |
+| 5 | 数据投毒 | [05-poisoning.md](./05-poisoning.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 

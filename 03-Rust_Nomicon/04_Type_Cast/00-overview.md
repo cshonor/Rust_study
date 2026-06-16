@@ -17,50 +17,33 @@
 
 ---
 
-## 1. 隐式转换 (Coercions)
+## 小节路线图
 
-Rust 在特定上下文中**自动**转换类型，通常是对类型的「弱化」（改变指针类型、缩短生命周期等）。
+```text
+01  隐式转换 (Coercions) → coercions.rs
+  ↓
+02  点运算符查找链 → dot_operator.rs
+  ↓
+03  显式 as cast（非传递性）→ casts.rs
+  ↓
+04  transmute 终极警告 → transmute.rs
+  ↓
+05 Uninit Mem
+```
 
-- 目的：日常代码「开箱即用」，**基本无害**。
-- **Trait 匹配时不自动转换**（方法调用的 **receiver** 除外）。
-
-→ 源码：[src/coercions.rs](./src/coercions.rs)（`&String` → `&str`、`&T` → `&dyn Trait`、数组 unsizing）
-
----
-
-## 2. 点运算符魔法 (The Dot Operator)
-
-`value.foo()` 时，编译器按优先级尝试直到匹配：
-
-1. **按值**调用 `T::foo`
-2. **Auto-referencing**：`&T` / `&mut T`
-3. **Auto-dereferencing**：`Deref` / `DerefMut` 链
-4. **Unsizing**：如 `[T; N]` → `[T]`，以寻找方法
-
-→ 源码：[src/dot_operator.rs](./src/dot_operator.rs)
-
----
-
-## 3. 显式转换 (Casts)
-
-`expr as Type` — 隐式转换的**超集**。
-
-| 范围 | 说明 |
-|------|------|
-| 基本数字 | `i32 as u8` 等，可能截断/改变符号 |
-| 原生指针 | 运行时通常不报错，但随意 cast 是 UB 温床 |
-| **非传递性** | `e as U1 as U2` 合法 **≠** `e as U2` 合法 |
-
-→ 源码：[src/casts.rs](./src/casts.rs)
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | 本页 |
+| 1 | 隐式转换 | [01-coercions.md](./01-coercions.md) |
+| 2 | 点运算符 | [02-dot-operator.md](./02-dot-operator.md) |
+| 3 | 显式转换 `as` | [03-casts.md](./03-casts.md) |
+| 4 | transmute | [04-transmutes.md](./04-transmutes.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 
-## 4. 内存重释 (Transmutes)
+## 一句话
 
-`mem::transmute<T, U>` — **终极黑魔法**：强制把底层比特 reinterpret 为另一类型，**唯一要求**是 `size_of` 相同。
+**转换阶梯章** — 无害 coercion → 点运算符 Deref/unsizing → `as` 显式边界 → transmute 禁区。
 
-- 作者称此为 Rust 中**最可怕、最不安全**的操作之一，防护形同虚设。
-- 误用 → 立即 **UB**。
-- **`&T` transmute 成 `&mut T` 永远是 UB**（破坏别名与优化假设）。
-
-→ 源码：[src/transmute.rs](./src/transmute.rs)（仅演示同尺寸无害 reinterpret；危险用法仅注释）
+→ 从 [01-coercions.md](./01-coercions.md) 起读；源码从各节链到 `src/`。

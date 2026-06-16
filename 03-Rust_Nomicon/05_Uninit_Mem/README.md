@@ -17,9 +17,14 @@
 
 ## 专项笔记
 
-| 小节 | 主题 | 阅读 |
-|------|------|------|
-| — | 本章定位与要点 | [00-overview.md](./00-overview.md) |
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | [00-overview.md](./00-overview.md) |
+| 1 | 安全受检 | [01-checked.md](./01-checked.md) |
+| 2 | drop flags | [02-drop-flags.md](./02-drop-flags.md) |
+| 3 | 非受检（MaybeUninit + ptr） | [03-unchecked.md](./03-unchecked.md) |
+| 4 | 与后续 Vec 关系 | [04-vec-prelude.md](./04-vec-prelude.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 
