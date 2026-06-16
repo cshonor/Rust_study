@@ -16,54 +16,30 @@
 
 ---
 
-## 1. 默认数据布局：`repr(Rust)`
+## 小节路线图
 
-### 对齐与填充 (Alignment and Padding)
+```text
+01  repr(Rust)：对齐 · 重排 · niche
+  ↓
+02  DST / ZST / 空类型
+  ↓
+03  repr(C) / transparent / packed / align
+  ↓
+03 Lifetime
+```
 
-所有类型都有按字节指定的**对齐要求**。为保证各字段正确对齐，Rust 会在字段之间自动插入 **padding** 字节。
-
-### 字段重排 (Field Reordering)
-
-与 C 不同，Rust **默认不保证** struct 字段在内存中的书写顺序（数组除外，始终密集且按序排列）。编译器会**重排字段**以消除对齐浪费，因此不同泛型实例可能有截然不同的布局。
-
-→ 源码对照：[src/repr_rust.rs](./src/repr_rust.rs)（`repr(Rust)` vs `repr(C)` 的 `size_of` / `offset_of`）
-
-### 空指针优化 (Null Pointer Optimization)
-
-对某些枚举，若含单元变体（如 `None`）与**不可为空指针**变体（如 `Some(&T)`），Rust 可省去区分变体的 tag：直接将空指针解释为 `None`，使 `Option<&T>` 与 `&T` **同尺寸**。
-
-→ 源码对照：[src/repr_rust.rs](./src/repr_rust.rs)（`Option<&T>` niche）
-
----
-
-## 2. 尺寸特殊的类型 (Exotically Sized Types)
-
-### 动态大小类型 (DSTs)
-
-大小与对齐在**编译期未知**的类型：特征对象（`dyn Trait`）、切片（`[T]`、`str`）。不能直接按值存储，只能位于指针之后；指针须携带额外信息（切片长度、vtable 等），称为**胖指针 (wide pointer)**。
-
-→ 源码对照：[src/exotic.rs](./src/exotic.rs)
-
-### 零大小类型 (ZSTs)
-
-完全不占内存的类型（如 `struct Nothing;`）。load/store 在底层为 **no-op**。Safe Rust 可忽略；**Unsafe** 中须注意：对 ZST 的指针偏移也是 no-op，且分配器通常要求**非零**分配大小。
-
-### 空类型 (Empty Types)
-
-无法实例化的类型，如 `enum Void {}`。用于类型系统表达不可达状态，例如 `Result<T, Void>` 在类型层面保证**绝不会**返回 `Err`。
-
-→ 源码对照：[src/exotic.rs](./src/exotic.rs)
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | 本页 |
+| 1 | 默认布局 `repr(Rust)` | [01-repr-rust.md](./01-repr-rust.md) |
+| 2 | 非常规尺寸类型 | [02-exotic-types.md](./02-exotic-types.md) |
+| 3 | 替代数据表示 | [03-alt-repr.md](./03-alt-repr.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 
-## 3. 替代的数据表示 (Alternative representations)
+## 一句话
 
-| `repr` | 作用 | 注意 |
-|--------|------|------|
-| **`repr(C)`** | 按 C/C++ 规则排序、算 size/align | FFI、内存重释、固定二进制格式 **必用** |
-| **`repr(transparent)`** | 仅含一个非 ZST 字段时，布局/ABI 与内层字段完全一致 | 新type 包装 |
-| **`repr(u*)` / `repr(i*)`** | 无字段枚举的底层整数大小与符号 | C 枚举互操作 |
-| **`repr(packed)`** | 剥离 padding，整体对齐到 1 字节 | **危险**：未对齐访问，ARM 等可能硬件异常 |
-| **`repr(align(n))`** | 最小对齐至少为 `n`（2 的幂） | 缓存行对齐、避免 false sharing |
+**布局章** — 默认 `repr(Rust)` 可重排；FFI/固定格式用 `repr(C)`；DST/ZST 在 unsafe 中有特殊规则。
 
-→ 源码对照：[src/repr_alt.rs](./src/repr_alt.rs)
+→ 从 [01-repr-rust.md](./01-repr-rust.md) 起读；源码见各节链到 `src/`。

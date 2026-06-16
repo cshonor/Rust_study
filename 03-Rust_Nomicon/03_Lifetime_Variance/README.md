@@ -17,9 +17,17 @@
 
 ## 专项笔记
 
-| 小节 | 主题 | 阅读 |
-|------|------|------|
-| — | 本章定位与要点 | [00-overview.md](./00-overview.md) |
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | [00-overview.md](./00-overview.md) |
+| 1 | 所有权与引用 | [01-ownership-basics.md](./01-ownership-basics.md) |
+| 2 | 别名与优化 | [02-aliasing.md](./02-aliasing.md) |
+| 3 | 生命周期 | [03-lifetimes.md](./03-lifetimes.md) |
+| 4 | 型变 | [04-variance.md](./04-variance.md) |
+| 5 | Drop Check | [05-drop-check.md](./05-drop-check.md) |
+| 6 | PhantomData | [06-phantom-data.md](./06-phantom-data.md) |
+| 7 | 借用分离 | [07-split-borrows.md](./07-split-borrows.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 

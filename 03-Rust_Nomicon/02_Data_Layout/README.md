@@ -17,9 +17,13 @@
 
 ## 专项笔记
 
-| 小节 | 主题 | 阅读 |
-|------|------|------|
-| — | 本章定位与要点 | [00-overview.md](./00-overview.md) |
+| 节 | 主题 | 阅读 |
+|:--:|------|------|
+| — | 本章定位 | [00-overview.md](./00-overview.md) |
+| 1 | `repr(Rust)` | [01-repr-rust.md](./01-repr-rust.md) |
+| 2 | DST / ZST / 空类型 | [02-exotic-types.md](./02-exotic-types.md) |
+| 3 | 替代 `repr` | [03-alt-repr.md](./03-alt-repr.md) |
+| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
 
 ---
 
