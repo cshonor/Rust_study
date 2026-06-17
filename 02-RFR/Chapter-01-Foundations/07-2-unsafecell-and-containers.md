@@ -35,30 +35,14 @@ UnsafeCell  → 共享路径下也可能写 → 禁止错误优化
 
 ---
 
-## 三、`RefCell` 结构概要
+## 三、Cell vs RefCell：谁有计数器？
 
-```text
-RefCell<T> { borrow_flag, value: UnsafeCell<T> }
-```
+| | `Cell` | `RefCell` |
+|---|--------|-----------|
+| 计数器 | **无** | **有** `BorrowFlag` |
+| 互斥手段 | 不产引用，只 `Copy` | 运行时模拟 `&` / `&mut` |
 
-| API | 规则 |
-|-----|------|
-| `.borrow()` | 多读可共存 |
-| `.borrow_mut()` | 读计数=0 且无写 |
-
-**`let` 约束**：绑定不换；盒内 `borrow_mut`。栈上 `RefCell::new(10)` 常见；`Rc<RefCell<T>>` 时盒在堆。
-
-```rust
-let x = RefCell::new(10);
-let r1 = x.borrow();
-// x.borrow_mut();  // panic
-drop(r1);
-*x.borrow_mut() = 20;
-```
-
-C++ 类比：`int* const` — 指针不可改指向，内容可改；`RefCell` 多运行时互斥。
-
-→ API / 选型 / 对照表见 [07.3](./07-3-cell-vs-refcell.md)
+→ 完整原理 [07.3 计数器与 UnsafeCell 内部机制](./07-3-cell-vs-refcell.md)
 
 ---
 

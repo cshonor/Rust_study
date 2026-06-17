@@ -9,7 +9,7 @@
 ```text
 07.1  外部 mut vs 内部可变 · 为何需要 · 容器路线图
 07.2  UnsafeCell opt-out · Cell/RefCell/Mutex 速查 · RefCell 结构
-07.3  Cell=get/set/Copy · RefCell=borrow/任意T · 选型
+07.3  Cell=无计数器/拷贝 · RefCell=BorrowFlag/同铁律 · 底层 UnsafeCell
 07.4  &self 计数 · Rc<RefCell<T>> · 细粒度字段 · 多句柄
 07.5  对比表 · 误区 · 三句话总纲
 ```
