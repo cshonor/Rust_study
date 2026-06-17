@@ -2,6 +2,8 @@
 
 > 所属：**Great Responsibility** · [← 章索引](./README.md)
 
+← [07 Panic 与不变式](./07-panics.md) · 下一节 [09 Drop 检查](./09-drop-check.md)
+
 ## `#[repr(Rust)]`
 
 **不保证**字段顺序与布局；`Foo<A>` 与 `Foo<B>` 不能假设可安全 **`transmute`**。
