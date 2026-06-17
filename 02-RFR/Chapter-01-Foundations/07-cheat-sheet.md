@@ -10,7 +10,7 @@
 07.1  外部 mut vs 内部可变 · 为何需要 · 容器路线图
 07.2  UnsafeCell opt-out · Cell/RefCell/Mutex 速查 · RefCell 结构
 07.3  Cell=无计数器 · get=拷贝/set=原地覆盖 · RefCell=BorrowFlag
-07.4  &self 计数 · Rc<RefCell<T>> · 细粒度字段 · 多句柄
+07.4  编译期卡写 vs RefCell 运行时校验 · &self/动态生命周期/细粒度
 07.5  对比表 · 误区 · 三句话总纲
 ```
 
@@ -18,7 +18,7 @@
 
 1. **外部**：编译期看 `mut`。  
 2. **内部**：外层 `let`，盒内 `Cell`/`RefCell`。  
-3. **`RefCell`**：多读或一写，冲突 panic。
+3. **`RefCell`**：规则同 `&`/`&mut`，但修改代码能编译、冲突运行时 panic。
 
 ## 选型
 
