@@ -2,6 +2,8 @@
 
 > 所属：**Coping with Fear** · [← 章索引](./README.md)
 
+← [11 文档](./11-documentation.md) · 下一节 [13 小结](./13-summary.md)
+
 ## Miri
 
 ```bash

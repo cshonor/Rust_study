@@ -2,6 +2,8 @@
 
 > 所属：**Coping with Fear** · [← 章索引](./README.md)
 
+← [10 管理边界](./10-manage-boundaries.md) · 下一节 [12 验证工作](./12-check-your-work.md)
+
 每个 `unsafe` 块前用 **`// SAFETY:`**（或 crate 约定）写明：
 
 - 调用者 / 维护者须保证的前提
