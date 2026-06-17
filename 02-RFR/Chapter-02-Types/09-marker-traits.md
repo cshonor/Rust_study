@@ -44,7 +44,7 @@ fn takes_slice(s: &str) {}      // str 是 !Sized，通过引用使用
 fn takes_dyn(e: &dyn Error) {} // trait 对象同理
 ```
 
-→ DST 详解：[04 DST 与宽指针](./04-dst-wide-pointers.md)
+→ DST 详解：[04.1 DST 基础](./04-1-dst-basics.md) · [04.3 dyn/vtable](./04-3-dyn-vtable.md)
 
 ---
 
@@ -159,7 +159,7 @@ unsafe impl Sync for MyRawPtrWrapper {}
 |----|------|
 | **场景** | FFI 裸指针包装、自定义无锁结构、跨线程 OS 句柄 |
 | **含义** | 开发者向编译器担保线程安全；违反 → **UB** |
-| **孤儿规则** | 仍须类型或 trait 至少一方本地 → [07 孤儿规则](./07-coherence-orphan-rule.md) |
+| **孤儿规则** | 仍须类型或 trait 至少一方本地 → [07.1 孤儿规则](./07-1-orphan-rule.md) |
 
 `Copy`、`Sized` 几乎不手动 `unsafe impl` — 用 `#[derive(Copy, Clone)]` 或语言内置规则。
 

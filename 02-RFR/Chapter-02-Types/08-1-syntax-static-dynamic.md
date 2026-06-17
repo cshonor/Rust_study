@@ -91,7 +91,7 @@ fn h(e: &dyn Error) {
 | 开销 | 间接调用 + 通常无法跨调用内联 |
 | 适用 | 集合存多种实现：`Vec<Box<dyn Error>>` |
 
-→ DST / 宽指针：[04 DST](./04-dst-wide-pointers.md) · [05.1 动态分发](./05-1-static-vs-dynamic.md)
+→ DST / 宽指针：[04 hub](./04-dst-wide-pointers.md) · [04.3 dyn](./04-3-dyn-vtable.md) · [05.1 动态分发](./05-1-static-vs-dynamic.md)
 
 ---
 
