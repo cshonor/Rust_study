@@ -2,6 +2,10 @@
 
 > 所属：**Great Responsibility** · [← 章索引](./README.md)
 
+← [06 有效性](./06-validity.md) · 下一节 [08 转换](./08-casting.md)
+
+> **Panic ≠ UB** — panic 是明确定义的终止；[06 Validity](./06-validity.md) 违反才是无保证行为。
+
 维护复杂不变式（如手动改 `Vec` 的 `len` 再逐元素初始化）时，若中间调用可能 **panic** 的用户代码：
 
 - 栈展开可能触发 **`Drop` 于不一致状态**
