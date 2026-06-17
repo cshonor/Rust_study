@@ -9,7 +9,7 @@
 ```text
 §4.1  main: 0→REPL · 1→runFile · >1→exit(64) · 有错 exit(65)
        runFile / REPL · hadError · error(line) → report · 有错不执行残缺代码
-§4.2  Lexeme = 文本片段 · Token = 类型 + 字面量 + 行号
+§4.2  Lexeme = 纯文本片段 · Token = type + lexeme + literal + line · Parser 只吃 Token
 §4.4  start / current / line
 §4.5  switch 单字符 · 词法错误继续扫 · match 双字符
 §4.6  // 注释 · 字符串 · double · peekNext
