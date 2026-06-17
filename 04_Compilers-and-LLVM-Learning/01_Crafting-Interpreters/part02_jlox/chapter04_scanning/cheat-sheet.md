@@ -7,7 +7,8 @@
 ## 本章速记
 
 ```text
-§4.1  runFile / REPL / error(line)
+§4.1  main: 0→REPL · 1→runFile · >1→exit(64) · 有错 exit(65)
+       runFile / REPL · hadError · error(line) → report · 有错不执行残缺代码
 §4.2  Lexeme = 文本片段 · Token = 类型 + 字面量 + 行号
 §4.4  start / current / line
 §4.5  switch 单字符 · 词法错误继续扫 · match 双字符
@@ -34,6 +35,7 @@
 
 ## 自测 / Challenges（可选）
 
+- [ ] 说明 jlox 退出码 **64** / **65** 与 REPL 下 `hadError` 重置策略。
 - [ ] 画 `Scanner` 在 `"var x = 1.5; // hi\n"` 上的 `start/current/line` 变化。
 - [ ] 列举 3 个需 **lookahead** 的 Lox 词素。
 - [ ] 说明 **maximal munch** 若不用，关键字 `or` 与标识符 `orchid` 会如何冲突。
