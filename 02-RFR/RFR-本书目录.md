@@ -38,7 +38,7 @@
 | 主节 | 子节 / 笔记 |
 |------|-------------|
 | **Types in Memory** | [01 对齐](Chapter-02-Types/01-alignment.md) · [02 布局](Chapter-02-Types/02-layout.md) · [03 复合类型](Chapter-02-Types/03-complex-types.md) · [04 DST 与宽指针](Chapter-02-Types/04-dst-wide-pointers.md) |
-| **Traits and Trait Bounds** | [05 编译与分发](Chapter-02-Types/05-compilation-dispatch.md) · [06 泛型 Trait](Chapter-02-Types/06-generic-traits.md) · [07 相干性与孤儿规则](Chapter-02-Types/07-coherence-orphan-rule.md) · [08 Trait 限定](Chapter-02-Types/08-trait-bounds.md) · [09 标记 Trait](Chapter-02-Types/09-marker-traits.md) |
+| **Traits and Trait Bounds** | [05 编译与分发](Chapter-02-Types/05-compilation-dispatch.md)（[05.1](Chapter-02-Types/05-1-static-vs-dynamic.md)～[05.4](Chapter-02-Types/05-4-selection-hft.md)）· [06 泛型 Trait](Chapter-02-Types/06-generic-traits.md) · [07 相干性与孤儿规则](Chapter-02-Types/07-coherence-orphan-rule.md) · [08 Trait 限定](Chapter-02-Types/08-trait-bounds.md)（[08.1](Chapter-02-Types/08-1-syntax-static-dynamic.md)～[08.3](Chapter-02-Types/08-3-examples-pitfalls.md)）· [09 标记 Trait](Chapter-02-Types/09-marker-traits.md) |
 | **Existential Types** | [10 存在类型](Chapter-02-Types/10-existential-types.md) |
 | **Summary** | [11 小结](Chapter-02-Types/11-summary.md) |
 

@@ -4,7 +4,7 @@
 
 Trait 里描述「类型关系」有两种核心机制：**关联类型** vs **泛型 trait 参数** — 适用场景和设计直觉完全不同。
 
-前置 → [05 编译与分发](./05-compilation-dispatch.md) · 存在类型 → [10 impl Trait](./10-existential-types.md)
+前置 → [05 编译与分发](./05-compilation-dispatch.md)（[05.1](./05-1-static-vs-dynamic.md)）· 存在类型 → [10 impl Trait](./10-existential-types.md)
 
 ---
 

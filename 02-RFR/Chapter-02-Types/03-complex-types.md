@@ -121,7 +121,7 @@ Option<T> 的联合体大小 = size_of::<T>()
 | `Option<String>` | `T = String` | **String 结构体大小**（x86_64 通常 24 B） |
 
 每种不同的 `T` → **单态化**出一份 layout 不同的枚举 → **运行时大小不变**（已在编译期定死）。  
-跨文件、相同 `T` 全 crate **复用**同一份 layout。→ [05 单态化与内存](./05-compilation-dispatch.md#二单态化与内存不同-t--不同类型)
+跨文件、相同 `T` 全 crate **复用**同一份 layout。→ [05.2 单态化与内存](./05-2-monomorphization-memory.md)
 
 **一句话**：充当载荷的联合体，其内存大小 = 编译器在编译阶段根据你实际使用的**具体 `T`** 算出来的结果。
 

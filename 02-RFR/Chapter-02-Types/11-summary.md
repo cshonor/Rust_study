@@ -28,6 +28,6 @@ Existential Types（impl Trait）
 | # | 文件 |
 |---|------|
 | 01–04 | Types in Memory → [01](./01-alignment.md) … [04](./04-dst-wide-pointers.md) |
-| 05–09 | Traits and Trait Bounds → [05](./05-compilation-dispatch.md) … [09](./09-marker-traits.md) |
+| 05–09 | Traits and Trait Bounds → [05 hub](./05-compilation-dispatch.md)（[05.1](./05-1-static-vs-dynamic.md)～[05.4](./05-4-selection-hft.md)）· [06](./06-generic-traits.md) · [07](./07-coherence-orphan-rule.md) · [08 hub](./08-trait-bounds.md)（[08.1](./08-1-syntax-static-dynamic.md)～[08.3](./08-3-examples-pitfalls.md)）· [09](./09-marker-traits.md) |
 | 10 | [存在类型](./10-existential-types.md) |
 | 11 | 本文件 |

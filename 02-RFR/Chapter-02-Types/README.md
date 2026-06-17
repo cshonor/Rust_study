@@ -10,14 +10,14 @@
 | 主节 | 英文 | 子节 / 笔记 |
 |------|------|-------------|
 | **1** | Types in Memory | [01 对齐](./01-alignment.md) · [02 布局](./02-layout.md) · [layout-demo](./layout-demo/) · [03 复合类型](./03-complex-types.md) · [04 DST 与宽指针](./04-dst-wide-pointers.md) |
-| **2** | Traits and Trait Bounds | [05 编译与分发](./05-compilation-dispatch.md) · [06 泛型 Trait](./06-generic-traits.md) · [07 相干性与孤儿规则](./07-coherence-orphan-rule.md) · [orphan-rule-demo](./orphan-rule-demo/) · [08 Trait 限定](./08-trait-bounds.md) · [trait-bounds-demo](./trait-bounds-demo/) · [09 标记 Trait](./09-marker-traits.md) |
+| **2** | Traits and Trait Bounds | [05 编译与分发](./05-compilation-dispatch.md)（[05.1](./05-1-static-vs-dynamic.md)～[05.4](./05-4-selection-hft.md) · [05 速记](./05-cheat-sheet.md)）· [06 泛型 Trait](./06-generic-traits.md) · [07 相干性与孤儿规则](./07-coherence-orphan-rule.md) · [orphan-rule-demo](./orphan-rule-demo/) · [08 Trait 限定](./08-trait-bounds.md)（[08.1](./08-1-syntax-static-dynamic.md)～[08.3](./08-3-examples-pitfalls.md) · [08 速记](./08-cheat-sheet.md) · [trait-bounds-demo](./trait-bounds-demo/)）· [09 标记 Trait](./09-marker-traits.md) |
 | **3** | Existential Types | [10 存在类型](./10-existential-types.md) |
 | **4** | Summary | [11 小结](./11-summary.md) |
 
 ## 阅读顺序
 
 ```text
-01 → … → 11
+01 → … → 04 → 05 → 05.1 → 05.2 → 05.3 → 05.4 → 06 → 07 → 08 → 08.1 → 08.2 → 08.3 → 09 → 10 → 11
 ```
 
 ## 与 The Book / ER / 04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 对照

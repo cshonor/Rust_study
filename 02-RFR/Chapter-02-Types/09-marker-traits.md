@@ -2,7 +2,7 @@
 
 > 所属：**Traits and Trait Bounds** · [← 章索引](./README.md)
 
-前置 → [08 Trait 限定](./08-trait-bounds.md) · [04 DST 与宽指针](./04-dst-wide-pointers.md) · 下一节 → [10 存在类型](./10-existential-types.md)
+前置 → [08 Trait 限定](./08-trait-bounds.md)（[08.1](./08-1-syntax-static-dynamic.md)）· [04 DST 与宽指针](./04-dst-wide-pointers.md) · 下一节 → [10 存在类型](./10-existential-types.md)
 
 ---
 
