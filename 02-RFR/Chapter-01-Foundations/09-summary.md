@@ -33,5 +33,5 @@ Borrowing and Lifetimes（& / &mut / 内部可变 / 生命周期与方差）
 | 04 | [所有权](./04-ownership.md)（[04.1](./04-1-three-rules.md)～[04.6](./04-6-pitfalls.md)） |
 | 05 | [共享引用](./05-shared-references.md) |
 | 06 | [可变引用](./06-mutable-references.md) |
-| 07 | [内部可变性](./07-interior-mutability.md) |
+| 07 | [内部可变性](./07-interior-mutability.md) · [07.1](./07-1-external-vs-interior.md) · [07.3 Cell/RefCell](./07-3-cell-vs-refcell.md) |
 | 08 | [生命周期](./08-lifetimes.md) |

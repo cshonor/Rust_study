@@ -1,8 +1,8 @@
-# 3.3.1 · Cell\<T\> 与 RefCell\<T\> 完整详解
+# 3.3.3 · Cell\<T\> 与 RefCell\<T\> 完整详解
 
 > 所属：**Borrowing and Lifetimes · 内部可变性** · [← 07 hub](./07-interior-mutability.md)
 
-← [07 内部可变性总览](./07-interior-mutability.md) · 下一节 → [08 生命周期](./08-lifetimes.md)
+← [07.2 UnsafeCell](./07-2-unsafecell-and-containers.md) · 下一节 [07.4 应用场景](./07-4-use-cases.md)
 
 ---
 
@@ -12,9 +12,7 @@
 
 - 外层常用 `let`（绑定不可变），仍可改**盒内**数据；
 - 借用检查从**编译期**部分转移到**运行时**（`RefCell`）或靠 **Copy 规避借用**（`Cell`）；
-- 共同底层：**`UnsafeCell<T>`** — 语言唯一允许 opt-out 静态「`&T` 永不修改」假设的类型。
-
-→ 总览 [07 §零～§二](./07-interior-mutability.md)
+- 共同底层：**`UnsafeCell<T>`** — 见 [07.2](./07-2-unsafecell-and-containers.md)
 
 ---
 
@@ -74,7 +72,6 @@ fn main() {
 ### 6. 典型场景
 
 - 简单**计数器**、标志位（`Cell<bool>`）
-- `Rc` 内嵌小 Copy 字段（不如 `RefCell` 常见，但可行）
 - 图算法里「访问标记」等只需整体替换的 `Copy` 状态
 
 ---
@@ -95,16 +92,11 @@ fn main() {
 | `.try_borrow()` | `Result<Ref<T>, _>` | 失败返回 `Err`，**不 panic** |
 | `.try_borrow_mut()` | `Result<RefMut<T>, _>` | 同上 |
 
-`Ref` / `RefMut` 是**智能守卫**：析构时自动减少计数（类似 `drop(r1)`）。
+`Ref` / `RefMut` 析构时自动减少计数。
 
 ### 3. 工作原理
 
 ```text
-RefCell {
-    borrow_state:  RUNNING 时统计  读+ / 写独占标记
-    value:         UnsafeCell<T>
-}
-
 borrow()      → 若无活跃写，读计数 +1
 drop(Ref)     → 读计数 -1
 borrow_mut()  → 读计数必须为 0 且无写；否则 panic
@@ -129,7 +121,7 @@ fn main() {
 
     let r1 = s.borrow();
     let r2 = s.borrow();
-    println!("{} {}", r1, r2);   // ✅ 多读共存
+    println!("{} {}", r1, r2);
 
     drop(r1);
     drop(r2);
@@ -169,10 +161,10 @@ match cell.try_borrow_mut() {
 
 ## 四、底层共性
 
-1. **`std::cell`** — **单线程**；多线程用 `Mutex`/`RwLock`（`Sync`）。  
+1. **`std::cell`** — **单线程**；多线程用 `Mutex`/`RwLock`。  
 2. **内部可变性** — 外层 `let` 不换绑，改盒内。  
-3. **`UnsafeCell<T>`** — 安全封装在容器内，用户不直接碰。  
-4. **不替代 `let mut`** — 无共享句柄、路径清晰时优先外部可变（编译期、零开销）。
+3. **`UnsafeCell<T>`** — 安全封装在容器内。  
+4. **不替代 `let mut`** — 路径清晰时优先外部可变。
 
 ---
 
@@ -186,13 +178,7 @@ Rc 多所有者共享写（单线程）         →  Rc<RefCell<T>>
 能 let mut + &mut，无 &self 约束    →  不用 cell，优先外部可变
 ```
 
-| 组合 | 用途 |
-|------|------|
-| `Cell<u32>` in `&self` 方法 | 轻量计数 |
-| `RefCell<Vec<_>>` | 共享句柄下推元素 |
-| `Rc<RefCell<T>>` | 图、树、多指针改同一节点 |
-
-→ 场景展开 [07 §五](./07-interior-mutability.md#五三大核心场景)
+→ 场景代码 [07.4](./07-4-use-cases.md)
 
 ---
 
@@ -200,25 +186,15 @@ Rc 多所有者共享写（单线程）         →  Rc<RefCell<T>>
 
 | 误区 | 纠正 |
 |------|------|
-| Cell/RefCell = 随便乱改 | `Cell` 靠拷贝无冲突；`RefCell` 运行时仍互斥，违规 **panic** 非 UB |
-| 可替代所有 `let mut` | 能静态检查时用 **`let mut`** 更安全、零开销 |
-| `Cell` 能存 `String` | **编译失败** — `String` 非 `Copy` |
-| `RefCell` 多线程安全 | 仅单线程；跨线程 → `Mutex` |
-| `get()` 拿到内部引用 | `Cell` 只有**值副本**，无 `&T` 指向盒内 |
+| Cell/RefCell = 随便乱改 | `RefCell` 违规 **panic** 非 UB |
+| 可替代所有 `let mut` | 优先 **`let mut`** 编译期检查 |
+| `Cell` 能存 `String` | **编译失败** — 非 `Copy` |
+| `RefCell` 多线程安全 | 跨线程 → `Mutex` |
+| `get()` 拿到内部引用 | `Cell` 只有**值副本** |
 
 ---
 
-## 七、与外部可变性一句话
-
-| | **外部 `let mut` + `&mut`** | **`Cell`** | **`RefCell`** |
-|---|---------------------------|------------|---------------|
-| 检查 | 编译期 | 无借用检查 | 运行时借用 |
-| 冲突 | 编译错误 | 无（拷贝） | panic |
-| 何时优先 | 默认首选 | 小 Copy + `&self` | 复杂 `T` + `&self` / `Rc` |
-
----
-
-## 八、速记
+## 七、速记
 
 1. **`Cell`：Copy only，`get`/`set`，永不 panic。**  
 2. **`RefCell`：任意 T，`borrow`/`borrow_mut`，冲突 panic。**  
@@ -230,7 +206,6 @@ Rc 多所有者共享写（单线程）         →  Rc<RefCell<T>>
 
 - [ ] 为什么 `Cell` 不需要借用计数？  
 - [ ] `RefCell<String>` 如何用 `push_str` 而不整体 `set`？  
-- [ ] 何时选 `try_borrow_mut` 而不是 `borrow_mut`？  
 - [ ] `Rc<RefCell<T>>` 解决了哪两个独立问题？
 
-→ 返回 [07 内部可变性总览](./07-interior-mutability.md) · 下一节 [08 生命周期](./08-lifetimes.md)
+→ 下一节：[07.4 应用场景](./07-4-use-cases.md)

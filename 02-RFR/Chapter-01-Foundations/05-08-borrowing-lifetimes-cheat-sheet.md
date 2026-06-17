@@ -70,5 +70,5 @@
 
 - [ ] 能写 NLL 示例：`&s` 用后立刻 `&mut s`
 - [ ] 能解释 `&mut T` 对 `T` 为何必须不变
-- [ ] 能区分 `Cell` / `RefCell` / `Mutex`（详表 [07.1](./07-1-cell-vs-refcell.md)）
+- [ ] 能区分 `Cell` / `RefCell` / `Mutex`（[07.3](./07-3-cell-vs-refcell.md) · [07 速记](./07-cheat-sheet.md)）
 - [ ] 能说出 `&T` 与 `&mut` 的 LLVM 假设差异
