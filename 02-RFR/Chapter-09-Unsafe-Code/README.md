@@ -10,7 +10,7 @@
 | 主节 | 英文 | 子节 / 笔记 |
 |------|------|-------------|
 | **1** | The unsafe Keyword | [01 unsafe 关键字](./01-unsafe-keyword.md)（双重角色 · 五类超能力 · 借用仍生效） |
-| **2** | Great Power | [02 裸指针](./02-raw-pointers.md) · [03 调用 unsafe 函数](./03-calling-unsafe-functions.md) · [04 unsafe trait](./04-unsafe-traits.md) |
+| **2** | Great Power | [02 裸指针](./02-raw-pointers.md)（`*const`/`*mut` · `NonNull` · niche） · [03 调用 unsafe 函数](./03-calling-unsafe-functions.md) · [04 unsafe trait](./04-unsafe-traits.md) |
 | **3** | Great Responsibility | [05 什么会出错](./05-what-can-go-wrong.md) · [06 有效性](./06-validity.md) · [07 Panic](./07-panics.md) · [08 转换](./08-casting.md) · [09 Drop 检查](./09-drop-check.md) |
 | **4** | Coping with Fear | [10 管理边界](./10-manage-boundaries.md) · [11 文档](./11-documentation.md) · [12 验证工作](./12-check-your-work.md) |
 | **5** | Summary | [13 小结](./13-summary.md) |
