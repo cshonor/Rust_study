@@ -58,11 +58,13 @@
 
 ### 容器分类
 
-| 场景 | 容器 |
-|------|------|
-| 单线程 · `Copy` 小值 | `Cell<T>` |
-| 单线程 · 通用 | **`RefCell<T>`**（本节重点） |
-| 多线程 | `Mutex<T>` · `RwLock<T>` |
+| 场景 | 容器 | 详解 |
+|------|------|------|
+| 单线程 · `Copy` 小值 | `Cell<T>` | [07.1](./07-1-cell-vs-refcell.md) |
+| 单线程 · 通用 | `RefCell<T>` | [07.1](./07-1-cell-vs-refcell.md) |
+| 多线程 | `Mutex<T>` · `RwLock<T>` | [07](./07-interior-mutability.md#四标准库容器速查) |
+
+→ **`Cell` vs `RefCell` 完整对比**：[07.1 Cell 与 RefCell](./07-1-cell-vs-refcell.md)
 
 ---
 
@@ -81,83 +83,28 @@ UnsafeCell  → 声明「共享路径下也可能写」，禁止错误优化
 
 ---
 
-## 三、`RefCell<T>` 深度拆解
+## 三、`RefCell<T>` 概要
 
-### 1. 逻辑结构（概念）
+> 与 `Cell<T>` 的 API、选型、对照表 → **[07.1 完整详解](./07-1-cell-vs-refcell.md)**
 
-```text
-RefCell<T> {
-    borrow_flag:  运行时借用状态（读计数 / 是否在写）
-    value:        UnsafeCell<T>   // 真实业务数据
-}
-```
+`RefCell` = `borrow_flag` + `UnsafeCell<T>`，运行时模拟「多读或一写」；违规 **panic**（非 UB）。
 
-**自带读写门禁计数器的盒子** — 编译器不再对 `T` 做静态借用检查，由 `borrow_flag` 在运行时模拟规则。
+| 方法 | 规则 |
+|------|------|
+| `.borrow()` | 多读可共存 |
+| `.borrow_mut()` | 读计数=0 且无写 |
 
-### 2. 内存与 `let` 约束（指针对齐你的思路）
+**`let` 约束**：绑定不换；盒内用 `borrow_mut`。栈上 `RefCell::new(10)` 常见；`Rc<RefCell<T>>` 时盒在堆。
 
 ```rust
 let x = RefCell::new(10);
+let r1 = x.borrow();
+// x.borrow_mut();  // panic
+drop(r1);
+*x.borrow_mut() = 20;
 ```
 
-| 层级 | 典型布局 | `let x` 约束什么 |
-|------|----------|------------------|
-| **栈上 `x`** | `RefCell<i32>` 整盒常在栈上 | **绑定不可变**：不能 `x = RefCell::new(99)` 换一整盒 |
-| **盒内 `T`** | `UnsafeCell` 里的 `10` | 不靠外部 `mut`；用 `borrow` / `borrow_mut` 改 |
-
-```rust
-let x = Rc::new(RefCell::new(10));
-```
-
-| 层级 | 布局 |
-|------|------|
-| 栈上 | `Rc` 指针（`let` 锁的是指针绑定） |
-| 堆上 | `RefCell` + 内部 `T`（`Rc` 分配） |
-
-**关键**：`let` 锁的是 **「`x` 这个绑定/指针不能换指向」**，不是锁死盒内数字；盒内修改走 `borrow_mut()`。
-
-> 纠正常见说法：`RefCell::new(10)` **默认在栈上**，不是必然堆分配；**堆**出现在 `Rc<RefCell<T>>` / `Box<RefCell<T>>` 等组合里。
-
-### 3. 三个核心 API · 运行时规则
-
-| 方法 | 作用 | 规则 |
-|------|------|------|
-| `.borrow()` | `Ref<T>` 共享读 | 无活跃写时可调用；**多个读可共存** |
-| `.borrow_mut()` | `RefMut<T>` 独占写 | **读计数=0 且无写** 才可；独占 |
-| 违规 | — | 不编译报错 → **运行 panic**（已有 `Ref` 时再 `borrow_mut` 等） |
-
-```rust
-use std::cell::RefCell;
-
-fn main() {
-    let x = RefCell::new(10);
-
-    let r1 = x.borrow();
-    let r2 = x.borrow();        // ✅ 多读共存
-    println!("{}", r1);
-
-  // let w = x.borrow_mut();    // ❌ 运行 panic：仍有活跃 Ref
-
-    drop(r1);
-    drop(r2);
-
-    let mut w = x.borrow_mut(); // ✅ 无活跃借用
-    *w = 20;
-    println!("{}", x.borrow());  // 20
-}
-```
-
-**对比**：外部 `mut` → **编译**报错；`RefCell` 违规 → **运行** panic。
-
-### 4. C++ 思维对齐（`int* const`）
-
-```cpp
-int* const box = new int(10);
-// box = 别的地址;   // ❌ 指针顶层 const（≈ Rust let x）
-*box = 20;             // ✅ 改指向内容（≈ borrow_mut）
-```
-
-差异：C++ 无运行时读写互斥 → 数据竞争 = UB；`RefCell` 用计数器，违规 **panic**。
+C++ 类比：`int* const` 指针不可改指向，`*box` 可改内容 — `RefCell` 多了运行时互斥。
 
 ---
 
@@ -220,39 +167,24 @@ struct Cache {
 
 ---
 
-## 六、更多代码示例
+## 六、代码示例索引
 
-### `Cell` — 无内部引用
-
-```rust
-use std::cell::Cell;
-
-let data = Cell::new(0);
-let shared = &data;
-shared.set(10);
-println!("{}", shared.get());
-```
-
-### 多句柄同一 `RefCell`
+| 主题 | 位置 |
+|------|------|
+| `Cell` get/set/replace | [07.1 §一](./07-1-cell-vs-refcell.md) |
+| `RefCell` borrow / String | [07.1 §二](./07-1-cell-vs-refcell.md) |
+| `try_borrow_mut` | [07.1 §二](./07-1-cell-vs-refcell.md) |
+| 多句柄 `RefCell` | 下文 |
 
 ```rust
 let data = RefCell::new(5);
 let r1 = &data;
 let r2 = &data;
-
 {
     let _a = r1.borrow_mut();
     // let _b = r2.borrow_mut(); // ❌ panic
 }
-let _c = r2.borrow(); // ✅ 上一段 mut 已结束
-```
-
-### `RefCell` + 非 `Copy` 类型
-
-```rust
-let cell = RefCell::new(vec![1, 2, 3]);
-let mut w = cell.borrow_mut();
-w.push(4);
+let _c = r2.borrow();
 ```
 
 ---
@@ -305,6 +237,7 @@ w.push(4);
 
 ## 对照阅读
 
+- 子节 → **[07.1 Cell 与 RefCell](./07-1-cell-vs-refcell.md)**
 - 前置 → [05 共享引用](./05-shared-references.md) · [06 可变引用](./06-mutable-references.md)
 - 速记 → [05-08-borrowing-lifetimes-cheat-sheet.md](./05-08-borrowing-lifetimes-cheat-sheet.md)
 - Book → [15.5 RefCell 与内部可变性](../../00-Book/15-smart-pointers/15.5-RefCell与内部可变性.md)

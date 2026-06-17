@@ -37,7 +37,7 @@
 | 场景 | 选用 |
 |------|------|
 | 单线程、独占修改清晰 | `&mut T` / `let mut` |
-| 多 `&` 句柄、单线程改内部 | `RefCell<T>` |
+| 多 `&` 句柄、单线程改内部 | `RefCell<T>`（复杂 T）或 `Cell<T>`（Copy 小值） |
 | `Copy` 小值、不要内部引用 | `Cell<T>` |
 | 多线程共享改 | `Mutex<T>` / `RwLock<T>` |
 
@@ -70,5 +70,5 @@
 
 - [ ] 能写 NLL 示例：`&s` 用后立刻 `&mut s`
 - [ ] 能解释 `&mut T` 对 `T` 为何必须不变
-- [ ] 能区分 `Cell` / `RefCell` / `Mutex`
+- [ ] 能区分 `Cell` / `RefCell` / `Mutex`（详表 [07.1](./07-1-cell-vs-refcell.md)）
 - [ ] 能说出 `&T` 与 `&mut` 的 LLVM 假设差异

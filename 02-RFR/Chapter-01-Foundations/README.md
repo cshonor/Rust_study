@@ -11,13 +11,13 @@
 |------|------|-------------|
 | **1** | Talking About Memory | [01 内存术语](./01-memory-terminology.md) · [02 变量深入](./02-variables-in-depth.md) · [03 内存区域](./03-memory-regions.md)（[03.1 Rust 模型](./03-1-rust-memory-model.md) · [03.2 OS/LLVM 布局](./03-2-os-memory-layout.md)） |
 | **2** | Ownership | [04 所有权](./04-ownership.md)（[04.1](./04-1-three-rules.md) · [04.2](./04-2-move-copy-clone.md) · [04.3](./04-3-drop.md) · [04.4](./04-4-drop-order.md) · [04.5](./04-5-refs-and-panic.md) · [04.6](./04-6-pitfalls.md)） |
-| **3** | Borrowing and Lifetimes | [05](./05-shared-references.md) · [06](./06-mutable-references.md) · [07](./07-interior-mutability.md) · [08](./08-lifetimes.md) · [05–08 速记](./05-08-borrowing-lifetimes-cheat-sheet.md) |
+| **3** | Borrowing and Lifetimes | [05](./05-shared-references.md) · [06](./06-mutable-references.md) · [07](./07-interior-mutability.md)（[07.1 Cell/RefCell](./07-1-cell-vs-refcell.md)）· [08](./08-lifetimes.md) · [05–08 速记](./05-08-borrowing-lifetimes-cheat-sheet.md) |
 | **4** | Summary | [09 小结](./09-summary.md) |
 
 ## 阅读顺序
 
 ```text
-01 → 02 → 03 → 03.1 → 03.2 → 04 → 05 → 06 → 07 → 08 → 09
+01 → 02 → 03 → 03.1 → 03.2 → 04 → 05 → 06 → 07 → 07.1 → 08 → 09
 ```
 
 （03 为索引；03.1 Safe Rust 三分类，03.2 OS/LLVM 五分区 — 可按需跳过 03.2。）
