@@ -2,6 +2,8 @@
 
 > 所属：**Great Responsibility** · [← 章索引](./README.md)
 
+← [08 转换](./08-casting.md) · 下一节 [10 管理边界](./10-manage-boundaries.md)
+
 编译器分析类型是否**安全地 drop**（无自引用、无未初始化字段被 drop 等）。
 
 ## 与 unsafe 的交界
