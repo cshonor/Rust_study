@@ -11,8 +11,9 @@ Source Code（源码）
     ↑ 上山 · 前端
     Scanning / Lexing     → Tokens
     Parsing               → AST
-    （语义分析 / 优化等）  → 常在此后进入 IR
+    Static Analysis       → 绑定 / 类型检查 / 符号表
     Intermediate Rep (IR) → 便于优化与后端
+    Optimization          → 等价改写 IR
     ↓ 下山 · 后端
     Code Generation       → 机器码或字节码
     Virtual Machine       → 可选：跨平台执行字节码
@@ -426,6 +427,8 @@ Token: EOF only  →  AST: 空程序（零语句）
 
 ### §2.1.3 中间表示（Intermediate Representations, IR）
 
+> **原书编号 §2.1.4**；原书 §2.1.3 静态分析见 [§2.1.4](#241-静态分析static-analysis)。
+
 | 项目 | 说明 |
 |------|------|
 | **位置** | 流水线**第三步**（接在 Parsing / 语义分析之后） |
@@ -628,50 +631,534 @@ jlox 树遍历 = §2.2 捷径之一
 
 **本仓库**：RFR [05 编译与分发](../../../../02-RFR/Chapter-02-Types/05-compilation-dispatch.md) · [03-2 OS/LLVM 内存布局](../../../../02-RFR/Chapter-01-Foundations/03-2-os-memory-layout.md)（`alloca`/heap 常出现在 LLVM IR 层）
 
-→ 下一节：[代码生成（Code Generation）](#代码生成code-generation)
+→ 下一节：[§2.1.4 静态分析](#241-静态分析static-analysis)
 
 ---
 
-### 代码生成（Code Generation）
+### §2.1.4 静态分析（Static Analysis）
 
-- 进入后端 **「下山」**：表示越来越**原始**。
-- 产出 CPU（或 VM）能执行的**底层指令**。
+> **原书编号 §2.1.3** · 流水线位置：Parsing **之后**、Lowering 到 IR **之前**（概念上在 §2.1.3 IR 降维之前）。
 
-**路径分支**：
-
-| 目标 | 结果 |
+| 项目 | 说明 |
 |------|------|
-| 直接生成**机器码** | 快，但绑定具体芯片 |
-| 生成**字节码** + VM | 可移植（见 §2.1.7） |
+| **位置** | 前端末段 / **middle end** 入口 |
+| **输入** | **AST**（只有语法形状） |
+| **输出** | 带语义信息的 AST、**符号表**，或更低层 IR |
+| **核心动作** | **Binding / 类型检查 / 作用域解析** |
+| **不做** | 生成机器码、运行程序 |
 
-**本书对应**：Part III clox 从 **ch17 Compiling Expressions** 起把 AST/语法编译为字节码。
+**Parsing 之后仍不知道什么**
+
+```lox
+print a + b;
+```
+
+Parser 只得到 `Print(Binary(+, Var(a), Var(b)))` — **`a`、`b` 是谁？在哪定义？什么类型？** 静态分析回答这些。
+
+---
+
+#### 例子 1 · 名字绑定（Binding / Resolution）
+
+**源码：**
+
+```lox
+var x = 1;
+{
+  print x;
+}
+```
+
+**分析结果（概念）：**
+
+```text
+符号表:
+  x → 全局槽 #0  （或当前环境 depth=0, slot=0）
+
+AST 节点 Var("x") 附加属性:
+  resolved: Global #0
+  或 distance: 1, slot: 0   （jlox ch11 Resolver）
+```
+
+**jlox**：`Resolver` 遍历 AST，给每个 `Var` 写入 **upvalue distance** → 运行时不再按名字查找。
+
+→ [jlox ch11 Resolving and Binding](../../part02_jlox/chapter11_resolving-and-binding/README.md)
+
+---
+
+#### 例子 2 · 作用域错误（静态报错）
+
+**源码：**
+
+```lox
+{
+  print inner;
+  var inner = 1;
+}
+```
+
+| 阶段 | 结果 |
+|------|------|
+| Scanner / Parser | ✅ 语法合法 |
+| **静态分析** | ❌ `inner` 在声明前使用 — **语义错误** |
+
+**Rust 对照：**
+
+```rust
+let x = y;  // ❌ 编译期：cannot find value `y`
+let y = 1;
+```
+
+---
+
+#### 例子 3 · 类型检查（静态类型语言）
+
+**Lox** — **动态类型**，静态分析阶段**不做**完整类型检查；`"hi" + 3` AST 合法，**运行时才报错**。
+
+**Rust** — **静态类型**，同一阶段拒绝：
+
+```rust
+let s: &str = "hi";
+let n: u32 = s + 3;   // ❌ 编译期 type mismatch
+```
+
+| | **Lox / Python 风格** | **Rust / C 风格** |
+|---|----------------------|-------------------|
+| 类型 | 运行时查 | **编译期**查 |
+| 静态分析重点 | 绑定、闭包捕获 | 绑定 + **类型** + 借用（MIR 上 borrowck） |
+
+---
+
+#### 例子 4 · 信息存哪
+
+| 方式 | 例子 |
+|------|------|
+| **AST 节点附加字段** | `Var.resolved_slot` · `Expr.ty` |
+| **符号表（side table）** | `HashMap<Ident, Decl>` |
+| **换成新 IR** | AST → HIR/MIR（Rust）— 语义更直白 |
+
+```text
+Parser:     AST（空语义字段）
+Resolver:   AST + distance/slot
+Typeck:     AST/HIR + 每个 expr 的 Ty
+Lowering:   → §2.1.3 IR
+```
+
+---
+
+#### 例子 5 · 前端 / middle end / 后端（原书分界）
+
+```text
+Scan · Parse · Static Analysis     ← 前端（+ 部分 middle end）
+IR · Optimization                  ← middle end
+Code Gen · VM                      ← 后端
+Runtime                            ← 运行期
+```
+
+**「编译之山」山顶**：静态分析完成时，编译器对程序**语义**有完整鸟瞰，再开始「下山」降 IR、优化、出码。
+
+---
+
+#### 例子 6 · 易错边界（自测用）
+
+**1. 静态分析 ≠ 优化** — 前者**理解**程序；后者在保持语义下**改写**程序。
+
+**2. jlox 树遍历仍要做 Resolver** — 静态分析不必等 IR；可在 AST 上完成。
+
+**3. `a + b` 类型兼容** — Lox 运行期；Rust `i32 + &str` 编译期挂。
+
+---
+
+**一句话**：静态分析给 AST **填语义** — 谁是谁、能否相加、变量在哪；**仍属编译期**，不产生可执行文件。
+
+**本书对应**：jlox **ch11 Resolver** · clox 在编译期做 **Upvalue 解析**（ch22 等）
+
+**本仓库**：Rust borrowck → [Nomicon 03 Lifetime](../../../../03-Rust_Nomicon/03_Lifetime_Variance/README.md) · BYOC **`type` 包**
+
+→ 下一节：[§2.1.5 优化](#251-优化optimization)
+
+---
+
+### §2.1.5 优化（Optimization）
+
+> **原书编号 §2.1.5** · 流水线位置：已有 IR（§2.1.3）且理解语义（§2.1.4）**之后**，代码生成 **之前**。
+
+| 项目 | 说明 |
+|------|------|
+| **输入** | **IR**（或带类型的 AST/HIR） |
+| **输出** | 语义等价、**更高效**的 IR |
+| **核心动作** | 在**不改变程序含义**前提下改写 |
+| **典型 Pass** | 常量折叠、死代码消除、内联、循环展开 |
+
+```text
+IR（未优化）  →  Pass₁  →  Pass₂  →  …  →  IR（优化后）  →  §2.1.6 代码生成
+```
+
+---
+
+#### 例子 1 · 常量折叠（原书经典）
+
+**源码：**
+
+```c
+pennyArea = 3.14159 * (0.75 / 2) * (0.75 / 2);
+```
+
+**优化后（编译期算完）：**
+
+```c
+pennyArea = 0.4417860938;
+```
+
+**clox IR 对照** — `print 2 + 3;`：
+
+```text
+未优化:  OP_CONSTANT 2 · OP_CONSTANT 3 · OP_ADD
+优化后:  OP_CONSTANT 5
+```
+
+→ 已在 [§2.1.3 例子 4](#例子-4--常量折叠优化发生在-ir-上)
+
+---
+
+#### 例子 2 · 死代码消除（DCE）
+
+**源码：**
+
+```rust
+fn foo() -> i32 {
+    let dead = expensive();
+    42
+}
+```
+
+**优化后 IR**：若 `dead` 无副作用，`expensive()` 调用可被 **DCE** 删掉 — 用户仍得到 `42`。
+
+---
+
+#### 例子 3 · 内联（Inlining）
+
+**源码：**
+
+```rust
+#[inline]
+fn sq(x: i32) -> i32 { x * x }
+let y = sq(5);
+```
+
+**优化后（概念）**：`let y = 5 * 5;` — 省掉 call 开销，利于后续常量折叠。  
+**HFT 热路径**：静态分发 + 内联 → 接近手写 C（RFR ch2 · `impl Trait` / 单态化）。
+
+→ [05 编译与分发](../../../../02-RFR/Chapter-02-Types/05-compilation-dispatch.md)
+
+---
+
+#### 例子 4 · LLVM O0 vs O3
+
+同一 Rust 函数，`llvm-opt` 级别不同 → IR/机器码差异巨大：
+
+| 级别 | 典型行为 |
+|------|----------|
+| **O0** | 少优化，便于调试，体积大 |
+| **O3** | 积极内联、向量化、DCE |
+
+→ [04 Learn LLVM 17 · ch07 IR 优化](../../../04_Learn-LLVM-17/part02_src_to_machine/chapter07_ir_optimize/README.md) · `ir_samples/optimize_compare/`
+
+---
+
+#### 例子 5 · 本书对优化的态度
+
+| 路线 | 优化在哪做 |
+|------|------------|
+| **Lua / CPython** | 编译期 IR **较朴素**；性能靠 **runtime**（JIT、专用结构） |
+| **clox 全书** | 编译期字节码 **几乎不优化**；**ch30** 才做 **VM 实现层**微优化（NaN boxing、哈希探测） |
+| **Rust + LLVM** | 大量优化在 **LLVM Pass**（middle end） |
+
+**区分**：
+
+```text
+编译期优化  = 改 IR / 机器码（本节）
+运行期优化  = clox ch30 · JVM JIT · PGO
+```
+
+---
+
+#### 例子 6 · 易错边界（自测用）
+
+**1. 优化必须保持语义** — 不能 `2+3` _fold 成 `6` 若会改变溢出行为（语言规则约束）。
+
+**2. 没 IR 也能做少量优化** — AST 上常量折叠；但工业级 Pass 多针对 **SSA IR**。
+
+**3. `-C opt-level=0` 不是「没编译」** — 仍 codegen，只是 Pass 少。
+
+---
+
+**一句话**：优化 = **等价改写 IR**，让后面的代码生成产出更快/更小的机器码；**仍属编译期**。
+
+**本书对应**：概念本节 · clox **ch30 Optimization**（VM 侧）· LLVM **04 ch07**
+
+→ 下一节：[§2.1.6 代码生成](#261-代码生成code-generation)
+
+---
+
+### §2.1.6 代码生成（Code Generation）
+
+> **原书编号 §2.1.6** · 流水线 **后端下山**：IR → 可执行形式。
+
+| 项目 | 说明 |
+|------|------|
+| **输入** | 优化后的 **IR** |
+| **输出** | **机器码** 或 **字节码** |
+| **核心动作** | 把中间表示**映射**到目标指令集 |
+| **关键决策** | **真 CPU** vs **假想 VM**（字节码） |
+
+```text
+IR  →  Code Generator  →  机器码（ELF）  或  字节码（Chunk）
+```
+
+---
+
+#### 例子 1 · 两条后端路线
+
+| 路线 | 产出 | 谁执行 | 本书 / Rust |
+|------|------|--------|-------------|
+| **AOT 原生** | x86-64 / ARM 机器码 | **OS 加载 → CPU 直跑** | **Rust** · `rustc` + LLVM |
+| **字节码 + VM** | `OP_*` 指令流 | **VM 解释**（或 JIT） | **clox** · JVM · CPython |
+
+```text
+                    ┌─→ 机器码 ─→ CPU
+优化后 IR ── CodeGen ┤
+                    └─→ 字节码 ─→ VM（§2.1.7）
+```
+
+---
+
+#### 例子 2 · clox：表达式 → 字节码（接 §2.1.3）
+
+**源码：** `1 + 2 * 3`
+
+**CodeGen（ch17 `emit`）产出：**
+
+```text
+OP_CONSTANT 0    ; 1
+OP_CONSTANT 1    ; 2
+OP_CONSTANT 2    ; 3
+OP_MULTIPLY
+OP_ADD
+OP_RETURN
+```
+
+编译器 **递归遍历语法结构**，对每个子表达式 emit，再 emit 组合 opcode — 不是 CPU 汇编，但是 **clox 的后端 codegen**。
+
+→ [ch17 Emitting Bytecode](../../part03_clox/chapter17_compiling-expressions/03-emitting-bytecode.md)
+
+---
+
+#### 例子 3 · Rust / LLVM：IR → 机器码（概念）
+
+**LLVM IR：**
+
+```llvm
+define i32 @add(i32 %a, i32 %b) {
+entry:
+  %sum = add i32 %a, %b
+  ret i32 %sum
+}
+```
+
+**Codegen 后（x86-64 概念 · 极度简化）：**
+
+```asm
+add:
+    lea  eax, [rdi + rsi]   ; 或 add edi, esi 等，视 calling convention
+    ret
+```
+
+**链接**：多个 `.o` + std/Tokio **已编译的机器码** → 单一 **ELF** 可执行文件。
+
+→ [05 编译期 LLVM vs Runtime](./05-compile-time-llvm-vs-runtime.md)
+
+---
+
+#### 例子 4 · 原生 code gen 的代价
+
+| 优点 | 缺点 |
+|------|------|
+| **最快**（无 VM 解释层） | 指令集复杂（x86 历史包袱） |
+| OS 直接 `exec` | **绑定架构** — x86 二进制不能直接在 ARM 跑 |
+| HFT 默认路线 | 编译器后端开发量大 → 故用 **LLVM** |
+
+**1960s 对策**：不生成真机器码 → 生成 **p-code / bytecode**（§2.1.7 VM）。
+
+---
+
+#### 例子 5 · BYOC cbc 对照
+
+```text
+cbc IR  →  codegen 包  →  x86 汇编文本  →  汇编器  →  机器码
+```
+
+→ [03 BYOC · 四阶段编译](../../../03_Build-Your-Own-Compiler/chapter01_start/02-four-compiler-stages.md)
+
+---
+
+#### 例子 6 · 易错边界（自测用）
+
+**1. CodeGen ≠ Runtime** — 生成代码是**编译期**；GC/async 调度是**运行期**。
+
+**2. 字节码也是 code gen 产物** — 只是目标 ISA 是 **假想栈机**，不是 x86。
+
+**3. `cargo build` 已含 codegen** — 不是只到 IR 为止。
+
+**4. JIT** — 运行期再做 code gen（§2.2.4 捷径）；AOT 在 build 时完成。
+
+---
+
+**一句话**：代码生成 = **把 IR 翻译成能跑的形式** — 要么 CPU 机器码，要么给 VM 的字节码。
+
+**本书对应**：clox **ch17～24**（编译各类语法到 Chunk）· **04 LLVM** 后端 · **03 BYOC** x86 发射
+
+→ 下一节：[§2.1.7 虚拟机](#217-虚拟机virtual-machine)
 
 ---
 
 ### §2.1.7 虚拟机（Virtual Machine）
 
-- 若只生成**某一芯片**的机器码 → 语言**丧失跨平台**。
-- 常见解法：针对**假想芯片**设计**便携式指令** → **字节码（Bytecode）**。
-- 用**软件模拟**的执行引擎 = **虚拟机**。
+> **原书编号 §2.1.7** · 仅 **字节码路线**需要；原生机器码路线跳过本节。
 
-**本书对应**：Part III 全程 **`clox`** = 字节码 + VM（ch14～15 起）。
+| 项目 | 说明 |
+|------|------|
+| **输入** | **字节码 Chunk**（§2.1.6 产出） |
+| **输出** | 程序执行结果 |
+| **核心动作** | **模拟**假想指令集 — fetch-decode-execute 循环 |
+| **替代方案** | 字节码 **AOT 转 native**（每架构一个小后端，仍复用前端） |
 
-**本仓库联想**：JVM / WASM / Python VM；RFR 第 8 章 async 状态机与「解释执行循环」可类比 VM 主循环。
+---
+
+#### 例子 1 · VM 主循环（clox）
+
+```c
+for (;;) {
+  uint8_t op = *vm.ip++;
+  switch (op) {
+    case OP_ADD:      /* pop 2, push sum */ break;
+    case OP_RETURN:   return;
+  }
+}
+```
+
+```text
+ip 指向 Chunk.code  →  读 opcode  →  改栈  →  ip++
+```
+
+→ [ch15 指令执行机](../../part03_clox/chapter15_a-virtual-machine/01-an-instruction-execution-machine.md)
+
+---
+
+#### 例子 2 · 执行 `1 + 2 * 3` 的栈变化
+
+```text
+OP_CONSTANT 1   stack: [1]
+OP_CONSTANT 2   stack: [1, 2]
+OP_CONSTANT 3   stack: [1, 2, 3]
+OP_MULTIPLY     stack: [1, 6]
+OP_ADD          stack: [7]
+OP_RETURN
+```
+
+---
+
+#### 例子 3 · VM vs 原生
+
+| | **VM 解释** | **原生机器码** |
+|---|-------------|----------------|
+| 速度 | 较慢（每条 opcode 用 C 模拟） | 快 |
+| 移植 | **同一份字节码**跨平台 | 每架构一份二进制 |
+| 本书 | **clox** | Rust 默认 |
+
+**JIT 折中**：HotSpot / V8 运行期把热点字节码 **再 codegen** 成机器码（§2.2.4）。
+
+---
+
+#### 例子 4 · 易错边界
+
+**1. VM 是 Runtime 组件，不是 LLVM** — 字节码在 build 时生成；VM 在 `./app` 时运行。
+
+**2. JVM / Python / clox 都是 VM 路线** — Rust 默认不是。
+
+---
+
+**一句话**：VM = **软件实现的 CPU**，专门执行你的字节码。
+
+**本书对应**：Part III **clox ch14～15** 起 · ch30 VM 微优化
+
+→ 下一节：[§2.1.8 运行时](#218-运行时runtime)
 
 ---
 
 ### §2.1.8 运行时（Runtime）
 
-- 程序**真正跑起来**后的支撑层。
-- 职责示例：
-  - 动态**类型检查**
-  - **垃圾回收（GC）** 等内存服务
-  - 内置函数、模块加载等
+> **原书编号 §2.1.8** · 程序**被加载执行后**才活跃的服务层。
 
-**本书对应**：jlox 借 **Java GC**；clox **ch26 Garbage Collection** 自实现 GC。
+| 项目 | 说明 |
+|------|------|
+| **何时** | OS 加载二进制 **之后** |
+| **职责** | GC、动态类型检查、`instanceof`、模块加载、**async 调度**… |
+| **代码从哪来** | 同样经 **§2.1.6 codegen** 编进二进制，或住在 **VM 进程**里 |
 
-**本仓库**：RFR 第 1 章内存区域 · 第 9～10 章 unsafe/并发 · **Nomicon** 布局与有效性。
+---
 
-→ **Rust/HFT 分层对照**（上山前端 + 下山后端 · `no_std` · `dyn` · FFI）：[04-rust-hft-编译流水线对照.md](./04-rust-hft-编译流水线对照.md)
+#### 例子 1 · 两类部署
+
+| | **编译进可执行文件** | **住在 VM 里** |
+|---|---------------------|----------------|
+| **例子** | Go runtime · Rust std · clox 内嵌 GC 代码 | Java HotSpot · CPython 解释器 |
+| **启动** | `_start` → runtime init → `main` | `java` / `python` 先启 VM，再加载字节码 |
+
+---
+
+#### 例子 2 · clox Runtime 服务
+
+| 服务 | 章节 |
+|------|------|
+| **值表示 / 动态类型** | ch18 |
+| **堆分配** | ch19 |
+| **GC Mark-Sweep** | ch26 |
+| **方法 / 闭包 / 类** | ch24～28 |
+
+```lox
+class A {}
+var o = A();
+print o;           // 运行期：类型标签、分配、toString
+```
+
+→ [ch26 GC](../../part03_clox/chapter26_garbage-collection/README.md)
+
+---
+
+#### 例子 3 · jlox vs Rust
+
+| | **jlox** | **Rust** |
+|---|----------|----------|
+| GC | 借 **Java GC** | 无 GC（所有权） |
+| 动态类型 | 运行期查 `+` 两侧类型 | 编译期已定 |
+| 「Runtime」 | JVM + jlox 解释器 | 极薄 **std** + 可选 **Tokio**（库级） |
+
+---
+
+#### 例子 4 · 易错边界
+
+**1. Runtime 源码也经 LLVM 编译** — 见 [05 编译期 LLVM vs Runtime](./05-compile-time-llvm-vs-runtime.md)
+
+**2. Runtime ≠ VM** — VM 执行字节码；Runtime 是更广的「运行期服务」集合（GC、调度等），可重叠。
+
+**3. `no_std`** — 刻意剥离大部分 Rust runtime 服务。
+
+---
+
+**一句话**：Runtime = 程序跑起来后的**管家**（内存、类型、调度）；与 **LLVM 翻译官**（编译期）彻底分开。
+
+**本书对应**：jlox 借 Java runtime · clox **ch18～26** · Rust [RFR 第 1 章内存](../../../../02-RFR/Chapter-01-Foundations/README.md)
+
+→ **Rust/HFT 分层对照**：[04-rust-hft-编译流水线对照.md](./04-rust-hft-编译流水线对照.md) · [05 编译期 LLVM vs Runtime](./05-compile-time-llvm-vs-runtime.md)
 
 ---
