@@ -153,6 +153,8 @@ Rust 源码
 
 → [03-a-map-of-the-territory.md](./03-a-map-of-the-territory.md)
 
+→ **LLVM 与 Runtime 彻底分开**：[05-compile-time-llvm-vs-runtime.md](./05-compile-time-llvm-vs-runtime.md)
+
 ---
 
 ## 三句背诵
