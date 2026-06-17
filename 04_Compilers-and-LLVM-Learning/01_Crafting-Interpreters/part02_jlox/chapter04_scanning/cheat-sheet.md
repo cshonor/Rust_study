@@ -11,7 +11,7 @@
        runFile / REPL · hadError · error(line) → report · 有错不执行残缺代码
 §4.2  Lexeme = 纯文本片段 · Token = type + lexeme + literal + line · Parser 只吃 Token
 §4.3  Scanner 四步循环 · 词法=正则 · 嵌套=CFG/Parser · Flex vs 手写
-§4.4  start / current / line
+§4.4  start/current/line · substring(start,current) · peek vs advance · List+EOF
 §4.6  // 注释 · 字符串 · double · peekNext
 §4.7  maximal munch · Map 查保留字
 ```
