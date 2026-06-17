@@ -2,6 +2,10 @@
 
 > 所属：**Great Responsibility** · [← 章索引](./README.md)
 
+← [05 什么会出错](./05-what-can-go-wrong.md) · 下一节 [07 Panic](./07-panics.md)
+
+前置 → [05 三大契约](./05-what-can-go-wrong.md)
+
 类型对「哪些位模式算合法值」有约束：
 
 | 类型 | 约束直觉 |
