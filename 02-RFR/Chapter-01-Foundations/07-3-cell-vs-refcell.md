@@ -149,38 +149,106 @@ struct Cell<T> {
 
 ### 2. 设计逻辑：不产生引用，全程拷贝
 
-仅 **`T: Copy`**：
+仅 **`T: Copy`**（`i32`、`bool`、`char` 等）— **无借用计数器**，永不 panic，与 `RefCell` 运行时计数完全不同。
 
 | 操作 | 行为 |
 |------|------|
 | `.get()` | **拷贝**一份 `T` 给你 — 不是 `&T` |
 | `.set(v)` | 用新副本**整体覆盖**盒内 |
-| `.replace(v)` | `set` + 返回旧值副本 |
+| `.replace(v)` | 先拷贝出旧值，再原地覆盖 |
 
 ```text
 读：拿走副本，盒内仍在
 写：整体覆盖，没有「悬浮的 &T」指向旧数据
-→ 不存在「读引用还活着就去写」→ 不需要计数器 → 永不 panic
+→ 不需要计数器 → 永不 panic
 ```
 
-### 3. 底层同样 `UnsafeCell` + 库内 `unsafe`
+### 3. `.get()` / `.set()` / `.replace()` 内存怎么变？
 
-`set` 时在标准库 `unsafe` 块里通过裸指针写 `UnsafeCell` 内的 `T`；对外 `get`/`set` 仍是 Safe。
+`Cell` 本体（含 `UnsafeCell<T>`）常在**栈上**（`let c = Cell::new(10)`）；下面「Cell 内部」指 **托管 `T` 的那块内存**，不是另开一层堆。
 
-### 4. 示例
+#### `.get()` — 拷贝出新副本，内部原值不动
+
+```rust
+let c = Cell::new(10);
+let a = c.get();
+```
+
+| 步骤 | 内存 |
+|------|------|
+| 1 | `Cell` 内仍是 `10`，**原地不动** |
+| 2 | `.get()` **按位拷贝**一份 `10` 到栈上新变量 `a` |
+| 3 | `a` 与 Cell 内是**两份独立**的 `T`；改 `a` 不影响 Cell |
+
+✅ **`.get()` = 复制出新空间（新变量），Cell 内部不变。**
+
+```rust
+let mut a = c.get();  // 要改副本须 mut
+a = 99;               // 只改 a，c 里仍是 10
+```
+
+#### `.set(新值)` — 原地覆盖 Cell 内部，不保留旧值副本
+
+```rust
+let c = Cell::new(10);
+c.set(20);
+```
+
+| 步骤 | 内存 |
+|------|------|
+| 1 | 参数 `20` 是传入的 **Copy 副本** |
+| 2 | 标准库在 `unsafe` 里对 `UnsafeCell` 内内存 **原地写入** `20` |
+| 3 | 旧值 `10` 被**覆盖销毁**（`Copy` 类型无 drop 副作用）；**不会**另开一块存旧值 |
+
+✅ **`.set()` = 原地覆盖 Cell 内 `T` 的内存，无旧值留存。**
+
+#### `.replace(新值)` — 覆盖 + 返回旧值副本
+
+```rust
+let old = c.replace(20);
+```
+
+1. **先** `get` 式拷贝出旧值 `10` → 赋给 `old`  
+2. **再** `set` 式原地覆盖内部为 `20`
+
+### 4. 一眼看懂：完整流程
 
 ```rust
 use std::cell::Cell;
 
-let num = Cell::new(10);
-num.set(20);
-println!("{}", num.get());
+fn main() {
+    // Cell 内：10
+    let cell = Cell::new(10);
 
-let old = num.replace(30);
-println!("旧值：{}，新值：{}", old, num.get());
+    // get：拷贝 10 → x；cell 内仍是 10
+    let mut x = cell.get();
+    println!("x={}, cell={}", x, cell.get()); // 10, 10
+    x = 99;                                    // 只改副本
+    println!("x={}, cell={}", x, cell.get()); // 99, 10
+
+    // set：cell 内原地 10 → 20
+    cell.set(20);
+    println!("cell={}", cell.get()); // 20
+}
 ```
 
-### 5. 适用与代价
+### 5. 为何这么设计就能不要计数器
+
+1. **不返回引用** — `get` 只给副本，外部没有指向 Cell 内部的 `&T`  
+2. **`set` 原地覆盖** — 覆盖时没有活跃引用指着旧位，无悬垂、无读写共存  
+3. **无引用 → 无借用冲突 → 不需要 `BorrowFlag`**
+
+### 6. 底层同样 `UnsafeCell` + 库内 `unsafe`
+
+`set` / `replace` 在标准库 `unsafe` 块里写 `UnsafeCell` 内 `T`；`get` 读拷贝亦经 `unsafe` 读内部；对外 API 仍 **Safe**。
+
+### 7. 一句话
+
+- **`.get()`**：复制出新副本，Cell 内原值不变。  
+- **`.set()`**：原地覆盖 Cell 内内存，旧值被覆盖掉。  
+- **`.replace()`**：先拷贝旧值给你，再 `set` 新值。
+
+### 8. 适用与代价
 
 | 优点 | 缺点 |
 |------|------|
@@ -199,7 +267,7 @@ println!("旧值：{}，新值：{}", old, num.get());
 | 读写铁律 | 天然无引用冲突 | 与 `&`/`&mut` **相同**：多读 XOR 单写 |
 | 违规后果 | 无此类违规 | **panic**（非 UB） |
 | 底层 | `UnsafeCell` + 库内 `unsafe` | 同上 + 计数器 |
-| 能否产生引用 | ❌ 仅拷贝 | ✅ `Ref` / `RefMut` |
+| 读写内存语义 | `get`=拷贝副本；`set`=原地覆盖 | `borrow`=共享读；`borrow_mut`=独占写 |
 | `T` 限制 | `Copy` | 任意 |
 
 ---
