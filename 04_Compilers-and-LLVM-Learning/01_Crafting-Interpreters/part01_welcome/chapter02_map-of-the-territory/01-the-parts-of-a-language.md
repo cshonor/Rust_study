@@ -1023,73 +1023,201 @@ cbc IR  →  codegen 包  →  x86 汇编文本  →  汇编器  →  机器码
 
 ### §2.1.7 虚拟机（Virtual Machine）
 
-> **原书编号 §2.1.7** · 仅 **字节码路线**需要；原生机器码路线跳过本节。
+> **原书编号 §2.1.7** · 仅 **字节码路线**需要；Rust 等原生 AOT 路线**跳过**本节。
 
 | 项目 | 说明 |
 |------|------|
+| **位置** | **运行期** — OS 已加载含 VM 代码的二进制 |
 | **输入** | **字节码 Chunk**（§2.1.6 产出） |
-| **输出** | 程序执行结果 |
-| **核心动作** | **模拟**假想指令集 — fetch-decode-execute 循环 |
-| **替代方案** | 字节码 **AOT 转 native**（每架构一个小后端，仍复用前端） |
+| **输出** | 栈顶结果 / 副作用（print、IO） |
+| **核心动作** | **Fetch–Decode–Execute** 循环，模拟假想 CPU |
+| **不做** | 词法/语法分析、LLVM 优化（均属编译期） |
+
+**为何需要 VM**
+
+§2.1.6 若只生成 **x86 机器码** → 换 ARM 要重编整个后端。  
+**Bytecode + VM** → **同一份 Chunk** 在任何实现了 clox VM 的平台上跑。
+
+```text
+编译期:  源码 → … → Chunk 字节码（磁盘上的 .lox 脚本或内嵌）
+运行期:  VM.interpret(chunk)  →  fetch-decode-execute 循环
+```
 
 ---
 
-#### 例子 1 · VM 主循环（clox）
+#### 例子 1 · VM 与真 CPU 的对照
+
+| | **真 CPU** | **clox VM** |
+|---|------------|-------------|
+| 程序计数器 | **PC / RIP** | **`ip`**（Instruction Pointer） |
+| 指令 | x86 机器码字节 | **`OP_ADD`** 等 opcode |
+| 寄存器/栈 | 硬件寄存器 + 调用栈 | **软件 `Value stack`** |
+| 译码执行 | 硅片电路 | C 里 **`switch(op)`** 或 computed goto |
 
 ```c
+// clox run() 骨架
 for (;;) {
-  uint8_t op = *vm.ip++;
-  switch (op) {
-    case OP_ADD:      /* pop 2, push sum */ break;
-    case OP_RETURN:   return;
+  uint8_t instruction = *vm.ip++;
+  switch (instruction) {
+    case OP_CONSTANT: /* 读索引 → 常量池 → push */ break;
+    case OP_ADD:      /* pop b, pop a → push a+b */ break;
+    case OP_RETURN:   return INTERPRET_OK;
   }
 }
 ```
 
-```text
-ip 指向 Chunk.code  →  读 opcode  →  改栈  →  ip++
-```
-
-→ [ch15 指令执行机](../../part03_clox/chapter15_a-virtual-machine/01-an-instruction-execution-machine.md)
+→ [ch15 §15.1 指令执行机](../../part03_clox/chapter15_a-virtual-machine/01-an-instruction-execution-machine.md)
 
 ---
 
-#### 例子 2 · 执行 `1 + 2 * 3` 的栈变化
+#### 例子 2 · 栈式 VM 执行 `1 + 2 * 3`（逐步）
+
+**Chunk（接 §2.1.6）：**
 
 ```text
-OP_CONSTANT 1   stack: [1]
-OP_CONSTANT 2   stack: [1, 2]
-OP_CONSTANT 3   stack: [1, 2, 3]
-OP_MULTIPLY     stack: [1, 6]
-OP_ADD          stack: [7]
+OP_CONSTANT 0   ; 常量池[0]=1
+OP_CONSTANT 1   ; 常量池[1]=2
+OP_CONSTANT 2   ; 常量池[2]=3
+OP_MULTIPLY
+OP_ADD
 OP_RETURN
 ```
 
----
+| 步骤 | opcode | 栈（底→顶） | 说明 |
+|:----:|--------|-------------|------|
+| 1 | `CONST 0` | `[1]` | push 1 |
+| 2 | `CONST 1` | `[1, 2]` | push 2 |
+| 3 | `CONST 2` | `[1, 2, 3]` | push 3 |
+| 4 | `MULTIPLY` | `[1, 6]` | pop 3,2 → push 6 |
+| 5 | `ADD` | `[7]` | pop 6,1 → push 7 |
+| 6 | `RETURN` | — | 结束，返回值 7 |
 
-#### 例子 3 · VM vs 原生
+**为何用栈**：二元运算只需「两个操作数在栈顶 + 一条 opcode」— 与 **JVM、Forth、RPN 计算器** 同族。
 
-| | **VM 解释** | **原生机器码** |
-|---|-------------|----------------|
-| 速度 | 较慢（每条 opcode 用 C 模拟） | 快 |
-| 移植 | **同一份字节码**跨平台 | 每架构一份二进制 |
-| 本书 | **clox** | Rust 默认 |
-
-**JIT 折中**：HotSpot / V8 运行期把热点字节码 **再 codegen** 成机器码（§2.2.4）。
-
----
-
-#### 例子 4 · 易错边界
-
-**1. VM 是 Runtime 组件，不是 LLVM** — 字节码在 build 时生成；VM 在 `./app` 时运行。
-
-**2. JVM / Python / clox 都是 VM 路线** — Rust 默认不是。
+→ [ch15 §15.2 值栈](../../part03_clox/chapter15_a-virtual-machine/02-a-value-stack-manipulator.md)
 
 ---
 
-**一句话**：VM = **软件实现的 CPU**，专门执行你的字节码。
+#### 例子 3 · 反汇编：把 Chunk 当黑盒看清
 
-**本书对应**：Part III **clox ch14～15** 起 · ch30 VM 微优化
+**Lox 源码：**
+
+```lox
+print 1.2;
+```
+
+**disassemble 输出（概念）：**
+
+```text
+0000  1 OP_CONSTANT    0 '1.2'
+0002     OP_PRINT
+0003     OP_RETURN
+```
+
+| 字段 | 作用 |
+|------|------|
+| `0000` | **偏移** — 对应 `ip` 指向的位置 |
+| `1` | **行号** — 报错定位 |
+| `OP_CONSTANT 0` | opcode + 操作数（常量池索引） |
+
+调试 VM：**先 disassemble，再单步看栈** — 与 gdb 看汇编类似。
+
+→ [ch14 §14.4 反汇编](../../part03_clox/chapter14_chunks-of-bytecode/03-disassembling-chunks.md)
+
+---
+
+#### 例子 4 · 函数调用与 CallFrame（VM 变复杂）
+
+**源码：**
+
+```lox
+fun add(a, b) {
+  return a + b;
+}
+print add(1, 2);
+```
+
+**运行期 VM 结构（概念）：**
+
+```text
+VM
+├── stack[]          操作数 + 局部变量共用窗口
+├── frames[]         CallFrame 栈
+│     └── frame: { chunk, ip, slot offset }
+└── ip 在当前 frame 的 chunk 内推进
+```
+
+**`OP_CALL` 时**：新 `CallFrame` 入栈；参数已在栈上 → **零拷贝** 作为被调函数局部 slot；`ip` 切到函数 Chunk。
+
+→ [ch24 Call Frames](../../part03_clox/chapter24_calling-and-closures/03-call-frames.md)
+
+---
+
+#### 例子 5 · 三条执行路线对照
+
+| 路线 | 执行引擎 | 本书 / 生态 |
+|------|----------|-------------|
+| **树遍历** | 递归 Visitor 走 AST | **jlox** — 无 VM |
+| **字节码解释** | VM `switch` 循环 | **clox** |
+| **原生机器码** | CPU 直接跑 | **Rust** 默认 |
+| **JIT** | 运行期把热点 bytecode → 机器码 | JVM HotSpot · V8 · LuaJIT |
+
+```text
+jlox:   AST ──Visitor──→ 结果
+clox:   Chunk ──VM──→ 结果
+Rust:   机器码 ──CPU──→ 结果
+JVM:    .class ──解释/JIT──→ 结果
+```
+
+**JIT**（§2.2.4）：编译期仍产出 bytecode；**运行期**再 codegen — 兼顾移植与速度。
+
+---
+
+#### 例子 6 · VM 性能与 ch30 优化
+
+| 瓶颈 | 原因 | clox ch30 对策 |
+|------|------|----------------|
+| **`switch` 分发** | 间接分支、难 inline | **computed goto**（GCC 扩展） |
+| **Value 装箱** | 类型标签 + 堆分配 | **NaN boxing** |
+| **哈希探测** | 全局变量/表查找 | 优化探测序列 |
+
+**要点**：ch30 优化的是 **VM 实现**，不是 Lox 语言语义；字节码 opcode **不变**。
+
+→ [ch30 Optimization](../../part03_clox/chapter30_optimization/README.md)
+
+---
+
+#### 例子 7 · 现代 VM 生态（延伸）
+
+| VM | 「字节码」形态 | 典型宿主 |
+|----|----------------|----------|
+| **clox** | 自有 `OP_*` | 嵌入 C 程序 |
+| **JVM** | `.class` bytecode | `java` 命令 |
+| **CPython** | `.pyc` | `python` 解释器 |
+| **WASM** | `.wasm` 模块 | 浏览器 / Wasmtime |
+| **Lua** | Lua bytecode | `lua` / embedding |
+
+**WASM**：假想栈机 + 沙箱 — 与 clox 同一抽象层，目标从「跑 Lox」变成「浏览器可移植」。
+
+---
+
+#### 例子 8 · 易错边界（自测用）
+
+**1. VM ≠ LLVM** — VM 在 `./clox script.lox` 时跑；LLVM 在 `gcc/clox 编译` 时跑。
+
+**2. 字节码不是机器码** — `OP_ADD` 只是约定数字；CPU 只认 x86/ARM opcode。
+
+**3. jlox 没有 VM** — Part II 树遍历；别把所有「解释器」都叫 VM。
+
+**4. VM 本身是用 C 写的机器码** — VM 程序被 CPU 执行，VM **再模拟** Lox 指令（两层）。
+
+**5. Rust 没有 Lox 式 VM** — `async` 状态机是编译期变换，不是字节码解释 loop。
+
+---
+
+**一句话**：VM = **用 C（或 Rust）写的假 CPU**，在运行期读 Chunk、改栈、调 runtime 服务。
+
+**本书对应**：Part III **ch14～15** 奠基 · **ch17～24** 丰富指令 · **ch30** VM 微优化
 
 → 下一节：[§2.1.8 运行时](#218-运行时runtime)
 
@@ -1097,68 +1225,207 @@ OP_RETURN
 
 ### §2.1.8 运行时（Runtime）
 
-> **原书编号 §2.1.8** · 程序**被加载执行后**才活跃的服务层。
+> **原书编号 §2.1.8** · 程序**真正执行起来**后，语言实现必须提供的**服务层**（常与 VM 重叠，但概念更广）。
 
 | 项目 | 说明 |
 |------|------|
-| **何时** | OS 加载二进制 **之后** |
-| **职责** | GC、动态类型检查、`instanceof`、模块加载、**async 调度**… |
-| **代码从哪来** | 同样经 **§2.1.6 codegen** 编进二进制，或住在 **VM 进程**里 |
+| **何时** | OS `exec` / 用户启动 `java`·`python`·`./clox` **之后** |
+| **输入** | 已加载的机器码或 bytecode + VM 状态 |
+| **输出** | 程序行为（IO、计算、副作用） |
+| **核心动作** | 内存管理、动态语义、内置 API、调度 |
+| **代码来源** | **同样经编译期 codegen** 链入二进制（或随 VM 进程常驻） |
 
----
-
-#### 例子 1 · 两类部署
-
-| | **编译进可执行文件** | **住在 VM 里** |
-|---|---------------------|----------------|
-| **例子** | Go runtime · Rust std · clox 内嵌 GC 代码 | Java HotSpot · CPython 解释器 |
-| **启动** | `_start` → runtime init → `main` | `java` / `python` 先启 VM，再加载字节码 |
-
----
-
-#### 例子 2 · clox Runtime 服务
-
-| 服务 | 章节 |
-|------|------|
-| **值表示 / 动态类型** | ch18 |
-| **堆分配** | ch19 |
-| **GC Mark-Sweep** | ch26 |
-| **方法 / 闭包 / 类** | ch24～28 |
-
-```lox
-class A {}
-var o = A();
-print o;           // 运行期：类型标签、分配、toString
+```text
+编译期:  runtime 源码 ──LLVM/gcc──→ 机器码 ──链接──→ 可执行文件
+运行期:  OS 加载 ──→ runtime 初始化 ──→ 你的 main/脚本逻辑
 ```
 
-→ [ch26 GC](../../part03_clox/chapter26_garbage-collection/README.md)
+→ 对照 [05 编译期 LLVM vs Runtime](./05-compile-time-llvm-vs-runtime.md)
 
 ---
 
-#### 例子 3 · jlox vs Rust
+#### 例子 1 · 启动链：谁最先跑
 
-| | **jlox** | **Rust** |
-|---|----------|----------|
-| GC | 借 **Java GC** | 无 GC（所有权） |
-| 动态类型 | 运行期查 `+` 两侧类型 | 编译期已定 |
-| 「Runtime」 | JVM + jlox 解释器 | 极薄 **std** + 可选 **Tokio**（库级） |
+**Rust 原生（极简）：**
+
+```text
+OS loader
+  → _start (crt0)
+  → __libc_start_main / rust runtime 薄层
+  → main()
+```
+
+**clox REPL：**
+
+```text
+./clox
+  → C runtime (libc)
+  → main() 初始化 VM、注册 native 函数
+  → interpret(chunk)  进入 VM 循环
+```
+
+**Java：**
+
+```text
+java MyApp
+  → JVM 进程启动（HotSpot runtime 已是机器码）
+  → 类加载 → bytecode 解释/JIT
+  → MyApp.main()
+```
 
 ---
 
-#### 例子 4 · 易错边界
+#### 例子 2 · Runtime 提供什么（对照表）
 
-**1. Runtime 源码也经 LLVM 编译** — 见 [05 编译期 LLVM vs Runtime](./05-compile-time-llvm-vs-runtime.md)
-
-**2. Runtime ≠ VM** — VM 执行字节码；Runtime 是更广的「运行期服务」集合（GC、调度等），可重叠。
-
-**3. `no_std`** — 刻意剥离大部分 Rust runtime 服务。
+| 服务 | Lox/clox | Rust | Go |
+|------|----------|------|-----|
+| **内存** | GC Mark-Sweep ch26 | 所有权 / `alloc` | **内置 GC** |
+| **动态类型** | 运行期 tag + 检查 ch18 | 编译期（无） | 反射 / interface |
+| **错误** | Runtime error + 栈回溯 | **`panic!` + unwinding** | panic + defer |
+| **并发调度** | 无（单线程 VM） | 线程 + 可选 **Tokio** | **goroutine 调度器** |
+| **内置 IO** | `print` native fn | **`std::io`** | `fmt` / net |
 
 ---
 
-**一句话**：Runtime = 程序跑起来后的**管家**（内存、类型、调度）；与 **LLVM 翻译官**（编译期）彻底分开。
+#### 例子 3 · clox 运行期：动态类型检查
 
-**本书对应**：jlox 借 Java runtime · clox **ch18～26** · Rust [RFR 第 1 章内存](../../../../02-RFR/Chapter-01-Foundations/README.md)
+**源码：**
+
+```lox
+print "hi" - 3;
+```
+
+| 阶段 | 结果 |
+|------|------|
+| Scan / Parse / 编译 bytecode | ✅ 全过 |
+| VM 执行 `OP_SUBTRACT` | ❌ **Runtime error**: Operands must be numbers |
+
+**实现**：`OP_ADD` / `OP_SUBTRACT` 前 **`checkNumber()`** — 看栈顶 Value 的 **tag**。
+
+```c
+// 概念
+typedef struct {
+  ValueType type;   // NUMBER, STRING, NIL, ...
+  union { double number; Obj* obj; } as;
+} Value;
+```
+
+→ [ch18 Types of Values](../../part03_clox/chapter18_types-of-values/00-overview.md)
+
+---
+
+#### 例子 4 · GC：Runtime 的核心服务之一
+
+**源码：**
+
+```lox
+while (true) {
+  var s = "temporary";
+}
+// 无限分配字符串 → 必须回收
+```
+
+**ch19 朴素版**：进程退出才 `freeObjects` — 跑不久就 OOM。  
+**ch26 GC**：
+
+```text
+Mark:  从根（栈、全局、CallFrame）出发标记可达 Obj
+Sweep: 未标记 Obj 从 vm.objects 链表移除并 free
+```
+
+| 根集合示例 | 说明 |
+|------------|------|
+| **Value stack** | 仍被 Lox 代码引用的对象 |
+| **globals 表** | 全局变量名 → Obj* |
+| **CallFrame** | 闭包、Upvalue 链 |
+
+→ [ch26 GC overview](../../part03_clox/chapter26_garbage-collection/00-overview.md)
+
+---
+
+#### 例子 5 · jlox：Runtime 借宿 JVM
+
+```text
+jlox Interpreter (Java)
+  ├── 你的 Lox 语义逻辑
+  └── 依赖 JVM runtime:
+        ├── GC（Java 对象、Lox 包装）
+        ├── 异常栈
+        └── 线程（若扩展）
+```
+
+**对比 clox**：**自己实现** GC、Value 表示、错误 — Runtime **更薄、更可控**，适合嵌入式/学习。
+
+---
+
+#### 例子 6 · Rust：无 GC 的「Runtime」长什么样
+
+**默认 std：**
+
+| 组件 | 作用 |
+|------|------|
+| **`alloc`** | 堆分配器（可换 jemalloc） |
+| **panic runtime** | 栈展开、打印 backtrace |
+| **`std::rt`** | 启动/退出钩子 |
+| **I/O / 线程** | OS 抽象 |
+
+**`no_std`（HFT 常见）：**
+
+```text
+剥离: 堆默认禁用、无 std panic 格式化、无内置 IO
+保留: 可选自定义 allocator、裸 panic = abort
+```
+
+→ [RFR 第 1 章内存区域](../../../../02-RFR/Chapter-01-Foundations/03-memory-regions.md)
+
+**Tokio（库级 async runtime，非语言内置）：**
+
+```rust
+#[tokio::main]  // 运行期：Runtime::block_on 驱动 Future
+async fn main() { /* IO 多路复用、任务调度 */ }
+```
+
+---
+
+#### 例子 7 · Go vs Rust：语言级 vs 库级 Runtime
+
+| | **Go** | **Rust + Tokio** |
+|---|--------|------------------|
+| 绑定 | **每个** `.exe` **嵌入** Go runtime | 不用 async 可 **零** Tokio |
+| 调度 | M:N goroutine **内置** | Tokio 线程池 + task queue |
+| 编译 | runtime 源码 → 机器码进二进制 | Tokio crate → 机器码进二进制 |
+| 多实例 | 进程内通常 **一个** Go runtime | 可建多个 `Runtime::new()` |
+
+**共同点**：runtime **源码都先在编译期变成机器码**，不是 LLVM 在运行期提供服务。
+
+---
+
+#### 例子 8 · Runtime vs VM vs 编译期（易错汇总）
+
+| 易混 | 纠正 |
+|------|------|
+| Runtime = LLVM | **LLVM 仅编译期**；Runtime 跑在 OS 加载后 |
+| 只有 GC 语言有 runtime | Rust 有 **panic/alloc**；C 有 **crt0/libc** |
+| VM 包含全部 runtime | VM 负责 **执行 bytecode**；GC/类型检查是 runtime **服务**，常写在同一 C 文件里 |
+| 动态类型在 Parser 检查 | **运行期** `OP_ADD` 才知两侧是否 number |
+| `print` 是 opcode 全部 | clox：`OP_PRINT` 调 **native C 函数** — 跨出 VM 进 libc runtime |
+
+---
+
+**一句话**：Runtime = 程序活着时的**管家**（内存、类型、调度、内置 API）；VM 是管家里的**「执行 bytecode 的工人」**（若走字节码路线）。
+
+**本书对应**：jlox → **JVM** · clox → **ch18～26**（值/GC/对象）· Rust → **std / Tokio / panic**
 
 → **Rust/HFT 分层对照**：[04-rust-hft-编译流水线对照.md](./04-rust-hft-编译流水线对照.md) · [05 编译期 LLVM vs Runtime](./05-compile-time-llvm-vs-runtime.md)
+
+---
+
+## §2.1 自测（全书流水线）
+
+- [ ] 从源码到 clox 结果，按顺序写出 **8 站**（Scan → … → Runtime）
+- [ ] 说明 jlox 在哪一站**停止**、少走了哪几站
+- [ ] 画 `1+2*3` 的 AST 与 clox 栈变化对照
+- [ ] 一句话区分 **VM**、**Runtime**、**LLVM**
+- [ ] 举 1 个 **编译期**优化 + 1 个 **运行期**优化（clox ch30）
 
 ---
