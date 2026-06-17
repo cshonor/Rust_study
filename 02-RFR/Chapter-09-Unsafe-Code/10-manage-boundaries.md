@@ -2,6 +2,8 @@
 
 > 所属：**Coping with Fear** · [← 章索引](./README.md)
 
+← [09 Drop 检查](./09-drop-check.md) · 下一节 [11 文档](./11-documentation.md)
+
 1. **缩小边界** — `unsafe` 封进私有模块，暴露安全 API。
 2. **同一信任域** — 凡能修改与 unsafe 假设相关状态的代码，都在边界内。
 3. **优先安全替代** — 标准库 / crate 生态常已有封装。
