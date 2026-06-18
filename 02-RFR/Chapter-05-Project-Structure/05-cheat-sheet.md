@@ -4,40 +4,47 @@
 
 ---
 
-## [patch]
+## 三模块
 
-仅**根**生效 · 临时修上游 · 发布前删 · path/git 互斥
+| 模块 | 要点 |
+|------|------|
+| `[patch]` | 临时换依赖源 · 仅根 · 不 publish |
+| `[profile.*]` | 编译优化 dev/release/test/bench |
+| Workspace | profile/patch **仅根** · `inherits` |
+
+## [patch]
 
 ```toml
 [patch.crates-io]
-serde = { path = "../fix" }
+serde = { path = "./local-fix-serde" }
 ```
+
+不随 publish · 子 crate 写无效 · 修完删
 
 ## profile 四参
 
-| 参 | 要点 |
-|----|------|
-| `opt-level` | 0 调试 · 3 快 · s/z 小 |
-| `codegen-units` | 大=编译快 · 1=性能峰 |
-| `lto` | false/thin/fat |
-| `panic` | unwind 默认 · abort 瘦身 |
+`opt-level` · `codegen-units` · `lto` · `panic` (+ `strip`)
 
-## release 模板
+| 内置 | 命令 |
+|------|------|
+| dev | `cargo build` |
+| release | `--release` |
+| test/bench | `cargo test` / `bench` |
+
+## inherits（根目录）
 
 ```toml
-opt-level = 3
-codegen-units = 1
-lto = true
-panic = "abort"
-strip = "symbols"
+[profile.ci]
+inherits = "release"
+lto = false
 ```
 
-## Workspace
+## vs Metadata
 
-profile/patch **仅根** · `[profile.ci] inherits = "release"`
+metadata = 展示 · profile/patch = 编译/解析
 
 ## 自测
 
-- [ ] 子 crate 写 `[patch]` 为何无效？  
-- [ ] `panic=abort` 对 `cargo test` 有何影响？  
-- [ ] `codegen-units=1` 换什么？
+- [ ] patch 会打进 crates.io 发布包吗？  
+- [ ] 子 crate 写 `[profile.release]` 生效吗？  
+- [ ] `inherits = "release"` 写在哪一层 TOML？
