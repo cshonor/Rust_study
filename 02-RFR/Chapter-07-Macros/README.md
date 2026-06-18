@@ -11,11 +11,12 @@
 |---|------|
 | **总览（复习）** | [00 宏核心总览](./00-macros-overview.md) — **§0 直觉：模板 / 模式匹配 / vs Java 注解** |
 | **Token 基础** | [00 Token 与宏展开](./00-token-and-macro-pipeline.md)（词法 · 声明/过程宏 · 编译时序 · [速记](./00-token-cheat-sheet.md)） |
+| **宏 vs 函数** | [00 宏 vs 函数](./00-macro-vs-function.md)（八维对比 · 取舍 · [速记](./00-macro-vs-fn-cheat-sheet.md)） |
 
 | 主节 | 英文 | 子节 / 笔记 |
 |------|------|-------------|
 | **1** | Declarative Macros | [01 何时使用](./01-when-to-use-declarative-macros.md) · [02 如何工作](./02-how-declarative-macros-work.md) · [03 如何编写](./03-how-to-write-declarative-macros.md) |
-| **2** | Procedural Macros | [04 过程宏类型](./04-types-of-procedural-macros.md) · [05 代价](./05-cost-of-procedural-macros.md) · [06 你真的需要宏吗](./06-so-you-think-you-want-a-macro.md) · [07 如何工作](./07-how-procedural-macros-work.md) |
+| **2** | Procedural Macros | [04 过程宏类型](./04-types-of-procedural-macros.md)（derive/属性/类函数 · [04 速记](./04-cheat-sheet.md)）· [05 代价](./05-cost-of-procedural-macros.md) · [06 你真的需要宏吗](./06-so-you-think-you-want-a-macro.md) · [07 如何工作](./07-how-procedural-macros-work.md) |
 | **3** | Summary | [08 小结](./08-summary.md) |
 
 ## 阅读顺序

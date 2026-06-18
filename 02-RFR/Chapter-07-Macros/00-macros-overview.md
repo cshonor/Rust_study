@@ -3,7 +3,8 @@
 > 第 7 章开篇 · [← 章索引](./README.md)  
 > 与 [Rust Reference · Macros](https://doc.rust-lang.org/reference/macros.html) / Book [19.5 宏](../../00-Book/19-advanced-features/19.5-宏.md) 一致。
 
-**Token 与展开链路精读** → [00 Token 与宏展开](./00-token-and-macro-pipeline.md) · [速记](./00-token-cheat-sheet.md)
+**Token 与展开链路精读** → [00 Token 与宏展开](./00-token-and-macro-pipeline.md) · [速记](./00-token-cheat-sheet.md)  
+**宏 vs 函数完整对比** → [00 宏 vs 函数](./00-macro-vs-function.md) · [速记](./00-macro-vs-fn-cheat-sheet.md)
 
 ---
 
@@ -184,7 +185,7 @@ struct Person { name: String, age: u8 }
 | **类型检查** | 展开**之后**才检查 | 定义处即检查 |
 | **典型用途** | 样板、可变参数语法、derive、DSL | 逻辑复用、类型安全、日常业务 |
 
-**取舍**：**能用函数（或泛型 + trait）就不用宏** → [06 你真的需要宏吗](./06-so-you-think-you-want-a-macro.md)
+**取舍**：**能用函数（或泛型 + trait）就不用宏** → [00 宏 vs 函数](./00-macro-vs-function.md) · [06 你真的需要宏吗](./06-so-you-think-you-want-a-macro.md)
 
 ---
 

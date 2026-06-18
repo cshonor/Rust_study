@@ -2,18 +2,113 @@
 
 > 所属：**Procedural Macros** · [← 章索引](./README.md)
 
-过程宏 = **Rust 函数**：入参 **`TokenStream`**，出参 **`TokenStream`**（常配合 **`syn`** / **`quote`**）。
+← [03 如何编写声明宏](./03-how-to-write-declarative-macros.md) · 下一节 [05 代价](./05-cost-of-procedural-macros.md)
 
-## 三类
+前置 → [00 Token 与宏展开](./00-token-and-macro-pipeline.md) · [07 过程宏如何工作](./07-how-procedural-macros-work.md)
 
-| 种类 | 形态 | 典型用途 |
-|------|------|----------|
-| **派生 (derive)** | `#[derive(Foo)]` | 为类型**追加** `impl` 等（如 `Serialize`、`Clone`） |
-| **类函数 (function-like)** | `foo!(...)` | 编译期变换、DSL、字面量求值 |
-| **属性 (attribute)** | `#[bar(...)]` 修饰项 | 路由、测试封装、字段变换（如 pin 类生成） |
+---
 
-**derive 注意**：一般**追加**代码，不改变用户手写项的主体文本；可与辅助属性配合。
+过程宏 = **编译期运行的 Rust 函数**：入参 **`TokenStream`**，出参 **`TokenStream`**（常配合 **`syn`** / **`quote`**）。  
+三者底层共性：独立 **`proc-macro = true`** crate · 编译阶段执行 · 输出 Token 参与后续 parse / 类型检查。
 
-## Span 与卫生（预览）
+```text
+用户源码 Token  →  proc-macro crate（Rust 程序）  →  新 Token 流  →  正常编译
+```
 
-过程宏的「卫生」**不自动**等同声明宏；常需 **`Span`** 控制标识符解析位置 → [07 如何工作](./07-how-procedural-macros-work.md)
+> **别和声明宏混**：`vec!` `println!` 是 **`macro_rules!` 声明宏**，不是过程宏。  
+> 只有带 `#[proc_macro_derive]` / `#[proc_macro_attribute]` / `#[proc_macro]` 的才是过程宏。
+
+---
+
+## 一、派生 Derive
+
+| 项 | 说明 |
+|----|------|
+| **语法** | `#[derive(MyTrait)]` 修饰 struct / enum / union |
+| **作用** | 自动为类型**追加** `impl` 等代码（一般不改动用户手写项主体） |
+| **典型** | `Debug` `Clone` `Serialize` `Deserialize` `PartialEq` |
+
+```rust
+#[derive(Debug, Clone)]
+struct Point { x: i32, y: i32 }
+// 展开 ≈ impl Debug for Point { … } + impl Clone for Point { … }
+```
+
+- 入口：`#[proc_macro_derive(MyTrait, attributes(...))]`  
+- 输入：被 derive 的**整个类型定义** Token  
+- 输出：追加的 `impl` / 辅助项 Token  
+
+→ demo：[19.5 · hello_macro_derive](../../00-Book/19-advanced-features/19.5-macros-demo/hello_macro_derive/)
+
+---
+
+## 二、属性 Attribute
+
+| 项 | 说明 |
+|----|------|
+| **语法** | `#[my_attr(args)]` 写在函数 / struct / mod / 字段等**上方** |
+| **作用** | **修饰**目标项 — 改写、包装、注入额外代码 |
+| **典型** | `#[tokio::main]` · 路由 `#[get("/path")]` · 测试封装 |
+
+```rust
+#[tokio::main]
+async fn main() { /* 展开为同步 main + 运行时启动 */ }
+
+#[my_attr(log)]
+fn handler() { /* 属性宏可改写函数签名/体 */ }
+```
+
+- 入口：`#[proc_macro_attribute]`  
+- 输入：**属性参数 Token** + **被修饰项 Token**（两个 `TokenStream`）  
+- 输出：替换后的项 Token  
+
+> `#[test]` 等内置属性由编译器提供，机制类似「属性宏」，但不必来自 proc-macro crate。
+
+---
+
+## 三、类函数 Function-like
+
+| 项 | 说明 |
+|----|------|
+| **语法** | `my_macro!(tokens)` — 外观像函数调用 + `!` |
+| **作用** | 接收**任意 Token 流**，自定义语法、构建小型 DSL |
+| **典型（过程宏）** | `serde_json::json!` · `sqlx::query!` · 自定义 `include_html!` |
+
+```rust
+let v = serde_json::json!({ "name": "Rust", "year": 2015 });
+// 过程宏在编译期解析 JSON 字面量 → 生成构造 Value 的代码
+```
+
+- 入口：`#[proc_macro]`  
+- 输入：括号内 **Token 流**  
+- 输出：替换宏调用的 **Token 流**  
+
+### 与声明宏 `macro_rules!` 的区分（易混）
+
+| | **声明宏** `macro_rules!` | **类函数过程宏** `#[proc_macro]` |
+|---|---------------------------|-----------------------------------|
+| 例子 | `vec!` `format!` `println!` | `json!` `query!` |
+| 逻辑 | Token 模式 + 模板 | Rust 程序 + `syn`/`quote` |
+| 能力 | 固定几种 token 形状 | 任意解析与生成 |
+
+**形状相同**（都是 `foo!(...)`），**底层完全不同** — 看 crate 是 `macro_rules!` 还是 `proc-macro`。
+
+---
+
+## 四、三类对照总表
+
+| 子类 | 形态 | 输入 | 典型场景 |
+|------|------|------|----------|
+| **Derive** | `#[derive(T)]` | 类型定义 | 序列化、Debug、Clone、ORM 实体 |
+| **Attribute** | `#[attr(...)]` 项上 | 属性 + 被修饰项 | 运行时入口、路由、AOP 包装 |
+| **Function-like** | `foo!(...)` | 括号内 Token | DSL、SQL、JSON 字面量、编译期求值 |
+
+---
+
+## 五、Span 与卫生（预览）
+
+过程宏的「卫生」**不自动**等同声明宏；生成标识符须管 **`Span`** → [07 如何工作](./07-how-procedural-macros-work.md)
+
+---
+
+→ 速记：[04-cheat-sheet.md](./04-cheat-sheet.md) · 代价：[05](./05-cost-of-procedural-macros.md) · 选型：[06](./06-so-you-think-you-want-a-macro.md)
