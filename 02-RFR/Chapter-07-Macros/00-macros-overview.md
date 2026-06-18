@@ -4,6 +4,7 @@
 > 与 [Rust Reference · Macros](https://doc.rust-lang.org/reference/macros.html) / Book [19.5 宏](../../00-Book/19-advanced-features/19.5-宏.md) 一致。
 
 **Token 与展开链路精读** → [00 Token 与宏展开](./00-token-and-macro-pipeline.md) · [速记](./00-token-cheat-sheet.md)  
+**宏整体分类（4 类）** → [00 宏分类总览](./00-macro-taxonomy.md) · [速记](./00-macro-taxonomy-cheat-sheet.md)  
 **宏 vs 函数完整对比** → [00 宏 vs 函数](./00-macro-vs-function.md) · [速记](./00-macro-vs-fn-cheat-sheet.md)
 
 ---
