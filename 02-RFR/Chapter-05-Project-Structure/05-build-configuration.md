@@ -104,36 +104,41 @@ strip = "symbols"
 
 ### 核心规则
 
-1. **`[profile.*]`、`[patch]` 仅工作区根 `Cargo.toml` 全局生效** — 子 crate 单独写的**会被忽略**  
-2. 自定义 profile 在**根**定义，用 **`inherits`** 继承内置或已有 profile，再局部覆盖字段  
-3. 全 workspace 成员共用同一套 profile 名 — `cargo build --profile ci` 在根执行
+1. **`[profile.*]`、`[patch]` 仅工作区根生效** — 子 crate 内写的 **整段被 Cargo 忽略**  
+2. **`inherits`** — 在**根**定义**新 profile 名**（如 `ci`）时继承已有 profile，再局部覆盖  
+3. **单个子 crate 特殊编译参数** — 根目录 **`[profile.release.package.包名]`**，不是 member 里写 `[profile]`
 
 ```text
-workspace-root/Cargo.toml   ← profile、patch 写这里
+workspace-root/Cargo.toml   ← patch、profile、inherits、package 覆盖
 crates/my-lib/Cargo.toml    ← 不要写 [profile] / [patch]
 ```
 
-### `inherits` 示例（根目录）
+### `inherits`（根 · 新 profile 名）
 
 ```toml
-# 根 Cargo.toml
+[profile.release]
+opt-level = 3
+lto = true
+panic = "abort"
+
 [profile.ci]
-inherits = "release"   # 继承 release 全部默认值
-lto = false            # 局部覆盖：CI 编译更快
-opt-level = 2
-panic = "unwind"       # 测试需要栈展开
+inherits = "release"   # 全盘复制 release，再覆盖下面字段
+lto = false
+panic = "unwind"
 ```
 
-```bash
-cargo build --profile ci
-cargo test --profile ci
+### 单包微调（根 · `package` 覆盖）
+
+```toml
+[profile.release]
+opt-level = 3
+
+[profile.release.package.my-lib]
+opt-level = 2   # 仅 my-lib；其他 member 仍用 3
 ```
 
-```text
-内置默认 → inherits 父 profile → 当前字段覆盖（后者赢）
-```
-
-→ [03 工作区 §五](./03-workspaces.md)
+> ❌ 误区：在 `crates/my-lib/Cargo.toml` 写 `[profile.release] inherits = "release"` — **无效**。  
+> → 完整汇总：[05.1 Workspace+Patch+Profile](./05-1-workspace-patch-profile-汇总.md)
 
 ---
 
@@ -170,6 +175,9 @@ opt-level = 0
 inherits = "release"
 lto = false
 panic = "unwind"
+
+[profile.release.package.my-lib]
+opt-level = 2
 ```
 
 ```toml
