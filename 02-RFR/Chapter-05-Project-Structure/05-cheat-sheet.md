@@ -1,6 +1,6 @@
 # 3.2 · Build Configuration · 速记
 
-← [05 构建配置](./05-build-configuration.md) · [03 工作区](./03-workspaces.md) · [章索引](./README.md)
+← [05 构建配置](./05-build-configuration.md) · [05.1 汇总](./05-1-workspace-patch-profile-汇总.md) · [03 工作区](./03-workspaces.md)
 
 ---
 
