@@ -35,7 +35,7 @@ Cargo 对同一库的所有 Feature 做**并集合并**，只编译**一份**代
 
 > **设计思路**：任意多个 Feature 同时开启，代码必须**合法可编译**。
 
-→ 反模式与 CI：[02 crate 内使用](./02-using-features-in-crate.md)
+→ 详 [02 crate 内使用](./02-using-features-in-crate.md) · demo：[Item 26 demo](../../01-ER/Chapter-04-Dependencies/Item-26-feature-creep/demo/)
 
 ---
 
