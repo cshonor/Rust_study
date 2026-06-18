@@ -28,7 +28,7 @@ struct UserId(u64);
 
 ## `Deref` 包装
 
-- 为 API 一致性实现 `Deref` / `DerefMut`—— **勿过度** Deref 到整个内部容器，否则校验被绕过 → Book [15.2](../../00-Book/15-smart-pointers/15.2-通过Deref将智能指针当作引用.md) · ER [over_deref demo](../../01-ER/Chapter-01-Types/Item-05-type-conversions/demo/src/over_deref.rs)
+- 为 API 一致性实现 `Deref` / `DerefMut`—— **勿过度** Deref 到整个内部容器，否则校验被绕过 → Book [15.2](../../00-Book/15-smart-pointers/15.2-通过Deref将智能指针当作引用.md) · [15.2.2 速记/`*`/unsafe](../../00-Book/15-smart-pointers/15.2.2-Deref解引用与unsafe速记.md) · ER [over_deref demo](../../01-ER/Chapter-01-Types/Item-05-type-conversions/demo/src/over_deref.rs)
 
 ## 与命名配合
 
