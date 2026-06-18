@@ -226,6 +226,8 @@ third = "2"    # >=2.0.0
 4. crate1 自动用更高的 1.5+ — SemVer 兼容则编译运行正常  
 5. 想主动管控 → 根 `[workspace.dependencies]` 锁定固定版本（见 §六）
 
+→ lock 文件格式 · 提交规范 · `--locked`：[03.1 Cargo.lock](./03-1-cargo-lock.md)
+
 ### 与 `target/` 共享
 
 - 编译产物、增量缓存统一输出到根 `target/`  
@@ -385,4 +387,4 @@ project-root/
 6. **`resolver = "2"`** — 虚拟工作区须手写。  
 7. **`--workspace`** 全局 · **`-p`** 单成员。
 
-→ 速记：[03-cheat-sheet.md](./03-cheat-sheet.md) · 下一节：[04 Crate 元数据](./04-crate-metadata.md)
+→ 速记：[03-cheat-sheet.md](./03-cheat-sheet.md) · lock 详解：[03.1 Cargo.lock](./03-1-cargo-lock.md) · 下一节：[04 Crate 元数据](./04-crate-metadata.md)
