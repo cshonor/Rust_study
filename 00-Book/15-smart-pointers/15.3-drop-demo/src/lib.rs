@@ -137,6 +137,26 @@ pub fn demo_vec_drop_order() {
     drop(v);
 }
 
+/// §15.3.0 OBRM：借用不触发 Drop，只有所有者出作用域才释放
+struct LoudDrop(i32);
+
+impl Drop for LoudDrop {
+    fn drop(&mut self) {
+        println!("  OBRM: LoudDrop({}) released", self.0);
+    }
+}
+
+pub fn demo_obrm_borrow_vs_owner() {
+    println!("  --- 进入内层作用域 ---");
+    {
+        let b = Box::new(LoudDrop(100));
+        let r = &*b;
+        println!("  b 是所有者；&*b 只是借用，r.0 = {}", r.0);
+        println!("  r 出作用域：不应打印 released");
+    }
+    println!("  --- 内层结束（上方应已打印 released）---");
+}
+
 /// §四 MutexGuard RAII 解锁（Drop 无 println，仅演示编译通过）
 pub fn demo_mutex_guard_drop() {
     let m = Mutex::new(0_i32);

@@ -7,10 +7,12 @@
 //   cargo run -- manual — ManuallyDrop
 //   cargo run -- lifo   — Tag self.0 + LIFO 顺序
 //   cargo run -- socket  — 15.3.2 TcpSocket / Conn / move
+//   cargo run -- obrm    — 15.3.0 所有者 Drop vs 借用
 
 use drop_demo::{
     demo_custom_drop_then_fields, demo_manually_drop, demo_mem_drop_early, demo_mutex_guard_drop,
-    demo_nested_drop, demo_scope_and_order, demo_socket_all, demo_tag_lifo, demo_vec_drop_order,
+    demo_nested_drop, demo_obrm_borrow_vs_owner, demo_scope_and_order, demo_socket_all,
+    demo_tag_lifo, demo_vec_drop_order,
 };
 
 fn main() {
@@ -61,6 +63,13 @@ fn main() {
         return;
     }
 
+    if mode == "obrm" {
+        println!("=== 15.3.0 OBRM：借用不 Drop，所有者出作用域才释放 ===\n");
+        demo_obrm_borrow_vs_owner();
+        println!("\nok: obrm demo 完成");
+        return;
+    }
+
     if mode == "manual" {
         println!("=== 15.3.1 ManuallyDrop ===\n");
         demo_manually_drop();
@@ -70,5 +79,5 @@ fn main() {
 
     println!("=== 15.3 作用域自动 drop + LIFO ===\n");
     demo_scope_and_order();
-    println!("\nok: drop demo 完成（-- lifo | -- custom | -- socket | -- early | -- nested | -- guard | -- manual）");
+    println!("\nok: drop demo 完成（-- obrm | -- lifo | -- custom | -- socket | -- early | -- nested | -- guard | -- manual）");
 }

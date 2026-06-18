@@ -8,7 +8,7 @@
 
 | 对照 | 路径 |
 |------|------|
-| Drop / RAII | [Book 15.3 Drop](../../00-Book/15-smart-pointers/15.3-使用Drop运行清理代码.md) |
+| Drop / RAII / OBRM 辨析 | [Book 15.3.0 RAII/OBRM](../../00-Book/15-smart-pointers/15.3.0-RAII与OBRM辨析.md) · [15.3 Drop](../../00-Book/15-smart-pointers/15.3-使用Drop运行清理代码.md) |
 | ManuallyDrop | [15.3.1](../../00-Book/15-smart-pointers/15.3.1-Drop顺序与进阶场景.md) |
 | ER Item 11 | [drop-raii](../../01-ER/Chapter-02-Traits/Item-11-drop-raii/README.md) |
 | catch_unwind | [09_FFI](../09_FFI/00-overview.md) §7 |
