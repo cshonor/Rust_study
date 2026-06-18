@@ -171,27 +171,81 @@ axum = "0.7"
 
 ## 五、`Cargo.lock` 如何统一第三方版本？
 
-**不靠**根 TOML 写死版本，靠**全局唯一 lock**：
+**大前提**：同一 Workspace 全局**只会锁定一个版本** — 不会同时装 `1.0` 和 `1.5` 两份同名 crate。
 
-1. 子包 A：`tokio = ">=1.30"`；子包 B：`tokio = ">=1.32"`  
-2. 整体构建时 Cargo 解析出**同时满足所有约束的最高兼容版本**  
-3. 写入根目录 `Cargo.lock` — 全工作区编译时**都用这一个 tokio**  
-4. 各子包 TOML 仍保留自己的**语义化约束**；lock 负责**收敛落地**
+Cargo 把**所有子包**对同一依赖的约束放在一起求**交集**，再按 SemVer 选 lock 里的落地版本，写入根目录唯一 `Cargo.lock`。
+
+### 例：包 A 要 `third = "1.0"`，包 B 要 `third = "1.5"`
+
+Cargo 默认解读（caret 要求）：
+
+| 声明 | 实际约束 |
+|------|----------|
+| `"1.0"` | `>=1.0.0, <2.0.0` |
+| `"1.5"` | `>=1.5.0, <2.0.0` |
+
+**交集**：`>=1.5.0, <2.0.0` → Cargo 取该区间内**最新稳定版**（如 `1.5.8`）写入 lock — **全 workspace 共用这一版**。
 
 ```text
-子包提要求 → lock 统一落地 → 不会出现同一 crate 多版本并存
+crate1 声明 ≥1.0  →  1.5+ 仍兼容满足
+crate2 声明 ≥1.5  →  必须 1.5+
+→ 合并后统一升到 1.5+ 最新版，不会装两份
 ```
+
+> 规范前提：第三方遵守 SemVer — 1.x 小版本向下兼容，crate1 被「抬」到 1.5+ 通常无问题。→ [07 MSRV](./07-msrv.md) · [ER SemVer](../../01-ER/Chapter-04-Dependencies/Item-21-semver/README.md)
+
+### 场景 ①：同大版本（1.0 vs 1.5）→ 正常合并
+
+```toml
+# crate1/Cargo.toml
+third = "1.0"
+# crate2/Cargo.toml
+third = "1.5"
+```
+
+区间重叠 → 取满足**最高要求**的新版本。
+
+### 场景 ②：跨大版本（1.x vs 2.x）→ 直接冲突
+
+```toml
+# crate1
+third = "1"    # <2.0.0
+# crate2
+third = "2"    # >=2.0.0
+```
+
+`1.x` 与 `>=2.0.0` **无交集** → Cargo 解析失败，构建报错。
+
+**Workspace 默认不允许同一 crate 多版本共存** — 保证类型统一、避免二进制膨胀、跨子 crate 传参不会出现「1 版类型 vs 2 版类型」的诡异不兼容。
+
+### 完整流程复盘
+
+1. crate1：`third = "1.0"` → 允许 `1.0~1.x`  
+2. crate2：`third = "1.5"` → 允许 `1.5~1.x`  
+3. Cargo 求交集 → 拉最新发布版 → 写入根 lock  
+4. crate1 自动用更高的 1.5+ — SemVer 兼容则编译运行正常  
+5. 想主动管控 → 根 `[workspace.dependencies]` 锁定固定版本（见 §六）
 
 ### 与 `target/` 共享
 
 - 编译产物、增量缓存统一输出到根 `target/`  
 - 根 `cargo clean` 一次清完  
 
+### 极端情况：必须同时用 1.x 和 2.x
+
+Workspace **标准方案解决不了**，只有：
+
+| 方案 | 说明 |
+|------|------|
+| **① 重构升级（优先）** | 把仍用 1.x 的 crate 改代码适配 2.x，全局统一大版本 |
+| **② 拆 Workspace** | 两个独立仓库 / 两个 lock，各自用 1.x / 2.x；失去统一治理与 path 联动 |
+| **③ patch 重命名（少用）** | `[patch]` 强行引入两份、类型割裂；业务项目尽量规避 → [05 构建配置](./05-build-configuration.md) |
+
 ---
 
-## 六、公共依赖复用：`[workspace.dependencies]`
+## 六、公共依赖复用：`[workspace.dependencies]`（推荐）
 
-没有「根 TOML 一键注入全局依赖」，但有**规范集中写法** — 版本在根定义一次，子包**主动继承**：
+不要让各子包各自乱写版本 — **在根统一管控**，从根源避免碎片化与 lock 拉扯：
 
 ### 1. 根定义工作区依赖
 
@@ -200,23 +254,27 @@ axum = "0.7"
 members = ["crates/*", "apps/*"]
 
 [workspace.dependencies]
+third = "1.5.10"   # 全局固定版本；crate1/crate2 都继承这一版
 tokio = "1.35.0"
 serde = { version = "1.0", features = ["derive"] }
-axum = "0.7"
 ```
 
-### 2. 子包继承，不必重复写版本
+### 2. 子包继承 — crate1、crate2 统一写法
 
 ```toml
 [dependencies]
+third = { workspace = true }
 tokio = { workspace = true }
 serde = { workspace = true }
 ```
 
 | 好处 | 说明 |
 |------|------|
-| 一处维护版本 | 改根 `workspace.dependencies`，所有 `workspace = true` 的子包同步 |
-| 仍是子包拥有依赖 | 只是版本从工作区读取，**不是**根强制注入 |
+| **强制同版** | 不会出现一个要 1.0、一个要 1.5 的混乱 |
+| **一处升级** | 改根 `workspace.dependencies`，全部子包同步 |
+| **lock 稳定** | 减少解析拉扯、lock 频繁变动 |
+
+> 本质仍是子包**主动声明**依赖，版本从工作区读取 — **不是**根强制注入。
 
 ### `[workspace.package]` 元数据同理
 
@@ -319,11 +377,12 @@ project-root/
 
 ## 十二、核心速记
 
-1. **`members` = 子 Package 文件夹路径列表** — 指向文件夹，非 `Cargo.toml` 文件；须含 TOML。  
-2. **根不管子包 version** — 只管 members；**lock 统一第三方落地版本**。  
-3. **子包各自声明依赖**；`workspace.dependencies` = 版本集中维护 + 子包 `workspace = true` 继承。  
-4. **两大共享**：根 `Cargo.lock` · 根 `target/`。  
-5. **`resolver = "2"`** — 虚拟工作区须手写。  
-6. **`--workspace`** 全局 · **`-p`** 单成员。
+1. **`members` = 子 Package 文件夹路径列表** — 指向文件夹，非 `Cargo.toml` 文件。  
+2. **同大版本**（1.0 vs 1.5）→ 求交集，全局一份更高版；**跨大版本**（1 vs 2）→ 冲突报错。  
+3. **规范**：`workspace.dependencies` 一处统一，子包 `workspace = true` 继承。  
+4. **真要 1.x + 2.x 并存** → 优先改代码升级；不得已拆 Workspace。  
+5. **两大共享**：根 `Cargo.lock` · 根 `target/`。  
+6. **`resolver = "2"`** — 虚拟工作区须手写。  
+7. **`--workspace`** 全局 · **`-p`** 单成员。
 
 → 速记：[03-cheat-sheet.md](./03-cheat-sheet.md) · 下一节：[04 Crate 元数据](./04-crate-metadata.md)

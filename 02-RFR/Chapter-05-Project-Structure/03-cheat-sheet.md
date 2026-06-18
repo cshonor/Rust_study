@@ -31,10 +31,21 @@
 core-utils = { path = "../../crates/core-utils", version = "0.1.0" }
 ```
 
+## 版本合并 vs 冲突
+
+同 crate 全 ws **只锁一个版本**
+
+| 情况 | 结果 |
+|------|------|
+| `"1.0"` + `"1.5"` | 交集 `≥1.5,<2` → 全局 1.5+ 最新 |
+| `"1"` + `"2"` | 无交集 → **构建失败** |
+
+SemVer 前提 · 跨大版本不能共存 → 升级代码 / 拆 ws / patch（少用）
+
 ## 依赖版本两种模式
 
 | 经典 | 各子包自己写版本，lock 收敛 |
-| 现代 | 根 `[workspace.dependencies]` + `tokio = { workspace = true }` |
+| 现代 | 根 `third = "1.5.10"` + `third = { workspace = true }` |
 
 ## 两大共享
 
@@ -50,6 +61,6 @@ core-utils = { path = "../../crates/core-utils", version = "0.1.0" }
 
 ## 自测
 
-- [ ] `members` 填的是文件夹还是 `Cargo.toml` 路径？  
-- [ ] 有 Cargo.toml 但没进 members 的包能 `workspace = true` 吗？  
-- [ ] 子包 A/B 对 tokio 约束不同，最终用几个版本？
+- [ ] crate1=`"1.0"` crate2=`"1.5"` 最终 lock 里几个 `third` 版本？  
+- [ ] crate1=`"1"` crate2=`"2"` 能编过吗？为什么？  
+- [ ] 必须 1.x 和 2.x 并存，Workspace 标准方案够吗？
