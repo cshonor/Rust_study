@@ -4,10 +4,11 @@
 //   cargo run -- nested  — 多层 coercion
 //   cargo run -- mut     — DerefMut + Box move-out
 //   cargo run -- ref-target — 15.2.3 引用 vs 智能指针 + type Target
+//   cargo run -- dot-paths  — 15.2.2 原生 & vs Deref 两条路线
 
 use deref_demo::{
-    demo_associated_type, demo_basic, demo_deref_mut, demo_method_call, demo_mutex_guard,
-    demo_nested_coercion, demo_ref_vs_smart,
+    demo_associated_type, demo_basic, demo_deref_mut, demo_dot_two_paths, demo_method_call,
+    demo_mutex_guard, demo_nested_coercion, demo_ref_vs_smart,
 };
 
 fn main() {
@@ -44,11 +45,18 @@ fn main() {
         return;
     }
 
+    if mode == "dot-paths" {
+        println!("=== 15.2.2 点号两条路线 ===");
+        demo_dot_two_paths();
+        println!("\nok: dot-paths demo 完成");
+        return;
+    }
+
     println!("=== 15.2 基础：* / deref / coercion ===");
     demo_basic();
 
     println!("\n=== 15.2 §三 方法调用自动解引用 ===");
     demo_method_call();
 
-    println!("\nok: deref demo 完成（-- guards | -- nested | -- mut | -- ref-target）");
+    println!("\nok: deref demo 完成（-- guards | -- nested | -- mut | -- ref-target | -- dot-paths）");
 }

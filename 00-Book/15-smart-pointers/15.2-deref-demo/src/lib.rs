@@ -81,6 +81,30 @@ pub fn demo_deref_mut() {
     println!("  Box move-out: {s}");
 }
 
+/// §15.2.2 点号两条路线 + &&Box<Rc<String>> 解包链
+pub fn demo_dot_two_paths() {
+    let s = String::from("hi");
+    let r1 = &s;
+    let r2 = &&s;
+    let r3 = &&&s;
+    println!(
+        "  原生剥 &: r1.len={}, r2.len={}, r3.len={}（&String 无 Deref trait）",
+        r1.len(),
+        r2.len(),
+        r3.len()
+    );
+
+    let b = Box::new(String::from("hi"));
+    println!("  Box Deref: b.len={}（Box → &String → 剥 & → len）", b.len());
+
+    use std::rc::Rc;
+    let nested = &&Box::new(Rc::new(String::from("deep")));
+    println!(
+        "  &&Box<Rc<String>>.len() = {}（剥 & → Deref Box → Deref Rc → 剥 & → len）",
+        nested.len()
+    );
+}
+
 /// §15.2.3 普通引用 vs 智能指针 · 关联类型 Target
 pub fn demo_ref_vs_smart() {
     let x = 42;
@@ -167,6 +191,11 @@ mod tests {
 
     fn hello_as_len(s: &str) -> usize {
         s.len()
+    }
+
+    #[test]
+    fn dot_two_paths() {
+        demo_dot_two_paths();
     }
 
     #[test]
