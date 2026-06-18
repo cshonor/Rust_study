@@ -54,4 +54,4 @@ macro_rules! my_vec {
 **不是**「声明宏输入种类无限」— 而是 **在模具允许的几种形状内**，元素个数/类型可以变（靠 `$(...)*` 重复）。  
 超出模具 = 直接报错，不会像过程宏那样写 parser 去「理解」新语法。
 
-→ 可运行：[19.5-macros-demo · decl_macro_demo](../../00-Book/19-advanced-features/19.5-macros-demo/decl_macro_demo/)
+→ 可运行：[19.5-macros-demo · decl_macro_demo](../../00-Book/19-advanced-features/19.5-macros-demo/decl_macro_demo/) · 编写详解：[03 片段分类符](./03-how-to-write-declarative-macros.md)

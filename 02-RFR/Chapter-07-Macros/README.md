@@ -16,7 +16,7 @@
 
 | 主节 | 英文 | 子节 / 笔记 |
 |------|------|-------------|
-| **1** | Declarative Macros | [01 何时使用](./01-when-to-use-declarative-macros.md) · [02 如何工作](./02-how-declarative-macros-work.md) · [03 如何编写](./03-how-to-write-declarative-macros.md) |
+| **1** | Declarative Macros | [01 何时使用](./01-when-to-use-declarative-macros.md) · [02 如何工作](./02-how-declarative-macros-work.md) · [03 如何编写](./03-how-to-write-declarative-macros.md)（片段分类符 · [03 速记](./03-cheat-sheet.md)） |
 | **2** | Procedural Macros | [04 过程宏类型](./04-types-of-procedural-macros.md)（derive/属性/类函数 · [04 速记](./04-cheat-sheet.md)）· [05 代价](./05-cost-of-procedural-macros.md) · [06 你真的需要宏吗](./06-so-you-think-you-want-a-macro.md) · [07 如何工作](./07-how-procedural-macros-work.md) |
 | **3** | Summary | [08 小结](./08-summary.md) |
 
