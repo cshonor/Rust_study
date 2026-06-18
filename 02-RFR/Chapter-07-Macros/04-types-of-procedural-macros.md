@@ -11,6 +11,8 @@
 过程宏 = **编译期运行的 Rust 函数**：入参 **`TokenStream`**，出参 **`TokenStream`**（常配合 **`syn`** / **`quote`**）。  
 三者底层共性：独立 **`proc-macro = true`** crate · 编译阶段执行 · 输出 Token 参与后续 parse / 类型检查。
 
+→ 四大类总览：[00 宏分类总览](./00-macro-taxonomy.md) · 声明 vs 类函数 `!` 撞脸对照
+
 ```text
 用户源码 Token  →  proc-macro crate（Rust 程序）  →  新 Token 流  →  正常编译
 ```
