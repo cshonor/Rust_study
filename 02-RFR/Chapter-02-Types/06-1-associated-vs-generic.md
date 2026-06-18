@@ -35,6 +35,8 @@ impl Iterator for std::vec::IntoIter<i32> {
 }
 ```
 
+**与智能指针对照**：`Deref::Target` 同样是关联类型 — Box 解引用后「只能是内部的 T」→ Book [15.2.3 Deref::Target](../../00-Book/15-smart-pointers/15.2.3-引用智能指针与Target关联类型.md)
+
 | 特点 | |
 |------|---|
 | 每个 `(Self, Trait)` **一份**关联类型绑定 | 签名简洁：`Iterator` 而非 `Iterator<Item>` |

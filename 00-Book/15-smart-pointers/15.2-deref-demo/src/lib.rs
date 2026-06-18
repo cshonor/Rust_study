@@ -81,6 +81,64 @@ pub fn demo_deref_mut() {
     println!("  Box move-out: {s}");
 }
 
+/// §15.2.3 普通引用 vs 智能指针 · 关联类型 Target
+pub fn demo_ref_vs_smart() {
+    let x = 42;
+    let rx = &x;
+    assert_eq!(*rx, 42);
+    println!("  原生 &i32: *rx = {rx:?}（语言剥引用，无 Deref trait）");
+
+    let mut s = String::from("hi");
+    {
+        let r1 = &mut s;
+        r1.push_str("-ref");
+    }
+    {
+        let r2 = Box::new(&mut s);
+        r2.push_str("-box"); // &mut Box → DerefMut → &mut String
+    }
+    println!("  可变借用 .push_str: s = {s:?}");
+
+    let b = Box::new(String::from("Target"));
+    let target: &String = b.deref(); // Deref::Target = String
+    println!("  Box::deref() → &Target = {target:?}");
+    println!("  Box .len() 自动 coercion: len = {}", b.len());
+}
+
+/// §15.2.3 自定义 trait 关联类型 + 与 Deref::Target 对照
+pub trait Describe {
+    type Output;
+    fn describe(&self) -> Self::Output;
+}
+
+impl Describe for i32 {
+    type Output = String;
+    fn describe(&self) -> Self::Output {
+        format!("number: {self}")
+    }
+}
+
+pub fn demo_associated_type() {
+    let n: i32 = 7;
+    let s: String = n.describe();
+    println!("  MyTrait 式关联类型: {s}");
+
+    type I32Output = <i32 as Describe>::Output;
+    let _: I32Output = s;
+
+    let boxed = MyBox::new(99_i32);
+    fn show_deref_target<T>(d: &T)
+    where
+        T: Deref,
+        T::Target: std::fmt::Display,
+    {
+        let target: &T::Target = d.deref();
+        println!("  Deref::Target 显示: {target}");
+    }
+    show_deref_target(&boxed);
+    println!("  Box/MyBox impl Deref {{ type Target = T; }} → *d 面向内部 T");
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -109,5 +167,11 @@ mod tests {
 
     fn hello_as_len(s: &str) -> usize {
         s.len()
+    }
+
+    #[test]
+    fn ref_target_demo() {
+        demo_ref_vs_smart();
+        demo_associated_type();
     }
 }

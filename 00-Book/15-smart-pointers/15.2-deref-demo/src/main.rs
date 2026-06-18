@@ -3,8 +3,12 @@
 //   cargo run -- guards — MutexGuard
 //   cargo run -- nested  — 多层 coercion
 //   cargo run -- mut     — DerefMut + Box move-out
+//   cargo run -- ref-target — 15.2.3 引用 vs 智能指针 + type Target
 
-use deref_demo::{demo_basic, demo_deref_mut, demo_method_call, demo_mutex_guard, demo_nested_coercion};
+use deref_demo::{
+    demo_associated_type, demo_basic, demo_deref_mut, demo_method_call, demo_mutex_guard,
+    demo_nested_coercion, demo_ref_vs_smart,
+};
 
 fn main() {
     let arg = std::env::args().nth(1);
@@ -31,11 +35,20 @@ fn main() {
         return;
     }
 
+    if mode == "ref-target" {
+        println!("=== 15.2.3 普通引用 vs 智能指针 ===");
+        demo_ref_vs_smart();
+        println!("\n=== 15.2.3 关联类型 type Target ===");
+        demo_associated_type();
+        println!("\nok: ref-target demo 完成");
+        return;
+    }
+
     println!("=== 15.2 基础：* / deref / coercion ===");
     demo_basic();
 
     println!("\n=== 15.2 §三 方法调用自动解引用 ===");
     demo_method_call();
 
-    println!("\nok: deref demo 完成（-- guards | -- nested | -- mut）");
+    println!("\nok: deref demo 完成（-- guards | -- nested | -- mut | -- ref-target）");
 }
