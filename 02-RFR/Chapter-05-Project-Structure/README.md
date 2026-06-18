@@ -13,7 +13,7 @@
 | **2** | Workspaces | [03 工作区](./03-workspaces.md)（lock/target 共享 · resolver 2 · [03 速记](./03-cheat-sheet.md)） |
 | **3** | Project Configuration | [04 Crate 元数据](./04-crate-metadata.md)（发布字段 · [04 速记](./04-cheat-sheet.md)）· [05 构建配置](./05-build-configuration.md)（patch · profile · [05 速记](./05-cheat-sheet.md)） |
 | **4** | Conditional Compilation | [06 条件编译](./06-conditional-compilation.md)（cfg · target deps · [06 速记](./06-cheat-sheet.md)） |
-| **5** | Versioning | [07 MSRV](./07-msrv.md)（rust-version · SemVer · [07 速记](./07-cheat-sheet.md)）· [08 依赖下界](./08-minimal-dependency-versions.md)（MVS · minimal-versions · [08 速记](./08-cheat-sheet.md)）· [09 Changelog](./09-changelogs.md) · [10 未发布版本](./10-unreleased-versions.md) |
+| **5** | Versioning | [07 MSRV](./07-msrv.md)（[07 速记](./07-cheat-sheet.md)）· [08 依赖下界](./08-minimal-dependency-versions.md)（[08 速记](./08-cheat-sheet.md)）· [09 Changelog](./09-changelogs.md)（Keep a Changelog · [09 速记](./09-cheat-sheet.md)）· [10 未发布版本](./10-unreleased-versions.md) |
 | **6** | Summary | [11 小结](./11-summary.md) |
 
 ## 与 The Book / ER 对照

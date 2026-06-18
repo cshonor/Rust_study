@@ -2,6 +2,10 @@
 
 > 所属：**Versioning** · [← 章索引](./README.md)
 
+← [09 Changelog](./09-changelogs.md) · 下一节 [11 小结](./11-summary.md)
+
+前置 → [09 Changelog §四 Unreleased](./09-changelogs.md#四keep-a-changelog-书写规范)
+
 ## `Unreleased` 小节
 
 CHANGELOG 顶部保留 **`[Unreleased]`**，累积即将发布的变更，发版时改为版本号 + 日期。
