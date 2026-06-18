@@ -6,152 +6,146 @@
 
 ---
 
-## 误区纠正
+## 一、Package vs Crate（先掰清楚）
+
+| 概念 | 含义 |
+|------|------|
+| **Package（包）** | 整个 Cargo 项目 — **一个 `Cargo.toml`** |
+| **Crate（编译单元）** | 编译最小单位 — 一个 Package 可含**多个** crate |
+
+### 一个 Package 里可以有哪些 crate？
+
+| 类型 | 典型入口 | 产物 |
+|------|----------|------|
+| **二进制 crate** | `src/main.rs` | **`.exe`** |
+| **库 crate** | `src/lib.rs` | **`.rlib`** 等 — 供依赖 |
+| **更多** | `[[bin]]`、`[lib]`、examples、tests | 多个 bin/lib |
+
+### 关键结论
+
+```text
+cargo new xxx  →  1 个 Package，默认 1 个 bin crate（main）
+加 src/lib.rs  →  同一 Package 内 lib + bin = 2 个 crate
+```
+
+> **一个 Package ≠ 只能一个 crate** — 只是新手默认只有一个 bin。
 
 | 误区 | 正解 |
 |------|------|
-| 一个 Package 只能一个 crate | **一个 Package 可同时有 lib + bin（2 个 crate）** |
-| `cargo new` 只有一个 crate | 默认只有 **bin**；加 `src/lib.rs` 后即有 **lib + bin** |
-| 文件夹 + `mod.rs` = 独立 crate | 单 Package 内只是 **mod 模块**，不是独立 crate |
-| lib 收拢 mod = Workspace | 仍是 **单 Package**；Workspace = 多个独立 Package |
+| 文件夹 + `mod.rs` = 独立 crate | 单 Package 内只是 **mod** |
+| lib 收拢 mod = Workspace | 仍是 **单 Package** |
 
 ---
 
-## 一、单 Package：lib crate + bin crate
+## 二、单 Package：lib + bin
 
-`cargo new myproj` → 默认仅 `src/main.rs`（**1 个二进制 crate**）。
+`main.rs` 可直接 `use myproj::xxx;` — **无需**在 TOML 为同包 lib 写依赖。
 
-手动添加 `src/lib.rs` 后，**同一 Package** 包含：
-
-| Crate | 入口 | 产物 |
-|-------|------|------|
-| **库 crate** | `src/lib.rs` | `.rlib` 等 — 可被 main / 外部依赖 |
-| **二进制 crate** | `src/main.rs` | `.exe` — 程序入口 |
-
-### 关键规则
-
-`main.rs` 可直接 `use myproj::xxx;` — **无需**在 `Cargo.toml` 为同包 lib 写依赖，Cargo 自动关联。
-
-**实践**：lib 收拢业务模块；main 只做入口、参数解析、初始化 — **仍是单 Package，不是 Workspace**。
-
-### 目录示例
+**实践**：lib 收拢业务 `mod`；main 只做入口 — **不是 Workspace**。
 
 ```text
 myproj/
-├── Cargo.toml          # 唯一 Package 配置
+├── Cargo.toml
 └── src/
-    ├── lib.rs          # 库 crate 根：pub mod db; pub mod utils;
-    ├── main.rs         # 二进制 crate 入口
-    ├── db/
-    │   ├── mod.rs
-    │   └── mysql.rs
-    └── utils/
-        ├── mod.rs
-        └── crypto.rs
+    ├── lib.rs          # 库 crate：pub mod db; pub mod utils;
+    ├── main.rs         # bin crate
+    ├── db/mod.rs       # ← 同一 lib 内的 mod，非独立 crate
+    └── utils/mod.rs
 ```
 
-| 特点 | 说明 |
-|------|------|
-| 一份 `Cargo.toml` | 版本、依赖、feature **全局统一** |
-| `db/`、`utils/` | **同一 lib crate 内的 mod**，非独立 crate |
-| 编译 | lib 先编，再链进 main；改 `utils` → **整个 lib 重编**（巨石倾向） |
+改 `utils` → 常重编**整个 lib** → 趋向**巨石单 lib crate**。
 
 ---
 
-## 二、Workspace：多个独立 Package
+## 三、巨石单 Crate（Monolithic）的利弊
 
-顶层 **根 `Cargo.toml`（`[workspace]`）** + 子目录各 **独立 Package**（各自 `Cargo.toml`、版本、依赖、crate）。
+**定义**：几乎所有代码塞在**一个 lib 或一个 bin crate** 里（`mod` 再分子目录仍属同一 crate）。
 
-### 标准目录
+### 优点
+
+- 结构简单 — 无 workspace、多子 crate 版本/循环依赖烦恼  
+- **几千行以内**小工具、Demo 完全够用  
+
+### 五大缺陷（大项目痛点）
+
+| # | 问题 | 说明 |
+|:-:|------|------|
+| 1 | **编译慢** | 改小函数也常触发**整个 crate**重编；多 crate 只重编变更包 |
+| 2 | **边界弱** | 仅靠 `mod`/`pub` — 易乱调用；多 crate **不 pub 则完全不可见** |
+| 3 | **耦合重** | 外人想用一小段工具须依赖**整个巨石** + 全部传递依赖 |
+| 4 | **测试/feature/版本臃肿** | feature creep；整体一个版本号，无法组件独立发版 |
+| 5 | **协作冲突** | 多人改同一巨大 crate → git 冲突多 |
+
+→ Feature 膨胀：[01 Feature](./01-defining-including-features.md) · ER [Item 26](../../01-ER/Chapter-04-Dependencies/Item-26-feature-creep/README.md)
+
+---
+
+## 四、Workspace：多个独立 Package
+
+顶层 **`[workspace]`** + 子目录各 **独立 `Cargo.toml`**。
 
 ```text
 my_workspace/
-├── Cargo.toml               # workspace 根：members，不写项目依赖
-├── Cargo.lock               # 全局唯一
-├── crates/
-│   ├── core-utils/          # Package 1 · lib
-│   │   ├── Cargo.toml
-│   │   └── src/lib.rs
-│   ├── database/            # Package 2
-│   └── business-logic/      # Package 3
-└── apps/
-    └── server-app/          # Package 4 · bin 入口
-        ├── Cargo.toml
-        └── src/main.rs
+├── Cargo.toml               # members 列表
+├── Cargo.lock
+├── crates/core-utils/       # Package · 独立版本/依赖
+├── crates/database/
+└── apps/server-app/         # bin 入口 Package
 ```
-
-### 根 `Cargo.toml`
 
 ```toml
 [workspace]
-members = [
-    "crates/core-utils",
-    "crates/database",
-    "crates/business-logic",
-    "apps/server-app",
-]
-```
+members = ["crates/core-utils", "crates/database", "apps/server-app"]
 
-根文件**不写** `[package]` 依赖 / version（虚拟工作区）— 只管成员列表。
-
-### 子包 `crates/core-utils/Cargo.toml`
-
-```toml
-[package]
-name = "core-utils"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-rand = "0.8"
-```
-
-### 入口 `apps/server-app/Cargo.toml`
-
-```toml
-[package]
-name = "server-app"
-version = "0.1.0"
-edition = "2021"
-
+# apps/server-app/Cargo.toml
 [dependencies]
 core-utils = { path = "../../crates/core-utils" }
-database = { path = "../../crates/database" }
-business-logic = { path = "../../crates/business-logic" }
-tokio = "1.0"
 ```
 
-→ 详 [03 工作区](./03-workspaces.md)（lock · target · resolver 2）
+→ 详 [03 工作区](./03-workspaces.md)
 
 ---
 
-## 三、架构 A vs B 对比
+## 五、架构对比
 
-| | **A：单 Package（lib + main）** | **B：Workspace 多 Package** |
-|---|--------------------------------|------------------------------|
-| Package 数 | **1** | **多个** |
-| Crate | lib + bin（同包） | 每 Package 自有 lib/bin |
-| `db/` 文件夹 | lib 内 **mod** | 常做成**独立 Package** |
-| `Cargo.toml` | **一份** | 每 Package 一份 |
-| 编译 | 改模块 → 常重编**整个 lib** | 只重编**变更的子包** |
-| 边界 | `pub` 可见性 | **crate** 级强隔离 |
-| 适合 | 小项目、工具、几千行 | 分层架构、长期维护、大型 monorepo |
+| | **单 Package / 巨石 lib** | **Workspace 多 Package** |
+|---|---------------------------|--------------------------|
+| Package | **1** | **多个** |
+| `db/` 文件夹 | lib 内 **mod** | 常 **独立 Package** |
+| 编译 | 改模块 → 重编整个 lib | 只重编**变更子包** |
+| 隔离 | `pub` 自觉 | **crate** 级强制 |
+| 适合 | 小项目 · 几千行 | 上万行 · 团队 · 分层 |
 
 ---
 
-## 四、`lib.rs` 收拢 mod 的两层含义
+## 六、exe 从哪来？（常见疑问）
 
-| 场景 | `lib.rs` 作用 |
-|------|----------------|
-| **单 Package** | `pub mod db;` — `db` 是**同一 lib crate 内模块**；main 用 `use myproj::db` |
-| **Workspace** | `db` 做成**独立子 crate**（自带 `Cargo.toml`），不再是大 lib 里的文件夹 |
+1. **无论巨石还是 workspace**，最终运行的 **exe 都来自某一个二进制 crate**。  
+2. **exe = 运行入口** — 可链接 workspace 内多个已编译的**库 crate**。  
+3. **巨石**：逻辑全在一个 crate 里编进 exe。  
+4. **模块化**：exe 薄薄一层；业务/工具/底层各为独立 lib crate，**分别编译后链接**成一个 exe。
+
+```text
+单巨石：     [ one big lib + main ] → exe
+Workspace：  [ core ] [ db ] [ biz ] + thin main → link → exe
+```
 
 ---
 
-## 五、一句话速记
+## 七、选用建议
 
-- **一个 `Cargo.toml` = 一个 Package**；一个 Package 可有 **多个 crate**（lib / bin）。  
-- **Workspace** = 多 Package 同仓，根 `[workspace]` 统一管理。  
-- **文件夹 + `mod.rs`** → 单 crate 内模块；**文件夹 + `Cargo.toml`** → 独立 Package / crate。
+| 规模 | 建议 |
+|------|------|
+| 几千行以内 · 工具 · Demo | **单 Package**（lib + main）即可 |
+| 上万行 · 长期维护 · 团队协作 | **Workspace** 拆多个小 crate |
 
-→ 速记：[00-cheat-sheet.md](./00-cheat-sheet.md) · 工作区配置：[03](./03-workspaces.md)
+---
+
+## 八、一句话速记
+
+- **Package** = 一个 `Cargo.toml`；可有 **多个 crate**（bin/lib/…）。  
+- **巨石单 crate** 简单但大项目编译慢、边界差、耦合高。  
+- **exe** 只来自 **bin crate**；内部组织不影响「只有一个 exe」，影响的是**编译效率与架构管控**。  
+- **mod.rs** = crate 内模块；**子目录 Cargo.toml** = 独立 Package。
+
+→ 速记：[00-cheat-sheet.md](./00-cheat-sheet.md) · [03 工作区](./03-workspaces.md)

@@ -4,31 +4,30 @@
 
 ---
 
-## 三层概念
+## Package vs Crate
 
-**Package**（一个 Cargo.toml）· **Crate**（lib/bin 编译单元）· **mod**（crate 内模块）
+1 Cargo.toml = 1 **Package** · 可含多 **crate**（bin/lib/[[bin]]/tests）
 
-## 单 Package
+`cargo new` → 1 Package · 1 bin · 加 lib.rs → +1 lib crate
 
-`lib.rs` + `main.rs` = **2 crate，1 Package** · main 自动 `use 包名::`
+## 巨石单 crate
 
-## Workspace
+全塞一个 lib/bin · 简单 · 大项目：编译慢 · 边界弱 · 耦合 · feature 臃肿
 
-多 Package · 各子目录自有 Cargo.toml · 根 `[workspace] members`
+## exe
 
-## mod vs crate
+永远来自 **bin crate** · 可链接多个 lib crate · 巨石 vs workspace 都有 1 个 exe
 
-| | mod | 独立 crate |
-|---|-----|------------|
-| 标志 | `mod.rs` 在 src 下 | 子目录 **Cargo.toml** |
-| 场景 | 单 Package 内文件夹 | Workspace 子包 |
+## mod vs Package
+
+`mod.rs` = crate 内 · 子目录 `Cargo.toml` = 独立 Package
 
 ## 选型
 
-小项目 → 单 Package lib+main · 大项目分层 → Workspace
+≤几千行单 Package · 上万行/团队 → Workspace
 
 ## 自测
 
-- [ ] `cargo new` 默认几个 crate？加 lib.rs 后几个？  
-- [ ] `db/mod.rs` 在单 Package 里是 crate 还是 mod？  
-- [ ] Workspace 根 Cargo.toml 为何常不写 dependencies？
+- [ ] 改 utils/mod 重编整个 lib 还是只重编 utils？  
+- [ ] workspace 下 exe 链接几个 crate？  
+- [ ] 为何外人不能只依赖你巨石里一个小工具函数？
