@@ -2,6 +2,8 @@
 
 > 所属：**Procedural Macros** · [← 章索引](./README.md)
 
+前置 → [00 Token 与宏展开](./00-token-and-macro-pipeline.md)（声明宏 vs 过程宏 · 编译时序）
+
 ## 基本模型
 
 ```rust

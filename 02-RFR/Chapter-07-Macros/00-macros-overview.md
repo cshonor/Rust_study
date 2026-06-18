@@ -3,6 +3,8 @@
 > 第 7 章开篇 · [← 章索引](./README.md)  
 > 与 [Rust Reference · Macros](https://doc.rust-lang.org/reference/macros.html) / Book [19.5 宏](../../00-Book/19-advanced-features/19.5-宏.md) 一致。
 
+**Token 与展开链路精读** → [00 Token 与宏展开](./00-token-and-macro-pipeline.md) · [速记](./00-token-cheat-sheet.md)
+
 ---
 
 ## 0. 怎么理解宏？（直觉模型）
@@ -25,8 +27,10 @@
 
 ```text
 定义宏时：  写好若干条  「若调用长这样 → 展开成那样」
-调用宏时：  传入 token 片段 → 匹配第一条规则 → 替换成模板里的 Rust 代码
+调用宏时：  括号内 token 片段 → 匹配规则 → 替换成模板里的 token（非回写源码再 lex）
 ```
+
+> 只有 `!` **后面括号内**的 Token 参与匹配；`名字!` 是调用标记。全程 Token 流操作 → [00 Token 链路](./00-token-and-macro-pipeline.md)
 
 声明宏 `macro_rules!` 就是结构化 `match` → [02 声明宏如何工作](./02-how-declarative-macros-work.md)  
 过程宏则是 Rust 函数处理 **`TokenStream`**，逻辑更自由 → [07 过程宏如何工作](./07-how-procedural-macros-work.md)
