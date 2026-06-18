@@ -2,6 +2,10 @@
 
 > 所属：**Features** · [← 章索引](./README.md)
 
+← [01 定义与包含 Feature](./01-defining-including-features.md) · 下一节 [03 工作区](./03-workspaces.md)
+
+前置 → [01 Additive 原则](./01-defining-including-features.md) · [06 条件编译](./06-conditional-compilation.md)
+
 ## 代码侧
 
 ```rust

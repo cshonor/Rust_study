@@ -9,7 +9,7 @@
 
 | 主节 | 英文 | 子节 / 笔记 |
 |------|------|-------------|
-| **1** | Features | [01 定义与包含](./01-defining-including-features.md) · [02 crate 内使用](./02-using-features-in-crate.md) |
+| **1** | Features | [01 定义与包含](./01-defining-including-features.md)（Additive · optional · [01 速记](./01-cheat-sheet.md)）· [02 crate 内使用](./02-using-features-in-crate.md) |
 | **2** | Workspaces | [03 工作区](./03-workspaces.md) |
 | **3** | Project Configuration | [04 Crate 元数据](./04-crate-metadata.md) · [05 构建配置](./05-build-configuration.md) |
 | **4** | Conditional Compilation | [06 条件编译](./06-conditional-compilation.md) |
