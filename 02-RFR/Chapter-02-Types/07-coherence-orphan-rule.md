@@ -23,7 +23,7 @@
 |---|------|------|
 | **07.1** | 孤儿规则 · 合法/非法 | [07-1-orphan-rule.md](./07-1-orphan-rule.md) |
 | **07.2** | Coverage · Blanket impl | [07-2-coverage-blanket.md](./07-2-coverage-blanket.md) |
-| **07.3** | NewType · 工程实践 | [07-3-newtype-practice.md](./07-3-newtype-practice.md) |
+| **07.3** | Newtype 模式完整详解 | [07-3-newtype-practice.md](./07-3-newtype-practice.md) · [速记](./07-3-cheat-sheet.md) |
 | — | 速记 · 自测 | [07-cheat-sheet.md](./07-cheat-sheet.md) |
 | — | demo | [orphan-rule-demo](./orphan-rule-demo/) |
 

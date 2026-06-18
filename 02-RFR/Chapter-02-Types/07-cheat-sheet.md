@@ -10,6 +10,12 @@
 2. **Coverage：`impl From<MyLocal> for Foreign`。**  
 3. **双外部 → NewType + `Deref`。**
 
+## Newtype 四用途
+
+类型安全 · 绕孤儿 · 校验构造 · 专属方法
+
+→ 详 [07.3](./07-3-newtype-practice.md)
+
 ## 自测
 
 - [ ] 为何不能 `impl Display for Vec<u8>`？  
