@@ -53,7 +53,7 @@ cargo run -- --drop-order    # 观察递归 Drop 顺序
 
 | 主题 | 对照 |
 |------|------|
-| Drop 基础 | [Book 15.3](../../00-Book/15-smart-pointers/15.3-使用Drop运行清理代码.md) |
+| Drop / RAII·OBRM | [Book 15.3.0](../../00-Book/15-smart-pointers/15.3.0-RAII与OBRM辨析.md) · [15.3 Drop](../../00-Book/15-smart-pointers/15.3-使用Drop运行清理代码.md) · [15.3.2 Socket](../../00-Book/15-smart-pointers/15.3.2-Drop与网络Socket-RAII.md) |
 | 未初始化 / set_len | [05_Uninit_Mem](../05_Uninit_Mem/README.md) |
 | 上一章 | [05_Uninit_Mem](../05_Uninit_Mem/README.md) |
 | 下一章 | [07_Concurrency_Atomic](../07_Concurrency_Atomic/README.md) |
@@ -62,4 +62,4 @@ cargo run -- --drop-order    # 观察递归 Drop 顺序
 
 ## 逻辑脉络
 
-构造析构模型 → forget 与代理危险 → panic Guard → 投毒护栏 → 进入 Concurrency。
+RAII/OBRM 概念（00.1 · Book 15.3.0）→ 构造析构模型 → forget 与代理危险 → panic Guard → 投毒护栏 → 进入 Concurrency。
