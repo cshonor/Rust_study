@@ -19,6 +19,7 @@
 
 | 节 | 主题 | 阅读 |
 |:--:|------|------|
+| **0.1** | **RAII / OBRM** | [00-1-RAII与OBRM辨析.md](./00-1-RAII与OBRM辨析.md) · [Book 15.3.0](../../00-Book/15-smart-pointers/15.3.0-RAII与OBRM辨析.md) |
 | — | 本章定位 | [00-overview.md](./00-overview.md) |
 | 1 | 构造与析构 | [01-construct-drop.md](./01-construct-drop.md) |
 | 2 | 泄漏与 forget | [02-forget-leak.md](./02-forget-leak.md) |

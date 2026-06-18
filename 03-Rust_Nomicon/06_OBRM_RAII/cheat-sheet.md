@@ -6,6 +6,7 @@
 
 ## 三句背诵
 
+0. **RAII = 构造拿资源；OBRM = RAII + 唯一所有权 + Drop**（详见 [00.1](./00-1-RAII与OBRM辨析.md)）
 1. **Rust 移动 = memcpy，无地址感知构造；Drop 递归清理字段。**
 2. **`forget` 泄漏资源但不算内存 UB；代理类型 forget 可能 UAF。**
 3. **panic 栈展开须 minimal exception safety；无法恢复则 poison 阻断。**

@@ -4,7 +4,9 @@
 
 ---
 
-官方标题 **The Perils Of Ownership Based Resource Management (OBRM / RAII)**。获取资源常伴随对象创建，释放依赖销毁。本章探讨该机制在底层编程中的挑战与风险。
+官方标题 **The Perils Of Ownership Based Resource Management (OBRM / RAII)**。获取资源常伴随对象创建，释放依赖销毁。本章探讨该机制在底层编程中的**挑战与风险**。
+
+> **先读**：[00.1 RAII 与 OBRM 辨析](./00-1-RAII与OBRM辨析.md)（概念）→ 完整版 [Book 15.3.0](../../00-Book/15-smart-pointers/15.3.0-RAII与OBRM辨析.md) · 再读本章 01–05（陷阱）
 
 | 对照 | 路径 |
 |------|------|
@@ -20,6 +22,8 @@
 ## 小节路线图
 
 ```text
+00.1  RAII / OBRM 概念（Perils 前置）→ Book 15.3.0 完整版
+  ↓
 01  极简构造 · 递归 Drop → construct_drop.rs
   ↓
 02  forget 与泄漏 → forget_leak.rs
@@ -36,6 +40,7 @@
 | 节 | 主题 | 阅读 |
 |:--:|------|------|
 | — | 本章定位 | 本页 |
+| **0.1** | **RAII / OBRM 辨析** | [00-1-RAII与OBRM辨析.md](./00-1-RAII与OBRM辨析.md) · [Book 15.3.0](../../00-Book/15-smart-pointers/15.3.0-RAII与OBRM辨析.md) |
 | 1 | 构造与析构 | [01-construct-drop.md](./01-construct-drop.md) |
 | 2 | 泄漏与 forget | [02-forget-leak.md](./02-forget-leak.md) |
 | 3 | 代理类型 | [03-proxy-types.md](./03-proxy-types.md) |
