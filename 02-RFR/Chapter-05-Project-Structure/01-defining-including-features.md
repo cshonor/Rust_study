@@ -18,7 +18,52 @@
 
 ---
 
-## 二、附加性 Additive 原则（硬性规范）
+## 二、依赖 `features` 与自有 `[features]`（别混）
+
+### 写法 1：写在 `[dependencies]` 里（最常用）
+
+```toml
+[dependencies]
+serde = { version = "1.0", features = ["derive", "json"] }
+```
+
+引入 `serde`，并开启其 **`derive`**、**`json`** 两个 feature — **完全合法**。
+
+**适用**：你是**使用者**，固定需要某些第三方能力，直接写在依赖上。
+
+### 写法 2：自有 `[features]` 中转引
+
+```toml
+[dependencies]
+serde = { version = "1.0", optional = true }
+
+[features]
+serde-full = ["dep:serde", "serde/json", "serde/derive"]
+```
+
+`serde` 为可选依赖；下游开你包的 **`serde-full`** → 自动启用 `serde` 并打开其内部 feature。
+
+**适用**：你是**库作者**，对外封装一键能力组合。
+
+| 写法 | 角色 |
+|------|------|
+| `dependencies` + `features = [...]` | 使用者 / 固定开启 |
+| 自有 `[features]` + `dep:` / `serde/xxx` | 库作者 / 对外封装 |
+
+### 分清两种完全不同的 Feature
+
+| | **第三方 crate 的 feature** | **你自己包的 `[features]`** |
+|---|------------------------------|-------------------------------|
+| 例子 | `serde/json`、`tokio/macros` | 本文件 `[features]` 段 |
+| 开启方式 | `dependencies` 里 `features = []` 或 `serde/json` 语法 | 下游 `features = ["your_feat"]` |
+| 代码侧 | 第三方库内部 `#[cfg]` | 你方 `#[cfg(feature = "xxx")]` |
+
+> **使用者**可随意增减依赖的 feature — **无**附加性约束。  
+> **互斥禁止**只约束**库作者设计自己包的 `[features]`** → 见下节。
+
+---
+
+## 三、附加性 Additive 原则（硬性规范）
 
 所有 Feature 只能**叠加新增功能**，**不能**做破坏性修改。
 
@@ -39,7 +84,7 @@ Cargo 对同一库的所有 Feature 做**并集合并**，只编译**一份**代
 
 ---
 
-## 三、可选依赖写法
+## 四、可选依赖写法
 
 ### 1. 声明可选依赖
 
@@ -83,7 +128,22 @@ mylib = { version = "0.1", default-features = false, features = [] }
 
 ---
 
-## 四、与代码侧配合（预览）
+### 互斥反例（库作者 — 错误设计）
+
+```toml
+# ❌ 糟糕：设计成互斥
+[features]
+single_thread = []
+multi_thread = []
+```
+
+上游若同时需要两者 → Cargo 并集同时开启 → 编译失败。
+
+**正确**：所有自有 feature 只**新增**代码，任意组合可编译。
+
+---
+
+## 五、与代码侧配合（预览）
 
 ```toml
 # Cargo.toml（库作者）
@@ -117,7 +177,7 @@ impl Record {
 
 ---
 
-## 五、ER Item 26：Feature Creep（特性泛滥）
+## 六、ER Item 26：Feature Creep（特性泛滥）
 
 **忠告**：不要无限堆砌细碎小 Feature。
 
@@ -131,11 +191,12 @@ impl Record {
 
 ---
 
-## 六、核心速记
+## 七、核心速记
 
-1. Feature = 构建开关 — **只能加功能**，不能改删现有 API。  
-2. `optional = true` + `dep:xxx` 绑定可选依赖。  
-3. `default` = 开箱即用集合；下游 `default-features = false` 精简。  
-4. **禁止互斥** — Cargo 会合并所有开启的 Feature。  
+1. **`dependencies` + `features = [...]`** 合法 — 使用者最常用。  
+2. **自有 `[features]`** 封装能力；`dep:` / `serde/xxx` 联动第三方。  
+3. **两种 feature 别混**：别人的 vs 自己的。  
+4. **互斥禁令**只针对库作者设计自有 feature；使用者无此限。  
+5. `optional` + `dep:` + `default` — 见 §四。  
 
 → 速记：[01-cheat-sheet.md](./01-cheat-sheet.md) · 下一节：[02 crate 内使用](./02-using-features-in-crate.md)

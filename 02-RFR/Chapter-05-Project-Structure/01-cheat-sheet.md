@@ -4,11 +4,20 @@
 
 ---
 
-## Feature 三件事
+## 两种写法
 
-可选依赖 · `#[cfg(feature)]` · 功能子集减体积
+```toml
+# 使用者：依赖上直接开
+serde = { version = "1", features = ["derive"] }
+# 库作者：自有 feature 中转
+serde-full = ["dep:serde", "serde/derive"]
+```
 
-## Additive 原则
+## 两种 Feature 别混
+
+第三方 `serde/json` · 自己的 `[features]` 段
+
+## Additive 原则（仅库作者设计自有 feature）
 
 只加不删 · 不改公开 API · **禁止互斥**（Cargo 取并集）
 
@@ -31,6 +40,6 @@ serde = ["dep:serde"]
 
 ## 自测
 
-- [ ] 为何不能设计「开 A 必关 B」的互斥 Feature？  
-- [ ] `dep:serde` 和直接写 `serde` 在 features 里差在哪？  
-- [ ] `--no-default-features` 测什么？
+- [ ] `dependencies` 里 `features = []` 和自有 `[features]` 差在哪？  
+- [ ] 互斥禁令约束使用者还是库作者？  
+- [ ] `serde-full = ["dep:serde", "serde/derive"]` 各段含义？
