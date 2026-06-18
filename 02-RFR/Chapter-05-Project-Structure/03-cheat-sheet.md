@@ -4,45 +4,44 @@
 
 ---
 
-## 痛点 → 价值
+## 核心结论
 
-巨石全量重编 → 多 member · 增量 · 边界 · monorepo
+根 TOML **不管**子包 version / 业务依赖注入 · 只管 **members** + 全局 **Cargo.lock**
 
-## 根 TOML
+子包提版本要求 → lock 统一落地 → 同一第三方 crate 不会多版本并存
+
+## 根能干 / 不能干
+
+✅ members · lock · 批量 cargo · `workspace.dependencies` / `profile` / `patch`  
+❌ 不给所有子包自动注入 `[dependencies]` · 不替子包定 `[package].version`
+
+## 子包自治
+
+各自 `version` · `[dependencies]` · path 引用兄弟包
 
 ```toml
-[workspace]
-members = ["crates/*", "cli"]
-resolver = "2"
+core-utils = { path = "../../crates/core-utils", version = "0.1.0" }
 ```
 
-虚拟 = 无 `[package]` · 带包 = 根也是 crate
+## 依赖版本两种模式
+
+| 经典 | 各子包自己写版本，lock 收敛 |
+| 现代 | 根 `[workspace.dependencies]` + `tokio = { workspace = true }` |
 
 ## 两大共享
 
 `Cargo.lock` 唯一 · `target/` 统一
 
-## 仅根生效
-
-`profile` · `patch` · `[workspace.dependencies]` · `[workspace.package]`
-
 ## 命令
 
-`--workspace` 全局 · `-p foo` 单包
+`--workspace` 全局 · `-p foo` 单包 · `default-members` 无 -p 默认谁
 
 ## resolver 2
 
-普通 / build / proc-macro feature 隔离 · 平台依赖隔离 · 虚拟 ws 须手写
-
-## 子包依赖
-
-```toml
-tokio = { workspace = true }
-foo = { path = "../foo", version = "0.1" }
-```
+虚拟 ws 须手写 · feature / 平台依赖隔离
 
 ## 自测
 
-- [ ] 为何子 crate 改 profile 无效？  
-- [ ] 改 `foo` 后哪些包会重编？  
-- [ ] 虚拟工作区为何不自动 resolver 2？
+- [ ] 子包 A/B 对 tokio 约束不同，最终用几个版本？  
+- [ ] 根写 `[dependencies]` 子包会自动带上吗？  
+- [ ] `workspace = true` 和根强制注入有何区别？
