@@ -53,7 +53,7 @@ members = [
 ]
 exclude = []                              # 可选：排除某些路径
 default-members = ["apps/server-app"]     # 可选：无 -p 时默认构建谁
-resolver = "2"                            # 虚拟工作区建议手写，见 §七
+resolver = "2"                            # 虚拟工作区建议手写，见 §八
 ```
 
 ### ✅ 根能干
@@ -63,7 +63,7 @@ resolver = "2"                            # 虚拟工作区建议手写，见 §
 | **登记成员** | `members` / `exclude` — Cargo 知道哪些子目录属于工作区 |
 | **统一 lock** | 根目录唯一 `Cargo.lock`，锁定全工作区第三方版本 |
 | **批量命令** | 根目录 `cargo build` / `test` / `clippy` 可操作全部或 `default-members` |
-| **可选集中配置** | `[workspace.dependencies]`、`[workspace.package]`、`profile`、`patch`（见 §五） |
+| **可选集中配置** | `[workspace.dependencies]`、`[workspace.package]`、`profile`、`patch`（见 §六） |
 
 ### ❌ 根不能干
 
@@ -73,9 +73,70 @@ resolver = "2"                            # 虚拟工作区建议手写，见 §
 | 根写 `[dependencies]` 就自动注入所有子包 | **不能** — 子包须在自己 TOML 声明需要什么；根只能提供 `workspace.dependencies` **供继承** |
 | 根统一管控子包 feature、内部编译选项 | 各子包自己的 `[features]`、`[lib]` 等 |
 
+> **根本身不是 Package** — 只有 `[workspace]`、无 `[package]` 时，根只是「管理员」；能编译、有版本、有依赖的包，全是 `members` 里那些路径对应的子文件夹。
+
 ---
 
-## 三、版本号与依赖：每个子包自己管
+## 三、`members` 是什么？
+
+`members` 是一个**路径列表**。每一条路径指向**一个独立 Package 所在的文件夹** — 该文件夹下**必须有一份 `Cargo.toml`**。
+
+> **一句话**：`members` 填的是**子 Package 的文件夹路径**，不是 `Cargo.toml` 文件本身；文件夹里若无 `Cargo.toml`，Cargo 直接报错。
+
+### 显式列举
+
+```text
+my_workspace/
+├── Cargo.toml              # 根：只有 [workspace]
+├── crates/core-utils/
+│   └── Cargo.toml          # Package 1
+└── apps/server-app/
+    └── Cargo.toml          # Package 2
+```
+
+```toml
+[workspace]
+members = [
+    "crates/core-utils",    # 去此路径找 Cargo.toml，纳入工作区
+    "apps/server-app",
+]
+```
+
+### 通配符简写
+
+```toml
+members = ["crates/*", "apps/*"]
+```
+
+`crates/*` = `crates/` 下**所有直接子文件夹**，内有 `Cargo.toml` 的自动算作 member — 不必逐个手写 `core-utils`、`database`……
+
+### 三条配套规则
+
+| # | 规则 |
+|:-:|------|
+| ① | **不在 `members` 里 = 不属于本 Workspace** — 哪怕有 `Cargo.toml`：不共用根 `Cargo.lock`；根 `cargo build`/`test` 不构建它；不能用 `workspace = true` 继承 |
+| ② | **一个 Package 只能属于一个 Workspace** — 不能被两个不同根的 `members` 同时包含 |
+| ③ | **根不是 Package** — 真正干活的是 `members` 里那些子包 |
+
+### 极简示例
+
+```text
+root/
+├── Cargo.toml          # 无 [package]
+├── pkg_a/Cargo.toml    # 包 A
+└── pkg_b/Cargo.toml    # 包 B
+```
+
+```toml
+[workspace]
+members = ["pkg_a", "pkg_b"]
+```
+
+根是管理员；`pkg_a`、`pkg_b` 才是有版本、有依赖、能编译的包。
+
+---
+
+## 四、版本号与依赖：每个子包自己管
 
 每个 member（如 `crates/core-utils`、`apps/server-app`）都是**独立 Package**：
 
@@ -108,7 +169,7 @@ axum = "0.7"
 
 ---
 
-## 四、`Cargo.lock` 如何统一第三方版本？
+## 五、`Cargo.lock` 如何统一第三方版本？
 
 **不靠**根 TOML 写死版本，靠**全局唯一 lock**：
 
@@ -128,7 +189,7 @@ axum = "0.7"
 
 ---
 
-## 五、公共依赖复用：`[workspace.dependencies]`
+## 六、公共依赖复用：`[workspace.dependencies]`
 
 没有「根 TOML 一键注入全局依赖」，但有**规范集中写法** — 版本在根定义一次，子包**主动继承**：
 
@@ -179,7 +240,7 @@ serde = { workspace = true }
 
 ---
 
-## 六、工作流与常用命令
+## 七、工作流与常用命令
 
 ### 全局批量（根目录）
 
@@ -207,7 +268,7 @@ cd crates/foo && cargo run   # 自动识别上层 workspace
 
 ---
 
-## 七、`resolver = "2"`（必考）
+## 八、`resolver = "2"`（必考）
 
 1. **区分** 普通依赖 / build 依赖 / proc-macro — feature **不**全局乱合并  
 2. **平台条件依赖隔离** — Windows 专属 feature 在 Linux 构建时不被强开  
@@ -217,7 +278,7 @@ cd crates/foo && cargo run   # 自动识别上层 workspace
 
 ---
 
-## 八、推荐目录结构
+## 九、推荐目录结构
 
 ```text
 project-root/
@@ -233,7 +294,7 @@ project-root/
 
 ---
 
-## 九、整体职责一览
+## 十、整体职责一览
 
 | 维度 | 谁负责 |
 |------|--------|
@@ -245,7 +306,7 @@ project-root/
 
 ---
 
-## 十、对照阅读
+## 十一、对照阅读
 
 | 资源 | 路径 |
 |------|------|
@@ -256,12 +317,13 @@ project-root/
 
 ---
 
-## 十一、核心速记
+## 十二、核心速记
 
-1. **根不管子包 version** — 只管 members；**lock 统一第三方落地版本**。  
-2. **子包各自声明依赖**；`workspace.dependencies` = 版本集中维护 + 子包 `workspace = true` 继承。  
-3. **两大共享**：根 `Cargo.lock` · 根 `target/`。  
-4. **`resolver = "2"`** — 虚拟工作区须手写。  
-5. **`--workspace`** 全局 · **`-p`** 单成员。
+1. **`members` = 子 Package 文件夹路径列表** — 指向文件夹，非 `Cargo.toml` 文件；须含 TOML。  
+2. **根不管子包 version** — 只管 members；**lock 统一第三方落地版本**。  
+3. **子包各自声明依赖**；`workspace.dependencies` = 版本集中维护 + 子包 `workspace = true` 继承。  
+4. **两大共享**：根 `Cargo.lock` · 根 `target/`。  
+5. **`resolver = "2"`** — 虚拟工作区须手写。  
+6. **`--workspace`** 全局 · **`-p`** 单成员。
 
 → 速记：[03-cheat-sheet.md](./03-cheat-sheet.md) · 下一节：[04 Crate 元数据](./04-crate-metadata.md)

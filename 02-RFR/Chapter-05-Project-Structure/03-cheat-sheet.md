@@ -10,6 +10,14 @@
 
 子包提版本要求 → lock 统一落地 → 同一第三方 crate 不会多版本并存
 
+## members
+
+路径列表 → 指向**含 Cargo.toml 的文件夹**（不是 TOML 文件路径）
+
+`crates/*` 通配直接子目录 · 不在 members = 不共用 lock / 不能 `workspace = true`
+
+根无 `[package]` = 不是包 · 一个 Package 只能属一个 Workspace
+
 ## 根能干 / 不能干
 
 ✅ members · lock · 批量 cargo · `workspace.dependencies` / `profile` / `patch`  
@@ -42,6 +50,6 @@ core-utils = { path = "../../crates/core-utils", version = "0.1.0" }
 
 ## 自测
 
-- [ ] 子包 A/B 对 tokio 约束不同，最终用几个版本？  
-- [ ] 根写 `[dependencies]` 子包会自动带上吗？  
-- [ ] `workspace = true` 和根强制注入有何区别？
+- [ ] `members` 填的是文件夹还是 `Cargo.toml` 路径？  
+- [ ] 有 Cargo.toml 但没进 members 的包能 `workspace = true` 吗？  
+- [ ] 子包 A/B 对 tokio 约束不同，最终用几个版本？
