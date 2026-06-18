@@ -1,8 +1,8 @@
-# Token 与宏展开完整链路（词法 → 声明宏 / 过程宏）
+# 00.1 Token 与宏展开完整链路
 
-> 第 7 章基础精读 · [← 章索引](./README.md) · [00 宏总览](./00-macros-overview.md)
+> 第 7 章开篇精读 · [← 00 hub](./00-macros-overview.md) · [章索引](./README.md)
 
-← [00 宏总览](./00-macros-overview.md) · 下一节 [01 何时用声明宏](./01-when-to-use-declarative-macros.md)
+← [00 宏总览](./00-macros-overview.md) · 下一节 [00-2 宏分类](./00-2-macro-taxonomy.md)
 
 配套 → [02 声明宏如何工作](./02-how-declarative-macros-work.md) · [07 过程宏如何工作](./07-how-procedural-macros-work.md) · Book [19.5 宏](../../00-Book/19-advanced-features/19.5-宏.md)
 
@@ -136,4 +136,4 @@ vec   !   [   1   ,   2   ,   3   ]
 4. **时序**：lex → **宏展开** → parse AST → 类型检查 → 单态化。  
 5. **`cargo expand`** 看的是等价源码，不是编译器内部步骤。
 
-→ 速记：[00-token-cheat-sheet.md](./00-token-cheat-sheet.md)
+→ 速记：[00-1-cheat-sheet.md](./00-1-cheat-sheet.md) · 下一节：[00-2 宏分类](./00-2-macro-taxonomy.md)

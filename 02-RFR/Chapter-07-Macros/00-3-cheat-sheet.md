@@ -1,6 +1,6 @@
-# 宏 vs 函数 · 速记
+# 00.3 · 宏 vs 函数 · 速记
 
-← [00 宏 vs 函数](./00-macro-vs-function.md) · [00 宏总览](./00-macros-overview.md) · [章索引](./README.md)
+← [00-3 宏 vs 函数](./00-3-macro-vs-function.md) · [00 hub](./00-macros-overview.md) · [章索引](./README.md)
 
 ---
 

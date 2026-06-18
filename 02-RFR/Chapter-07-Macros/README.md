@@ -9,10 +9,10 @@
 
 | | 笔记 |
 |---|------|
-| **总览（复习）** | [00 宏核心总览](./00-macros-overview.md) — **§0 直觉：模板 / 模式匹配 / vs Java 注解** |
-| **宏分类（4 类）** | [00 宏分类总览](./00-macro-taxonomy.md)（声明 + derive/attr/类函数 · [速记](./00-macro-taxonomy-cheat-sheet.md)） |
-| **Token 基础** | [00 Token 与宏展开](./00-token-and-macro-pipeline.md)（词法 · 声明/过程宏 · 编译时序 · [速记](./00-token-cheat-sheet.md)） |
-| **宏 vs 函数** | [00 宏 vs 函数](./00-macro-vs-function.md)（八维对比 · 取舍 · [速记](./00-macro-vs-fn-cheat-sheet.md)） |
+| **总览（复习）** | [00 宏核心总览](./00-macros-overview.md) — hub · **§0 直觉** |
+| **00.1 Token** | [00-1 Token 与宏展开](./00-1-token-and-macro-pipeline.md) · [速记](./00-1-cheat-sheet.md) |
+| **00.2 分类** | [00-2 宏分类总览](./00-2-macro-taxonomy.md) · [速记](./00-2-cheat-sheet.md) |
+| **00.3 宏 vs 函数** | [00-3 完整对比](./00-3-macro-vs-function.md) · [速记](./00-3-cheat-sheet.md) |
 
 | 主节 | 英文 | 子节 / 笔记 |
 |------|------|-------------|
@@ -23,7 +23,7 @@
 ## 阅读顺序
 
 ```text
-00（总览 + Token 链路）→ 01 → 02 → 03 → 04 → 05 → 06 → 07 → 08
+00（hub）→ 00-1 / 00-2 / 00-3（按需）→ 01 → 02 → … → 08
 ```
 
 ## 与 The Book / ER 对照

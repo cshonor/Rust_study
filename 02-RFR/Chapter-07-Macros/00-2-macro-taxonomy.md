@@ -1,10 +1,10 @@
-# Rust 宏整体分类（声明宏 + 三大过程宏）
+# 00.2 Rust 宏整体分类（声明宏 + 三大过程宏）
 
-> 第 7 章分类总览 · [← 章索引](./README.md)
+> 第 7 章开篇精读 · [← 00 hub](./00-macros-overview.md) · [章索引](./README.md)
 
-← [00 宏总览](./00-macros-overview.md) · 下一节 [00 Token 链路](./00-token-and-macro-pipeline.md)
+← [00-1 Token 链路](./00-1-token-and-macro-pipeline.md) · 下一节 [00-3 宏 vs 函数](./00-3-macro-vs-function.md)
 
-配套 → [04 过程宏类型](./04-types-of-procedural-macros.md) · [00 宏 vs 函数](./00-macro-vs-function.md) · Book [19.5 宏](../../00-Book/19-advanced-features/19.5-宏.md)
+配套 → [04 过程宏类型](./04-types-of-procedural-macros.md) · [00-3 宏 vs 函数](./00-3-macro-vs-function.md) · Book [19.5 宏](../../00-Book/19-advanced-features/19.5-宏.md)
 
 ---
 
@@ -179,7 +179,7 @@ let row = sqlx::query!("SELECT id, name FROM users WHERE id = $1", 1i64)
 | 语法校验、DSL、编译期查库/schema | **类函数过程宏** |
 | 批量 `impl` trait | **派生过程宏** |
 | 改造整个 fn/struct（async main、路由） | **属性过程宏** |
-| 泛型 + trait 能表达 | **不用宏** → [00 宏 vs 函数](./00-macro-vs-function.md) |
+| 泛型 + trait 能表达 | **不用宏** → [00-3 宏 vs 函数](./00-3-macro-vs-function.md) |
 
 ```text
 泛型+函数 → macro_rules! → 过程宏（derive / attr / foo!）
@@ -196,4 +196,4 @@ let row = sqlx::query!("SELECT id, name FROM users WHERE id = $1", 1i64)
 | **Attribute** | `#[attr(...)]` 项上 | `proc_macro_attribute` | `tokio::main` `get("/")` |
 | **Function-like** | `foo!(...)` | `proc_macro` | `query!` `json!` |
 
-→ 速记：[00-macro-taxonomy-cheat-sheet.md](./00-macro-taxonomy-cheat-sheet.md)
+→ 速记：[00-2-cheat-sheet.md](./00-2-cheat-sheet.md) · 下一节：[00-3 宏 vs 函数](./00-3-macro-vs-function.md)

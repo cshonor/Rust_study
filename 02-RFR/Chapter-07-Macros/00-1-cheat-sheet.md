@@ -1,6 +1,6 @@
-# Token 与宏展开 · 速记
+# 00.1 · Token 与宏展开 · 速记
 
-← [00 Token 链路](./00-token-and-macro-pipeline.md) · [00 宏总览](./00-macros-overview.md) · [章索引](./README.md)
+← [00-1 Token 链路](./00-1-token-and-macro-pipeline.md) · [00 hub](./00-macros-overview.md) · [章索引](./README.md)
 
 ---
 

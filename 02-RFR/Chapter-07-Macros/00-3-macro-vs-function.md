@@ -1,8 +1,8 @@
-# 宏 vs 普通函数（完整对比）
+# 00.3 宏 vs 普通函数（完整对比）
 
-> 第 7 章基础精读 · [← 章索引](./README.md) · [00 宏总览](./00-macros-overview.md)
+> 第 7 章开篇精读 · [← 00 hub](./00-macros-overview.md) · [章索引](./README.md)
 
-← [00 Token 与宏展开](./00-token-and-macro-pipeline.md) · 下一节 [01 何时用声明宏](./01-when-to-use-declarative-macros.md)
+← [00-2 宏分类](./00-2-macro-taxonomy.md) · 下一节 [01 何时用声明宏](./01-when-to-use-declarative-macros.md)
 
 ---
 
@@ -81,4 +81,4 @@ cargo expand --lib           # 指定 crate 库根
 4. **函数优先**；宏是最后手段。  
 5. 排错靠 **`cargo expand`**。
 
-→ 速记：[00-macro-vs-fn-cheat-sheet.md](./00-macro-vs-fn-cheat-sheet.md)
+→ 速记：[00-3-cheat-sheet.md](./00-3-cheat-sheet.md) · 下一节：[01 何时用声明宏](./01-when-to-use-declarative-macros.md)

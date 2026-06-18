@@ -1,6 +1,6 @@
-# 宏整体分类 · 速记
+# 00.2 · 宏整体分类 · 速记
 
-← [00 宏分类总览](./00-macro-taxonomy.md) · [章索引](./README.md)
+← [00-2 宏分类总览](./00-2-macro-taxonomy.md) · [00 hub](./00-macros-overview.md) · [章索引](./README.md)
 
 ---
 
