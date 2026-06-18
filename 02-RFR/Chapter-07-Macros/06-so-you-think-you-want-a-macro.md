@@ -2,7 +2,7 @@
 
 > 所属：**Procedural Macros** · [← 章索引](./README.md)
 
-RFR 强调的决策顺序 — **不要默认上宏**。总览 → [00 宏核心总览](./00-macros-overview.md)
+RFR 强调的决策顺序 — **不要默认上宏**。总览 → [00 宏核心总览](./00-macros-overview.md) · 声明宏何时用 → [01](./01-when-to-use-declarative-macros.md)
 
 ## 选型 ladder
 
