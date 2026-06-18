@@ -7,6 +7,10 @@
 
 **6 个主节** · 连同二级子节共 **14 个部分**（3 个带子的主节标题 + 2 + 1 + 2 + 1 + 4 + Summary）。
 
+| | 笔记 |
+|---|------|
+| **基础辨析** | [00 Package vs Workspace](./00-package-vs-workspace.md)（lib+bin · mod vs crate · [00 速记](./00-cheat-sheet.md)） |
+
 | 主节 | 英文 | 子节 / 笔记 |
 |------|------|-------------|
 | **1** | Features | [01 定义与包含](./01-defining-including-features.md)（Additive · optional · [01 速记](./01-cheat-sheet.md)）· [02 crate 内使用](./02-using-features-in-crate.md)（cfg · CI · 反模式 · [02 速记](./02-cheat-sheet.md)） |
@@ -28,3 +32,9 @@
 ## 旧版单文件
 
 见 git 中的 `5-项目结构-Project-Structure-深度解析.md`。
+
+## 建议阅读顺序
+
+```text
+00（Package vs Workspace）→ 01 → 02 → 03 → … → 11
+```

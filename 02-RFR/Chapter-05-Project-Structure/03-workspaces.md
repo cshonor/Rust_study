@@ -4,15 +4,18 @@
 
 ← [02 crate 内使用 Feature](./02-using-features-in-crate.md) · 下一节 [04 Crate 元数据](./04-crate-metadata.md)
 
+前置 → [00 Package vs Workspace](./00-package-vs-workspace.md)（单包 lib+bin · 多包辨析）
+
 Book → [14.3 Cargo 工作空间](../../00-Book/14-cargo-crates/14.3-Cargo工作空间.md) · demo → [14.3-workspace-demo](../../00-Book/14-cargo-crates/14.3-workspace-demo/) · [14.3-hft-workspace-demo](../../00-Book/14-cargo-crates/14.3-hft-workspace-demo/)
 
 ---
 
 ## 一、核心作用：解决巨石单 crate 痛点
 
-### 巨石单 crate 缺陷
+### 巨石单 Package 缺陷
 
-代码全塞一个包 → 任意修改 **全量重编译**；模块边界模糊、耦合重、无法单独发布子库。
+单 Package 内 `lib` 收拢所有 `mod` — 改任意内部模块常触发 **整个 lib 重编**；边界仅 `pub` 可见性，无 crate 级隔离。  
+→ 辨析：[00 Package vs Workspace](./00-package-vs-workspace.md)
 
 ### Workspace 价值
 
