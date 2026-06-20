@@ -118,7 +118,7 @@ generic(rf);      // ❌ T = &Foo，未 impl MyTrait — 除非有 blanket for &
 generic(Box::new(Foo)); // ❌ 同理
 ```
 
-→ demo 对照：[blanket-trait-demo/src/scratch_autoref.rs](./blanket-trait-demo/src/scratch_autoref.rs)（无 blanket 时编译失败行）
+→ demo 源码：[blanket-trait-demo/src/lib.rs](./blanket-trait-demo/src/lib.rs)（泛型 `T: MyTrait` 须 blanket，见 [03-1 §三](./03-1-ergonomic-blanket-full-guide.md#三两套并行逻辑结构体-impl--blanket-impl)）
 
 ---
 
@@ -142,7 +142,9 @@ impl<T: MyTrait + ?Sized> MyTrait for &mut T {
 }
 ```
 
-`?Sized`：支持 `str`、`[u8]` 等 DST 的引用。
+`?Sized`：允许 `T` 为 DST（`str`、`[u8]`、`dyn Trait`），使 `&str` 等能命中 blanket。
+
+→ 详解：[03-2 `?Sized` 与 `?`](./03-2-question-sized.md) · [03-2 速记](./03-2-cheat-sheet.md)
 
 ### 扩展：`Box` / `Arc` / `Rc`
 

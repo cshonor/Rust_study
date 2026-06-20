@@ -38,6 +38,6 @@ impl<T: MyTrait + ?Sized> MyTrait for &T {
 
 ---
 
-→ **完整解读 + 可复制模板 + demo**：[03-1 人体工程学 Blanket 完整解读](./03-1-ergonomic-blanket-full-guide.md) · [03-1 速记](./03-1-cheat-sheet.md) · [03 速记](./03-cheat-sheet.md)
+→ **完整解读 + 可复制模板 + demo**：[03-1](./03-1-ergonomic-blanket-full-guide.md) · [`?Sized`](./03-2-question-sized.md) · [03-1/03-2 速记](./03-cheat-sheet.md)
 
 ER → [Item 13 默认实现](../../01-ER/Chapter-02-Traits/Item-13-default-implementations/README.md) · 相干 → [07 孤儿规则](../Chapter-02-Types/07-coherence-orphan-rule.md)
