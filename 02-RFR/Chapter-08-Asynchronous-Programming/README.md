@@ -20,7 +20,7 @@
 | 主题 | 本仓库 |
 |------|--------|
 | async / Future | [RFR 学习路径 · 第 8 章](../学习路径与章节对照.md) |
-| `async_tokio/` | 外部/async 实战（纯阅读路线可后补） |
+| [`04-Async-Concurrency-Network/async_tokio/`](../../04-Async-Concurrency-Network/async_tokio/README.md) | 04 专题 · async 实战（Nomicon 后推进） |
 | Pin 报错 | 本章 [06](./06-pin-unpin.md) |
 | 并发模型 | [第 10 章](../Chapter-10-Concurrency-and-Parallelism/README.md) |
 

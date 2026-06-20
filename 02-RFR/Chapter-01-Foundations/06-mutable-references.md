@@ -45,7 +45,7 @@ fn double(r: &mut i32) {
 }
 ```
 
-**为何重要（HFT / 性能）**：热路径里写 `&mut T`，LLVM 能按 **noalias** 做 store/load 优化 — 读 IR 见 [LLVM ch04](../../04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter04_ir_basic/README.md)。
+**为何重要（HFT / 性能）**：热路径里写 `&mut T`，LLVM 能按 **noalias** 做 store/load 优化 — 读 IR 见 [LLVM ch04](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter04_ir_basic/README.md)。
 
 **与内部可变性的关系**：`RefCell` / `Mutex` 等会 opt-out 部分假设 — 见 [07 内部可变性](./07-interior-mutability.md)。
 

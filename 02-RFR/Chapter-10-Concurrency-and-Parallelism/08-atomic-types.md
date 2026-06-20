@@ -7,6 +7,6 @@
 - 读/写/RMW 在硬件层原子（对对齐地址）。
 - 须配对正确的 **Ordering** → [09](./09-memory-ordering.md)
 
-实验 → [04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/src/lib.rs](../../04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/src/lib.rs) 改 `Ordering` 导出 IR diff。
+实验 → [05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/src/lib.rs](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/src/lib.rs) 改 `Ordering` 导出 IR diff。
 
-Book · `atomic/` 仓库（狗熊书）深化。
+Book · `04-Async-Concurrency-Network/atomic/` 仓库（狗熊书）深化。

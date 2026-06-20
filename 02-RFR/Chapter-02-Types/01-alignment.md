@@ -138,7 +138,7 @@ struct S {
 | 查 size / align | `std::mem::size_of` / `align_of` |
 | 堆分配 layout | `std::alloc::Layout` |
 | FFI 布局 | `#[repr(C)]` + 与 C 头文件对照 |
-| 读 IR 里的 align | [04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch05](../../04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter05_ir_advanced_type/README.md) |
+| 读 IR 里的 align | [05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch05](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter05_ir_advanced_type/README.md) |
 | unsafe 有效性 | 引用须 **对齐** → [第 9 章 validity](../Chapter-09-Unsafe-Code/06-validity.md) |
 
 ---

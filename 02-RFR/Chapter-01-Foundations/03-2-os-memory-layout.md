@@ -196,5 +196,5 @@ map[0] = map[0].wrapping_add(1);
 
 - Safe Rust 三分类 → [03.1 Rust 模型](./03-1-rust-memory-model.md)
 - 布局 / 对齐 → [第 2 章 · 01 对齐](../Chapter-02-Types/01-alignment.md) · [02 Layout](../Chapter-02-Types/02-layout.md)
-- IR：`alloca`（栈）vs heap → [04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch04](../../04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter04_ir_basic/README.md)
+- IR：`alloca`（栈）vs heap → [05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch04](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter04_ir_basic/README.md)
 - 共享 `static` → Book [16.3](../../00-Book/16-fearless-concurrency/16.3-共享状态并发.md) · [16.4 Send/Sync](../../00-Book/16-fearless-concurrency/16.4-Send与Sync.md)

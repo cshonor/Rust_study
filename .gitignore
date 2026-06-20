@@ -26,7 +26,7 @@ Thumbs.db
 *.dSYM/
 
 # Learn LLVM 17 lab 临时 exe
-04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/*.exe
+05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/*.exe
 
 # demos may generate runtime files
 09-error-handling/9.2-result-demo/hello.txt

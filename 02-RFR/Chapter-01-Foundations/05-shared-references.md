@@ -60,7 +60,7 @@ fn sum_twice(r: &i32) -> i32 {
 }
 ```
 
-**为何重要（HFT / 性能）**：安全 Rust 里写 `&T`，编译器能假定「这段期间没人改」— 不必每次读都当成可能 alias 的 wild pointer。读 IR 时见 [04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch04](../../04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter04_ir_basic/README.md)。
+**为何重要（HFT / 性能）**：安全 Rust 里写 `&T`，编译器能假定「这段期间没人改」— 不必每次读都当成可能 alias 的 wild pointer。读 IR 时见 [05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch04](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter04_ir_basic/README.md)。
 
 **与内部可变性的关系**：`RefCell` / `Mutex` 等**刻意** opt-out 普通 `&T` 的 no-mutation 假设 — 见 [07](./07-interior-mutability.md)，否则 LLVM 会按「只读」做**错误**优化。
 

@@ -55,4 +55,4 @@ Rust **不改变** OS 布局；语言层只规定**如何安全地使用**栈、
 
 - 变量双模型 → [02 变量深入](./02-variables-in-depth.md)
 - 布局 / 对齐 → [第 2 章 · Layout](../Chapter-02-Types/02-layout.md)
-- IR：`alloca`（栈）vs heap → [04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch04](../../04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter04_ir_basic/README.md)
+- IR：`alloca`（栈）vs heap → [05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch04](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter04_ir_basic/README.md)
