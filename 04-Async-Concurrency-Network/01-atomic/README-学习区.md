@@ -11,7 +11,8 @@
 | **`src/mod.rs`** | `study_atomic` 库入口：用 **`#[path = "../Chapter-01-…/mod.rs"]`** 等方式，把第 1、2 章文件夹挂成 **`chapter_01` / `chapter_02`** 模块。 |
 | **`Chapter-01`～`Chapter-10`** | **主文档** = 各章 **`本章学习笔记.md`**（完整精读）；**书目录** = [全书目录-与实体书一致.md](./全书目录-与实体书一致.md)；**索引** = `X.Y-slug.md`；**有 demo 时**才有 **`X.Y-slug/`** |
 | **`Chapter-02-Atomics/`** | 第 2 章：**`本章学习笔记.md`** + `2.Y-slug/`（索引 + 子笔记 + `code/`）· 与第 1 章同结构 |
-| **`Chapter-03`～`Chapter-08`、`Chapter-10`** | 多数已有 **`本章学习笔记.md`**；无锁见第 10 章与 [无锁编程-贯通笔记.md](./无锁编程-贯通笔记.md)。 |
+| **`Chapter-03-Memory-Ordering/`** | 第 3 章：同结构 · demo 在 `3.3-memory-order-options/code/`、`3.4-fences/code/` |
+| **`Chapter-04`～`Chapter-08`、`Chapter-10`** | 多数已有 **`本章学习笔记.md`**；无锁见第 10 章与 [无锁编程-贯通笔记.md](./无锁编程-贯通笔记.md)。 |
 
 构建：`cargo build -p study_atomic` 或根目录 `cargo run -- atomic`。
 
@@ -23,7 +24,7 @@
 |----------|----------------|------|
 | `Chapter-01-Rust-Concurrency-Basics` | Rust 并发基础 | 本文件夹内 `*.rs` |
 | `Chapter-02-Atomics` | 原子操作 | 本文件夹内 `*.rs` |
-| `Chapter-03-Memory-Ordering` | 内存排序 | **`本章学习笔记.md`** + [贯通笔记](./Atomics与内存序-贯通笔记.md)；代码见 **Chapter-02** 的 `use_atomic` / `use_fence` / `use_seqcst` |
+| `Chapter-03-Memory-Ordering` | 内存排序 | **`本章学习笔记.md`** + `3.Y-slug/`（索引 + 子笔记）· [贯通笔记](./Atomics与内存序-贯通笔记.md)；Relaxed/RA 见 **Ch02** `2.1` code · SeqCst/Fence 见 **Ch03** `3.3`/`3.4` code |
 | `Chapter-04-Spin-Locks` | 构建自旋锁 | **`spin_lock.rs`** + **`本章学习笔记.md`**（Acquire/Release 实战）；`study_atomic::chapter_04` |
 | `Chapter-05-Channels` | 构建通道 | **`one_shot_channel.rs`** + **`本章学习笔记.md`**；`study_atomic::chapter_05` |
 | `Chapter-06-Custom-Arc` | **构建自定义 Arc**（非 Mutex） | `README.md` 澄清；实现待补 |
