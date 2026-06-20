@@ -4,6 +4,10 @@
 
 ---
 
+## 两种形态
+
+A `impl<T: Other> MyTrait for T` · B `impl<T: MyTrait> MyTrait for &T`（§03 重点）
+
 ## 目标
 
 引用 / 智能指针直接调 trait · 消除 `(*rf).work()` 分叉
