@@ -4,6 +4,10 @@
 
 ---
 
+## 两套并行
+
+Foo 只写 `impl MyTrait for Foo` · blanket 事后补 · `for` 后是类型模式 `&T` 不是具体 struct
+
 ## 两种形态
 
 A `impl<T: Other> MyTrait for T` · B `impl<T: MyTrait> MyTrait for &T`（§03 重点）

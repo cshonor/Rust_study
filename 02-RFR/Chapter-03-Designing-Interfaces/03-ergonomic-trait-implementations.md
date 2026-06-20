@@ -17,6 +17,8 @@
 
 §03 重点在 **形态 B**；形态 A 绑 `Debug` 等过宽 trait 易冲突。
 
+**两套并行**：`impl MyTrait for Foo` 写业务逻辑；blanket 是 trait 侧的**可选补丁**，Foo 的 impl 里不用提。
+
 ```rust
 trait MyTrait { fn work(&self); }
 
