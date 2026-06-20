@@ -1,6 +1,6 @@
 # 1.1.1 · `as_` 系列 — 只读借用
 
-> 所属：**Unsurprising / 命名惯例** · [← 01 命名 hub](./01-naming-practices.md) · [01 速记](./01-cheat-sheet.md)
+> 所属：**Unsurprising / 命名惯例** · [← 01 命名 hub](./01-naming-practices.md)
 
 ← [01 命名 hub](./01-naming-practices.md) · 下一节 [01-2 `into_`](./01-2-into-series.md)
 
@@ -65,4 +65,8 @@ assert_eq!(r1, r2);
 
 ---
 
-→ 速记：[01-1-cheat-sheet.md](./01-1-cheat-sheet.md) · 下一节：[01-2 `into_`](./01-2-into-series.md)
+## 速记
+
+**口诀**：只借，不消耗 · 可反复调用 · 代表 API：`as_str` · `as_ref` · `as_mut`
+
+→ 下一节：[01-2 `into_`](./01-2-into-series.md)

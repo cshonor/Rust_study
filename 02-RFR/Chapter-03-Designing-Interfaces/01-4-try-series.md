@@ -80,4 +80,8 @@ assert!(small.is_err());
 
 ---
 
-→ 速记：[01-4-cheat-sheet.md](./01-4-cheat-sheet.md) · 下一节：[01-5 `with_`](./01-5-with-series.md)
+## 速记
+
+**口诀**：可失败 → `Result` · 通常不消耗 self · `lock()` 阻塞 · `try_lock()` → `Err`
+
+→ 下一节：[01-5 `with_`](./01-5-with-series.md)

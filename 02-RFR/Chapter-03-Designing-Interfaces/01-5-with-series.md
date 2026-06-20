@@ -151,4 +151,8 @@ async fn fetch_api(url: &str, token: &str) -> reqwest::Result<String> {
 
 ---
 
-→ 速记：[01-5-cheat-sheet.md](./01-5-cheat-sheet.md) · 下一节：[02 通用 Trait](./02-common-traits-for-types.md)
+## 速记
+
+**口诀**：构造 / 配置 · 链式 `with_*` → `build` · `with_capacity` · reqwest `.header().send()`
+
+→ 下一节：[02 通用 Trait](./02-common-traits-for-types.md)

@@ -67,4 +67,8 @@ assert_eq!(v, vec![11, 20, 30]);
 
 ---
 
-→ 速记：[01-3-cheat-sheet.md](./01-3-cheat-sheet.md) · 下一节：[01-4 `try_`](./01-4-try-series.md)
+## 速记
+
+**口诀**：`Option` 安全访问 · 越界 `None` 不 panic · `v[5]` panic · `v.get(5)` → `None`
+
+→ 下一节：[01-4 `try_`](./01-4-try-series.md)

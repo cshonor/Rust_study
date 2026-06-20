@@ -70,6 +70,14 @@
 
 ---
 
-→ **完整解读 + 代码示例 + 五套可复制模板**：[02-1 通用标准 Trait 完整解读](./02-1-common-traits-full-guide.md) · [02-1 速记](./02-1-cheat-sheet.md) · [02 速记](./02-cheat-sheet.md)
+## 速记
 
-ER → [Item 10 标准 trait](../../01-ER/Chapter-02-Traits/Item-10-standard-traits/README.md) · Book → [10.2 trait · derive](../../00-Book/10-generics-traits-lifetimes/10.2-trait.md)
+**适用谁**：库作者最佳实践 · 内部业务灵活 · 自定义 trait 按需 · impl std trait 仍守三类
+
+| 类 | Trait | 策略 |
+|----|-------|------|
+| Ⅰ | `Debug` · `PartialEq` / `Eq` | 默认 derive |
+| Ⅱ | `Send` · `Sync` | 多数自动；例外文档 |
+| Ⅲ | `Copy` · `Hash` | 按需 · 成对 · 小值才 Copy |
+
+→ 完整解读：[02-1](./02-1-common-traits-full-guide.md) · ER [Item 10](../../01-ER/Chapter-02-Traits/Item-10-standard-traits/README.md)

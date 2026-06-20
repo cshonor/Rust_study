@@ -1,6 +1,6 @@
 # 1.1.2.1 · `into_inner` 拆解包装（与 `into_item` 辨析）
 
-← [01-2 `into_`](./01-2-into-series.md) · [01-2 速记](./01-2-cheat-sheet.md)
+← [01-2 `into_`](./01-2-into-series.md) · [01-2-1 详解](./01-2-1-into-inner.md)
 
 Demo → `cargo run --manifest-path naming-series-demo/Cargo.toml into-inner`
 

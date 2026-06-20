@@ -80,4 +80,8 @@ assert_eq!(bytes, b"hi");
 
 ---
 
-→ 速记：[01-2-cheat-sheet.md](./01-2-cheat-sheet.md) · 下一节：[01-3 `get_`](./01-3-get-series.md)
+## 速记
+
+**口诀**：交出自己 · 原变量失效 · `into_iter` · `into_inner`（包装器上）· `into_bytes` — std 无 `into_item`，peek 后用 `next()`
+
+→ 下一节：[01-3 `get_`](./01-3-get-series.md)

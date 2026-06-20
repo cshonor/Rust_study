@@ -1,6 +1,6 @@
 # 1.3.1 · 人体工程学 Trait 实现完整解读（Blanket impl）
 
-← [03 人体工程学 impl](./03-ergonomic-trait-implementations.md) · [03 速记](./03-cheat-sheet.md)
+← [03 人体工程学 impl](./03-ergonomic-trait-implementations.md)
 
 > **归属**：Unsurprising · ER [Item 13 默认实现](../../01-ER/Chapter-02-Traits/Item-13-default-implementations/README.md)  
 > **目标**：消除调用分叉 — 引用 / 智能指针可直接调用**自定义 trait** 方法。
@@ -144,7 +144,7 @@ impl<T: MyTrait + ?Sized> MyTrait for &mut T {
 
 `?Sized`：允许 `T` 为 DST（`str`、`[u8]`、`dyn Trait`），使 `&str` 等能命中 blanket。
 
-→ 详解：[03-2 `?Sized` 与 `?`](./03-2-question-sized.md) · [03-2 速记](./03-2-cheat-sheet.md)
+→ 详解：[03-2 `?Sized` 与 `?`](./03-2-question-sized.md)
 
 ### 扩展：`Box` / `Arc` / `Rc`
 
@@ -306,4 +306,9 @@ impl<T: MyTrait + ?Sized> MyTrait for &T {
 
 ---
 
-→ 速记：[03-1-cheat-sheet.md](./03-1-cheat-sheet.md) · 下一节：[04 包装类型](./04-wrapper-types.md)
+## 速记
+
+**两套并行**：Foo 只写 `impl MyTrait for Foo` · blanket 事后补 · `for` 后是类型模式 `&T`  
+**模板**：`impl<T: MyTrait + ?Sized> MyTrait for &T` · 仅**自己的 trait** · 可 sealed · ER Item 13 默认方法
+
+→ 下一节：[04 包装类型](./04-wrapper-types.md)

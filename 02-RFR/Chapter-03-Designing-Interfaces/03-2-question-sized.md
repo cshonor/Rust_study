@@ -1,6 +1,6 @@
 # 1.3.2 · `?Sized` 与 `?` — 否定默认泛型约束
 
-← [03-1 Blanket 完整解读](./03-1-ergonomic-blanket-full-guide.md) · [03 速记](./03-cheat-sheet.md)
+← [03-1 Blanket 完整解读](./03-1-ergonomic-blanket-full-guide.md)
 
 ---
 

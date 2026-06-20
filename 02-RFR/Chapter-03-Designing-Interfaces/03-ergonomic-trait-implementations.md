@@ -38,6 +38,10 @@ impl<T: MyTrait + ?Sized> MyTrait for &T {
 
 ---
 
-→ **完整解读 + 可复制模板 + demo**：[03-1](./03-1-ergonomic-blanket-full-guide.md) · [`?Sized`](./03-2-question-sized.md) · [03-1/03-2 速记](./03-cheat-sheet.md)
+## 速记
 
-ER → [Item 13 默认实现](../../01-ER/Chapter-02-Traits/Item-13-default-implementations/README.md) · 相干 → [07 孤儿规则](../Chapter-02-Types/07-coherence-orphan-rule.md)
+**两种形态**：A 条件 impl on `T` · B 包装转发 `&T`（本节重点）  
+**核心**：blanket → `&T` / `&mut T` / Box/Arc · 仅**自定义 trait**  
+**禁**：全域 `impl<T: Debug> …` · 外部 trait 的 blanket
+
+→ 详例：[03-1](./03-1-ergonomic-blanket-full-guide.md) · [`?Sized`](./03-2-question-sized.md) · [demo](./blanket-trait-demo/) · ER [Item 13](../../01-ER/Chapter-02-Traits/Item-13-default-implementations/README.md)

@@ -1,6 +1,6 @@
 # 1.2.1 · 通用标准 Trait 完整解读（Unsurprising）
 
-← [02 通用 Trait](./02-common-traits-for-types.md) · [02 速记](./02-cheat-sheet.md)
+← [02 通用 Trait](./02-common-traits-for-types.md)
 
 > **准则**：对外公开类型尽量**开箱即用**，实现用户预期的基础 Trait。  
 > **定位**：下文三类是**库作者最佳实践**，不是语法强制；内部业务可灵活，但 **impl 标准 Trait 时调用方预期不变**。  
@@ -353,4 +353,14 @@ pub struct SharedCounter {
 
 ---
 
-→ 速记：[02-1-cheat-sheet.md](./02-1-cheat-sheet.md) · 回 [02 通用 Trait](./02-common-traits-for-types.md)
+## 速记
+
+| | 影响 | 代价 |
+|---|------|------|
+| Ⅰ `Debug`/`Eq` | 只增便利 | 不加难调试 |
+| Ⅱ `Send`/`Sync` | 线程契约 | 非 Send 不能 spawn |
+| Ⅲ `Copy`/`Hash` | 锁死/不变式 | 难演进 / map 失效 |
+
+**derive**：Debug·Eq ✅ · Copy 显式 · Hash+Eq 成对 · 模板 A~E 见上文 §四
+
+→ 回 [02 通用 Trait](./02-common-traits-for-types.md)
