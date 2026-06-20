@@ -4,7 +4,7 @@
 
 本目录为《Network Programming with Rust》的**结构化学习路线**，与同级的 `02-async_tokio/`、`01-atomic/` **互补**：侧重 **Socket 实战、IO 模型、协议与工程化网络**。
 
-**笔记 + Demo 约定**（与 `01-atomic/` 相同）：[小节笔记与Demo规范.md](./小节笔记与Demo规范.md) · 已拆节：**Ch3～Ch9**（`stage03`～`stage09`；Ch1～2 仍为贯通稿）。
+**笔记 + Demo 约定**（与 `01-atomic/` 相同：`X.Y-slug/X.Y-slug.md` + `code/`）：[小节笔记与Demo规范.md](./小节笔记与Demo规范.md) · 已拆节：**Ch3～Ch9**（`stage03`～`stage09`；Ch1～2 仍为贯通稿）。
 
 ## 阶段总览
 

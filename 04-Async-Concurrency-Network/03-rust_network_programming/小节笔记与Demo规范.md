@@ -10,8 +10,8 @@
 |------|------|
 | `本章学习笔记.md` | **章索引表**（书 § → 笔记 `.md` → demo 目录） |
 | `notes/ChNN-*.md` | **全章贯通稿**（保留；按节拆分后在此文件顶部链到各节） |
-| `X.Y-english-slug.md` | **该节正文**（标题用 `## X.Y …`，与书编号一致） |
-| `X.Y-english-slug/*-demo.rs` | 可运行示例；由本章 `Cargo.toml` 的 `[[bin]]` 挂接 |
+| `X.Y-english-slug/X.Y-english-slug.md` | **该节正文**（标题用 `## X.Y …`，与书编号一致） |
+| `X.Y-english-slug/code/*-demo.rs` | 可运行示例；由本章 `Cargo.toml` 的 `[[bin]]` 挂接 |
 
 **唯一编号**：书 § = 文件名前缀 = 代码目录名。例如书 §6.3 → `6.3-introducing-reqwest.md` + `6.3-introducing-reqwest/`。
 
@@ -19,12 +19,14 @@
 stage06_http_programming/
 ├── 本章学习笔记.md
 ├── notes/Ch06-…-学习笔记.md    ← 贯通稿（不删，只加链到各节）
-├── 6.1-introducing-hyper.md
 ├── 6.1-introducing-hyper/
-│   └── 6.1-introducing-hyper-raw-tcp-demo.rs
-├── 6.3-introducing-reqwest.md
+│   ├── 6.1-introducing-hyper.md
+│   └── code/
+│       └── 6.1-introducing-hyper-raw-tcp-demo.rs
 ├── 6.3-introducing-reqwest/
-│   └── 6.3-introducing-reqwest-get-demo.rs
+│   ├── 6.3-introducing-reqwest.md
+│   └── code/
+│       └── 6.3-introducing-reqwest-get-demo.rs
 ├── Cargo.toml
 └── README.md
 ```

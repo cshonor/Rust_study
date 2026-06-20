@@ -44,7 +44,7 @@ Chapter-01-Rust-Concurrency-Basics/
 | 文件 | 角色 |
 |------|------|
 | `本章学习笔记.md` | **章索引表**（§ → 精读 `.md` → demo 目录） |
-| `X.Y-slug.md` | **该节完整精读** |
-| `X.Y-slug/*-demo.rs` | **每节至少一个**可运行示例 |
+| `X.Y-slug/X.Y-slug.md` | **该节完整精读** |
+| `X.Y-slug/code/*-demo.rs` | **每节至少一个**可运行示例 |
 
-维护：`async_tokio/scripts/scaffold-missing-demos.py` · `update-index-demos.py`
+维护：`04-Async-Concurrency-Network/scripts/restructure-02-03-like-ch01.py` · `fix-02-03-links.py`
