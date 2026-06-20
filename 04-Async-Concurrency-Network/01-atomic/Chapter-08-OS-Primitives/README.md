@@ -1,27 +1,12 @@
-# Chapter 08 — 操作系统原语（Operating System Primitives）
+# 第八章
 
-**对应书籍**：第 8 章 — **futex**、`pthread_cond` / `pthread_mutex`、Windows **`WaitOnAddress`** 等。
+**唯一规则（与第一～三章、实体书一致）**
 
-## 学习材料
+| 书 § | 笔记 | 代码（有 demo 时） |
+|------|------|-------------------|
+| X.Y | `X.Y-english-slug/X.Y-english-slug.md` + 子笔记 `X.Y.Z-*.md` | `X.Y-english-slug/code/*.rs` |
 
-| 文档 | 说明 |
-|------|------|
-| **[本章学习笔记.md](./本章学习笔记.md)** | **索引 + 整体脉络**、§8.1–8.4 子笔记表 |
-| **[Condvar与条件变量-贯通笔记.md](../Condvar与条件变量-贯通笔记.md)** | Condvar **用法**在第 1 章；**底层**在本章 |
-| **[互斥锁与锁体系-贯通笔记.md](../互斥锁与锁体系-贯通笔记.md)** | Mutex 阻塞与三态优化 |
-
-## 阅读顺序
-
-**8.1 futex**（8.1.1→8.1.4）→ **8.2 parks**（8.2.1→8.2.2）→ **8.3 OS cond**（8.3.1→8.3.3）→ **8.4 总结**
-
-## 重要区分
-
-| 主题 | 章节 |
-|------|------|
-| **OS 原语是什么** | **第 8 章（本章）** |
-| **Condvar 怎么写** | **第 1 章 §1.8** + [1.8-parking-condvar-demo.rs](../Chapter-01-Rust-Concurrency-Basics/1.8-parking-condvar/code/1.8-parking-condvar-demo.rs) |
-| **虚假唤醒 / 惊群 / 手写 wait** | **第 1 + 9 章** |
-
-## 下一章
-
-[第 9 章 — 构建锁](../Chapter-09-Custom-Locks/本章学习笔记.md) — `atomic_wait` 封装本章 WAIT/WAKE
+- **章入口**：[本章学习笔记.md](./本章学习笔记.md)（索引表，共 4 节）  
+- **上一章**：[Chapter-07-Processors](../Chapter-07-Processors/本章学习笔记.md)  
+- **下一章**：[Chapter-09-Custom-Locks](../Chapter-09-Custom-Locks/本章学习笔记.md)  
+- 运行：`cargo build --manifest-path 04-Async-Concurrency-Network/01-atomic/Cargo.toml`

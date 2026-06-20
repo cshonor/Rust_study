@@ -1,19 +1,12 @@
-# Chapter 05 — 构建 Channel（One-Shot）
+# 第五章
 
-**对应书籍**：第 5 章 — 用原子 + `MaybeUninit` + park/unpark 实现单次通道。
+**唯一规则（与第一～三章、实体书一致）**
 
-## 学习材料
+| 书 § | 笔记 | 代码（有 demo 时） |
+|------|------|-------------------|
+| X.Y | `X.Y-english-slug/X.Y-english-slug.md` + 子笔记 `X.Y.Z-*.md` | `X.Y-english-slug/code/*.rs` |
 
-- **[本章学习笔记.md](./本章学习笔记.md)**
-- **[CAS与Fetch-Modify专题.md](../Chapter-02-Atomics/CAS与Fetch-Modify专题.md)**
-
-## 代码
-
-| 文件 | 说明 |
-|------|------|
-| **`one_shot_channel.rs`** | `Channel` / `Sender` / `Receiver` + `demo()` |
-| **`mod.rs`** | `study_atomic::chapter_05::demo()` |
-
-```bash
-cargo build --manifest-path atomic/Cargo.toml
-```
+- **章入口**：[本章学习笔记.md](./本章学习笔记.md)（索引表，共 7 节）  
+- **上一章**：[Chapter-04-Spin-Locks](../Chapter-04-Spin-Locks/本章学习笔记.md)  
+- **下一章**：[Chapter-06-Custom-Arc](../Chapter-06-Custom-Arc/本章学习笔记.md)  
+- 运行：`cargo build --manifest-path 04-Async-Concurrency-Network/01-atomic/Cargo.toml`

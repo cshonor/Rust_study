@@ -1,20 +1,12 @@
-# Chapter 06 — 构建我们自己的 Arc
+# 第六章
 
-**对应书籍**：第 6 章 — **原子引用计数**（`AtomicUsize` / `fetch_add` / `compare_exchange` 等），**不是**互斥锁专章。
+**唯一规则（与第一～三章、实体书一致）**
 
-## 与「锁」笔记区分
+| 书 § | 笔记 | 代码（有 demo 时） |
+|------|------|-------------------|
+| X.Y | `X.Y-english-slug/X.Y-english-slug.md` + 子笔记 `X.Y.Z-*.md` | `X.Y-english-slug/code/*.rs` |
 
-- **Mutex / RwLock / 自旋锁 / 工业锁优化** → [互斥锁与锁体系-贯通笔记.md](../互斥锁与锁体系-贯通笔记.md)（跨第 1、4、8、9 章）  
-- **本章** → 如何用原子操作实现 **`Arc` 式** 共享所有权
-
-## 前置
-
-- [Chapter-02-Atomics/CAS与Fetch-Modify专题.md](../Chapter-02-Atomics/CAS与Fetch-Modify专题.md)  
-- [Chapter-03-Memory-Ordering/本章学习笔记.md](../Chapter-03-Memory-Ordering/本章学习笔记.md)
-
-## 状态
-
-| 项目 | 说明 |
-|------|------|
-| 源码 | 待按书实现 `CustomArc` 等 |
-| 笔记 | `note.md` 占位 |
+- **章入口**：[本章学习笔记.md](./本章学习笔记.md)（索引表，共 7 节）  
+- **上一章**：[Chapter-05-Channels](../Chapter-05-Channels/本章学习笔记.md)  
+- **下一章**：[Chapter-07-Processors](../Chapter-07-Processors/本章学习笔记.md)  
+- 运行：`cargo build --manifest-path 04-Async-Concurrency-Network/01-atomic/Cargo.toml`

@@ -12,7 +12,7 @@
 |----|--------|------|
 | 1 | `Chapter-01-Rust-Concurrency-Basics` | `RwLock<T>` 用法、与 `RefCell` 类比 |
 | 7 | `Chapter-07-Processors` | **缓存行、假共享**（影响锁性能，非 RwLock API） |
-| 9 | `Chapter-09-Custom-Locks` | [9.3.2 写优先 RwLock](./Chapter-09-Custom-Locks/9.3.2-writer-starvation-state-machine.md) |
+| 9 | `Chapter-09-Custom-Locks` | [9.3.2 写优先 RwLock](./Chapter-09-Custom-Locks/9.3-reader-writer-lock/9.3.2-writer-starvation-state-machine.md) |
 
 ---
 
@@ -93,7 +93,7 @@
 1. 仅当 **`s % 2 == 0`** 时 CAS `s + 2` 加入。  
 2. 若 **`s % 2 == 1`** 或已是 `MAX` → **wait** 在 `state` 上。
 
-完整代码骨架见：**[9.3.2-writer-starvation-state-machine.md](./Chapter-09-Custom-Locks/9.3.2-writer-starvation-state-machine.md)**（依赖 `atomic_wait`，与书一致）。
+完整代码骨架见：**[9.3.2-writer-starvation-state-machine.md](./Chapter-09-Custom-Locks/9.3-reader-writer-lock/9.3.2-writer-starvation-state-machine.md)**（依赖 `atomic_wait`，与书一致）。
 
 ---
 

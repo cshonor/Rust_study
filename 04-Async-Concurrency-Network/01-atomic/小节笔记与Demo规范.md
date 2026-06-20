@@ -12,7 +12,7 @@
 
 **唯一编号**：书 § = 文件名前缀 = 代码目录名。例如书 §1.7 → `1.7-mutex-rwlock/`；书 §2.1 → `2.1-atomic-load-store/`。
 
-**第二、三章** 与第一章同结构：`Chapter-02-Atomics/2.1-atomic-load-store/` … `2.4-summary/`；`Chapter-03-Memory-Ordering/3.1-reordering-and-optimizations/` … `3.6-summary/`（§3.3 含 3.3.1–3.3.5 子笔记）。
+**第 1～10 章** 统一结构：`Chapter-NN-…/X.Y-english-slug/` 含索引 `X.Y-english-slug.md`、子笔记 `X.Y.Z-*.md`（如有）、demo 在 `code/`。维护脚本：`scripts/restructure-ch04-10-like-ch01.py`。
 
 **禁止**：
 

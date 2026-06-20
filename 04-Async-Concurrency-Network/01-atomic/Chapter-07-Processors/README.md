@@ -1,18 +1,12 @@
-# Chapter 07 — 理解处理器（Understanding the Processor）
+# 第七章
 
-**对应书籍**：第 7 章 — **x86/ARM 汇编视角、缓存一致性、内存屏障** 等硬件级原理。
+**唯一规则（与第一～三章、实体书一致）**
 
-## 重要：本章不是 RwLock
+| 书 § | 笔记 | 代码（有 demo 时） |
+|------|------|-------------------|
+| X.Y | `X.Y-english-slug/X.Y-english-slug.md` + 子笔记 `X.Y.Z-*.md` | `X.Y-english-slug/code/*.rs` |
 
-- **RwLock / 写者饥饿** → [RwLock与读写锁体系-贯通笔记.md](../RwLock与读写锁体系-贯通笔记.md)（第 1、9 章）  
-- **假共享、缓存行** → 与本章相关，也见 [互斥锁与锁体系-贯通笔记.md](../互斥锁与锁体系-贯通笔记.md) §5.4
-
-## 本章目标（待展开）
-
-- 理解 **缓存行** 如何影响锁与原子变量性能  
-- 汇编层 `lock` 前缀、屏障与 Rust `Ordering` 的对应关系  
-- 为第 9 章锁优化、第 2 章原子操作提供硬件直觉
-
-## 状态
-
-`本章学习笔记.md` 与示例代码待按书补充。
+- **章入口**：[本章学习笔记.md](./本章学习笔记.md)（索引表，共 5 节）  
+- **上一章**：[Chapter-06-Custom-Arc](../Chapter-06-Custom-Arc/本章学习笔记.md)  
+- **下一章**：[Chapter-08-OS-Primitives](../Chapter-08-OS-Primitives/本章学习笔记.md)  
+- 运行：`cargo build --manifest-path 04-Async-Concurrency-Network/01-atomic/Cargo.toml`

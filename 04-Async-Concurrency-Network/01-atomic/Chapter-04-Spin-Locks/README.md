@@ -1,31 +1,12 @@
-# Chapter 04 — 构建自旋锁（Spin Lock）
+# 第四章
 
-**对应书籍**：第 4 章 — **Acquire / Release** 的经典应用（理论见第 3 章）。
+**唯一规则（与第一～三章、实体书一致）**
 
-## 学习材料
+| 书 § | 笔记 | 代码（有 demo 时） |
+|------|------|-------------------|
+| X.Y | `X.Y-english-slug/X.Y-english-slug.md` + 子笔记 `X.Y.Z-*.md` | `X.Y-english-slug/code/*.rs` |
 
-| 文档 | 说明 |
-|------|------|
-| **[本章学习笔记.md](./本章学习笔记.md)** | 自旋锁结构、HB、选型、易错点 |
-| **[Chapter-03 内存排序](../Chapter-03-Memory-Ordering/本章学习笔记.md)** | 五种 `Ordering` 完整理论 |
-
-## 配套代码
-
-| 文件 | 说明 |
-|------|------|
-| **`spin_lock.rs`** | `SpinLock<T>` + `Guard` + `demo()`（4 线程累加） |
-| **`mod.rs`** | `chapter_04::demo()` |
-
-挂接到 `study_atomic`：在 `atomic/src/mod.rs` 增加：
-
-```rust
-#[path = "../Chapter-04-Spin-Locks/mod.rs"]
-pub mod chapter_04;
-```
-
-## 运行
-
-```bash
-cargo build --manifest-path atomic/Cargo.toml
-# 挂接后：在临时 bin 或测试中调用 study_atomic::chapter_04::demo()
-```
+- **章入口**：[本章学习笔记.md](./本章学习笔记.md)（索引表，共 4 节）  
+- **上一章**：[Chapter-03-Memory-Ordering](../Chapter-03-Memory-Ordering/本章学习笔记.md)  
+- **下一章**：[Chapter-05-Channels](../Chapter-05-Channels/本章学习笔记.md)  
+- 运行：`cargo build --manifest-path 04-Async-Concurrency-Network/01-atomic/Cargo.toml`
