@@ -4,32 +4,24 @@
 
 ---
 
-## 三类
+## 三类边界
 
-| 类 | Trait |
-|----|-------|
-| 几乎总有 | `Debug` · `PartialEq` / `Eq` |
-| 线程假设 | `Send` · `Sync`（多数自动） |
-| 谨慎 | `Copy` · `Hash` |
+| | 影响 | 代价 |
+|---|------|------|
+| Ⅰ `Debug`/`Eq` | 只增便利 | 不加难调试 |
+| Ⅱ `Send`/`Sync` | 线程契约 | 非 Send 不能 spawn |
+| Ⅲ `Copy`/`Hash` | 锁死/不变式 | 难演进 / map 失效 |
+
+## derive
+
+Debug·Eq ✅ · Copy 显式 · Hash+Eq 成对
 
 ## 默认 derive
 
 ```rust
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub struct Widget { /* … */ }
+pub struct Order { /* … */ }
 ```
-
-## 作 map 键
-
-+ `Hash` · 相等与哈希一致 · 入集合后勿改键字段
-
-## Copy
-
-仅小栈值 · 有 `String`/`Vec` 就别 Copy
-
-## Send 例外
-
-`Rc` 非 Send → 文档 + `Arc` 替代
 
 ## 模板
 
@@ -37,6 +29,5 @@ A 通用 · B +Hash 键 · C Copy 小值 · D 手动 Debug · E 非 Send 说明
 
 ## 自测
 
-- [ ] `f64` 能 derive `Eq` 吗？  
-- [ ] `HashMap` 键要哪几个 trait？  
-- [ ] 给 struct 加了 `Copy` 后还能加 `String` 字段吗？
+- [ ] 派生宏为何默认不给你 `Copy`？  
+- [ ] 行情模块非 Send 会怎样？
