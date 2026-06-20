@@ -65,8 +65,6 @@ Any：      blanket impl 要求 T: 'static + ?Sized
 
 ---
 
----
-
 ## 速记
 
 | 要点 | 一句 |

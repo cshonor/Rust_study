@@ -69,8 +69,6 @@ panic 不得越过 FFI（Item 18 → catch_unwind / abort）
 
 ---
 
----
-
 ## 速记
 
 | 要点 | 一句 |

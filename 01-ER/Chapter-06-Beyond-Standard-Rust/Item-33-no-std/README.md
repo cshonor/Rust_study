@@ -69,8 +69,6 @@ CI --target thumbv6m-none-eabi 守卫（Item 32）
 
 ---
 
----
-
 ## 速记
 
 | 要点 | 一句 |

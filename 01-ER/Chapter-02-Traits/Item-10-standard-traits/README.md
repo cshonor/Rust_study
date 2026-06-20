@@ -62,8 +62,6 @@ Eq + Hash → 必须 hash(x)==hash(y) when x==y
 
 ---
 
----
-
 ## 速记
 
 | Trait | 一句 |
