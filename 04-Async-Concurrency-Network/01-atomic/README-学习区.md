@@ -10,7 +10,7 @@
 |------|------|
 | **`src/mod.rs`** | `study_atomic` 库入口：用 **`#[path = "../Chapter-01-…/mod.rs"]`** 等方式，把第 1、2 章文件夹挂成 **`chapter_01` / `chapter_02`** 模块。 |
 | **`Chapter-01`～`Chapter-10`** | **主文档** = 各章 **`本章学习笔记.md`**（完整精读）；**书目录** = [全书目录-与实体书一致.md](./全书目录-与实体书一致.md)；**索引** = `X.Y-slug.md`；**有 demo 时**才有 **`X.Y-slug/`** |
-| **`Chapter-02-Atomics/`** | 第 2 章：**`本章学习笔记.md`**（原子 API + 内存模型/DR 理论）+ **`note.md`** + 全部 `*.rs`。 |
+| **`Chapter-02-Atomics/`** | 第 2 章：**`本章学习笔记.md`** + `2.Y-slug/`（索引 + 子笔记 + `code/`）· 与第 1 章同结构 |
 | **`Chapter-03`～`Chapter-08`、`Chapter-10`** | 多数已有 **`本章学习笔记.md`**；无锁见第 10 章与 [无锁编程-贯通笔记.md](./无锁编程-贯通笔记.md)。 |
 
 构建：`cargo build -p study_atomic` 或根目录 `cargo run -- atomic`。

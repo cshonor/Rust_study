@@ -1,12 +1,12 @@
 # 第二章
 
-书 §2.1～2.4 → `2.Y-slug.md` + `2.Y-slug/`（有 demo 时）。
+**唯一规则（与第一章、实体书一致）**
 
-- **索引**：[本章学习笔记.md](./本章学习笔记.md)
-- **贯通**：[Atomics与内存序-贯通笔记.md](../Atomics与内存序-贯通笔记.md)
-- **专题**：[CAS与Fetch-Modify专题.md](./CAS与Fetch-Modify专题.md)
-- **内存序 demo** 在第 3 章：`3.3-memory-order-options/`、`3.4-fences/`
+| 书 § | 笔记 | 代码（有 demo 时） |
+|------|------|-------------------|
+| 2.Y | `2.Y-english-slug/2.Y-english-slug.md` + 子笔记 `2.Y.Z-*.md` | `2.Y-english-slug/code/*.rs` |
 
-```bash
-cargo build --manifest-path atomic/Cargo.toml
-```
+- **章入口**：[本章学习笔记.md](./本章学习笔记.md)（索引表，共 4 节）  
+- **贯通**：[Atomics与内存序-贯通笔记.md](../Atomics与内存序-贯通笔记.md) · [CAS与Fetch-Modify专题.md](./CAS与Fetch-Modify专题.md)  
+- **内存序 demo** 在第 3 章：`3.3-memory-order-options/`、`3.4-fences/`  
+- 运行：`cargo build --manifest-path 04-Async-Concurrency-Network/01-atomic/Cargo.toml`

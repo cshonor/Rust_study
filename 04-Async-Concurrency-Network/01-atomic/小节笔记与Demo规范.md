@@ -2,15 +2,17 @@
 
 ---
 
-## atomic（以第一章为范本）
+## atomic（以第一、二章为范本）
 
 | 文件 | 作用 |
 |------|------|
-| `本章学习笔记.md` | **章索引表**（书 §1.1～1.9 → 笔记 → demo） |
-| `1.Y-english-slug/1.Y-english-slug.md` | **该节索引**；子笔记 `1.Y.Z-*.md` 同目录（标题用 `## 1.Y …`，与书编号一致） |
-| `1.Y-english-slug/code/*.rs` | Demo；由章根 `mod.rs` 用 `#[path = "..."]` 挂接 |
+| `本章学习笔记.md` | **章索引表**（书 § → 笔记 → demo） |
+| `X.Y-english-slug/X.Y-english-slug.md` | **该节索引**；子笔记 `X.Y.Z-*.md` 同目录（标题用 `## X.Y …`，与书编号一致） |
+| `X.Y-english-slug/code/*.rs` | Demo；由章根 `mod.rs` 用 `#[path = "..."]` 挂接 |
 
-**唯一编号**：书 § = 文件名前缀 = 代码目录名。例如书 §1.7 → `1.7-mutex-rwlock.md` + `1.7-mutex-rwlock/`。
+**唯一编号**：书 § = 文件名前缀 = 代码目录名。例如书 §1.7 → `1.7-mutex-rwlock/`；书 §2.1 → `2.1-atomic-load-store/`。
+
+**第二章** 与第一章同结构：`Chapter-02-Atomics/2.1-atomic-load-store/` … `2.4-summary/`。
 
 **禁止**：
 
