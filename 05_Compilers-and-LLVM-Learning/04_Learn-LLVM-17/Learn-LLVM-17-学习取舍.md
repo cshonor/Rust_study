@@ -24,9 +24,9 @@
 
 ## 与当前仓库学习路线的贴合顺序
 
-1. **[04/atomic/](../../04-Async-Concurrency-Network/atomic/)**：原子、内存序、锁  
-2. **[04/async_tokio/](../../04-Async-Concurrency-Network/async_tokio/)**  
-3. **[04/rust_network_programming/](../../04-Async-Concurrency-Network/rust_network_programming/)**  
+1. **[04/atomic/](../../04-Async-Concurrency-Network/01-atomic/)**：原子、内存序、锁  
+2. **[04/async_tokio/](../../04-Async-Concurrency-Network/02-async_tokio/)**  
+3. **[04/rust_network_programming/](../../04-Async-Concurrency-Network/03-rust_network_programming/)**  
 4. **本目录按上表精读**：用前面代码**反查 IR 与优化**
 
 ---

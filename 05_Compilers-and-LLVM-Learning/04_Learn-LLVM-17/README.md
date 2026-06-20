@@ -24,8 +24,8 @@ cargo rustc --manifest-path 05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/Carg
 ### 建议对照实验
 
 1. 改 `src/lib.rs` 中 `Ordering`，diff O0/O3 → `ir_samples/optimize_compare/`。
-2. 从 [04/atomic](../../04-Async-Concurrency-Network/atomic/) 摘短逻辑 → `ir_samples/atomic_ir/`。
-3. 从 [04/async_tokio](../../04-Async-Concurrency-Network/async_tokio/) 导出 → `ir_samples/async_tokio_ir/`。
+2. 从 [04/atomic](../../04-Async-Concurrency-Network/01-atomic/) 摘短逻辑 → `ir_samples/atomic_ir/`。
+3. 从 [04/async_tokio](../../04-Async-Concurrency-Network/02-async_tokio/) 导出 → `ir_samples/async_tokio_ir/`。
 
 ---
 

@@ -9,4 +9,4 @@
 
 实验 → [05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/src/lib.rs](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/src/lib.rs) 改 `Ordering` 导出 IR diff。
 
-Book · `04-Async-Concurrency-Network/atomic/` 仓库（狗熊书）深化。
+Book · `04-Async-Concurrency-Network/01-atomic/` 仓库（狗熊书）深化。

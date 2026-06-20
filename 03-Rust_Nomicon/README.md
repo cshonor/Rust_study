@@ -33,4 +33,4 @@ cd 03-Rust_Nomicon/01_Safe_Unsafe
 cargo run
 ```
 
-与本仓库其它板块对照：[`04-Async-Concurrency-Network/`](../04-Async-Concurrency-Network/README.md)（`atomic/` Ch07 并发 · `async_tokio/` · `rust_network_programming/stage08` TLS）· [`02-RFR/`](../02-RFR/RFR-本书目录.md)（类型与 unsafe 进阶）。
+与本仓库其它板块对照：[`04-Async-Concurrency-Network/`](../04-Async-Concurrency-Network/README.md)（`01-atomic/` Ch07 并发 · `02-async_tokio/` · `rust_network_programming/stage08` TLS）· [`02-RFR/`](../02-RFR/RFR-本书目录.md)（类型与 unsafe 进阶）。

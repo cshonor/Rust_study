@@ -8,7 +8,7 @@
 ## 本目录用途
 
 - **Sanitizer / 竞态检测 / 性能分析** 等与书一致的工具链使用笔记（以你本机已安装栈为准）。  
-- 与仓库：对照 `04-Async-Concurrency-Network/atomic/` 多线程例、`async_tokio` 并发场景的排错记录。
+- 与仓库：对照 `04-Async-Concurrency-Network/01-atomic/` 多线程例、`async_tokio` 并发场景的排错记录。
 
 ## 目录约定
 

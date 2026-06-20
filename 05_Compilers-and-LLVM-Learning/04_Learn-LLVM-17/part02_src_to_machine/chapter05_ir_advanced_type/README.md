@@ -7,7 +7,7 @@
 
 ## 本目录用途
 
-- 对照 **Rust 结构体、枚举、传参** 在 LLVM IR 中的 lowering（可配合从 `04-Async-Concurrency-Network/atomic/` 抄带 `struct` 的最小例进 `src/lib.rs` 再导出）。
+- 对照 **Rust 结构体、枚举、传参** 在 LLVM IR 中的 lowering（可配合从 `04-Async-Concurrency-Network/01-atomic/` 抄带 `struct` 的最小例进 `src/lib.rs` 再导出）。
 
 ## 目录约定
 

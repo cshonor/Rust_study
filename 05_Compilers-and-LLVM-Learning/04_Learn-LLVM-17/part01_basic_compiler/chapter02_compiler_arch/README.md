@@ -8,7 +8,7 @@
 ## 本目录用途
 
 - **三段式**：源码 → AST → IR → 机器码；**rustc** 中 HIR/MIR 与 LLVM IR 的对应关系（不必背全，能画一张草图即可）。  
-- 与仓库：`rustc` 如何把 `04-Async-Concurrency-Network/atomic/`、`04-Async-Concurrency-Network/async_tokio/` 里的 Rust 降到 LLVM。
+- 与仓库：`rustc` 如何把 `04-Async-Concurrency-Network/01-atomic/`、`04-Async-Concurrency-Network/02-async_tokio/` 里的 Rust 降到 LLVM。
 
 ## 目录约定
 
