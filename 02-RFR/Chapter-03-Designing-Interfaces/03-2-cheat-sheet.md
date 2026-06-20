@@ -6,11 +6,11 @@
 
 ## `?`
 
-否定默认隐式 bound · 不是加新条件
+仅 **`?Sized`** · 取消隐式 `T: Sized` · **无** `?Send` / `?Sync`
 
 ## 默认
 
-泛型 `T` 隐式 `T: Sized`
+泛型 `T` **唯一**隐式 bound：`T: Sized`
 
 ## `T: ?Sized`
 

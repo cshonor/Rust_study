@@ -14,6 +14,23 @@ T: Sized
 
 写 **`T: ?Sized`** 不是「新增一条要求」，而是 **否定这条默认规则** — 变成「`T` 可以是 `Sized`，也可以不是（DST）」。
 
+### 只有 `Sized` 能用 `?` —— `Send` / `Sync` 不行
+
+| Trait | 泛型 `T` 上是否**隐式**带上 | 能否写 `?Trait` 取消 |
+|-------|:--------------------------:|:--------------------:|
+| **`Sized`** | ✅ 默认就有 `T: Sized` | ✅ **`T: ?Sized`** |
+| **`Send` / `Sync` / `Debug`…** | ❌ 不会自动加 | ❌ **没有** `?Send` 这种用法 |
+
+```rust
+fn foo<T>() { }           // 编译器视同为 foo<T: Sized>()
+fn bar<T: ?Sized>() { }  // ✅ 合法：取消隐式 Sized
+
+// fn baz<T: ?Send>() { }  // ❌ 不存在：Send 本来就不是默认 bound
+// 要 Send 须显式写：fn qux<T: Send>() { }
+```
+
+**原因**：`?` 只能「关掉」**本来就有、你没写却生效**的隐式约束。目前泛型类型参数上**唯一**这种隐式约束就是 **`Sized`**；`Send`、`Sync` 等都要你**自己写出来**才生效，没有「默认加了要关」一说，自然也用不了 `?`。
+
 | 写法 | 对 `T` 的含义 |
 |------|---------------|
 | `T`（默认） | 必须是 **Sized**（编译期已知大小） |
@@ -82,7 +99,8 @@ impl<T: MyTrait + ?Sized> MyTrait for &T { /* … */ }
 ## 速记
 
 ```text
-?Sized  =  取消「T 必须 Sized」的默认帽子
+?Sized  =  取消「T 必须 Sized」的默认帽子（仅此一例）
+?Send   =  不存在 — Send 非隐式 bound
 用途    =  blanket for &T / Box<T> 时兼容 str、切片、trait 对象
 无关    =  Debug/Send/Copy 三类 · default method · 公开/私有 trait
 ```
