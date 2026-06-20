@@ -8,6 +8,27 @@
 
 ---
 
+## 适用谁？——最佳实践，不是语法铁律
+
+| 场景 | 要不要卡三类划分 |
+|------|------------------|
+| **对外公开库 / crate 的类型** | ✅ 建议遵守 — RFR / ER 给**库作者**的 Unsurprising 指南 |
+| **业务代码、内部工具、一次性脚本** | ⚪ **不必死板** — 编译器不强制你 derive `Debug` |
+| **自定义 Trait**（如量化 `Strategy`） | 📦 **另归「按需设计」** — 不属于 std 三类；给别人用时仍要接口清晰 |
+| **自定义类型 impl 标准 Trait**（`Order` + `Debug` / `Send`） | ✅ **仍受三类约束** — 调用方对 std trait 有固定预期，违反会「猜不对」 |
+
+```text
+三类划分  ──针对──►  公开类型 × 标准库 Trait（Debug / Send / Copy …）
+自定义 Trait（Strategy / OrderExecutor …）  ──►  按需设计，但公开 API 仍讲 Unsurprising
+内部业务 struct  ──►  灵活；要给别人用或进 workspace 公共模块时再对齐三类
+```
+
+**例子**：`Strategy` trait 是领域抽象，不必硬套「Ⅰ 类几乎总实现」；但 `struct Order` 若发布给策略框架用，`#[derive(Debug, PartialEq, Eq)]` 和 `Send` 仍应按三类来 — 否则别人 `println!("{order:?}")` 或 `spawn` 传订单时会踩坑。
+
+→ 自定义 trait 设计：[03 人体工程学 impl](./03-ergonomic-trait-implementations.md)
+
+---
+
 ## 划分标准（三类边界）
 
 核心看三件事：**实现后对类型的影响范围** · **副作用强度** · **违反约定的代价**。

@@ -3,7 +3,33 @@
 ← [02 通用 Trait](./02-common-traits-for-types.md) · [02 速记](./02-cheat-sheet.md)
 
 > **准则**：对外公开类型尽量**开箱即用**，实现用户预期的基础 Trait。  
+> **定位**：下文三类是**库作者最佳实践**，不是语法强制；内部业务可灵活，但 **impl 标准 Trait 时调用方预期不变**。  
 > ER → [Item 10 标准 trait](../../01-ER/Chapter-02-Traits/Item-10-standard-traits/README.md) · Book → [10.2 trait · derive](../../00-Book/10-generics-traits-lifetimes/10.2-trait.md)
+
+---
+
+## 标准 Trait vs 自定义 Trait
+
+| | 标准 Trait（std） | 自定义 Trait |
+|---|-------------------|--------------|
+| **例子** | `Debug` · `Send` · `Copy` · `Hash` | `Strategy` · `MarketDataSource` |
+| **是否适用三类** | ✅ 给 `Order` 等类型 impl 时遵守 | ❌ 不硬套Ⅰ/Ⅱ/Ⅲ；归 **按需设计** |
+| **公开给别人用时** | 违反三类 → 用户 `Debug`/`spawn` 踩坑 | 接口命名、对象安全、文档仍要 Unsurprising |
+| **纯内部业务** | 可省略 `Debug` 等，编译不拦 | 团队约定即可 |
+
+```rust
+// 自定义 trait：按需，不属于「几乎总实现」那类
+trait Strategy {
+    fn on_tick(&mut self, price: f64);
+}
+
+// 标准 trait：Order 若对外发布，仍建议按三类
+#[derive(Debug, PartialEq, Eq)]
+struct Order { id: u64, symbol: String }
+// Send：字段全 Send 则自动满足 — 策略线程间传 Order 靠这个
+```
+
+三类划分只组织 **「公开类型 × 标准 Trait」**；`Strategy` 怎么设计见 [03 人体工程学 impl](./03-ergonomic-trait-implementations.md)。
 
 ---
 
@@ -193,10 +219,11 @@ std::thread::spawn(move || println!("{safe}")).join().unwrap();
 
 ### 1. `Copy` ⚠️
 
-**约束**：
+**约束**（**长期、难撤回**）：
 
-- 实现 `Copy` 后，将来加 `String` / `Vec` 等非 `Copy` 字段 → **编译失败**（API 演进被锁死）；
-- 赋值、传参**隐式复制**，大结构可能带来性能/语义意外。
+- 实现 `Copy` 后，将来加 `String` / `Vec` 等非 `Copy` 字段 → **编译失败**（API / 内存模型被锁死）；
+- 赋值、传参**隐式复制** — 量化里大 struct 或含指针的类型可能带来性能与语义意外；
+- 典型踩坑：给带 `String` 的**订单 struct** 加了 `Copy`，后续想改成 `Arc<str>` / 引用计数 → 全链路报错。
 
 **仅推荐**：无堆分配、稳定小值 — `i32`、`Point { x, y: f32 }`、简单 C 风格枚举。
 
@@ -318,11 +345,11 @@ pub struct SharedCounter {
 
 ## 五、开发落地清单
 
-1. 对外 struct / enum → **`#[derive(Debug, PartialEq, Eq)]`** 起步；
-2. 多线程 crate → 默认假设 `Send + Sync`；例外写进 rustdoc；
-3. **`Copy`** 只给稳定小值；含堆类型一律 **`Clone`** 不 **`Copy`**；
-4. 要当 map/set 键 → 加 **`Hash`**，且键字段**不可在入集合后静默修改**；
-5. 敏感数据 → **手动 `Debug`** 脱敏。
+1. **Ⅰ 类** — 对外 struct / enum → **`#[derive(Debug, PartialEq, Eq)]`**（+ 常用 `Clone`）；
+2. **Ⅱ 类** — 多线程 crate 默认假设 `Send + Sync`；行情→策略→下单链路尤其如此；例外写进 rustdoc；
+3. **Ⅲ 类 `Copy`** — 仅稳定小栈值；含堆 / 订单体一律 **`Clone`** 不 **`Copy`**；
+4. **Ⅲ 类 `Hash`** — 要当 map/set 键再加，与 **`Eq` 成对**；键字段入集合后不可静默修改；
+5. 敏感字段 → **手动 `Debug`** 脱敏。
 
 ---
 
