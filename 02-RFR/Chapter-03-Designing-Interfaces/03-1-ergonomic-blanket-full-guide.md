@@ -35,7 +35,57 @@ fn main() {
 
 ---
 
-## 二、核心方案：Blanket impl（全覆盖转发）
+## 二、Blanket impl 是什么：两种形态
+
+**Blanket impl** = 不给某个**具体类型**单独写 impl，而是写一条**泛型规则**：「凡满足某条件的类型，统一获得某 trait 实现」。核心目的是**消除重复 impl**。
+
+| 形态 | 写法 | impl 落在谁身上 | 典型目的 |
+|------|------|-----------------|----------|
+| **A. 条件补能力** | `impl<T: SomeOtherTrait> MyTrait for T` | **T 本身** | 「实现了 A 就自动有 B」 |
+| **B. 包装转发** | `impl<T: MyTrait + ?Sized> MyTrait for &T` | **`&T` / `Box<T>` 等** | 引用/指针也能调，不用手动 `*` |
+
+```text
+形态 A：  T: SomeOtherTrait  ──自动──►  T: MyTrait
+形态 B：  T: MyTrait         ──自动──►  &T / Box<T>: MyTrait（内部转发到 T）
+```
+
+### 形态 A 示例 — 「有 Debug 就能打日志」（概念）
+
+```rust
+trait Loggable {
+    fn log(&self);
+}
+
+// 凡实现了 Debug 的 T，自动获得 Loggable
+impl<T: std::fmt::Debug> Loggable for T {
+    fn log(&self) {
+        println!("{self:?}");
+    }
+}
+```
+
+一行代替「给每个 struct 各写一份 impl」。⚠️ 但 bound 绑 **`Debug` 这种全域 trait 过宽**，易与未来 impl 冲突 — 见 [§三·2](#2-过宽-blanket--版本兼容风险)；生产里更常**收窄**到业务 marker trait。
+
+### 形态 B 示例 — 「有 MyTrait 的引用也能 work」（RFR §03 重点）
+
+不是给 `Foo` 再加方法，而是给 **trait 做能力补全**：凡 `T: MyTrait`，其 **`&T`、`Box<T>`** 也自动 `MyTrait`，内部转发：
+
+```rust
+impl<T: MyTrait + ?Sized> MyTrait for &T {
+    fn work(&self) { (*self).work() }
+}
+```
+
+```text
+只 impl Foo: MyTrait  →  只有 f.work()
++ blanket for &T      →  (&f).work() 也合法，无需 (*rf).work()
+```
+
+**形态 B 不改变「谁实现了 MyTrait」的定义，只消除值 / 引用 / 智能指针的调用分叉。**
+
+---
+
+## 三、形态 B 详解：包装转发模板
 
 为 **引用、可变引用、常见智能指针** 批量 impl，内部转发到内层 `T`。
 
@@ -88,7 +138,7 @@ Arc::new(Foo).work();
 
 ---
 
-## 三、两大约束
+## 四、两大约束
 
 ### 1. 孤儿规则 & 相干性 — 仅**自己的 trait**
 
@@ -121,7 +171,7 @@ impl<T: std::fmt::Debug> MyTrait for T {}
 
 ---
 
-## 四、ER Item 13：默认实现（双管齐下）
+## 五、ER Item 13：默认实现（双管齐下）
 
 | 端 | 手段 |
 |----|------|
@@ -146,19 +196,19 @@ impl<T: Count + ?Sized> Count for &T {
 
 ---
 
-## 五、标准库佐证
+## 六、标准库佐证
 
-| 模式 | 例子 |
-|------|------|
-| 宽 blanket | `impl<T: Display> ToString for T` |
-| 引用 blanket | `impl<T: ?Sized> Clone for &T`（复制引用本身） |
-| `From` / `Into` | 实现 `From` 自动获得 `into()` |
+| 模式 | 形态 | 例子 |
+|------|------|------|
+| 条件补能力 | **A** | `impl<T: Display> ToString for T` |
+| 包装转发 | **B** | `impl<T: Clone + ?Sized> Clone for &T`（复制引用本身） |
+| `From` / `Into` | **A** | 实现 `From` 自动获得 `into()` |
 
 std 能这么写是因为 trait 与 impl 都在**同一 crate（std）**，不受孤儿规则限制。
 
 ---
 
-## 六、可复制模板（含 Sealed）
+## 七、可复制模板（含 Sealed）
 
 ### A. 最小 blanket（`&T` + `&mut T`）
 
@@ -206,7 +256,7 @@ impl<T: MyTrait + ?Sized> MyTrait for &T {
 
 ---
 
-## 七、落地清单
+## 八、落地清单
 
 1. 自定义 trait → 优先补 **`&T` / `&mut T` blanket**，带 **`?Sized`**；
 2. 按需补 **`Box` / `Arc` / `Rc`**；

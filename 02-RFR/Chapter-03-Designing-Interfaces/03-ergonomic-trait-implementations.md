@@ -8,9 +8,14 @@
 
 ---
 
-## 核心：Blanket impl
+## 核心：Blanket impl（两种形态）
 
-对 **`&T`、`&mut T`、`Box<T>`、`Arc<T>`** 等做转发实现，内部调用内层 `T` 的方法。
+| 形态 | 写法 | 作用 |
+|------|------|------|
+| **A 条件补能力** | `impl<T: Other> MyTrait for T` | 满足条件的 **T** 自动获得 trait |
+| **B 包装转发** | `impl<T: MyTrait> MyTrait for &T` | **引用/指针**也能调，消除 `*` 分叉 |
+
+§03 重点在 **形态 B**；形态 A 绑 `Debug` 等过宽 trait 易冲突。
 
 ```rust
 trait MyTrait { fn work(&self); }

@@ -4,6 +4,10 @@
 
 ---
 
+## 两种形态
+
+A 条件 impl on T · B 包装转发 `&T`（§03 重点）
+
 ## 核心
 
 blanket impl → `&T` / `&mut T` / Box/Arc 转发 · 仅**自定义 trait**
