@@ -7,10 +7,12 @@
 //! cargo run --manifest-path naming-series-demo/Cargo.toml get        # 01-3
 //! cargo run --manifest-path naming-series-demo/Cargo.toml try        # 01-4
 //! cargo run --manifest-path naming-series-demo/Cargo.toml with       # 01-5
+//! cargo run --manifest-path naming-series-demo/Cargo.toml into-inner # 01-2-1
 //! ```
 
 mod as_series;
 mod get_series;
+mod into_inner_series;
 mod into_series;
 mod try_series;
 mod with_series;
@@ -21,6 +23,7 @@ fn main() {
     match env::args().nth(1).as_deref() {
         Some("as") => as_series::run(),
         Some("into") => into_series::run(),
+        Some("into-inner") => into_inner_series::run(),
         Some("get") => get_series::run(),
         Some("try") => try_series::run(),
         Some("with") => with_series::run(),
@@ -32,6 +35,7 @@ fn main() {
 fn run_all() {
     as_series::run();
     into_series::run();
+    into_inner_series::run();
     get_series::run();
     try_series::run();
     with_series::run();

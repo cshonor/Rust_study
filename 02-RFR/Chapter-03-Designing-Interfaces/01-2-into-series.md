@@ -27,7 +27,7 @@ Box<T> ──into_inner()──► T
 | 常见 API | 作用 |
 |----------|------|
 | **`into_iter()`** | 消耗容器 → **owned** 元素迭代器 |
-| **`into_inner()`** | `Box` / `Mutex` 等 → 取出内部值 |
+| **`into_inner()`** | 消耗**包装器** → 内部 `T`（见 [01-2-1](./01-2-1-into-inner.md)） |
 | **`into_string()` / `into_vec()`** | 类型转换，消耗原值 |
 
 ---
@@ -56,6 +56,15 @@ assert_eq!(bytes, b"hi");
 ```
 
 → demo：`naming-series-demo/src/into_series.rs`
+
+---
+
+## 深入：`into_inner` vs 误传的 `into_item`
+
+**`into_inner`** — 拆包装拿内部所有权（`Mutex::into_inner`、`RefCell::into_inner`、自定义 newtype）。  
+⚠️ **`MutexGuard` 没有 `into_inner`**；std **也没有** `Peekable::into_item`，peek 后用 **`next()`**。
+
+→ 详例 + 勘误：[01-2-1 `into_inner`](./01-2-1-into-inner.md) · demo：`cargo run … into-inner`
 
 ---
 

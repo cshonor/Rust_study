@@ -10,7 +10,9 @@
 
 ## 代表 API
 
-`into_iter` · `into_inner` · `into_bytes`
+`into_iter` · `into_inner`（包装器上，非 Guard）· `into_bytes`
+
+→ `into_inner` 详例：[01-2-1](./01-2-1-into-inner.md) · std 无 `into_item`，用 `next()`
 
 ## 自测
 
