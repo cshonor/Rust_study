@@ -4,17 +4,17 @@
 
 ---
 
-## 六系列口诀
+## 五系列（01-1 ~ 01-5）
 
-| 前缀 | 口诀 |
-|------|------|
-| `as_` | 只借，不消耗 |
-| `into_` | 交出自己 |
-| `get_` | 安全 `Option`，不 panic |
-| `try_` | 失败 `Result` |
-| `with_` | 构造 / 配置 → [01-1 详例](./01-1-with-series-and-builder.md) |
+| 前缀 | 口诀 | 详例 |
+|------|------|------|
+| `as_` | 只借，不消耗 | [01-1](./01-1-as-series.md) |
+| `into_` | 交出自己 | [01-2](./01-2-into-series.md) |
+| `get_` | 安全 `Option` | [01-3](./01-3-get-series.md) |
+| `try_` | 失败 `Result` | [01-4](./01-4-try-series.md) |
+| `with_` | 构造 / 配置 | [01-5](./01-5-with-series.md) |
 
-→ 四系列详例 + demo：[01-2](./01-2-as-into-get-try-examples.md)
+Demo → [naming-series-demo](./naming-series-demo/)
 
 ## 迭代器三巨头
 
@@ -30,6 +30,5 @@
 
 ## 自测
 
-- [ ] `Some(x).as_ref()` 后原 `Option` 还能用吗？  
-- [ ] `for x in v` 和 `for x in &v` 对所有权差在哪？  
+- [ ] 五个系列各自消耗还是借用 `self`？  
 - [ ] `get(99)` 和 `[99]` 失败行为有何不同？
