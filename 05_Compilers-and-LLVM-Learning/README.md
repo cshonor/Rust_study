@@ -47,3 +47,18 @@
 | unsafe / 内存布局 | `03-Rust_Nomicon` |
 
 LLVM 可与 RFR **第 2 章**（布局、分发）**并行**精读；**原子 / async IR** 建议在 **04 专题** 有代码后再做 diff。
+
+---
+
+## 姊妹仓库 · C++ 对照（可选）
+
+[C++ 学习笔记 cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) 与本仓库**同一套「按书分目录 + 笔记 + demo」**组织方式，编号 `01`～`09` 对应 Primer → Effective 系列 → 对象模型 → 并发 → C++20。
+
+| 你关心 | C++ 仓 | 本仓库 Rust | 进入 05 / LLVM 前建议 |
+|--------|--------|-------------|------------------------|
+| 对象布局、vtable | `07-Cpp-Object-Model` | RFR 第 2 章 · Nomicon | **强烈建议**至少其一，再读 IR 第 4～5 章 |
+| 线程、内存模型 | `08-Cpp-Concurrency` | [`04/01-atomic`](../04-Async-Concurrency-Network/01-atomic/) | 做完 04 再 diff `ir_samples/atomic_ir/` |
+| 现代 C++ 语义 | `04-Effective-Modern-C++` | RFR · ER | 非 LLVM 必修；有助于理解优化与移动 |
+| 低延迟 / 性能 | 可选 `11-Modern-C++-Performance-Engineering` | 04 三书 + 本书 ch07 | 与 O0/O3、`optimize_compare/` 对照 |
+
+**05 不依赖 C++ 编译器**：IR 实验一律用 Rust（`llvm_insight_lab` + 04 demo）。C++ 仓仅作**平行背景**，详见 [04_Learn-LLVM-17 学习取舍](./04_Learn-LLVM-17/Learn-LLVM-17-学习取舍.md)。

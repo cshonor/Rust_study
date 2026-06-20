@@ -117,3 +117,11 @@ cargo +nightly build
 - 章节目录英文命名，避免 Windows 终端乱码。
 - `target/` 已在 `.gitignore` 中忽略。
 - **VSCode + rust-analyzer**：[`docs/rust-analyzer-VSCode配置.md`](docs/rust-analyzer-VSCode配置.md) · 工作区 [`.vscode/settings.json`](.vscode/settings.json)
+
+---
+
+## 姊妹仓库
+
+| 仓库 | 语言 | 说明 |
+|------|------|------|
+| [cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) | C++ | Primer → Effective → 对象模型 → 并发 → C++20；与本书 **04 / 05** 可对照读（见 [`05_Compilers-and-LLVM-Learning/README.md`](05_Compilers-and-LLVM-Learning/README.md)） |
