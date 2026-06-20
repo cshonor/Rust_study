@@ -14,6 +14,8 @@
 | `try_` | 失败 `Result` |
 | `with_` | 构造 / 配置 → [01-1 详例](./01-1-with-series-and-builder.md) |
 
+→ 四系列详例 + demo：[01-2](./01-2-as-into-get-try-examples.md)
+
 ## 迭代器三巨头
 
 | | 元素 | 容器 |

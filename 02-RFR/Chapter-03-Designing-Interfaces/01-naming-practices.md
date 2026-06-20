@@ -27,6 +27,8 @@ let x = Some(10);
 let r = x.as_ref(); // Some(&10)，x 仍有效
 ```
 
+→ **详例**：[`String::as_str` 可反复借](./01-2-as-into-get-try-examples.md#一as_-系列--只借不拿) · [01-2 速记](./01-2-cheat-sheet.md)
+
 > **口诀**：`as` 只借、不消耗本体。
 
 ---
@@ -40,6 +42,8 @@ let r = x.as_ref(); // Some(&10)，x 仍有效
 | **`into_inner()`** | `Mutex` / `Box` / 包装类型 → 取出内部值，销毁包装 |
 | **`into_iter()`** | 消耗容器 → 产出 **owned** 元素的迭代器 |
 | **`into_string()` / `into_vec()`** | 类型转换，消耗原值 |
+
+→ **详例**：[`into_iter` 后 v 失效](./01-2-as-into-get-try-examples.md#二into_-系列--消耗原变量)
 
 > **口诀**：`into` = 交出自己，用完本体就没了。
 
@@ -58,6 +62,8 @@ let r = x.as_ref(); // Some(&10)，x 仍有效
 
 对比：`arr[index]` 越界 **panic**；`get` 更安全。
 
+→ **详例**：[`get(5)` → `None` 不 panic](./01-2-as-into-get-try-examples.md#三get_-系列--option-安全访问)
+
 ---
 
 ## 四、`try_` 系列 — 可能失败，返回 `Result`
@@ -68,6 +74,8 @@ let r = x.as_ref(); // Some(&10)，x 仍有效
 |------|------|
 | **`try_into()`** | 带错误的转换 — 对比 `Into::into()`（须保证成功） |
 | **`try_lock()`** | 锁拿不到 → `Err`，不阻塞 |
+
+→ **详例**：[`try_lock` 持锁时 `Err`](./01-2-as-into-get-try-examples.md#四try_-系列--result-可失败操作)
 
 ---
 
@@ -82,7 +90,7 @@ let r = x.as_ref(); // Some(&10)，x 仍有效
 
 → **详细例**：[`Vec::with_capacity` 100 万 · reqwest 链 · 手写 Builder](./01-1-with-series-and-builder.md) · [01-1 速记](./01-1-cheat-sheet.md)
 
-## 六、迭代器三巨头：`iter` / `iter_mut` / `into_iter`
+---：`iter` / `iter_mut` / `into_iter`
 
 | 方法 | 元素类型 | 容器所有权 | 用途 |
 |------|----------|------------|------|
@@ -187,4 +195,4 @@ fn main() {
 }
 ```
 
-→ 速记：[01-cheat-sheet.md](./01-cheat-sheet.md) · 下一节：[02 通用 Trait](./02-common-traits-for-types.md)
+→ 速记：[01-cheat-sheet.md](./01-cheat-sheet.md) · 四系列详例：[01-2](./01-2-as-into-get-try-examples.md) · 下一节：[02 通用 Trait](./02-common-traits-for-types.md)
