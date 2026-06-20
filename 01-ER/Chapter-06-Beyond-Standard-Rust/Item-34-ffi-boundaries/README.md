@@ -41,7 +41,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -68,3 +68,19 @@ panic 不得越过 FFI（Item 18 → catch_unwind / abort）
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| ABI | **`extern "C"`** + **`#[repr(C)]`** |
+| 内存 | **谁分配谁释放** |
+| 整数 | 固定宽度；慎 `c_int` |
+| 封装 | unsafe 在内，**safe API** 在外 |
+| Box | **`into_raw` / `from_raw`** |
+| 字符串 | **`CString` / `CStr`** |
+| panic | **不过 FFI** |
+| 绑定 | 手写危险 → **bindgen** |
+

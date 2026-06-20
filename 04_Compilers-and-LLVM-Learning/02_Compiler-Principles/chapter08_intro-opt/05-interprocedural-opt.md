@@ -1,8 +1,6 @@
 # 第 8 章 · 代码优化概述 · §5 过程间优化
 
-← [本章目录](./README.md) · 上一节：[04-global-redundancy.md](./04-global-redundancy.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[04-global-redundancy.md](./04-global-redundancy.md) · 下一节：---
 
 **Whole-program** 层次 — 跨越 [ch6 调用边界](../chapter06_procedures/05-call-linkages.md)。
 

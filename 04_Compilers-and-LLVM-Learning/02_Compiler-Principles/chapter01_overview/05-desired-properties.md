@@ -1,8 +1,6 @@
 # 第 1 章 · 编译总览 · §5 编译器应有的工程性质
 
-← [本章目录](./README.md) · 上一节：[04-translation-pipeline-example.md](./04-translation-pipeline-example.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[04-translation-pipeline-example.md](./04-translation-pipeline-example.md) · 下一节：---
 
 除**正确翻译**外，现代编译器在工程上还期望：
 

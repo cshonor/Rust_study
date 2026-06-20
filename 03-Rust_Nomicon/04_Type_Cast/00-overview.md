@@ -38,7 +38,7 @@
 | 2 | 点运算符 | [02-dot-operator.md](./02-dot-operator.md) |
 | 3 | 显式转换 `as` | [03-casts.md](./03-casts.md) |
 | 4 | transmute | [04-transmutes.md](./04-transmutes.md) |
-| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 ---
 

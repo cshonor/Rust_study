@@ -1,8 +1,6 @@
 # 第 12 章 · 指令调度 · §4 高级话题
 
-← [本章目录](./README.md) · 上一节：[03-scheduling-vs-regalloc.md](./03-scheduling-vs-regalloc.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[03-scheduling-vs-regalloc.md](./03-scheduling-vs-regalloc.md) · 下一节：---
 
 ## 区域调度（Regional Scheduling）
 

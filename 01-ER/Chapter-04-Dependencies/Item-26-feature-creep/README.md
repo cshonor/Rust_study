@@ -39,7 +39,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -66,3 +66,17 @@ features（Cargo 包级开关）
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 原则 | Feature **只加能力**，互斥用 `cfg(target_*)` |
+| 公开 API | **别** `#[cfg(feature)]` 门控 pub 字段/方法 |
+| Unification | 全图**并集** — 用户控不了 |
+| 命名 | 避 `no_*`；用 `std` 等正向名 |
+| 数量 | 防 \(2^N\) — 少 feature + CI powerset |
+| optional dep | 自动同名 feature |
+

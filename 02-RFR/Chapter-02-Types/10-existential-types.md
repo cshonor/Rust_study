@@ -25,7 +25,7 @@
 | **10.1** | ∃ 逻辑 · 返回/参数位置 | [10-1-logic-positions.md](./10-1-logic-positions.md) |
 | **10.2** | `impl Trait` vs `dyn Trait` | [10-2-impl-vs-dyn.md](./10-2-impl-vs-dyn.md) |
 | **10.3** | 限制 · 选型 · 易混 | [10-3-limits-selection.md](./10-3-limits-selection.md) |
-| — | 速记 · 自测 | [10-cheat-sheet.md](./10-cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 **建议阅读顺序**：`10.1` → `10.2` → `10.3`
 

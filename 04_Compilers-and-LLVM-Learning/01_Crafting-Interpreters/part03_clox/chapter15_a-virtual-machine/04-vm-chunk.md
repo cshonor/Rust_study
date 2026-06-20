@@ -1,8 +1,6 @@
 # 第 15 章 · A Virtual Machine（虚拟机） · VM 与 Chunk 协作
 
-← [本章目录](./README.md) · 上一节：[03-an-arithmetic-calculator.md](./03-an-arithmetic-calculator.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[03-an-arithmetic-calculator.md](./03-an-arithmetic-calculator.md) · 下一节：---
 
 ```text
          ┌─────────────┐

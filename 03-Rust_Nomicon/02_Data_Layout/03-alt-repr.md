@@ -1,6 +1,6 @@
 # 3 · 替代的数据表示 (Alternative representations)
 
-← [本章目录](./README.md) · 上一节：[02-exotic-types.md](./02-exotic-types.md) · [cheat-sheet.md](./cheat-sheet.md)
+← [本章目录](./README.md) · 上一节：[02-exotic-types.md](./02-exotic-types.md)
 
 ---
 

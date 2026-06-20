@@ -70,4 +70,4 @@ unsafe impl<T: Send + Sync> Sync for MyArc<T> {}
 
 ---
 
-← 上一节：[08-zst.md](./08-zst.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
+← 上一节：[08-zst.md](./08-zst.md) · 下一节：

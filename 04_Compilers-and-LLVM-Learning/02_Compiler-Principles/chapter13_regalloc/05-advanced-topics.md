@@ -1,8 +1,6 @@
 # 第 13 章 · 寄存器分配 · §5 高级话题
 
-← [本章目录](./README.md) · 上一节：[04-graph-coloring.md](./04-graph-coloring.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[04-graph-coloring.md](./04-graph-coloring.md) · 下一节：---
 
 ## 编码机器限制
 

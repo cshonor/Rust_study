@@ -26,7 +26,7 @@
 | **09.2** | `Sized` · `Copy` | [09-2-sized-copy.md](./09-2-sized-copy.md) |
 | **09.3** | `Send` · `Sync` · `Unpin` | [09-3-send-sync-unpin.md](./09-3-send-sync-unpin.md) |
 | **09.4** | 自动推导 · `unsafe impl` | [09-4-unsafe-impl.md](./09-4-unsafe-impl.md) |
-| — | 速记 · 自测 | [09-cheat-sheet.md](./09-cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 **建议阅读顺序**：`09.1` → `09.2` → `09.3` → `09.4`
 

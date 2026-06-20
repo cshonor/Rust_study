@@ -1,8 +1,6 @@
 # 第 6 章 · 语法分析 · §4 项的分析
 
-← [本章目录](./README.md) · 上一节：[03-expressions.md](./03-expressions.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[03-expressions.md](./03-expressions.md) · 下一节：---
 
 ## 项（term）的角色
 

@@ -37,7 +37,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -64,3 +64,17 @@ syn / quote / AST 级工具 → expand / tarpaulin / …
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 日常三件套 | **check / fmt / clippy** |
+| 元数据 | **`cargo metadata`** 驱动生态工具 |
+| 宏 | **`cargo-expand`** |
+| 依赖 | **tree / udeps / deny** |
+| 采纳 | 好用 → **CI**；fmt → **编辑器** |
+| 选型 | 看维护度，别绑死废弃插件 |
+

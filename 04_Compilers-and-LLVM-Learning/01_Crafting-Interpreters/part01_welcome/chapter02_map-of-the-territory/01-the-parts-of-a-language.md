@@ -52,7 +52,7 @@ Source Code（源码）
 | **2.1.6** | 代码生成 | [01-6-code-generation.md](./01-6-code-generation.md) |
 | **2.1.7** | 虚拟机 | [01-7-virtual-machine.md](./01-7-virtual-machine.md) |
 | **2.1.8** | 运行时 | [01-8-runtime.md](./01-8-runtime.md) |
-| — | 速记 · 自测 | [01-cheat-sheet.md](./01-cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 **建议阅读顺序（按流水线）**：`01-1` → `01-2` → `01-4` → `01-3` → `01-5` → `01-6` → `01-7` → `01-8`
 

@@ -37,7 +37,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -62,3 +62,16 @@ std / crates.io 里已有专家封装 → 用安全 API，别重写 unsafe
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 立场 | **复用 > 重写** unsafe |
+| 责任 | 编译器不管 → 你证明不变量 |
+| 封装 | unsafe 在内，safe API 在外 |
+| 工具 | Safety comment + Miri + 更多测试 |
+| FFI | 一律当不可信；见 Item 34/35 |
+

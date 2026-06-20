@@ -1,8 +1,6 @@
 # 第 19 章 · Strings（字符串） · ObjString 要点
 
-← [本章目录](./README.md) · 上一节：[02-memory-management.md](./02-memory-management.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[02-memory-management.md](./02-memory-management.md) · 下一节：---
 
 | 字段 | 作用 |
 |------|------|

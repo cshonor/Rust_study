@@ -87,3 +87,22 @@ trait From<T> {
 **默认倾向**：能写成关联类型就写关联类型；只有确实需要 **多 impl** 再用泛型 trait。
 
 → 下一节：[06.2 存在类型 · trait object · HFT](./06-2-existential-hft.md)
+
+---
+
+## 速记
+
+## 对照
+
+| | 关联类型 | 泛型 trait 参数 |
+|---|----------|-----------------|
+| 问什么 | 固有 Item/Error | 能和谁比/转 |
+| impl 份数 | 通常 1 份 | 可多份 |
+| 典型 | `Iterator::Item` | `PartialEq<Rhs>` |
+
+## 三句话
+
+1. **能关联类型就关联类型。**  
+2. **`dyn Iterator` → 必须 `Item = T`。**  
+3. **`impl` 静态，`dyn` vtable。**
+

@@ -28,7 +28,7 @@
 | **07.3** | `Cell` 与 `RefCell` 详解 | [07-3-cell-vs-refcell.md](./07-3-cell-vs-refcell.md) |
 | **07.4** | 应用场景 | [07-4-use-cases.md](./07-4-use-cases.md) |
 | **07.5** | 对比 · 误区 · 总纲 | [07-5-comparison-pitfalls.md](./07-5-comparison-pitfalls.md) |
-| — | 速记 · 自测 | [07-cheat-sheet.md](./07-cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 **建议阅读顺序**：`07.1` → `07.2` → `07.3` → `07.4` → `07.5`
 
@@ -44,4 +44,4 @@
 
 - 前置 → [05 共享引用](./05-shared-references.md) · [06 可变引用](./06-mutable-references.md)
 - 下一节 → [08 生命周期](./08-lifetimes.md)
-- 全章速记 → [05–08](./05-08-borrowing-lifetimes-cheat-sheet.md)
+- 全章速记 → 

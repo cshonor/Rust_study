@@ -1,8 +1,6 @@
 # 第 1 章 · 开始制作编译器 · §3 使用 C♭ 编译器进行编译
 
-← [本章目录](./README.md) · 上一节：[02-four-compiler-stages.md](./02-four-compiler-stages.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[02-four-compiler-stages.md](./02-four-compiler-stages.md) · 下一节：---
 
 ## 运行环境
 

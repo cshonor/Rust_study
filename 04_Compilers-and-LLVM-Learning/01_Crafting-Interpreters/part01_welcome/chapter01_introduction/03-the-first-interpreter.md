@@ -1,8 +1,6 @@
 # 第 1 章 · Welcome（Introduction） · §1.3 第一个解释器（The First Interpreter）
 
-← [本章目录](./README.md) · 上一节：[02-how-the-book-is-organized.md](./02-how-the-book-is-organized.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[02-how-the-book-is-organized.md](./02-how-the-book-is-organized.md) · 下一节：---
 
 ### jlox（Part II · Java）
 

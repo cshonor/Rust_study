@@ -46,7 +46,7 @@
 | 3 | 代理类型 | [03-proxy-types.md](./03-proxy-types.md) |
 | 4 | 栈展开与异常安全 | [04-unwinding.md](./04-unwinding.md) |
 | 5 | 数据投毒 | [05-poisoning.md](./05-poisoning.md) |
-| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 ---
 

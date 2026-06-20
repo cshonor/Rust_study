@@ -1,8 +1,6 @@
 # 第 8 章 · 抽象语法树的生成 · §4 cbc 解析器的启动
 
-← [本章目录](./README.md) · 上一节：[03-decl-ast.md](./03-decl-ast.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[03-decl-ast.md](./03-decl-ast.md) · 下一节：---
 
 ## Parser 对象初始化
 

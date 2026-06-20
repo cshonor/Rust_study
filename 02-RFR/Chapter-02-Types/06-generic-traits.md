@@ -24,7 +24,7 @@ dyn Trait          →  须写清关联类型，如 Item = u32
 |---|------|------|
 | **06.1** | 关联类型 vs 泛型参数 · 怎么选 | [06-1-associated-vs-generic.md](./06-1-associated-vs-generic.md) |
 | **06.2** | `impl`/`dyn` · HFT · GAT | [06-2-existential-hft.md](./06-2-existential-hft.md) |
-| — | 速记 · 自测 | [06-cheat-sheet.md](./06-cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 **建议阅读顺序**：`06.1` → `06.2`
 

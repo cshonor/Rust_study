@@ -125,4 +125,37 @@ cargo msrv verify
 5. CHANGELOG 记录原因。  
 6. Cargo 1.85+ MSRV 感知解析 — 旧工具链可锁依赖上限。
 
-→ 速记：[07-cheat-sheet.md](./07-cheat-sheet.md) · 下一节：[08 依赖下界](./08-minimal-dependency-versions.md)
+---
+
+## 速记
+
+## 定义
+
+最低稳定 Rust 可编译版本 · `rust-version = "1.70"`
+
+## 规则
+
+纯版本号 · ≥ edition 最低 · 低于 MSRV Cargo 报错
+
+## SemVer 生态
+
+抬 MSRV → **minor**（2.6→2.7）· **禁 patch**（2.6.1）
+
+## 落地三步
+
+TOML · README · CI 固定 MSRV · `cargo msrv verify`
+
+## CHANGELOG
+
+新 MSRV · 原因 · 下游影响
+
+## Workspace
+
+各 member 可独立 · 依赖链取**最高** MSRV
+
+## 自测
+
+- [ ] 为何 2.6.1 抬 MSRV 是生态破坏？  
+- [ ] MSRV 升级为何通常不算 major？  
+- [ ] `cargo-msrv verify` 测什么？
+

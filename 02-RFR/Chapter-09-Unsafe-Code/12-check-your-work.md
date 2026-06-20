@@ -158,4 +158,45 @@ cargo +nightly miri test -- test_unsafe_buf   # 指定用例
 4. **人工评审不可替代** — unsafe 强制双人复核。  
 5. 测试须覆盖边界、panic、短生命周期、并发等高危路径。
 
-→ 速记：[12-cheat-sheet.md](./12-cheat-sheet.md) · 下一节：[13 小结](./13-summary.md)
+---
+
+## 速记
+
+## 四层验证（推荐顺序）
+
+1. **单元/集成测试** — 边界、panic、生命周期、并发  
+2. **Miri** — Rust UB 首选（nightly）  
+3. **ASAN / Valgrind** — FFI、堆栈越界  
+4. **人工评审** — 双人复核 unsafe  
+
+## Miri 命令
+
+```bash
+rustup +nightly component add miri
+cargo +nightly miri test
+```
+
+## Miri 擅长
+
+越界 · UAF · 未初始化 · Validity · provenance · Stacked Borrows
+
+## Miri 短板
+
+无 C FFI · 慢 · 非真实分配器
+
+## 工具分工
+
+| Miri | ASAN | Valgrind |
+|------|------|----------|
+| Rust 语义 UB | 堆/栈/竞争/跨语言 | C 泄漏/ABI |
+
+## 评审清单
+
+`// SAFETY:` · `# Safety` · `# Invariants` · 生命周期/对齐/所有权/并发
+
+## 自测
+
+- [ ] 为何 release `cargo test` 不够，还须 Miri？  
+- [ ] FFI 模块为何须 ASAN 而非只靠 Miri？  
+- [ ] Miri 报错时如何借助 §11 文档定位契约？
+

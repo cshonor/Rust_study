@@ -23,7 +23,7 @@
 | §2 | 支配与 φ 放置 | [02-dominance-and-phi.md](./02-dominance-and-phi.md) |
 | §3 | SSA 重命名与代码复原 | [03-ssa-renaming-and-destruction.md](./03-ssa-renaming-and-destruction.md) |
 | §4 | 高级话题 | [04-advanced-topics.md](./04-advanced-topics.md) |
-| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 ---
 
@@ -41,3 +41,51 @@
 ## 逻辑脉络
 
 迭代框架 + 实例 → 建 SSA → 拆 SSA → 进阶理论。
+
+---
+
+## 速记
+
+## 本章速记
+
+```text
+§1  迭代数据流 IN/OUT · 活跃变量 LIVEOUT（反向）· 不动点
+§2  支配/idom/支配边界 · 最小 φ 放置
+§3  支配树重命名 · SSA 销毁=φ→mov · 并行拷贝
+§4  可约CFG · 过程间分析 · LTO/IPO
+```
+
+---
+
+## 三句背诵
+
+1. **数据流 = CFG 上方程迭代到不动点。**
+2. **建 SSA：支配边界插 φ，支配树重命名。**
+3. **优化完拆 SSA，再交给代码生成/regalloc。**
+
+---
+
+## 分析对照表
+
+| 分析 | 方向 | 典型用途 |
+|------|------|----------|
+| 可用表达式 | 正向 | CSE |
+| 活跃变量 | **反向** | regalloc、DCE |
+| 到达定值 | 正向 | 常量/拷贝传播 |
+
+---
+
+## 自测
+
+- [ ] LIVEOUT 方程各一项含义
+- [ ] 支配与支配边界各一句话
+- [ ] SSA 构建三步：φ、rename、（优化）、destroy
+- [ ] 过程间分析为何贵
+
+---
+
+## 阅读进度
+
+- [x] ch9 数据流分析
+- [x] ch10 标量优化
+

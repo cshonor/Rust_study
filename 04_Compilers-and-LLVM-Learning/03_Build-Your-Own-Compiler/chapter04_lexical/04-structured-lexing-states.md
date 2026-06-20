@@ -1,8 +1,6 @@
 # 第 4 章 · 词法分析 · §4 扫描具有结构的单词
 
-← [本章目录](./README.md) · 上一节：[03-skip-and-special.md](./03-skip-and-special.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[03-skip-and-special.md](./03-skip-and-special.md) · 下一节：---
 
 ## 最长匹配的局限
 

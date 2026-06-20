@@ -37,7 +37,7 @@
 | 2 | drop flags | [02-drop-flags.md](./02-drop-flags.md) |
 | 3 | 非受检（MaybeUninit + ptr） | [03-unchecked.md](./03-unchecked.md) |
 | 4 | 与后续 Vec 关系 | [04-vec-prelude.md](./04-vec-prelude.md) |
-| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 ---
 

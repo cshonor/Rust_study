@@ -27,7 +27,7 @@
 | 5 | Drop Check | [05-drop-check.md](./05-drop-check.md) |
 | 6 | PhantomData | [06-phantom-data.md](./06-phantom-data.md) |
 | 7 | 借用分离 | [07-split-borrows.md](./07-split-borrows.md) |
-| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 ---
 
@@ -64,3 +64,20 @@ cargo run
 ## 逻辑脉络
 
 引用法则 → 生命周期机制 → 型变 → Drop Check / PhantomData → unsafe 拆分借用 → 进入 Type Conversions。
+
+---
+
+## 速记
+
+## 三句背诵
+
+1. **引用不能比 referent 活得久；`&mut` 不能有别名。**
+2. **`&mut T` 对 T 不变；函数参数是逆变主来源。**
+3. **不相交借用须 unsafe 证明 → `split_at_mut` 模式。**
+
+## 自测
+
+- [ ] 能解释协变/逆变/不变各一例
+- [ ] 能说明何时需要 `PhantomData`
+- [ ] 能对照 [split_borrows.rs](./src/split_borrows.rs) 说明为何需要 raw ptr
+

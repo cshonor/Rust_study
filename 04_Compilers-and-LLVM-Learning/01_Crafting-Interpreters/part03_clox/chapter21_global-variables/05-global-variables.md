@@ -1,8 +1,6 @@
 # 第 21 章 · Global Variables（全局变量） · 全局变量管线小结
 
-← [本章目录](./README.md) · 上一节：[04-assignment-precedence.md](./04-assignment-precedence.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[04-assignment-precedence.md](./04-assignment-precedence.md) · 下一节：---
 
 ```text
 var x = 1;

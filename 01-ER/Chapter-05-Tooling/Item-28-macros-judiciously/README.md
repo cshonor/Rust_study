@@ -38,7 +38,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -65,3 +65,17 @@ Rust 宏：Token / AST 级（非 C 文本替换）
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 顺序 | 函数 → 泛型 → **宏** |
+| 过程宏 | 优先 **`#[derive]`** |
+| 声明宏 | **卫生**；注意 **expr 重复求值** |
+| 控制流 | 别藏 `return`/`?` |
+| 调试 | `cargo-expand` |
+| 代价 | IDE/rustfmt/体积/供应链 |
+

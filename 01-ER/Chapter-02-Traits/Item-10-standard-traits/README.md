@@ -39,7 +39,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -61,3 +61,16 @@ Eq + Hash → 必须 hash(x)==hash(y) when x==y
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| Trait | 一句 |
+|-------|------|
+| `Copy` | 小纯数据；改 Move→按位拷 |
+| `Debug` / `Display` | `:?` 可 derive；`{}` 手写 |
+| `Eq` | 标记 + 反射；浮点不行 |
+| `Hash` + `Eq` | 相等则 hash 相等 |
+| `Ord` derive | 字段顺序 ≠ 业务优先级 |
+

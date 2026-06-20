@@ -1,8 +1,6 @@
 # 3 · 自定义恐慌处理 (`#[panic_handler]`)
 
-← [本章目录](./README.md) · 上一节：[02-no-main.md](./02-no-main.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[02-no-main.md](./02-no-main.md) · 下一节：---
 
 无 std 时默认 `panic!` **失效**，须定义：
 

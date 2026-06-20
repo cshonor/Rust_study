@@ -1,8 +1,6 @@
 # 第 3 章 · The Lox Language（Lox 语言概览） · Lox 特性 → 本书章节速查
 
-← [本章目录](./README.md) · 上一节：[10-the-standard-library.md](./10-the-standard-library.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[10-the-standard-library.md](./10-the-standard-library.md) · 下一节：---
 
 | Lox 特性 | Part II jlox | Part III clox |
 |----------|--------------|---------------|

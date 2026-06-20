@@ -50,7 +50,7 @@
 | 6 | 可空指针优化 | [06-nullable.md](./06-nullable.md) |
 | 7 | 异常与栈展开 | [07-unwind.md](./07-unwind.md) |
 | 8 | 不透明结构体 | [08-opaque.md](./08-opaque.md) |
-| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 ---
 

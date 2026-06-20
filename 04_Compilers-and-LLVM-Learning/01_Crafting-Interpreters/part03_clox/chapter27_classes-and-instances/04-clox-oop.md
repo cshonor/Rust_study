@@ -1,8 +1,6 @@
 # 第 27 章 · Classes and Instances（类与实例） · 对象模型（clox OOP 栈）
 
-← [本章目录](./README.md) · 上一节：[03-get-and-set-expressions.md](./03-get-and-set-expressions.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[03-get-and-set-expressions.md](./03-get-and-set-expressions.md) · 下一节：---
 
 ```text
 ObjClass (methods Table)

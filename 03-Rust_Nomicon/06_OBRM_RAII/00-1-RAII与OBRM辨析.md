@@ -93,4 +93,4 @@ cargo run -- --drop-order
 3. **`&` / `Deref`** — 只访问，**不改变** Drop 时机。  
 4. **Nomicon 06** — OBRM 的**风险面**，不是入门定义章。
 
-→ 下一节：[01 构造与析构](./01-construct-drop.md) · 速记：[cheat-sheet.md](./cheat-sheet.md)
+→ 下一节：[01 构造与析构](./01-construct-drop.md) · 速记：

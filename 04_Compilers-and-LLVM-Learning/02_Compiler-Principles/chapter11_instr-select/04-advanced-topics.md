@@ -1,8 +1,6 @@
 # 第 11 章 · 指令筛选 · §4 高级话题
 
-← [本章目录](./README.md) · 上一节：[03-peephole-optimization.md](./03-peephole-optimization.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[03-peephole-optimization.md](./03-peephole-optimization.md) · 下一节：---
 
 ## 学习窥孔模式（Learning Peephole Patterns）
 

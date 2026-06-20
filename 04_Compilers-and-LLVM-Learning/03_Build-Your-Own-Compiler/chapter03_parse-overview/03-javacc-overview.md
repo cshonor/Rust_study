@@ -1,8 +1,6 @@
 # 第 3 章 · 语法分析的概要 · §3 JavaCC 的概要
 
-← [本章目录](./README.md) · 上一节：[02-parser-generators.md](./02-parser-generators.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[02-parser-generators.md](./02-parser-generators.md) · 下一节：---
 
 ## 语法描述文件 `.jj`
 

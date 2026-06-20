@@ -38,7 +38,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -64,3 +64,17 @@ Any：      blanket impl 要求 T: 'static + ?Sized
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| Rust | **无**完整反射 / RTTI |
+| 设计 | **Trait + 宏**，别 runtime 内省 |
+| `type_name` | 调试用；别写业务逻辑 |
+| `TypeId` | 要稳定 ID 用这个 |
+| `Any` | 稀有逃生舱；仅 downcast 原类型 |
+| `'static` | Any 故意不要带借用的 T |
+

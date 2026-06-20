@@ -37,7 +37,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -59,3 +59,16 @@
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 为何 Builder | 多可选字段、无全局 Default |
+| 消费型 | 好链式；if 要重绑；build 一次 |
+| 借用型 | 好分支；先 `let mut builder` 再改 |
+| 宏 | 优先 `derive_builder` |
+| 校验 | 放在 `build()` |
+

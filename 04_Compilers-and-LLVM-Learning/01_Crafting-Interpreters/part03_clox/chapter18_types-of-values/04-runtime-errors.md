@@ -1,8 +1,6 @@
 # 第 18 章 · Types of Values（值的类型） · 运行时错误（Runtime Errors）
 
-← [本章目录](./README.md) · 上一节：[03-equality-and-comparison.md](./03-equality-and-comparison.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[03-equality-and-comparison.md](./03-equality-and-comparison.md) · 下一节：---
 
 多类型后，**`-false`**、**非 number 相加** 等需拦截。
 

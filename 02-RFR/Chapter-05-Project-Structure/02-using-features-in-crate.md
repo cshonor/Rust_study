@@ -171,8 +171,60 @@ compile_error!("backend_a and backend_b are mutually exclusive; enable only one"
 5. 最大反模式：互斥后端 → **拆包 / 运行时选择**。  
 6. 条件 API 文档标注所需 feature。
 
-→ 一页速记：[02-cheat-sheet.md](./02-cheat-sheet.md) · demo：
 
 ```bash
 cd 01-ER/Chapter-04-Dependencies/Item-26-feature-creep/demo && cargo test --all-features
 ```
+
+---
+
+## 速记
+
+## 底层
+
+**加法模型 · Feature Unification · 全局合并 · 无法局部关闭**
+
+## 代码模板
+
+```rust
+#[cfg(feature = "serde")]
+mod serde_impl { /* … */ }
+
+#[cfg_attr(feature = "serde", derive(Serialize))]
+```
+
+收拢 mod · 全 guarded · `all/any/not`
+
+## TOML 模板
+
+```toml
+serde = { optional = true }
+[features]
+serde = ["dep:serde"]
+full = ["serde", "async"]
+std = []
+```
+
+## CI 必跑
+
+```bash
+cargo check --no-default-features
+cargo check --all-features
+```
+
+## 互斥后端 → 别用 feature
+
+1. 拆 crate  
+2. 运行时选  
+3. `compile_error!` 兜底  
+
+## 背诵六点
+
+加法合并 · cfg mod · dep:xxx · 双 CI · 禁互斥后端 · 文档标 feature
+
+## 自测
+
+- [ ] 为何下游无法「只关 serde 不关 tokio 的 serde feature」？  
+- [ ] `--all-features` 测什么失败场景？  
+- [ ] `std = []` 空 feature 有什么用？
+

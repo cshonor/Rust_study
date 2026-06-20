@@ -1,8 +1,6 @@
 # 第 11 章 · Resolving and Binding（解析与绑定） · Resolver 与 Interpreter 分工
 
-← [本章目录](./README.md) · 上一节：[05-resolution-errors.md](./05-resolution-errors.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[05-resolution-errors.md](./05-resolution-errors.md) · 下一节：---
 
 ```text
         Resolver                    Interpreter

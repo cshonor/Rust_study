@@ -1,8 +1,6 @@
 # 第 10 章 · 语义分析（2）静态类型检查 · §3 静态类型检查
 
-← [本章目录](./README.md) · 上一节：[02-expression-validity.md](./02-expression-validity.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[02-expression-validity.md](./02-expression-validity.md) · 下一节：---
 
 ## 类型限制的检查
 

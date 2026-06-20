@@ -1,6 +1,6 @@
 # 4 · 与后续章节的关系
 
-← [本章目录](./README.md) · 上一节：[03-unchecked.md](./03-unchecked.md) · [cheat-sheet.md](./cheat-sheet.md)
+← [本章目录](./README.md) · 上一节：[03-unchecked.md](./03-unchecked.md)
 
 ---
 

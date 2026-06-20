@@ -11,7 +11,7 @@
 |------|------|-------------|
 | **1** | Talking About Memory | [01 内存术语](./01-memory-terminology.md) · [02 变量深入](./02-variables-in-depth.md) · [03 内存区域](./03-memory-regions.md)（[03.1 Rust 模型](./03-1-rust-memory-model.md) · [03.2 OS/LLVM 布局](./03-2-os-memory-layout.md)） |
 | **2** | Ownership | [04 所有权](./04-ownership.md)（[04.1](./04-1-three-rules.md) · [04.2](./04-2-move-copy-clone.md) · [04.3](./04-3-drop.md) · [04.4](./04-4-drop-order.md) · [04.5](./04-5-refs-and-panic.md) · [04.6](./04-6-pitfalls.md)） |
-| **3** | Borrowing and Lifetimes | [05](./05-shared-references.md) · [06](./06-mutable-references.md) · [06.1 方法接收者](./06-1-method-self-receivers.md) · [07](./07-interior-mutability.md)（[07.1](./07-1-external-vs-interior.md)～[07.5](./07-5-comparison-pitfalls.md) · [07 速记](./07-cheat-sheet.md)）· [08](./08-lifetimes.md) · [05–08 速记](./05-08-borrowing-lifetimes-cheat-sheet.md) |
+| **3** | Borrowing and Lifetimes | [05](./05-shared-references.md) · [06](./06-mutable-references.md) · [06.1 方法接收者](./06-1-method-self-receivers.md) · [07](./07-interior-mutability.md)（[07.1](./07-1-external-vs-interior.md)～[07.5](./07-5-comparison-pitfalls.md)）· [08](./08-lifetimes.md) |
 | **4** | Summary | [09 小结](./09-summary.md) |
 
 ## 阅读顺序
@@ -36,3 +36,88 @@
 ## 旧版单文件
 
 早期合并稿已拆入上表各文件；如需对照历史结构见 git 中的 `1-基础-Foundations-深度解析.md`。
+
+---
+
+## 速记
+
+## 四节极简背诵（自用复习）
+
+1. **`&T`**：共享只读，多读者；LLVM 假定不可变。
+2. **`&mut T`**：编译期独占可变，**no-aliasing** 给优化空间。
+3. **内部可变性**：`UnsafeCell` 底层，`let` 锁绑定、`borrow_mut` 改盒内；校验下沉运行时（`RefCell` panic）。
+4. **Lifetimes**：约束引用存活区间；**NLL** 打破词法作用域；**方差** 防类型替换漏洞。
+
+---
+
+## 一张表：05–08 对照
+
+| 节 | 核心 | 校验 | 优化假设 | 违反后果 |
+|:--:|------|------|----------|----------|
+| **05 `&T`** | 共享只读 | 编译期 | 不可变（readonly） | 编译错误 |
+| **06 `&mut`** | 独占可写 | 编译期 | noalias | 编译错误 |
+| **07 内部可变** | `&` 外表、内改 | 运行时/锁 | opt-out（`UnsafeCell`） | panic / 死锁 |
+| **08 生命周期** | 借用活多久 | 编译期 | — | 编译错误 |
+| **08 方差** | 泛型能否替换 | 编译期 | soundness | 编译错误 |
+
+## 别名组合（同一内存、同一时刻）
+
+| 组合 | 允许？ |
+|------|:------:|
+| 多个 `&T` | ✅ |
+| 一个 `&mut` | ✅ |
+| `&T` + `&mut` | ❌ |
+| 多个 `&mut` | ❌ |
+
+## 方法接收者（06.1）
+
+| 写法 | 一句话 |
+|------|--------|
+| `self` | 消耗实例，所有权移入方法 |
+| `&self` | 只读借用，可多份共存 |
+| `&mut self` | 独占可变借用，调用方须 `let mut` |
+
+→ 详述 [06.1](./06-1-method-self-receivers.md)
+
+## 选型：改数据用谁？
+
+| 场景 | 选用 |
+|------|------|
+| 单线程、独占修改清晰 | `&mut T` / `let mut` |
+| 签名被钉死 `&self` 却要改字段 | `Cell` / `RefCell` 包字段（见 [06.1](./06-1-method-self-receivers.md)） |
+| 多 `&` 句柄、单线程改内部 | `RefCell<T>`（复杂 T）或 `Cell<T>`（Copy 小值） |
+| `Copy` 小值、不要内部引用 | `Cell<T>` |
+| 多线程共享改 | `Mutex<T>` / `RwLock<T>` |
+
+## 生命周期 vs 作用域
+
+| | 作用域 | 生命周期（NLL） |
+|---|--------|-----------------|
+| 结束点 | 通常 `}` | **最后一次使用** |
+| 所有权 drop | `}` | 仍在 `}`（与借用结束可不同步） |
+| 典型收益 | — | `println!(r)` 后可立刻 `&mut` |
+
+## 方差三字诀
+
+| 型变 | 记忆 | 典型 |
+|------|------|------|
+| 协变 | 同向替换 | `&'a T` 对 `'a` |
+| 不变 | 禁止替换 | `&mut T` 对 `T` |
+| 逆变 | 反向 | `fn` 参数 |
+
+## 四大锚点
+
+| 概念 | 一句话 |
+|------|--------|
+| 所有权 | 谁负责 drop |
+| 借用 | 临时读/写权 |
+| 生命周期 | 借用须有效的代码区间 |
+| 方差 | 防替换出悬垂 |
+
+## 自测
+
+- [ ] 能写 NLL 示例：`&s` 用后立刻 `&mut s`
+- [ ] 能解释 `&mut T` 对 `T` 为何必须不变
+- [ ] 说明 `Cell` 无计数器、`RefCell` 有计数器，互斥铁律是否相同（[07.3](./07-3-cell-vs-refcell.md)）
+- [ ] 能说出 `&T` 与 `&mut` 的 LLVM 假设差异
+

@@ -41,7 +41,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -52,3 +52,17 @@
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| `&T` | 8B 瘦指针；借用监督 |
+| 胖指针 | 切片/str、dyn = ptr + 元数据 |
+| `Box` | 堆 + 独占 |
+| `Rc/Arc` | 共享所有权；环用 `Weak` |
+| `RefCell` | 内部可变；违反规则 runtime panic |
+| 裸指针 | 仅 unsafe / FFI |
+

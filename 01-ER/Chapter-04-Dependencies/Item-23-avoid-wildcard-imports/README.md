@@ -38,7 +38,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -64,3 +64,17 @@ Trait 方法同名：方法解析歧义 → 编译失败（E0034）
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 规则 | **第三方不用 `*`** |
+| 例外 | 测试、`pub use`、curated prelude |
+| Semver | Minor 加符号 + glob = 静默风险 |
+| 类型冲突 | 本地优先，常无害 |
+| trait 冲突 | 方法歧义 → **E0034** |
+| 兜底 | `=x.y.z` 锁版本（下策） |
+

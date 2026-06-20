@@ -1,8 +1,6 @@
 # 第 5 章 · 基于 JavaCC 的解析器的描述 · §2 语法的二义性与 token 超前扫描
 
-← [本章目录](./README.md) · 上一节：[01-ebnf-grammar.md](./01-ebnf-grammar.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[01-ebnf-grammar.md](./01-ebnf-grammar.md) · 下一节：---
 
 ## 语法的二义性
 

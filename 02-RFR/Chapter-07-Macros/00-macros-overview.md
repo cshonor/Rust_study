@@ -7,9 +7,9 @@
 
 | # | 专题 | 正文 | 速记 |
 |:-:|------|------|------|
-| **00.1** | Token 与宏展开 | [00-1 Token 链路](./00-1-token-and-macro-pipeline.md) | [速记](./00-1-cheat-sheet.md) |
-| **00.2** | 宏整体分类（4 类） | [00-2 分类总览](./00-2-macro-taxonomy.md) | [速记](./00-2-cheat-sheet.md) |
-| **00.3** | 宏 vs 函数 | [00-3 完整对比](./00-3-macro-vs-function.md) | [速记](./00-3-cheat-sheet.md) |
+| **00.1** | Token 与宏展开 | [00-1 Token 链路](./00-1-token-and-macro-pipeline.md) |
+| **00.2** | 宏整体分类（4 类） | [00-2 分类总览](./00-2-macro-taxonomy.md) |
+| **00.3** | 宏 vs 函数 | [00-3 完整对比](./00-3-macro-vs-function.md) |
 
 ---
 

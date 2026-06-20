@@ -1,8 +1,6 @@
 # 第 5 章 · 中间表示 · §7 符号表
 
-← [本章目录](./README.md) · 上一节：[06-names-and-memory-models.md](./06-names-and-memory-models.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[06-names-and-memory-models.md](./06-names-and-memory-models.md) · 下一节：---
 
 ## 作用
 

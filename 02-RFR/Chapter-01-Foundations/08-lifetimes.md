@@ -160,8 +160,7 @@ let long_slot: &mut &'static str = ...; // 误以为能存 'static
 08  生命周期 + 方差 — 借用活多久、类型能否替换
 ```
 
-→ 全章速记：[05-08-borrowing-lifetimes-cheat-sheet.md](./05-08-borrowing-lifetimes-cheat-sheet.md)  
-→ 下一章 [09 小结](./09-summary.md)
+→ 全章速记：→ 下一章 [09 小结](./09-summary.md)
 
 ---
 

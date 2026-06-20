@@ -76,7 +76,7 @@
 - [ ] 多线程为何不能用 `RefCell`？  
 - [ ] 对照 [07.3](./07-3-cell-vs-refcell.md)：`Cell` 为何不需要借用计数？
 
-→ 下一节：[08 生命周期](./08-lifetimes.md) · [07 速记](./07-cheat-sheet.md)
+→ 下一节：[08 生命周期](./08-lifetimes.md)
 
 ---
 
@@ -84,4 +84,4 @@
 
 - Book → [15.5 RefCell](../../00-Book/15-smart-pointers/15.5-RefCell与内部可变性.md)
 - ER → [Item 17 共享状态并行](../../01-ER/Chapter-03-Concepts/Item-17-shared-state-parallelism/README.md)
-- 全章 → [05–08 速记](./05-08-borrowing-lifetimes-cheat-sheet.md)
+- 全章 → 

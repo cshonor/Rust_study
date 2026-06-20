@@ -106,4 +106,4 @@ LLVM:   Source → Frontend → LLVM IR → Opt → Backend → Machine Code
 - [ ] 能各用一句话描述 jlox 与 clox 的执行路径
 - [ ] 能说明 clox 字节码与 LLVM IR 在「通用性」上的差异
 
-→ 本章其余速记：[cheat-sheet.md](./cheat-sheet.md)
+→ 本章其余速记：

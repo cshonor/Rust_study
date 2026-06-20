@@ -29,6 +29,6 @@
 | 5 | Drop Check | [05-drop-check.md](./05-drop-check.md) |
 | 6 | PhantomData | [06-phantom-data.md](./06-phantom-data.md) |
 | 7 | 借用分离 | [07-split-borrows.md](./07-split-borrows.md) |
-| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 → 从 [01-ownership-basics.md](./01-ownership-basics.md) 起读。

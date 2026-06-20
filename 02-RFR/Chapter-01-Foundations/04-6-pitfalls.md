@@ -1,6 +1,6 @@
 # 04.6 · 易错点 · 延伸
 
-← [04 所有权索引](./04-ownership.md) · 上一节：[04-5-refs-and-panic.md](./04-5-refs-and-panic.md) · [04-cheat-sheet.md](./04-cheat-sheet.md)
+← [04 所有权索引](./04-ownership.md) · 上一节：[04-5-refs-and-panic.md](./04-5-refs-and-panic.md)
 
 ---
 

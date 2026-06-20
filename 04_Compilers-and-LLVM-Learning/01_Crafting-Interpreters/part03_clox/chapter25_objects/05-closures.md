@@ -1,8 +1,6 @@
 # 第 25 章 · Closures（闭包） · 闭包生命周期（总览）
 
-← [本章目录](./README.md) · 上一节：[04-objclosure-op-closure.md](./04-objclosure-op-closure.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[04-objclosure-op-closure.md](./04-objclosure-op-closure.md) · 下一节：---
 
 ```text
 声明 outer 的 local x（栈槽）

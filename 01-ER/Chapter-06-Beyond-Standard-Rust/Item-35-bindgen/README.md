@@ -39,7 +39,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -66,3 +66,21 @@ xyzzy-sys（unsafe 生成码）+ xyzzy（safe 封装）→ Item 16
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 原则 | **bindgen > 手写** |
+| 同步 | 与 C 共用 **同一 .h** |
+| 架构 | **`foo-sys`** + **`foo`** safe |
+| C++ | **`cxx`** |
+| CI | 重生 bindgen → **diff fail** |
+| 大库 | **allowlist** 只取需要的 API |
+
+---
+
+> **Effective Rust 全书 35 Items 笔记整理完成。**
+

@@ -211,4 +211,4 @@ serde = { workspace = true }
 4. **`panic=abort`** — 小体积；测试常仍 unwind。  
 5. **Profile / patch** — **根统一管理** · `inherits` 复用自定义 profile。
 
-→ 速记：[05-cheat-sheet.md](./05-cheat-sheet.md) · 下一节：[06 条件编译](./06-conditional-compilation.md)
+→ 速记：下一节：[06 条件编译](./06-conditional-compilation.md)

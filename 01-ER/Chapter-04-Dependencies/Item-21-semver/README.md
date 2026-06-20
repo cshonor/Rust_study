@@ -40,7 +40,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -66,3 +66,17 @@ Hyrum 定律：用户会依赖未文档化的行为
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 三段 | MAJOR break / MINOR 加功能 / PATCH 修 bug |
+| `0.x` | 左移规则：最左非零位变 = break |
+| 作者 | 少暴露、敢 1.0、deprecated 过渡 |
+| 用户 | 禁 `*`、定期规划 MAJOR |
+| `^1.2.3` | 默认：`<2.0.0` |
+| lock | 库 lock 不保护下游；CI 要自动更新 |
+

@@ -1,8 +1,6 @@
 # 第 7 章 · Evaluating Expressions（求值表达式） · §7.4 接入解释器（Hooking Up the Interpreter）
 
-← [本章目录](./README.md) · 上一节：[03-runtime-errors.md](./03-runtime-errors.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[03-runtime-errors.md](./03-runtime-errors.md) · 下一节：---
 
 | API | 作用 |
 |-----|------|

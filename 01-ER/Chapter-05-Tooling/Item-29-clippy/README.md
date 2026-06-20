@@ -40,7 +40,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -65,3 +65,17 @@ Clippy = 编译期自动化同一套审查
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 命令 | **`cargo clippy -- -Dwarnings`** |
+| 基线 | **零警告** 或显式 allow |
+| 态度 | 顺应重构 > 争误报 |
+| 角色 | 机械化 Effective Rust + 学习导师 |
+| Pedantic | 可不启，值得读 |
+| CI | 与 Item 32 绑定 |
+

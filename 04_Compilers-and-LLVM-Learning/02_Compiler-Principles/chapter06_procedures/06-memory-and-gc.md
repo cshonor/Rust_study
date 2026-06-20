@@ -1,8 +1,6 @@
 # 第 6 章 · 过程抽象 · §6 内存管理与 GC
 
-← [本章目录](./README.md) · 上一节：[05-call-linkages.md](./05-call-linkages.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[05-call-linkages.md](./05-call-linkages.md) · 下一节：---
 
 除**栈上 AR** 外，编译器管理整个**逻辑地址空间**：
 

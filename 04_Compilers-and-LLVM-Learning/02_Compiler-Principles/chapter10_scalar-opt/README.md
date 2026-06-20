@@ -22,7 +22,7 @@
 | §1 | 标量转换分类法 | [01-classification.md](./01-classification.md) |
 | §2 | 核心优化技术与实例 | [02-core-transformations.md](./02-core-transformations.md) |
 | §3 | 高级话题 | [03-advanced-topics.md](./03-advanced-topics.md) |
-| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 ---
 
@@ -41,3 +41,52 @@
 ## 逻辑脉络
 
 分类框架 → 五大类核心 Pass → 强度减弱与 Pass 编排。
+
+---
+
+## 速记
+
+## 本章速记
+
+```text
+§1  机器无关 vs 机器相关 · 中端 vs 后端
+§2  DCE/不可达 · LICM · 特化 · CSE/GVN · 激活型 Pass
+§3  强度减弱 · Pass 组合/冲突 · 优化序列编排
+```
+
+---
+
+## 三句背诵
+
+1. **标量 Pass 分机器无关（IR 层）与相关（贴近 ISA）。**
+2. **DCE 靠活跃变量；LICM/CSE/GVN 靠数据流 + SSA。**
+3. **Pass 顺序无银弹 — 组合、多轮、benchmark 调序。**
+
+---
+
+## 核心 Pass 对照
+
+| Pass | 作用 | 关键分析 |
+|------|------|----------|
+| DCE | 删无用 def | LIVE |
+| LICM | 循环不变式外提 | 别名、支配 |
+| CSE/GVN | 消重复计算 | 可用表达式 / 等价类 |
+| 常量传播/折叠 | 特化分支与算术 | 到达定值 |
+| 强度减弱 | 乘→加、归纳变量 | 循环结构 |
+
+---
+
+## 自测
+
+- [ ] 机器无关 vs 相关各两例
+- [ ] LICM 与强度减弱区别
+- [ ] 为何内联是「激活型」而非直接加速
+- [ ] 举一例 Pass 互相破坏
+
+---
+
+## 阅读进度
+
+- [x] ch10 标量优化 — **Part III 完成**
+- [x] ch11 指令筛选
+

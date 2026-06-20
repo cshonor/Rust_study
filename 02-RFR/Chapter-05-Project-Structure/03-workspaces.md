@@ -387,4 +387,4 @@ project-root/
 6. **`resolver = "2"`** — 虚拟工作区须手写。  
 7. **`--workspace`** 全局 · **`-p`** 单成员。
 
-→ 速记：[03-cheat-sheet.md](./03-cheat-sheet.md) · lock 详解：[03.1 Cargo.lock](./03-1-cargo-lock.md) · 下一节：[04 Crate 元数据](./04-crate-metadata.md)
+→ 速记：lock 详解：[03.1 Cargo.lock](./03-1-cargo-lock.md) · 下一节：[04 Crate 元数据](./04-crate-metadata.md)

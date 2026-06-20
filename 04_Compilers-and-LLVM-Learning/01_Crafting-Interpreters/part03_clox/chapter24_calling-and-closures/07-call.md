@@ -1,8 +1,6 @@
 # 第 24 章 · Calling and Closures（调用与函数） · Call 路径总览
 
-← [本章目录](./README.md) · 上一节：[06-native-functions.md](./06-native-functions.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[06-native-functions.md](./06-native-functions.md) · 下一节：---
 
 ```text
 compile call:

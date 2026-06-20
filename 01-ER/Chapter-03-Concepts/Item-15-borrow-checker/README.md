@@ -38,7 +38,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -62,3 +62,17 @@ Rust 引用 & / &mut + 借用检查器 → 编译期拦截
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 规则 1 | 引用不能活过数据 |
+| 规则 2 | 多个 `&` **或** 一个 `&mut` |
+| Owner | 借出期间权限被压；只有 owner 能 move |
+| 和解 | 延长 / 缩短 / 拆链 |
+| 图/自引用 | `Rc<RefCell<_>>` 或索引；别硬裸引用 |
+| replace | 从 `&mut Option` 里安全换值 |
+

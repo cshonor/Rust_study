@@ -1,8 +1,6 @@
 # 第 9 章 · 数据流分析 · §4 高级话题
 
-← [本章目录](./README.md) · 上一节：[03-ssa-renaming-and-destruction.md](./03-ssa-renaming-and-destruction.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[03-ssa-renaming-and-destruction.md](./03-ssa-renaming-and-destruction.md) · 下一节：---
 
 ## 结构数据流算法与可约性（Reducibility）
 

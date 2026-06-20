@@ -1,6 +1,6 @@
 # 1.3 · 自定义构建（CMake 变量）
 
-← [02 五步构建](./02-build-five-steps.md) · [cheat-sheet](./cheat-sheet.md)
+← [02 五步构建](./02-build-five-steps.md)
 
 ---
 

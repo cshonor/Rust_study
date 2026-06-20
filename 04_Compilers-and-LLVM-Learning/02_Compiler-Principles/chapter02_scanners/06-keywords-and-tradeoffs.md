@@ -1,8 +1,6 @@
 # 第 2 章 · 扫描 · §6 关键字识别与工程权衡
 
-← [本章目录](./README.md) · 上一节：[05-scanner-implementation.md](./05-scanner-implementation.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[05-scanner-implementation.md](./05-scanner-implementation.md) · 下一节：---
 
 ## 问题
 

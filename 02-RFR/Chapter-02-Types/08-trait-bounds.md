@@ -25,7 +25,7 @@ for<'a> ...               →  HRTB，回调 API 标配
 | **08.1** | 三种语法 · 静/动态分发 | [08-1-syntax-static-dynamic.md](./08-1-syntax-static-dynamic.md) |
 | **08.2** | 高阶 Trait 限定 HRTB | [08-2-hrtb.md](./08-2-hrtb.md) |
 | **08.3** | 示例 · 避坑 · 速记 | [08-3-examples-pitfalls.md](./08-3-examples-pitfalls.md) |
-| — | 速记 · 自测 | [08-cheat-sheet.md](./08-cheat-sheet.md) |
+| — | 速记 · 自测 |
 | — | demo | [trait-bounds-demo](./trait-bounds-demo/) |
 
 **建议阅读顺序**：`08.1` → `08.2` → `08.3`

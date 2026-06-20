@@ -1,6 +1,6 @@
 # 3 · 原子操作与内存模型
 
-← [本章目录](./README.md) · 上一节：[02-send-sync.md](./02-send-sync.md) · [cheat-sheet.md](./cheat-sheet.md)
+← [本章目录](./README.md) · 上一节：[02-send-sync.md](./02-send-sync.md)
 
 ---
 

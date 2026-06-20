@@ -1,8 +1,6 @@
 # 第 20 章 · Hash Tables（哈希表） · Table API（概念）
 
-← [本章目录](./README.md) · 上一节：[03-string-interning.md](./03-string-interning.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[03-string-interning.md](./03-string-interning.md) · 下一节：---
 
 | 操作 | 行为 |
 |------|------|

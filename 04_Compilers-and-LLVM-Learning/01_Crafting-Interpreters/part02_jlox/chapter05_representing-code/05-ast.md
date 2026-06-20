@@ -1,8 +1,6 @@
 # 第 5 章 · Representing Code（表示代码 / AST） · 流水线位置
 
-← [本章目录](./README.md) · 上一节：[04-ast.md](./04-ast.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[04-ast.md](./04-ast.md) · 下一节：---
 
 ```text
 ch4  Token 流

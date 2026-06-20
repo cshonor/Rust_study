@@ -204,4 +204,4 @@ match bid.checked_add(spread) {
 ## 相关
 
 - 标量补充 → [02-scalar-types.md](./02-scalar-types.md)
-- 背诵 → [cheat-sheet.md](./cheat-sheet.md)
+- 背诵 → 

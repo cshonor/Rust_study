@@ -1,8 +1,6 @@
 # 第 29 章 · Superclasses（超类与继承） · 继承 + super 数据流
 
-← [本章目录](./README.md) · 上一节：[03-29-4-super.md](./03-29-4-super.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[03-29-4-super.md](./03-29-4-super.md) · 下一节：---
 
 ```text
 声明时:

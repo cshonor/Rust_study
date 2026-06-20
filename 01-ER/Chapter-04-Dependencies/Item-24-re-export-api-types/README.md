@@ -40,7 +40,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -66,3 +66,17 @@ app 直接用 rand 0.8 构造对象
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 公开依赖 | API 里出现外部类型 = 与其 Semver 绑定 |
+| 多版本 | 同名不同版 = **不同类型** |
+| 必须做 | API 用了就要 **`pub use`** |
+| 下游 | 用 `your_crate::dep` 构造匹配类型 |
+| 报错 | trait not satisfied → 先查**版本重复** |
+| 谨慎 | 能不用外部类型在 API 里就别用 |
+

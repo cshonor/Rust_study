@@ -1,8 +1,6 @@
 # 第 3 章 · 语法分析 · §5 工程实践
 
-← [本章目录](./README.md) · 上一节：[04-lr-automation.md](./04-lr-automation.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[04-lr-automation.md](./04-lr-automation.md) · 下一节：---
 
 ## 1. 错误恢复（Error Recovery）
 

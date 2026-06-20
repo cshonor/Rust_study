@@ -33,7 +33,7 @@
 | 2 | 无 std 可执行程序 | [02-no-main.md](./02-no-main.md) |
 | 3 | 自定义 panic 处理 | [03-panic-handler.md](./03-panic-handler.md) |
 | — | no_main 裸机模板 | [templates/no_main_linux.md](./templates/no_main_linux.md) |
-| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 ---
 

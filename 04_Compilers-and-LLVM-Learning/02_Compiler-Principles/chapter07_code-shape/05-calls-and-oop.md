@@ -1,8 +1,6 @@
 # 第 7 章 · 代码形态 · §5 过程调用与 OOP 扩展
 
-← [本章目录](./README.md) · 上一节：[04-control-flow.md](./04-control-flow.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[04-control-flow.md](./04-control-flow.md) · 下一节：---
 
 落实 [ch6 过程抽象](../chapter06_procedures/README.md) 的**具体 IR / 机器码形态**。
 

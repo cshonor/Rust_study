@@ -37,7 +37,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -59,3 +59,16 @@
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 风格 | 能链式 / `?` 就少 `match` |
+| API | 有原因用 `Result`，别全变 `Option` |
+| 性能 | 转换方法可内联，不必怕链式 |
+| 引用 | `&Option<T>` → 先 `as_ref()` |
+| unwrap | 失败即 panic，库代码慎用 |
+

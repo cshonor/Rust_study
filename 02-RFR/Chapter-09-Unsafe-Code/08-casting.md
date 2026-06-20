@@ -162,6 +162,41 @@ let q = p as *const u32; // 改类型；解引用仍须 unsafe + 对齐合法
 1. **`repr(Rust)`**：无布局保证；泛型 `Foo<A>`/`Foo<B>` 不能transmute。  
 2. **稳定布局**：`repr(C)` — FFI / 二进制协议。  
 3. **指针 cast**：对齐 + provenance 两道门槛。  
-4. **`as` 改指针类型，`transmute` 按位重解释** — 多在 unsafe 场景。  
+4. **`as` 改指针类型，`transmute` 按位重解释** — 多在 unsafe 场景。
 
-→ 速记：[08-cheat-sheet.md](./08-cheat-sheet.md) · 下一节：[09 Drop 检查](./09-drop-check.md)
+---
+
+## 速记
+
+## repr
+
+| | `repr(Rust)` | `repr(C)` |
+|---|--------------|-----------|
+| 字段顺序 | 不保证 | 声明顺序 |
+| transmute | 跨泛型 ❌ | 协议/FFI 可用（仍 unsafe） |
+| 用途 | 日常 Rust | C / 二进制 / 硬件 |
+
+## 指针 cast 两道门槛
+
+1. **对齐** — `*u8` → `*u64` 须地址对齐  
+2. **Provenance** — `ptr as usize` 丢出处；`usize as ptr` 解引用通常 UB  
+
+## `as` vs `transmute`
+
+| | `as` | `transmute` |
+|---|------|-------------|
+| 对象 | 指针类型 | 任意同尺寸位模式 |
+| 保留 | provenance（规则内） | 无布局语义 |
+
+## 决策
+
+Rust 内部 → 默认 repr，不跨泛型 transmute  
+协议/FFI → `repr(C)`  
+指针 → 对齐 + 忌 usize 往返
+
+## 自测
+
+- [ ] 为何 `Foo<A>` 与 `Foo<B>` 不能transmute？  
+- [ ] `repr(packed)` 主要风险是什么？  
+- [ ] provenance 与「指针只是地址」差在哪？
+

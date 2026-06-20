@@ -1,8 +1,6 @@
 # 第 6 章 · Parsing Expressions（解析表达式） · 流水线里程碑
 
-← [本章目录](./README.md) · 上一节：[04-wiring-up-the-parser.md](./04-wiring-up-the-parser.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[04-wiring-up-the-parser.md](./04-wiring-up-the-parser.md) · 下一节：---
 
 ```text
 ch4  Scanning      Token[]

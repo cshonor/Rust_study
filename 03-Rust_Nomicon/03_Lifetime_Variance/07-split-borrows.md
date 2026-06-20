@@ -1,6 +1,6 @@
 # 7 · 借用分离（Splitting Borrows）
 
-← [本章目录](./README.md) · 上一节：[06-phantom-data.md](./06-phantom-data.md) · [cheat-sheet.md](./cheat-sheet.md)
+← [本章目录](./README.md) · 上一节：[06-phantom-data.md](./06-phantom-data.md)
 
 ---
 

@@ -1,6 +1,6 @@
 # 2.1 Cargo.lock（依赖精确锁定）
 
-> 所属：**Workspaces / 依赖治理** · [← 03 工作区](./03-workspaces.md) · [03 速记](./03-cheat-sheet.md)
+> 所属：**Workspaces / 依赖治理** · [← 03 工作区](./03-workspaces.md)
 
 ← [03 Workspace 与 lock 收敛](./03-workspaces.md#五cargolock-如何统一第三方版本) · 下一节 [04 Crate 元数据](./04-crate-metadata.md)
 
@@ -195,4 +195,41 @@ cd cargo-lock-demo && cargo build --locked
 3. **CI 用 `--locked`** — 防意外升级。  
 4. **升级用 `cargo update`** — 全量或 `-p` 单包。
 
-→ 速记：[03-1-cheat-sheet.md](./03-1-cheat-sheet.md) · Workspace lock 收敛：[03 §五](./03-workspaces.md#五cargolock-如何统一第三方版本)
+---
+
+## 速记
+
+## 是什么
+
+自动生成 · TOML=范围 · lock=精确版本 · 可复现构建
+
+## 提交
+
+| 应用/bin | **提交** lock |
+| 纯 lib | **不提交**（下游忽略） |
+| Workspace | **根目录唯一** lock |
+
+## 字段
+
+`[[package]]` · name · version（精确）· source · checksum · dependencies[]
+
+根项目块无 source/checksum
+
+## 命令
+
+`cargo add` 改 lock · `cargo update` / `-p pkg` 升级 · `build --locked` CI 严格
+
+## 误区
+
+❌ 手改 lock · 应用不提交 · 纯 lib 提交 · 每 member 各自 lock
+
+## demo
+
+[`cargo-lock-demo/`](./cargo-lock-demo/) — `serde = "1.0"` → 7 包传递树
+
+## 自测
+
+- [ ] TOML `"1.0"` 和 lock `1.0.86` 各表示什么？  
+- [ ] 纯库为何提交 lock 无助于下游？  
+- [ ] `--locked` 与 `cargo update` 相反效果是什么？
+

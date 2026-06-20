@@ -1,8 +1,6 @@
 # 第 4 章 · Scanning（扫描 / 词法分析） · 流水线位置与后续章节
 
-← [本章目录](./README.md) · 上一节：[07-reserved-words-and-identifiers.md](./07-reserved-words-and-identifiers.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[07-reserved-words-and-identifiers.md](./07-reserved-words-and-identifiers.md) · 下一节：---
 
 ```text
 ch4 Scanning     → List<Token>

@@ -1,8 +1,6 @@
 # 第 2 章 · A Map of the Territory（领域地图） · 「编译之山」与本书两趟实现
 
-← [本章目录](./README.md) · 上一节：[02-shortcuts-and-alternate-routes.md](./02-shortcuts-and-alternate-routes.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[02-shortcuts-and-alternate-routes.md](./02-shortcuts-and-alternate-routes.md) · 下一节：---
 
 | 路线 | 本书 | §2.2 对应 |
 |------|------|-----------|

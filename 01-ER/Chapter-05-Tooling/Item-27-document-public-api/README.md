@@ -39,7 +39,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -64,3 +64,17 @@ examples/ → 完整集成示例，非 doc test 片段
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 分工 | **类型**表达能表达的；**文档**补 WHY |
+| 禁止 | **复述签名** |
+| 板块 | Examples / Panics / Errors / Safety |
+| 质量 | doc test + `deny(broken_intra_doc_links)` |
+| 长示例 | **`examples/`** + `cargo run --example` |
+| 发布 | README → crates.io；API → docs.rs |
+

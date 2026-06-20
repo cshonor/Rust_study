@@ -1,8 +1,6 @@
 # 第 9 章 · 语义分析（1）引用的消解 · §3 类型名称的消解
 
-← [本章目录](./README.md) · 上一节：[02-variable-resolution.md](./02-variable-resolution.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[02-variable-resolution.md](./02-variable-resolution.md) · 下一节：---
 
 ## 核心目的
 

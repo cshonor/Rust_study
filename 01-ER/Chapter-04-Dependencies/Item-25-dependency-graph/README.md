@@ -40,7 +40,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -65,3 +65,18 @@ FFI crate：ODR → 多版本 C 符号冲突，Cargo 魔法失效
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 解析 | toml 范围 → lock 固化 |
+| App lock | **要提交** |
+| Lib lock | **别提交**给下游 |
+| Features | 同版本取**并集** |
+| 多版本 | Rust OK；**FFI 不行** |
+| 工具 | tree / udeps / deny |
+| 版本 | `"1"` 或 `"1.4.23"`，禁 `*` |
+

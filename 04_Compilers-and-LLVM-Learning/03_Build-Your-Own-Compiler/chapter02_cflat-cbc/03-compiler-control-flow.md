@@ -1,8 +1,6 @@
 # 第 2 章 · C♭ 和 cbc · §3 编译控制与流程
 
-← [本章目录](./README.md) · 上一节：[02-cbc-packages.md](./02-cbc-packages.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[02-cbc-packages.md](./02-cbc-packages.md) · 下一节：---
 
 ## 核心：`compiler` 包 · `Compiler` 类
 

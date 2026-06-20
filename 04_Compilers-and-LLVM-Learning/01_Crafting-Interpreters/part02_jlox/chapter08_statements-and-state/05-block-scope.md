@@ -1,8 +1,6 @@
 # 第 8 章 · Statements and State（语句与状态） · §8.5 块作用域（Block Scope）
 
-← [本章目录](./README.md) · 上一节：[04-assignment.md](./04-assignment.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[04-assignment.md](./04-assignment.md) · 下一节：---
 
 - **`{ ... }`** 创建**局部词法作用域**。
 - **Shadowing**：内层 `var x` 可遮蔽外层同名 `x`。

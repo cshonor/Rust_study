@@ -23,8 +23,8 @@
 |---|------|------|
 | **07.1** | 孤儿规则 · 合法/非法 | [07-1-orphan-rule.md](./07-1-orphan-rule.md) |
 | **07.2** | Coverage · Blanket impl | [07-2-coverage-blanket.md](./07-2-coverage-blanket.md) |
-| **07.3** | Newtype 模式完整详解 | [07-3-newtype-practice.md](./07-3-newtype-practice.md) · [速记](./07-3-cheat-sheet.md) |
-| — | 速记 · 自测 | [07-cheat-sheet.md](./07-cheat-sheet.md) |
+| **07.3** | Newtype 模式完整详解 | [07-3-newtype-practice.md](./07-3-newtype-practice.md) |
+| — | 速记 · 自测 |
 | — | demo | [orphan-rule-demo](./orphan-rule-demo/) |
 
 **建议阅读顺序**：`07.1` → `07.2` → `07.3`
@@ -34,3 +34,26 @@
 ## 一句话
 
 > **双外部不能 impl；要扩展用 NewType；blanket 别铺太宽。**
+
+---
+
+## 速记
+
+## 三句话
+
+1. **trait 与 type 至少一方本地。**  
+2. **Coverage：`impl From<MyLocal> for Foreign`。**  
+3. **双外部 → NewType + `Deref`。**
+
+## Newtype 四用途
+
+类型安全 · 绕孤儿 · 校验构造 · 专属方法
+
+→ 详 [07.3](./07-3-newtype-practice.md)
+
+## 自测
+
+- [ ] 为何不能 `impl Display for Vec<u8>`？  
+- [ ] blanket `impl<T: Debug> MyTrait for T` 有何风险？  
+- [ ] NewType 有运行时开销吗？
+

@@ -1,8 +1,6 @@
 # 第 10 章 · 标量优化 · §3 高级话题
 
-← [本章目录](./README.md) · 上一节：[02-core-transformations.md](./02-core-transformations.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[02-core-transformations.md](./02-core-transformations.md) · 下一节：---
 
 ## 强度减弱（Strength Reduction）
 

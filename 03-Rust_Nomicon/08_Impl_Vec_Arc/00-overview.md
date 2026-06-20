@@ -55,7 +55,7 @@ Arc  简化 MyArc（无 Weak）
 | 7 | IntoIter / Drain / RawVec | [07-iterators.md](./07-iterators.md) |
 | 8 | 零大小类型 | [08-zst.md](./08-zst.md) |
 | — | Arc 实现要点 | [01-arc-overview.md](./01-arc-overview.md) |
-| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 ---
 

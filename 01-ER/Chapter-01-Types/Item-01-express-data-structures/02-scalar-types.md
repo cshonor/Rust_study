@@ -123,4 +123,4 @@ fn add_void(a: i32, b: i32) {
 
 - 整数、字节、HFT 布局 → [01-fundamental-types.md](./01-fundamental-types.md)
 - 聚合（K 线、档位用 struct 包字段）→ [03-aggregate-types.md](./03-aggregate-types.md)
-- 背诵 → [cheat-sheet.md](./cheat-sheet.md)
+- 背诵 → 

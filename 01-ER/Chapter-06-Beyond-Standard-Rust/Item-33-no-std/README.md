@@ -39,7 +39,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -68,3 +68,17 @@ CI --target thumbv6m-none-eabi 守卫（Item 32）
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 栈 | **core**（无堆）→ **alloc**（堆）→ **std**（OS） |
+| 声明 | `#![cfg_attr(not(feature="std"), no_std)]` |
+| Feature | **`std` 加法**，别 `no_std` 减法 |
+| 守卫 | **CI 交叉编译** bare-metal |
+| OOM | **`try_reserve`** / `try_new` |
+| 缺啥 | HashMap→BTree；Mutex→spin |
+

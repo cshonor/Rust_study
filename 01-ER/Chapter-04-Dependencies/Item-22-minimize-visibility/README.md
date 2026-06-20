@@ -39,7 +39,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -65,3 +65,17 @@ pub 扩大可见性 = 消耗未来重构自由（Semver 单向门）
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 默认 | **私有**；要公开才写 `pub` |
+| struct | 字段/方法**逐个** `pub` |
+| 内部共享 | **`pub(crate)`** |
+| Semver | 公开→私有 = **Major** |
+| 外层模块 | 父模块也要 `pub` 才能透传 |
+| dead_code | 先查可见性修饰符 |
+

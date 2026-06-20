@@ -1,6 +1,6 @@
 # 七 · 裸指针 `*const T` / `*mut T` 完整解读
 
-← [本章目录](./README.md) · 上一节：[06-hft-practice.md](./06-hft-practice.md) · [cheat-sheet.md](./cheat-sheet.md)
+← [本章目录](./README.md) · 上一节：[06-hft-practice.md](./06-hft-practice.md)
 
 ---
 

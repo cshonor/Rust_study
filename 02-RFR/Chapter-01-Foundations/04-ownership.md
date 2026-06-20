@@ -30,7 +30,7 @@
 | 04.4 | Drop 顺序（局部 vs 字段） | [04-4-drop-order.md](./04-4-drop-order.md) |
 | 04.5 | 引用与 move · panic / unwind | [04-5-refs-and-panic.md](./04-5-refs-and-panic.md) |
 | 04.6 | 易错点 · 延伸 | [04-6-pitfalls.md](./04-6-pitfalls.md) |
-| — | 速记 · 自测 | [04-cheat-sheet.md](./04-cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 ---
 

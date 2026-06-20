@@ -1,6 +1,6 @@
 # 5 · 数据投毒 (Poisoning)
 
-← [本章目录](./README.md) · 上一节：[04-unwinding.md](./04-unwinding.md) · [cheat-sheet.md](./cheat-sheet.md)
+← [本章目录](./README.md) · 上一节：[04-unwinding.md](./04-unwinding.md)
 
 ---
 

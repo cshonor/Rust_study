@@ -1,6 +1,6 @@
 # 4 · 内存重释 (Transmutes)
 
-← [本章目录](./README.md) · 上一节：[03-casts.md](./03-casts.md) · [cheat-sheet.md](./cheat-sheet.md)
+← [本章目录](./README.md) · 上一节：[03-casts.md](./03-casts.md)
 
 ---
 

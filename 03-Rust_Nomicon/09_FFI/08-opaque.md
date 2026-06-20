@@ -1,8 +1,6 @@
 # 8 · 不透明结构体 (Opaque structs)
 
-← [本章目录](./README.md) · 上一节：[07-unwind.md](./07-unwind.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[07-unwind.md](./07-unwind.md) · 下一节：---
 
 C 只给指针、不公开布局 → Rust 用 **`#[repr(C)]` struct + 私有字段 + `PhantomData`**，优于空枚举或裸 `c_void`（类型更安全）。
 

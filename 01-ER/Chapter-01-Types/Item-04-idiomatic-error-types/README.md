@@ -37,7 +37,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -60,3 +60,17 @@ String 当错误（不行：无法 impl Error）
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 惯例 | 自定义 `E` 应 `Display + Debug + Error` |
+| 孤儿 | 不能 `impl Error for String`；用 Newtype / enum |
+| 库 | 具体 `enum` + `thiserror` |
+| 应用 | `anyhow` / `Box<dyn Error>` |
+| `?` | `From` 子错误，少 `map_err` |
+| `source` | 链式暴露底层原因 |
+

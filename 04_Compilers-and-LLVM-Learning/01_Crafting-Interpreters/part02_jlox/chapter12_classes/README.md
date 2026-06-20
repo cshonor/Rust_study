@@ -27,10 +27,56 @@
 | §12.5 | This | [05-this.md](./05-this.md) |
 | §12.6 | 构造函数与初始化器（Constructors and Initializers） | [06-constructors-and-initializers.md](./06-constructors-and-initializers.md) |
 | ·8 | OOP 能力矩阵（ch12 vs ch13） | [07-ch12-vs-ch13.md](./07-ch12-vs-ch13.md) |
-| — | 速记 · 自测 · 进度 | [cheat-sheet.md](./cheat-sheet.md) |
+| — | 速记 · 自测 · 进度 |
 
 ---
 
 ## 逻辑脉络
 
-按上表 **§ 顺序** 阅读；`cheat-sheet.md` 含速记与自测。
+
+---
+
+## 速记
+
+## 本章速记
+
+```text
+§12.1  Stmt.Class · LoxClass
+§12.2  Breakfast() 无 new · LoxInstance
+§12.3  Get/Set · instance.fields Map
+§12.4  字段优先 · LoxBoundMethod
+§12.5  this 环境 · Resolver 限制
+§12.6  init 自动调用 · 禁 return 值
+```
+
+---
+
+---
+
+## 读后下一步
+
+| 章 | 目录 | 内容 |
+|:--:|------|------|
+| **13** | [chapter13 · Inheritance](../chapter13_inheritance/) | **`super`** · 方法继承 |
+| **14+** | [part03_clox](../../part03_clox/) | 字节码 VM 重新开始 |
+
+---
+
+---
+
+## 自测
+
+1. 实例字段与方法同名时，`obj.name` 解析到哪？
+2. 为什么 `init` 要单独限制 `return`？
+3. `LoxBoundMethod` 和裸 `LoxFunction` 在调用路径上差在哪一步？
+
+---
+
+---
+
+## 阅读进度
+
+- [x] §12.1～§12.6 结构梳理（本章笔记）
+- [ ] 画 `bacon.cook()` 的 Get → Call → this 环境链
+- [ ] 本章 Challenges
+

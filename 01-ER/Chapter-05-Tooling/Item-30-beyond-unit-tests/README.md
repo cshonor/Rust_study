@@ -42,7 +42,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -70,3 +70,18 @@ CI：matrix × features（Item 26/32）；fuzz 单独定期跑
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 单元 | 同文件，可测 private |
+| 集成 | `tests/`，仅 pub API |
+| doc / examples | 文档测 + 用户向 demo |
+| fuzz | 不可信输入 **必做** |
+| bench | **`black_box`** / criterion |
+| 修 bug | **先写 failing test** |
+| 测试 vs 示例 | 测试可 unwrap；**examples 用 `?`** |
+

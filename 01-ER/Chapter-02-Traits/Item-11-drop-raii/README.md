@@ -37,7 +37,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -59,3 +59,16 @@ Rust：构造拿资源 + Drop 放资源（词法作用域）
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| RAII | 构造拿、析构放；实例在才可用资源 |
+| `Drop` | 编译器自动调；别手写 `x.drop()` |
+| 提前结束 | `std::mem::drop(x)` |
+| 失败释放 | 用 `release()`；Drop 兜底 |
+| 锁 | 小作用域 `{}` 尽早解锁 |
+

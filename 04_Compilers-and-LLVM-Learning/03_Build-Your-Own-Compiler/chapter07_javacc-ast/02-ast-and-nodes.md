@@ -1,8 +1,6 @@
 # 第 7 章 · JavaCC 的 action 和抽象语法树 · §2 抽象语法树和节点
 
-← [本章目录](./README.md) · 上一节：[01-javacc-actions.md](./01-javacc-actions.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[01-javacc-actions.md](./01-javacc-actions.md) · 下一节：---
 
 ## Node 类群与层次
 

@@ -1,8 +1,6 @@
 # 第 26 章 · Garbage Collection（垃圾回收） · GC 与 clox 子系统
 
-← [本章目录](./README.md) · 上一节：[04-when-to-collect.md](./04-when-to-collect.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[04-when-to-collect.md](./04-when-to-collect.md) · 下一节：---
 
 ```text
          Roots

@@ -34,7 +34,7 @@
 | 1 | 默认布局 `repr(Rust)` | [01-repr-rust.md](./01-repr-rust.md) |
 | 2 | 非常规尺寸类型 | [02-exotic-types.md](./02-exotic-types.md) |
 | 3 | 替代数据表示 | [03-alt-repr.md](./03-alt-repr.md) |
-| — | 速记 · 自测 | [cheat-sheet.md](./cheat-sheet.md) |
+| — | 速记 · 自测 |
 
 ---
 

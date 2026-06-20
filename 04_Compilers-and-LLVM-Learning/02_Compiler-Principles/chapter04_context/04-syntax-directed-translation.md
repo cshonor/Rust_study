@@ -1,8 +1,6 @@
 # 第 4 章 · 上下文相关分析 · §4 语法制导翻译（工程实践）
 
-← [本章目录](./README.md) · 上一节：[03-attribute-grammars.md](./03-attribute-grammars.md) · 下一节：[cheat-sheet.md](./cheat-sheet.md)
-
----
+← [本章目录](./README.md) · 上一节：[03-attribute-grammars.md](./03-attribute-grammars.md) · 下一节：---
 
 鉴于严格**属性文法**的性能与工程瓶颈，工业编译器普遍采用 **Ad Hoc Syntax-Directed Translation（特定语法制导翻译）** — 在语法分析过程中**嵌入代码**传递语义信息。
 

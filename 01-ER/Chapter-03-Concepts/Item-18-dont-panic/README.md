@@ -40,7 +40,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -65,3 +65,17 @@ C++/Java 思维：catch_unwind ≈ try-catch
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 默认 | **`Result` > `panic!`** |
+| panic 用途 | 不可恢复 bug / 顶层 `main` |
+| catch_unwind | 不是 try-catch；别用来「修」业务错误 |
+| abort | 配置后 catch 无效 |
+| 文档 | 公共 API 写 `# Panics` |
+| 隐性 | unwrap、越界、除零 — 用机器查 |
+

@@ -38,7 +38,7 @@
 | 03 | 重点结论 | [03-key-takeaways.md](./03-key-takeaways.md) |
 | 04 | 案例与代码 | [04-examples.md](./04-examples.md) |
 | 05 | 易错细节 | [05-pitfalls.md](./05-pitfalls.md) |
-| — | 背诵提纲 | [cheat-sheet.md](./cheat-sheet.md) |
+
 
 ---
 
@@ -57,3 +57,16 @@ while → 下标 for → for-each → 迭代器链（源 + 适配器 + 消费者
 详见索引中各条目的完成度 `[x]` / `[ ]` 与 Book demo 链接。
 
 ---
+
+---
+
+## 速记
+
+| 要点 | 一句 |
+|------|------|
+| 结构 | 源 + 适配器（懒） + 消费者 |
+| 借用 | `iter()` → `&T`；`into_iter()` 吃掉集合 |
+| Result 流 | `collect::<Result<Vec<_>, _>>()` |
+| 可读性 | 大循环体别硬链式 |
+| 性能 | 零成本抽象，但仍要测 |
+
