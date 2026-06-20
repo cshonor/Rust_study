@@ -12,7 +12,7 @@
 | `into_` | 交出自己 |
 | `get_` | 安全 `Option`，不 panic |
 | `try_` | 失败 `Result` |
-| `with_` | 构造 / 配置 |
+| `with_` | 构造 / 配置 → [01-1 详例](./01-1-with-series-and-builder.md) |
 
 ## 迭代器三巨头
 

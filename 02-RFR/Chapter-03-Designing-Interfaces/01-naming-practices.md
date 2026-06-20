@@ -80,7 +80,7 @@ let r = x.as_ref(); // Some(&10)，x 仍有效
 | **`Vec::with_capacity(n)`** | 预分配容量 |
 | **`Builder::with_xxx()`** | 链式配置 |
 
----
+→ **详细例**：[`Vec::with_capacity` 100 万 · reqwest 链 · 手写 Builder](./01-1-with-series-and-builder.md) · [01-1 速记](./01-1-cheat-sheet.md)
 
 ## 六、迭代器三巨头：`iter` / `iter_mut` / `into_iter`
 
