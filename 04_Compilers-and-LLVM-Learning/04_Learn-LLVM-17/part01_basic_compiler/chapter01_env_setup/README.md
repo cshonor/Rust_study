@@ -12,7 +12,7 @@
 | [00 本章定位](./00-overview.md) | 与仓库学习取舍 · 阅读路线 |
 | [01 环境要求](./01-env-requirements.md) | 硬件 · 编译器 · 工具链 |
 | [02 五步构建](./02-build-five-steps.md) | clone → cmake → build → test → install |
-| [03 自定义 CMake](./03-custom-cmake-vars.md) | TARGETS · PROJECTS · 进阶开关 | | 速记 · 自测 |
+| [03 自定义 CMake](./03-custom-cmake-vars.md) | TARGETS · PROJECTS · 进阶开关 |
 
 ## 本目录 `notes/`（可选）
 

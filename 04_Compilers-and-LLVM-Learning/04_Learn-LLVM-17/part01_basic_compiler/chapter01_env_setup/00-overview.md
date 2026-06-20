@@ -23,7 +23,7 @@
 |----|------|
 | [01 环境要求](./01-env-requirements.md) | 硬件 · 编译器 · 必备工具 |
 | [02 五步构建](./02-build-five-steps.md) | clone → cmake → ninja → test → install |
-| [03 自定义 CMake](./03-custom-cmake-vars.md) | profile 变量 · LLVM 专属开关 | | 速记 · 自测 |
+| [03 自定义 CMake](./03-custom-cmake-vars.md) | profile 变量 · LLVM 专属开关 |
 
 ---
 
