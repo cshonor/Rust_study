@@ -1,7 +1,8 @@
 # 04 · Learn LLVM 17 · LLVM IR 透视
 
 > 所属：[Compilers & LLVM Learning](../README.md)（仓库编号 **05**）  
-> 与 RFR **第 2、第 10 章** 对照读 IR；**不学 LLVM C++ 源码**。  
+> **C++ 前置（必修）**：姊妹仓 [cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) **`01`～`06`** → 见 [05/README 前置说明](../README.md#开-learn-llvm-前的-c-前置必修)  
+> 与 RFR **第 2、第 10 章** 对照读 IR；**本目录用 Rust 导出 IR，不必写 C++ Pass**。  
 > 前置实战：[04-Async-Concurrency-Network](../../04-Async-Concurrency-Network/README.md)
 
 **笔记 + 可运行 crate `llvm_insight_lab` + `ir_samples/`** 分目录完成。

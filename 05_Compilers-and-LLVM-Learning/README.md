@@ -16,10 +16,11 @@
 
 ```text
 04 实战：atomic → async_tokio → rust_network
-  → 05 现在：01 Crafting Interpreters 中文在线（免费）
+  + 姊妹仓 cpp-learning-notes 01～06（开 Learn LLVM 前必修）
+  → 05：01 Crafting Interpreters 中文在线（免费）
   → 买一本：03 《自制编译器》
-  → 并行：04 Learn LLVM 17 + RFR 第 2 章（用 04 里写过的代码反查 IR）
-以后：02 Engineering a Compiler 3e（编译器工程 / 橡书）+ LLVM Pass / O0 vs O3
+  → 04 Learn LLVM 17 + RFR 第 2 章（Rust 代码反查 IR）
+以后：02 Engineering a Compiler 3e（橡书）+ LLVM Pass / O0 vs O3
 ```
 
 > **命名**：口头「编译器工程」= Cooper *Engineering a Compiler*（**橡书**），不是 Muchnick **鲸书**《高级编译器设计与实现》。
@@ -48,17 +49,33 @@
 
 LLVM 可与 RFR **第 2 章**（布局、分发）**并行**精读；**原子 / async IR** 建议在 **04 专题** 有代码后再做 diff。
 
----
+## 开 Learn LLVM 前的 C++ 前置（必修）
 
-## 姊妹仓库 · C++ 对照（可选）
+**LLVM 本体用 C++ 实现**；书里讲的 IR、类型系统、Pass、STL 式容器，默认读者已有 **C++ 语法 + 现代特性 + STL** 底子。  
+本仓库 **05 / `04_Learn-LLVM-17`** 的实验虽用 **Rust** 导出 `.ll`，但**读** LLVM 设计与《Learn LLVM 17》仍建议先补 C++。
 
-[C++ 学习笔记 cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) 与本仓库**同一套「按书分目录 + 笔记 + demo」**组织方式，编号 `01`～`09` 对应 Primer → Effective 系列 → 对象模型 → 并发 → C++20。
+**姊妹仓（外部，同一维护者）**：[cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes)  
+**进入 `04_Learn-LLVM-17/` 之前，请在该仓至少通读 `01`～`06`：**
 
-| 你关心 | C++ 仓 | 本仓库 Rust | 进入 05 / LLVM 前建议 |
-|--------|--------|-------------|------------------------|
-| 对象布局、vtable | `07-Cpp-Object-Model` | RFR 第 2 章 · Nomicon | **强烈建议**至少其一，再读 IR 第 4～5 章 |
-| 线程、内存模型 | `08-Cpp-Concurrency` | [`04/01-atomic`](../04-Async-Concurrency-Network/01-atomic/) | 做完 04 再 diff `ir_samples/atomic_ir/` |
-| 现代 C++ 语义 | `04-Effective-Modern-C++` | RFR · ER | 非 LLVM 必修；有助于理解优化与移动 |
-| 低延迟 / 性能 | 可选 `11-Modern-C++-Performance-Engineering` | 04 三书 + 本书 ch07 | 与 O0/O3、`optimize_compare/` 对照 |
+| # | 目录 | 书名 | 为何 LLVM 需要 |
+|---|------|------|----------------|
+| **01** | [`01-C++Primer`](https://github.com/cshonor/cpp-learning-notes/tree/main/01-C%2B%2BPrimer) | C++ Primer | 语法、标准库；读示例不卡在指针/引用/类 |
+| **02** | [`02-Effective-C++`](https://github.com/cshonor/cpp-learning-notes/tree/main/02-Effective-C%2B%2B) | Effective C++ | 资源管理、三/五/零法则 → 理解 IR 里的 ctor/dtor |
+| **03** | [`03-More-Effective-C++`](https://github.com/cshonor/cpp-learning-notes/tree/main/03-More-Effective-C%2B%2B) | More Effective C++ | 进阶惯用法 |
+| **04** | [`04-Effective-Modern-C++`](https://github.com/cshonor/cpp-learning-notes/tree/main/04-Effective-Modern-C%2B%2B) | Effective Modern C++ | **移动、lambda、类型推导** — LLVM 代码风格 |
+| **05** | [`05-Effective-STL`](https://github.com/cshonor/cpp-learning-notes/tree/main/05-Effective-STL) | Effective STL | 容器/迭代器 — 对照 LLVM ADT 与 Pass 遍历 |
+| **06** | [`06-STL-Source-Analysis`](https://github.com/cshonor/cpp-learning-notes/tree/main/06-STL-Source-Analysis) | STL 源码剖析 |  vector/list/算法实现 — 读 IR 与优化直觉 |
 
-**05 不依赖 C++ 编译器**：IR 实验一律用 Rust（`llvm_insight_lab` + 04 demo）。C++ 仓仅作**平行背景**，详见 [04_Learn-LLVM-17 学习取舍](./04_Learn-LLVM-17/Learn-LLVM-17-学习取舍.md)。
+**`07`～`09` 不挡 LLVM 入门**（对象模型、并发、C++20），可与 Rust **`04`** 并行；见 [04_Learn-LLVM-17 学习取舍](./04_Learn-LLVM-17/Learn-LLVM-17-学习取舍.md)。
+
+### 推荐总顺序（Rust 仓 + C++ 仓）
+
+```text
+本仓库：00-Book → RFR → ER → Nomicon → 04(01-atomic → 02-async_tokio → 03-network)
+姊妹仓：cpp-learning-notes 01～06（与 04 后期可并行，但须在 Learn LLVM 17 之前完成）
+  ↓
+05：01 Crafting Interpreters → 03 自制编译器 → 04 Learn LLVM 17（Rust emit IR）
+以后：02 编译器工程（橡书）+ 若读 LLVM C++ 源码再补 cpp 07～09
+```
+
+> **分工**：C++ **01～06** = 读懂 LLVM **设计与 API 语境**；Rust **04 + llvm_insight_lab** = **产出并对照 IR**，不要求在本仓写 C++ Pass。
