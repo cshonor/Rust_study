@@ -7,49 +7,108 @@
 
 ## 一句话
 
-Rust **标准库**用 **`std::error::Error::source()`** 表达「上层错误 ← 底层原因」；心智上就是给错误加了一个 **「父错误指针」** — **`thiserror`** 自动生成这条指针，**`anyhow::Error`** 用 **`chain()`** 遍历整条链。
+Rust **标准库**用 **`Error::source()`** 串错误链：**上层**业务错误（你定义的 `StrategyError`）的 **`source()` 指向其包装的底层官方根错误**（`reqwest::Error`、`std::io::Error` …）。**`thiserror`** 自动生成这条指针；**`anyhow::chain()`** 沿同一条单链表往下挖。
 
 ---
 
-## 心智模型：`source()` = 「父错误指针」
+## 上下层别搞反：谁是根、谁是包装
 
-每个实现了 **`Error`** 的类型，都可以选择通过 **`source()`** 指向**自己的源头**（上一层 / 更底层的原因）：
+| 层级 | 是什么 | 量化例子 | 谁写 |
+|------|--------|----------|------|
+| **底层（根错误）** | 最原始、官方/生态 **`Error`** | `reqwest::Error`（连接超时）、`std::io::Error`（文件不存在） | 标准库 / crate |
+| **上层（包装错误）** | 你定义的 **业务 enum** | `StrategyError::FetchQuoteFailed` — 「行情拉取失败」 | 你的策略 crate |
+
+**`source()` 的方向**（从调用方第一眼看到的错误往下挖）：
 
 ```text
-StrategyError::DataLoadError          ← 业务层 Display：「加载策略数据失败」
+  上层（对外）                         底层（根因）
+  ───────────                         ───────────
+  StrategyError::FetchQuoteFailed     reqwest::Error（连接超时）
+  Display：「行情拉取失败」                  │
+         │                                 │ 再无 source
+         │  source() → Some(&reqwest_err)  ▼
+         └──────────────────────────────  None
+```
+
+- **不是**「底层指向上层」— 永远是 **上层包装** 通过 **`source()`** 指向 **它包进去的那一份底层官方错误**。
+- 顺着 **`source()`** 走：**业务语义 → 技术根因 → `None`**，一条单链表。
+
+---
+
+## 心智模型：`source()` = 上层握有的「根因指针」
+
+每个实现了 **`Error`** 的**上层**类型，通过 **`source()`** 指向**它包装的那一个底层根错误**（不是指向上层）：
+
+```text
+StrategyError::FetchQuoteFailed    ← 上层 Display：「行情拉取失败」（业务告警 / 切备用源）
         │
-        │ source()  ≈  「父错误指针」→ Some(&io_error)
+        │ source()  →  Some(&reqwest_error)
         ▼
-std::io::Error                        ← 技术根因：「文件不存在」
+reqwest::Error                     ← 底层根错误：「connection timed out」
         │
-        │ source()  → None（链顶之下无父）
+        │ source()  →  None（官方错误链在此结束或继续其自有 source）
         ▼
       （结束）
 ```
 
 | 角色 | 谁看到什么 |
 |------|------------|
-| **调用方读 `Display`** | 你定义的**业务提示** — 「加载策略数据失败」 |
-| **调用方调 `source()`** | **技术根因** — 最初的 `io::Error`（文件不存在等） |
-| **若不实现 `source()`** | 链在业务层**被掐断** — 只剩一句人话，挖不到根因 |
+| **调用方读 `Display`** | **上层**业务提示 — 「行情拉取失败」→ `match` 告警、切备用源 |
+| **调用方调 `source()`** | **底层**技术根因 — `reqwest` 超时、`io` 文件不存在 |
+| **若不实现 `source()`** | 链在**上层**被掐断 — 只剩业务人话，挖不到官方根错误 |
 
-**关键**：`source()` 返回的是 **`Option<&dyn Error>`** — 每个错误**最多一个**父节点；顺着走得到**一条**溯源路径。
+**关键**：`source()` 是 **`Option<&dyn Error>`** — 每个上层错误**至多指向一个**底层根因；反复调用得到**一条**溯源路径（单链表，不是多叉树）。
+
+### 实盘：子线程拉行情 → 包成 `StrategyError` → 主线程 `match` + `source()`
+
+```rust
+use thiserror::Error;
+
+#[derive(Debug, Error)]
+pub enum StrategyError {
+    #[error("行情拉取失败")]
+    FetchQuoteFailed(#[from] reqwest::Error), // 上层变体；#[from] 自动 source → reqwest
+
+    #[error("加载策略数据失败")]
+    DataLoadError(#[from] std::io::Error),
+}
+
+// 子线程：reqwest 失败 → ? 包成上层 StrategyError
+fn worker_fetch() -> Result<(), StrategyError> {
+    let _ = reqwest::blocking::get("https://quote-api/…")?;
+    Ok(())
+}
+
+// 主线程：match 上层业务变体；source() 挖底层「连接超时」
+fn on_worker_err(e: &StrategyError) {
+    match e {
+        StrategyError::FetchQuoteFailed(_) => {
+            alert("行情拉取失败，切备用源");
+            if let Some(root) = e.source() {
+                eprintln!("  根因: {root}"); // reqwest::Error
+            }
+        }
+        _ => {}
+    }
+}
+```
+
+1. **先**在底层产生 **`reqwest::Error`**（官方原始错误）。
+2. **`?` / `map_err`** 包成 **上层 `StrategyError::FetchQuoteFailed`** — 抛给主线程的是**业务可 match** 的类型。
+3. **`source()`** 从上层指回 **`reqwest::Error`** — 告警用上层，排障挖底层；**`thiserror` 的 `#[from]` 自动写好 `source`**，不必手动存字段再 `impl source`。
 
 ### 单链表，不是多叉树
 
 口语里有时把多层 context 比作「树」，但 **`Error::source()` 的 API 是单父指针** — 一个上层错误通常只对应**一个最直接的根因**：
 
 ```text
-  多叉树（❌ 不是 source() 模型）     单链表（✅ 错误链）
-        A                                  run_strategy 错误
-       / \                                      │
-      B   C                                     │ source()
-                                     fetch_bars context
-                                              │
+  多叉树（❌ 不是 source() 模型）     单链表（✅ 错误链：从上往下挖根）
+        A                              StrategyError（上层）
+       / \                                  │ source()
+      B   C                                 ▼
+                                     reqwest / io（底层根）
                                               │ source()
-                                     reqwest::Error
-                                              │
-                                              │ source()
+                                              ▼
                                             None
 ```
 
@@ -57,7 +116,7 @@ std::io::Error                        ← 技术根因：「文件不存在」
 |---|-------------------|------------------|
 | **每个节点的父** | **至多 1 个**（`Option`） | 可有多个子节点 |
 | **遍历方式** | 反复 **`source()`** → 线性 **溯源路径** | 需 DFS/BFS |
-| **实现约定** | 自定义 `Error` 的 **`source()` 只 `Some` 一个底层** | — |
+| **实现约定** | **上层** `source()` 只 **`Some` 一个底层根错误** | — |
 
 **`anyhow` 的 `chain()`** 打印像「多层栈」，底层仍是 **parent 指针串成的一条链**（外加 context 层），不是同一层多个并列根因。
 
