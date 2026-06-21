@@ -13,7 +13,7 @@
 
 - 默认返回 `None`；可重写以暴露**底层原因**：
   - `fn source(&self) -> Option<&(dyn Error + 'static)>`
-- RFR 量化场景与 **`thiserror` / `anyhow::chain()`** → [RFR Ch04 错误链](../../02-RFR/Chapter-04-Error-Handling/01-error-source-chain.md)
+- RFR 量化场景与 **`thiserror` / `anyhow::chain()`** → [RFR Ch04 错误链](../../../02-RFR/Chapter-04-Error-Handling/01-error-source-chain.md)
 
 ### 孤儿规则（Orphan Rule）
 
