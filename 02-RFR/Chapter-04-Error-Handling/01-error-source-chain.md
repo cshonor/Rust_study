@@ -56,26 +56,127 @@ use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum StrategyError {
+    // 注意：同一底层类型不能给多个变体都写 #[from]（见下方 walkthrough）
     #[error("行情拉取失败")]
-    FetchQuoteFailed(#[from] reqwest::Error),
+    FetchQuoteFailed(#[source] reqwest::Error),
 
     #[error("交易接口登录失败")]
-    LoginFailed(#[from] reqwest::Error),
+    LoginFailed(#[source] reqwest::Error),
 
     #[error("历史数据拉取失败")]
-    HistoryDataFailed(#[from] reqwest::Error),
+    HistoryDataFailed(#[source] reqwest::Error),
 }
 
 fn fetch_quotes() -> Result<(), StrategyError> {
-    reqwest::blocking::get(QUOTE_URL)?; // 失败 → FetchQuoteFailed(reqwest_err)
+    reqwest::blocking::get(QUOTE_URL)
+        .map_err(StrategyError::FetchQuoteFailed)?; // 场景决定包成哪个变体
     Ok(())
 }
 
 fn login_trading() -> Result<(), StrategyError> {
-    reqwest::blocking::post(LOGIN_URL)?; // 失败 → LoginFailed(reqwest_err)
+    reqwest::blocking::post(LOGIN_URL)
+        .map_err(StrategyError::LoginFailed)?;
     Ok(())
 }
 ```
+
+### 完整 walkthrough：HTTP 拉取失败（量化最常见）
+
+**两层链**：上层 **`StrategyError`**（业务）← **`reqwest::Error`**（官方 HTTP）← **`io::Error`**（系统根因）。`thiserror` 负责 **`Display` + `source()` 父指针**；同一 `reqwest::Error` 类型，按场景包成不同业务变体。
+
+**① 定义业务 enum（上层）**
+
+```rust
+use thiserror::Error;
+use reqwest::Error as ReqwestError;
+
+#[derive(Debug, Error)]
+enum StrategyError {
+    // 同一底层 ReqwestError，两个不同业务变体 — 用 #[source] 挂父指针，不用重复 #[from]
+    #[error("行情拉取失败，底层原因: {0}")]
+    FetchQuoteFailed(#[source] ReqwestError),
+
+    #[error("交易接口登录失败，底层原因: {0}")]
+    LoginFailed(#[source] ReqwestError),
+
+    // 自定义业务错误 → 指向你自己写的 CalcError（第三段链在此结束）
+    #[error("策略信号计算异常，错误码: {code}")]
+    SignalCalcFailed { code: i32, #[source] source: CalcError },
+}
+
+#[derive(Debug, Error)]
+#[error("{msg}")]
+struct CalcError { msg: String }
+```
+
+> **`#[from]` vs `#[source]`**：`#[from]` 会生成 **`From<底层>`**，**同一底层类型只能有一个 `#[from]` 变体**。多个变体都要包 **`reqwest::Error`** 时，变体上用 **`#[source]`**，在**调用点**用 **`map_err(StrategyError::FetchQuoteFailed)`** 等指定业务语义。
+
+**② 各场景函数返回底层官方错误**
+
+```rust
+fn fetch_quote() -> Result<(), ReqwestError> {
+    // 模拟：HTTP 客户端失败，reqwest 内部 source 指向 io 超时
+    Err(ReqwestError::from(std::io::Error::new(
+        std::io::ErrorKind::TimedOut,
+        "连接超时",
+    )))
+}
+
+fn login_trade_api() -> Result<(), ReqwestError> {
+    Err(ReqwestError::from(std::io::Error::new(
+        std::io::ErrorKind::ConnectionRefused,
+        "连接被拒",
+    )))
+}
+```
+
+**③ 主流程：按场景 `map_err` 包装，再 `?` 向上传**
+
+```rust
+fn main() -> Result<(), StrategyError> {
+    // 场景 1：超时 → FetchQuoteFailed(reqwest_err)
+    fetch_quote().map_err(StrategyError::FetchQuoteFailed)?;
+
+    // 场景 2：连接被拒 → LoginFailed(reqwest_err)
+    login_trade_api().map_err(StrategyError::LoginFailed)?;
+
+    Ok(())
+}
+```
+
+**④ 调用方：`match` 业务变体；排障：`source()` 挖链**
+
+```rust
+if let Err(e) = main() {
+    match &e {
+        StrategyError::FetchQuoteFailed(_) => eprintln!("切备用行情源"),
+        StrategyError::LoginFailed(_) => eprintln!("触发重登 / 告警运维"),
+        StrategyError::SignalCalcFailed { code, .. } => eprintln!("信号异常 code={code}"),
+    }
+    // 挖底层：FetchQuoteFailed → reqwest → io::TimedOut
+    let mut cur: &dyn std::error::Error = &e;
+    while let Some(src) = cur.source() {
+        eprintln!("  caused by: {src}");
+        cur = src;
+    }
+}
+```
+
+```text
+场景 1（拉行情超时）                    场景 2（登录被拒）
+FetchQuoteFailed                        LoginFailed
+  │ source()                              │ source()
+  ▼                                       ▼
+reqwest::Error                          reqwest::Error   ← 父节点类型相同
+  │ source()                              │ source()
+  ▼                                       ▼
+io::Error TimedOut                      io::Error ConnectionRefused   ← 系统根因不同
+```
+
+- **`match StrategyError`**：同样是 HTTP 客户端失败，业务动作不同 — 切备用源 vs 重登。
+- **`.source()` 链**：不必解析 HTTP 细节；`reqwest` 已把 **`io::Error`** 挂在链上，日志里 **`caused by:`** 一路到底即可。
+
+若某个函数**整条链路只有一种业务含义**，可让该函数直接 **`-> Result<(), StrategyError>`** 并在内部对**唯一**变体使用 **`#[from]`** + **`?`**（见 [§thiserror `#[from]`](#thiserrorsourcefrom-自动挂父指针)）。
 
 | 上层变体（调用方 `match`） | 业务含义 | 典型动作 |
 |----------------------------|----------|----------|
@@ -114,7 +215,7 @@ fn login_trading() -> Result<(), StrategyError> {
 2. **同一底层，多种业务含义** — **`FetchQuoteFailed`** 与 **`LoginFailed`** 包的是**同类型**父错误，但 **Display / `match` 语义不同** — 给同一份技术失败赋予不同业务解释。
 3. **调用方只 match 上层** — 知道该切备用源还是重登，**不用**读底层是 DNS 还是握手超时；排障时再 **`source()`** 下钻即可。
 
-**`thiserror` 的 `#[from] reqwest::Error`**：自动把**父节点**设成变体里的 reqwest 字段，并生成 **`From`** — 上层节点与底层官方错误**一次绑定**。
+**`thiserror` 的 `#[source]` / `#[from]`**：`#[source]` 挂**父节点**指针；**单场景**可用 **`#[from]` + `?`** 一次绑定。多个变体共享 **`reqwest::Error`** 时用 **`#[source]` + `map_err`**（见 [§HTTP walkthrough](#完整-walkthroughhttp-拉取失败量化最常见)）。
 
 > 运行时：每次失败各包**各自**的一份 **`reqwest::Error` 实例**；「同一个底层」指的是**同一错误类型**，不是全局共享一个对象。每个上层变体的 **`source()`** 指向**本变体里 embedded 的那一份** reqwest 错误。
 
@@ -203,21 +304,22 @@ use thiserror::Error;
 #[derive(Debug, Error)]
 pub enum StrategyError {
     #[error("行情拉取失败")]
-    FetchQuoteFailed(#[from] reqwest::Error),
+    FetchQuoteFailed(#[source] reqwest::Error),
 
     #[error("交易接口登录失败")]
-    LoginFailed(#[from] reqwest::Error),
+    LoginFailed(#[source] reqwest::Error),
 
     #[error("历史数据拉取失败")]
-    HistoryDataFailed(#[from] reqwest::Error),
+    HistoryDataFailed(#[source] reqwest::Error),
 
     #[error("加载策略数据失败")]
-    DataLoadError(#[from] std::io::Error),
+    DataLoadError(#[from] std::io::Error), // io 与 reqwest 不同类型，可单独 #[from]
 }
 
-// 子线程：reqwest 失败 → ? 包成上层 StrategyError
+// 子线程：本链路只有「拉行情」一种业务语义 → map_err 指定变体
 fn worker_fetch() -> Result<(), StrategyError> {
-    let _ = reqwest::blocking::get("https://quote-api/…")?;
+    reqwest::blocking::get("https://quote-api/…")
+        .map_err(StrategyError::FetchQuoteFailed)?;
     Ok(())
 }
 
@@ -242,8 +344,8 @@ fn on_worker_err(e: &StrategyError) {
 ```
 
 1. **先**在底层产生 **`reqwest::Error`**（官方原始错误）。
-2. **`?` / `map_err`** 包成 **上层 `StrategyError::FetchQuoteFailed`** — 抛给主线程的是**业务可 match** 的类型。
-3. **`source()`** 从上层指回 **`reqwest::Error`** — 告警用上层，排障挖底层；**`thiserror` 的 `#[from]` 自动写好 `source`**，不必手动存字段再 `impl source`。
+2. **`map_err(StrategyError::FetchQuoteFailed)`**（或该场景对应变体）包成 **上层业务 enum** — 抛给主线程的是**可 `match` 的语义**。
+3. **`source()`** 从上层指回 **`reqwest::Error`** — 告警用上层，排障挖底层；**`#[source]` / `#[from]`** 由 **`thiserror`** 生成，不必手写 `impl source`。
 
 ### 单链表，不是多叉树
 
@@ -387,7 +489,7 @@ fn dig_root(mut e: &dyn Error) {
 | 属性 | 自动生成 |
 |------|----------|
 | **`#[source]`**（命名字段） | 该字段 → **`source()` 的 `Some(&field)`** |
-| **`#[from]`**（单字段/tuple 变体） | **`From<底层>`** + **`source()` 指向该字段**（`#[from]` 隐含 source） |
+| **`#[from]`**（单字段/tuple 变体） | **`From<底层>`** + **`source()` 指向该字段**（`#[from]` 隐含 source） — **同一底层类型全 enum 只能有一处** |
 | **`#[error("…")]`** | **`Display`** |
 
 ```rust
@@ -401,7 +503,7 @@ pub enum StrategyError {
         io: std::io::Error,
     },
 
-    // 上层包装 ← 底层 reqwest；? 自动 From + source 指根
+    // 单场景函数可 #[from] + ?；多变体共享同一底层类型时用 #[source] + map_err（见 §HTTP walkthrough）
     #[error("行情拉取失败")]
     FetchQuoteFailed(#[from] reqwest::Error),
 
