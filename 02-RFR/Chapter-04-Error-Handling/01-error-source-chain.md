@@ -33,7 +33,33 @@ std::io::Error                        ← 技术根因：「文件不存在」
 | **调用方调 `source()`** | **技术根因** — 最初的 `io::Error`（文件不存在等） |
 | **若不实现 `source()`** | 链在业务层**被掐断** — 只剩一句人话，挖不到根因 |
 
-**关键**：`source()` 返回的是 **`Option<&dyn Error>`** — 一条**单向**父指针，不是双向链表；沿着它走不会丢上下文。
+**关键**：`source()` 返回的是 **`Option<&dyn Error>`** — 每个错误**最多一个**父节点；顺着走得到**一条**溯源路径。
+
+### 单链表，不是多叉树
+
+口语里有时把多层 context 比作「树」，但 **`Error::source()` 的 API 是单父指针** — 一个上层错误通常只对应**一个最直接的根因**：
+
+```text
+  多叉树（❌ 不是 source() 模型）     单链表（✅ 错误链）
+        A                                  run_strategy 错误
+       / \                                      │
+      B   C                                     │ source()
+                                     fetch_bars context
+                                              │
+                                              │ source()
+                                     reqwest::Error
+                                              │
+                                              │ source()
+                                            None
+```
+
+| | **`source()` 链** | 多分支「树」想象 |
+|---|-------------------|------------------|
+| **每个节点的父** | **至多 1 个**（`Option`） | 可有多个子节点 |
+| **遍历方式** | 反复 **`source()`** → 线性 **溯源路径** | 需 DFS/BFS |
+| **实现约定** | 自定义 `Error` 的 **`source()` 只 `Some` 一个底层** | — |
+
+**`anyhow` 的 `chain()`** 打印像「多层栈」，底层仍是 **parent 指针串成的一条链**（外加 context 层），不是同一层多个并列根因。
 
 ### 量化示例：CSV 行情加载（手写 `source`）
 
@@ -73,7 +99,7 @@ fn load_csv(path: &str) -> Result<Vec<u8>, StrategyError> {
 
 别人拿到 **`StrategyError::DataLoadError`** 时：表面是「加载策略数据失败」，**`source()`** 一路挖到 **`NotFound`** 等 OS 级原因 — **链不断**。
 
-手写时要自己 **存 `io` 字段** + **写 `match source()`** → **`thiserror`** 把「存字段 + 挂父指针」合成 **`#[source]`** 一行（见下）。
+手写时要自己 **存 `io` 字段** + **写 `match source()`** → 用 **`thiserror`** 时 **`#[source]` / `#[from]`** 自动生成（见下）；**不必每个变体都从零 `impl source`**。
 
 ---
 
@@ -91,12 +117,12 @@ pub trait Error: Display + Debug {
 |------|------|
 | **上层错误** | 对外语义 — 「行情获取失败」「策略初始化失败」 |
 | **底层错误** | `source()` 指向的 **`dyn Error`** — 如 `io::Error`、网络超时 |
-| **链** | 每层再调 **`source()`**，直到 `None` — **单向链表**，不是循环 |
+| **链** | 每层再调 **`source()`**，直到 `None` — **单链表**（每节点一个父指针），不是多叉树、无环 |
 
 ```text
 调用方看到的 Display
     「行情获取失败」
-           │ source()
+           │ source()  （仅此一条边）
            ▼
     reqwest / io 超时
            │ source()
@@ -148,9 +174,15 @@ fn dig_root(mut e: &dyn Error) {
 | **库（对外 enum）** | **`thiserror`** — `#[derive(Error)]` + `#[source]` 映射变体字段 |
 | **应用 / bin（不透明汇总）** | **`anyhow`** — `anyhow::Error` 内部包装多源错误，**`chain()`** 遍历 |
 
-### `thiserror`：自动写好「父错误指针」
+### `thiserror`：`#[source]`、`#[from]` 自动挂父指针
 
-不用手动 **`impl Error`** 里的 **`source()` match**，也不用重复写 Display 样板 — 在字段上加 **`#[source]`**，宏生成：**存底层错误 + `source()` 返回 `Some(&that_field)`**。
+**不必**给每个自定义错误从零写 **`impl Error` + `source()`** — 在**顶层业务 enum** 上加好变体，关联逻辑交给宏：
+
+| 属性 | 自动生成 |
+|------|----------|
+| **`#[source]`**（命名字段） | 该字段 → **`source()` 的 `Some(&field)`** |
+| **`#[from]`**（单字段/tuple 变体） | **`From<底层>`** + **`source()` 指向该字段**（`#[from]` 隐含 source） |
+| **`#[error("…")]`** | **`Display`** |
 
 ```rust
 use thiserror::Error;
@@ -160,25 +192,39 @@ pub enum StrategyError {
     #[error("加载策略数据失败")]
     DataLoadError {
         #[source]
-        io: std::io::Error, // 读行情 CSV 失败 — 父指针自动指向 io
+        io: std::io::Error,
     },
-    #[error("行情获取失败")]
-    MarketFetch {
-        #[source]
-        source: std::io::Error,
-    },
+
+    // tuple 变体 + #[from]：? 自动 From，source 自动指向 reqwest 原始错误
+    #[error("行情网关网络错误")]
+    NetworkError(#[from] reqwest::Error),
+
     #[error("策略 {0} 参数非法")]
-    BadParam(String), // 无 #[source] → source() 为 None
+    BadParam(String), // 无底层 → source() = None
+}
+
+fn pull_quotes() -> Result<(), StrategyError> {
+    let _body = reqwest::blocking::get("https://…")?; // ? → StrategyError::NetworkError
+    Ok(())
 }
 ```
 
+**`NetworkError(#[from] reqwest::Error)` 一行等价于**：
+
+1. 变体里**存** `reqwest::Error`；
+2. **`impl From<reqwest::Error> for StrategyError`** — `?` 能向上转；
+3. **`source()`** 在该变体上返回 **`Some(&reqwest_error)`**。
+
+你只需维护**最顶层** `StrategyError` 的变体与文案；**父指针 + From** 由宏生成，不用手写一堆 `match source()`。
+
 | 手写 | `thiserror` |
 |------|-------------|
-| 变体里存 `io: std::io::Error` | 同 — 字段保留 |
-| `impl Error { fn source() { Some(&io) } }` | **`#[source]`** 自动生成 |
-| `impl Display` | **`#[error("…")]`** 自动生成 |
+| 变体里存底层错误 | 字段 / `#[from]` tuple |
+| `impl Error { fn source() … }` | **`#[source]`** 或 **`#[from]`** |
+| `impl From<底层>` | **`#[from]`** |
+| `impl Display` | **`#[error("…")]`** |
 
-- 库 crate 公开 API 仍用 **enum + `thiserror`**（调用方可 `match` 分支）。
+- 库 crate 公开 API 仍用 **enum + `thiserror`**（调用方可 `match` 分支）。ER 对照 → [Item 04 §thiserror](../../01-ER/Chapter-01-Types/Item-04-idiomatic-error-types/04-examples.md#thiserror自动实现-error库推荐)。
 
 ### `anyhow`：一条链打印 / 遍历
 
@@ -239,7 +285,7 @@ join panic → map_err → anyhow::Error
 
 | 场景 | 用 |
 |------|-----|
-| 库 API、调用方要 `match` 变体 | **`enum` + `thiserror`** + `#[source]` |
+| 库 API、调用方要 `match` 变体 | **`enum` + `thiserror`** + **`#[from]` / `#[source]`** |
 | bin / 策略主流程、多 crate 混用 `?` | **`anyhow::Result`** + `.context()` |
 | 只要.walk 底层原因 | **`Error::source()`** 循环或 **`anyhow::chain()`** |
 | 子线程已 panic | **`downcast_ref`** → 再 **`anyhow!`** 并进链（不是 `source()` 自动连 panic） |
