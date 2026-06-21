@@ -20,3 +20,4 @@
 ## 工具
 
 - **`thiserror`** — 派生 + 变体 + `source` 映射 → [ER Item 04](../../01-ER/Chapter-01-Types/Item-04-idiomatic-error-types/README.md)
+- **错误链精读** — `Error::source()`、`anyhow::chain()`、与 panic/join 对照 → [01 错误链](./01-error-source-chain.md)

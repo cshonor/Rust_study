@@ -9,7 +9,7 @@
 
 | 主节 | 英文 | 子节 / 笔记 |
 |------|------|-------------|
-| **1** | Representing Errors | [01 枚举式错误](./01-enumeration.md) · [02 不透明错误](./02-opaque-errors.md) · [03 特殊情形](./03-special-error-cases.md) |
+| **1** | Representing Errors | [01 枚举式错误](./01-enumeration.md) · **[01 错误链 source / thiserror / anyhow](./01-error-source-chain.md)** · [02 不透明错误](./02-opaque-errors.md) · [03 特殊情形](./03-special-error-cases.md) |
 | **2** | Propagating Errors | [04 传播错误](./04-propagating-errors.md) |
 | **3** | Summary | [05 小结](./05-summary.md) |
 
