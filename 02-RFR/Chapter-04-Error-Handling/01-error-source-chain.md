@@ -1,7 +1,7 @@
 # 1.1 错误链：`Error::source()` 与 `thiserror` / `anyhow`
 
 > 所属：**Representing Errors** · 父节：[01 枚举式错误](./01-enumeration.md) · [← 章索引](./README.md)  
-> 线程 panic 统一处理 → [1.1.2.3 anyhow](../../../04-Async-Concurrency-Network/01-atomic/Chapter-01-Rust-Concurrency-Basics/1.1-threads-in-rust/1.1.2.3-panic-box-dyn-any.md) · ER 详解 → [Item 04 source()](../../01-ER/Chapter-01-Types/Item-04-idiomatic-error-types/01-core-concepts.md)
+> **↔ 双向索引**：**`Result` 包装层**（本文）↔ **线程 panic 容器层** → [1.1.2.3 `Box<dyn Any>`](../../../04-Async-Concurrency-Network/01-atomic/Chapter-01-Rust-Concurrency-Basics/1.1-threads-in-rust/1.1.2.3-panic-box-dyn-any.md#err-类型三层拆解boxdyn-any--send--static) · 传播小节 → [04 传播错误](./04-propagating-errors.md) · ER 详解 → [Item 04 source()](../../01-ER/Chapter-01-Types/Item-04-idiomatic-error-types/01-core-concepts.md)
 
 ---
 
@@ -117,6 +117,57 @@ fn login_trading() -> Result<(), StrategyError> {
 **`thiserror` 的 `#[from] reqwest::Error`**：自动把**父节点**设成变体里的 reqwest 字段，并生成 **`From`** — 上层节点与底层官方错误**一次绑定**。
 
 > 运行时：每次失败各包**各自**的一份 **`reqwest::Error` 实例**；「同一个底层」指的是**同一错误类型**，不是全局共享一个对象。每个上层变体的 **`source()`** 指向**本变体里 embedded 的那一份** reqwest 错误。
+
+---
+
+## 两层为主：直接写策略时的默认形态
+
+**大部分业务场景两层就够** — 再多一层反而增加理解和排查成本。
+
+| 层 | 角色 | 量化例子 |
+|----|------|----------|
+| **底层（技术错误层）** | 官方 / 第三方库的 **`Error`** | `reqwest::Error`（网络）、`redis::Error`（缓存） |
+| **上层（业务错误层）** | 你定义的 enum | `StrategyError::FetchQuoteFailed`、`StrategyError::SignalComputeFailed` |
+
+```text
+StrategyError::FetchQuoteFailed     StrategyError::SignalComputeFailed
+  「行情拉取失败」                        「信号计算失败」
+         │ source()                            │ source()
+         ▼                                     ▼
+   reqwest::Error                        redis::Error
+   （网络超时 / DNS …）                   （连接断开 / 穿透 …）
+```
+
+**调用方拿到 `StrategyError`**：
+
+- **读 `Display` / `match` 变体** → 业务上是「行情拉取失败」还是「信号计算失败」，决定切备用源还是降级本地缓存。
+- **调 `source()`** → 挖到底层是网络超时还是缓存穿透，写日志、告警运维。
+
+这就是量化策略里**最清爽、最易维护**的标准错误链：**官方技术层 + 一层业务封装**。
+
+### 何时才需要第三层（框架 / 中间件）
+
+少数复杂场景会加中间层，但一般是**通用框架**在用，不是单策略作者日常要写的：
+
+```text
+StrategyError::FetchQuoteFailed          ← 第 3 层：具体策略的业务错误
+         │ source()
+         ▼
+FrameworkError::MarketDataUnavailable    ← 第 2 层：框架统一包装（中间件）
+         │ source()
+         ▼
+reqwest::Error                           ← 第 1 层：官方技术错误
+```
+
+| 场景 | 链深度 | 谁写中间层 |
+|------|--------|------------|
+| **直接写策略** | **两层** | 不需要 — `reqwest::Error` → `StrategyError` |
+| **通用量化框架 + 多策略插件** | 三层 | 框架把第三方错误包成 **`FrameworkError`**，各策略再包成自己的 **`StrategyError`** |
+
+- **框架层**负责：统一 HTTP/Redis/DB 失败形态、跨策略的日志格式、重试策略入口。
+- **策略层**负责：「这条失败在我的策略里意味着什么」— 仍只 **`match` 自己的 `StrategyError`**。
+
+> **实践建议**：除非你正在维护可被多策略复用的框架 crate，**默认坚持两层**；觉得需要第三层时，先问是不是框架职责该下沉，而不是在单个策略里再套一层「通用错误」。
 
 ---
 
@@ -452,7 +503,8 @@ join panic → downcast → anyhow     （panic 路径，见 1.1.2.3）
 ## 相关
 
 - [01 枚举式错误](./01-enumeration.md) · [02 不透明错误](./02-opaque-errors.md)
-- [04 传播错误](./04-propagating-errors.md)
+- [04 传播错误](./04-propagating-errors.md) — 含 **↔ 线程 panic 容器** 索引
+- **线程 `join` / panic**（容器层，非 `source` 链）→ [1.1.2.3 `Box<dyn Any>`](../../../04-Async-Concurrency-Network/01-atomic/Chapter-01-Rust-Concurrency-Basics/1.1-threads-in-rust/1.1.2.3-panic-box-dyn-any.md) · [1.1.2.4 downcast](../../../04-Async-Concurrency-Network/01-atomic/Chapter-01-Rust-Concurrency-Basics/1.1-threads-in-rust/1.1.2.4-panic-capture-downcast.md)
 - [ER Item 04](../../01-ER/Chapter-01-Types/Item-04-idiomatic-error-types/README.md)
 
 §4 索引：[README.md](./README.md)
