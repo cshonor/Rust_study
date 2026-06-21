@@ -14,7 +14,7 @@
 //! help: use the `move` keyword
 //! ```
 //!
-//! 正确修复见 [1.1.3 §五](../1.1.3-send-static-spawn.md#五正确写法move-转移所有权)
+//! 正确修复见 [1.1.3.5 §五](../1.1.3.5-move-capture-errors.md#五正确写法move-转移所有权)
 //! 与 [move-closure-demo.rs](./1.1-threads-in-rust-move-closure-demo.rs)。
 
 use std::thread;
