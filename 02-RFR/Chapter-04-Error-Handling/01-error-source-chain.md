@@ -7,7 +7,73 @@
 
 ## 一句话
 
-Rust **标准库**用 **`std::error::Error::source()`** 表达「上层错误 ← 底层原因」；**`thiserror`** 帮库类型自动生成带链的 `impl Error`，**`anyhow::Error`** 用 **`chain()`** 遍历整条链 — 取代早年 **`failure` / `error-chain`** 的做法。
+Rust **标准库**用 **`std::error::Error::source()`** 表达「上层错误 ← 底层原因」；心智上就是给错误加了一个 **「父错误指针」** — **`thiserror`** 自动生成这条指针，**`anyhow::Error`** 用 **`chain()`** 遍历整条链。
+
+---
+
+## 心智模型：`source()` = 「父错误指针」
+
+每个实现了 **`Error`** 的类型，都可以选择通过 **`source()`** 指向**自己的源头**（上一层 / 更底层的原因）：
+
+```text
+StrategyError::DataLoadError          ← 业务层 Display：「加载策略数据失败」
+        │
+        │ source()  ≈  「父错误指针」→ Some(&io_error)
+        ▼
+std::io::Error                        ← 技术根因：「文件不存在」
+        │
+        │ source()  → None（链顶之下无父）
+        ▼
+      （结束）
+```
+
+| 角色 | 谁看到什么 |
+|------|------------|
+| **调用方读 `Display`** | 你定义的**业务提示** — 「加载策略数据失败」 |
+| **调用方调 `source()`** | **技术根因** — 最初的 `io::Error`（文件不存在等） |
+| **若不实现 `source()`** | 链在业务层**被掐断** — 只剩一句人话，挖不到根因 |
+
+**关键**：`source()` 返回的是 **`Option<&dyn Error>`** — 一条**单向**父指针，不是双向链表；沿着它走不会丢上下文。
+
+### 量化示例：CSV 行情加载（手写 `source`）
+
+```rust
+use std::error::Error;
+use std::fmt;
+
+#[derive(Debug)]
+pub enum StrategyError {
+    DataLoadError { io: std::io::Error },
+    BadParam(String),
+}
+
+impl fmt::Display for StrategyError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::DataLoadError { .. } => write!(f, "加载策略数据失败"),
+            Self::BadParam(p) => write!(f, "策略参数非法: {p}"),
+        }
+    }
+}
+
+impl Error for StrategyError {
+    fn source(&self) -> Option<&(dyn Error + 'static)> {
+        match self {
+            // 给 DataLoadError 挂上指向原始 IO 错误的「父指针」
+            Self::DataLoadError { io } => Some(io),
+            Self::BadParam(_) => None,
+        }
+    }
+}
+
+fn load_csv(path: &str) -> Result<Vec<u8>, StrategyError> {
+    std::fs::read(path).map_err(|io| StrategyError::DataLoadError { io })
+}
+```
+
+别人拿到 **`StrategyError::DataLoadError`** 时：表面是「加载策略数据失败」，**`source()`** 一路挖到 **`NotFound`** 等 OS 级原因 — **链不断**。
+
+手写时要自己 **存 `io` 字段** + **写 `match source()`** → **`thiserror`** 把「存字段 + 挂父指针」合成 **`#[source]`** 一行（见下）。
 
 ---
 
@@ -82,24 +148,36 @@ fn dig_root(mut e: &dyn Error) {
 | **库（对外 enum）** | **`thiserror`** — `#[derive(Error)]` + `#[source]` 映射变体字段 |
 | **应用 / bin（不透明汇总）** | **`anyhow`** — `anyhow::Error` 内部包装多源错误，**`chain()`** 遍历 |
 
-### `thiserror`：自定义错误 + 自动 `source`
+### `thiserror`：自动写好「父错误指针」
+
+不用手动 **`impl Error`** 里的 **`source()` match**，也不用重复写 Display 样板 — 在字段上加 **`#[source]`**，宏生成：**存底层错误 + `source()` 返回 `Some(&that_field)`**。
 
 ```rust
 use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum StrategyError {
+    #[error("加载策略数据失败")]
+    DataLoadError {
+        #[source]
+        io: std::io::Error, // 读行情 CSV 失败 — 父指针自动指向 io
+    },
     #[error("行情获取失败")]
     MarketFetch {
         #[source]
         source: std::io::Error,
     },
     #[error("策略 {0} 参数非法")]
-    BadParam(String),
+    BadParam(String), // 无 #[source] → source() 为 None
 }
 ```
 
-- **`#[source]`** 字段 → 生成的 **`source()`** 返回该底层错误。
+| 手写 | `thiserror` |
+|------|-------------|
+| 变体里存 `io: std::io::Error` | 同 — 字段保留 |
+| `impl Error { fn source() { Some(&io) } }` | **`#[source]`** 自动生成 |
+| `impl Display` | **`#[error("…")]`** 自动生成 |
+
 - 库 crate 公开 API 仍用 **enum + `thiserror`**（调用方可 `match` 分支）。
 
 ### `anyhow`：一条链打印 / 遍历
