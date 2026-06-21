@@ -87,6 +87,35 @@ fn login_trading() -> Result<(), StrategyError> {
 - **排障 / 日志**：对任意变体 **`e.source()`** → 同类型的 **`reqwest::Error`**，看具体超时/证书/HTTP 状态码。
 - **分层分工**：**底层**管「发生了什么技术问题」；**上层**管「这个问题在我的业务里意味着什么」。
 
+### 父节点优先指向官方 / 依赖错误
+
+在 **`source()` 链**里可以这么记：
+
+| 节点角色 | 谁 | HTTP 场景例子 |
+|----------|-----|----------------|
+| **上层节点** | 你的 **业务封装** | `StrategyError::FetchQuoteFailed`、`StrategyError::LoginFailed` — **两个不同上层节点**，各绑定一种业务场景 |
+| **父节点（`source()` 指向）** | **官方 / 第三方依赖** 的错误类型 | **`reqwest::Error`** — 行情拉取、登录失败**共用同一类**底层父错误 |
+
+```text
+  上层（两个并列的业务节点，不是父子关系）
+  FetchQuoteFailed          LoginFailed
+        │ source()                │ source()
+        └──────────┬──────────────┘
+                   ▼
+            reqwest::Error     ← 父节点：官方 HTTP 客户端错误
+                   │ source()  （还可继续 reqwest 自带的链，如 io 等）
+                   ▼
+                 …
+```
+
+**这样设计的好处**：
+
+1. **不重复处理底层** — 上层 **`source()` 只指向原始 `reqwest::Error`**，就能**复用** reqwest 已实现的 **`Display`、自有 `source()` 链、状态码等**；不必在每个业务变体里再解析一遍 HTTP/TCP。
+2. **同一底层，多种业务含义** — **`FetchQuoteFailed`** 与 **`LoginFailed`** 包的是**同类型**父错误，但 **Display / `match` 语义不同** — 给同一份技术失败赋予不同业务解释。
+3. **调用方只 match 上层** — 知道该切备用源还是重登，**不用**读底层是 DNS 还是握手超时；排障时再 **`source()`** 下钻即可。
+
+**`thiserror` 的 `#[from] reqwest::Error`**：自动把**父节点**设成变体里的 reqwest 字段，并生成 **`From`** — 上层节点与底层官方错误**一次绑定**。
+
 > 运行时：每次失败各包**各自**的一份 **`reqwest::Error` 实例**；「同一个底层」指的是**同一错误类型**，不是全局共享一个对象。每个上层变体的 **`source()`** 指向**本变体里 embedded 的那一份** reqwest 错误。
 
 ---
