@@ -174,16 +174,15 @@ pub trait Error: Display + Debug {
 
 | 概念 | 说明 |
 |------|------|
-| **上层错误** | 对外语义 — 「行情获取失败」「策略初始化失败」 |
-| **底层错误** | `source()` 指向的 **`dyn Error`** — 如 `io::Error`、网络超时 |
-| **链** | 每层再调 **`source()`**，直到 `None` — **单链表**（每节点一个父指针），不是多叉树、无环 |
+| **上层（包装）** | 你的 **`StrategyError`** 等 — 业务语义，给 `match` / 告警 |
+| **底层（根）** | **`source()` 指向的对象** — `reqwest::Error`、`io::Error` 等官方错误 |
+| **链** | 从**上层**反复 **`source()`** 直到 **`None`** — 单链表，方向**从上往下**挖根 |
 
 ```text
-调用方看到的 Display
-    「行情获取失败」
-           │ source()  （仅此一条边）
+StrategyError::FetchQuoteFailed   ← 上层 Display：「行情拉取失败」
+           │ source()
            ▼
-    reqwest / io 超时
+    reqwest::Error（连接超时）     ← 底层根错误
            │ source()
            ▼
          None
@@ -254,9 +253,9 @@ pub enum StrategyError {
         io: std::io::Error,
     },
 
-    // tuple 变体 + #[from]：? 自动 From，source 自动指向 reqwest 原始错误
-    #[error("行情网关网络错误")]
-    NetworkError(#[from] reqwest::Error),
+    // 上层包装 ← 底层 reqwest；? 自动 From + source 指根
+    #[error("行情拉取失败")]
+    FetchQuoteFailed(#[from] reqwest::Error),
 
     #[error("策略 {0} 参数非法")]
     BadParam(String), // 无底层 → source() = None
@@ -272,7 +271,7 @@ fn pull_quotes() -> Result<(), StrategyError> {
 
 1. 变体里**存** `reqwest::Error`；
 2. **`impl From<reqwest::Error> for StrategyError`** — `?` 能向上转；
-3. **`source()`** 在该变体上返回 **`Some(&reqwest_error)`**。
+3. **`source()`** 在**上层变体**上返回 **`Some(&reqwest_error)`** — 指针方向：**包装 → 根**。
 
 你只需维护**最顶层** `StrategyError` 的变体与文案；**父指针 + From** 由宏生成，不用手写一堆 `match source()`。
 
@@ -329,13 +328,15 @@ Demo：[Item 04 demo](../../01-ER/Chapter-01-Types/Item-04-idiomatic-error-types
 3. **库边界** — 对外仍 **`thiserror` enum**；应用层 `?` 进 **`anyhow`** 时再 losing 具体变体，换组合性。
 
 ```text
-CTP io::Error
-    → source() / context
-StrategyError::MarketFetch  （库，thiserror）
-    → ? 进 anyhow
-anyhow::Error  「run strategy」→ chain() 一次看完
-    ‖ 同型
-join panic → map_err → anyhow::Error
+主线程 / anyhow context（更外层，可选）
+    → source()
+StrategyError::FetchQuoteFailed   （上层，thiserror）
+    → source()
+reqwest::Error / io::Error        （底层，官方根错误）
+    → source()
+None
+    ‖ 可恢复路径用 Result + ?
+join panic → downcast → anyhow     （panic 路径，见 1.1.2.3）
 ```
 
 ---
