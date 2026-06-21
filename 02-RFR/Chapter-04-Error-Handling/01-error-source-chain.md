@@ -123,7 +123,13 @@ use thiserror::Error;
 #[derive(Debug, Error)]
 pub enum StrategyError {
     #[error("行情拉取失败")]
-    FetchQuoteFailed(#[from] reqwest::Error), // 上层变体；#[from] 自动 source → reqwest
+    FetchQuoteFailed(#[from] reqwest::Error),
+
+    #[error("交易接口登录失败")]
+    LoginFailed(#[from] reqwest::Error),
+
+    #[error("历史数据拉取失败")]
+    HistoryDataFailed(#[from] reqwest::Error),
 
     #[error("加载策略数据失败")]
     DataLoadError(#[from] std::io::Error),
@@ -135,16 +141,22 @@ fn worker_fetch() -> Result<(), StrategyError> {
     Ok(())
 }
 
-// 主线程：match 上层业务变体；source() 挖底层「连接超时」
+// 主线程：match 上层业务变体；source() 挖底层 reqwest 细节
 fn on_worker_err(e: &StrategyError) {
     match e {
         StrategyError::FetchQuoteFailed(_) => {
             alert("行情拉取失败，切备用源");
-            if let Some(root) = e.source() {
-                eprintln!("  根因: {root}"); // reqwest::Error
-            }
         }
-        _ => {}
+        StrategyError::LoginFailed(_) => {
+            alert("交易登录失败，触发重登");
+        }
+        StrategyError::HistoryDataFailed(_) => {
+            alert("历史数据失败，降级本地缓存");
+        }
+        StrategyError::DataLoadError(_) => { /* … */ }
+    }
+    if let Some(root) = e.source() {
+        eprintln!("  技术根因: {root}"); // 多为 reqwest::Error 或 io::Error
     }
 }
 ```
