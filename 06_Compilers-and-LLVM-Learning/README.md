@@ -71,7 +71,7 @@ LLVM 可与 RFR **第 2 章**（布局、分发）**并行**精读；**原子 / 
 ### 推荐总顺序（Rust 仓 + C++ 仓）
 
 ```text
-本仓库：00-Book → RFR → ER → Nomicon → 05(01-atomic → 02-async_tokio → 03-network)
+本仓库：00-Book → RFR → ER → StdLib → Nomicon → 05(01-atomic → 02-async_tokio → 03-network)
 姊妹仓：cpp-learning-notes 01～06（与 04 后期可并行，但须在 Learn LLVM 17 之前完成）
   ↓
 05：01 Crafting Interpreters → 03 自制编译器 → 04 Learn LLVM 17（Rust emit IR）
