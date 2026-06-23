@@ -27,7 +27,7 @@
 | **1** | 标准库体系概述（1.1～1.4） | [chapter01_std_overview/](./chapter01_std_overview/README.md) | ✅ 1.1～1.4 |
 | **2** | Rust 特征小议（2.1～2.4） | [chapter02_rust_features_summary/](./chapter02_rust_features_summary/README.md) | 📝 按书重构 |
 | **3** | **内存操作**（3.1～3.11） | [chapter03_memory_model/](./chapter03_memory_model/README.md) | 📝 按书重构 |
-| **4** | 基本类型及基本 Trait（4.1～…） | 📝 `chapter04_primitive_types/` | 规划 |
+| **4** | 基本类型及基本 Trait（4.1～4.3） | [chapter04_primitive_types/](./chapter04_primitive_types/README.md) | 📝 规划 |
 
 细目与页码 → **[本书目录.md](./本书目录.md)**（含 HFT 阅读提示、与 RFR/Nomicon/05-atomic 交叉链接）。
 

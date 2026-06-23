@@ -1,6 +1,6 @@
 # 第 3 章 · 内存操作
 
-> 所属：[03 DeepRustStdLib](../README.md) · 前：[第 2 章 Rust 特征小议](../chapter02_rust_features_summary/README.md) · 后：[第 4 章 基本类型（规划）](../本书目录.md#第-4-章--基本类型及基本-traitp48)
+> 所属：[03 DeepRustStdLib](../README.md) · 前：[第 2 章 Rust 特征小议](../chapter02_rust_features_summary/README.md) · 后：[第 4 章 基本类型](../chapter04_primitive_types/README.md)
 
 **本章定位**（原书第 3 章，见 [本书目录 § 第 3 章](../本书目录.md#第-3-章--内存操作p13)）：裸指针、`MaybeUninit`、`NonNull`、`Unique`、`mem`、堆分配、静态内存、`Drop` — **HFT 内存池与无锁结构的核心理论章**。
 
