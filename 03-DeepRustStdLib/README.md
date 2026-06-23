@@ -23,14 +23,15 @@
 
 | 章 | 主题 | 入口 |
 |:---:|------|------|
-| **1** | **Rust 标准库体系概述**（`core`/`alloc`/`std` · 模块地图 · 设计哲学 · 读源码） | [chapter01_std_overview/](./chapter01_std_overview/README.md) |
-| **2** | 容器：`Vec` / `String` / `HashMap`（规划） | — |
-| **3** | 智能指针：`Box` / `Rc` / `Arc` / `RefCell`（规划） | Book 15 · Nomicon 08 |
-| **4** | 并发原语：`thread` / `sync` / `atomic`（规划） | RFR Ch10 · 05-atomic |
-| **5** | I/O：`fs` / `net` / `Read` / `Write`（规划） | 05-rust_network |
-| **6** | 错误：`Error` / `From` / `Try`（规划） | RFR Ch04 · ER Item 04 |
+| **1** | Rust 标准库体系概述（`core`/`alloc`/`std` · 模块 · 哲学 · 读源码） | [chapter01_std_overview/](./chapter01_std_overview/README.md) |
+| **2** | **Rust 特性小结**（衔接 RFR ↔ `std`：trait / 生命周期 / Iterator / 错误 / 泛型） | [chapter02_rust_features_summary/](./chapter02_rust_features_summary/README.md) |
+| **3** | 容器：`Vec` / `String` / `HashMap`（规划） | Book 8 · RFR Ch02 |
+| **4** | 智能指针：`Box` / `Rc` / `Arc` / `RefCell`（规划） | Book 15 · Nomicon 08 |
+| **5** | 并发原语：`thread` / `sync` / `atomic`（规划） | RFR Ch10 · 05-atomic |
+| **6** | I/O：`fs` / `net` / `Read` / `Write`（规划） | 05-rust_network |
+| **7** | 错误专题：`Try` / `From` 深挖（规划） | RFR Ch04 · ER Item 04 |
 
-**当前进度**：第 **1** 章 **1.1～1.4** 已整理 → [chapter01_std_overview/](./chapter01_std_overview/README.md)
+**当前进度**：第 **1** 章 **1.1～1.4** · 第 **2** 章 **2.1～2.7** 已整理。
 
 ---
 

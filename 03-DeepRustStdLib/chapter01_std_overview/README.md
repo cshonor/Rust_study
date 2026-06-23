@@ -1,6 +1,6 @@
 # 第 1 章 · Rust 标准库体系概述
 
-> 所属：[03 DeepRustStdLib](../README.md) · 后：[第 2 章 容器与分配（规划）](../README.md#目录)
+> 所属：[03 DeepRustStdLib](../README.md) · 后：[第 2 章 Rust 特性小结](../chapter02_rust_features_summary/README.md)
 
 **本章目标**：在拆具体模块 / 读 `libstd` 源码之前，建立 **`core` → `alloc` → `std`** 分层、核心模块地图、设计哲学与读源码方法。
 
