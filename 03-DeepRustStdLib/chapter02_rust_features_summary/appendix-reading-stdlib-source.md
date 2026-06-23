@@ -1,6 +1,6 @@
-# 1.4 如何阅读标准库源码
+# 附录 · 如何阅读标准库源码
 
-> 章索引：[第 1 章](./README.md) · 前：[1.3 设计哲学](./1.3-design-philosophy.md)
+> 所属：[第 2 章](./README.md) · 前：[附录 · 设计哲学](./appendix-design-philosophy.md) · 后：[2.1 核心特性](./2.1-core-features-and-std.md)
 
 ---
 
@@ -43,7 +43,7 @@ library/std/src/lib.rs          ← std 入口：模块树、重导出、rt
 1. **文档 + 公开签名** — `docs.rs` 或 `lib.rs` 里 `pub mod` 的接口。
 2. **Safe 包装层** — 对外方法如何检查前置条件。
 3. **`unsafe` 实现** — 扩容、指针算术、`assume_init` — 对照 [Nomicon 05 Uninit](../../04-Rust-Nomicon/05_Uninit_Mem/README.md)。
-4. **跨 crate** — `core` 算法 vs `alloc` 分配 vs `std` OS 调用。
+4. **跨 crate** — `core` 算法 vs `alloc` 分配 vs `std` OS 调用（见 [第 1 章](../chapter01_std_overview/README.md)）。
 
 ---
 
@@ -51,7 +51,7 @@ library/std/src/lib.rs          ← std 入口：模块树、重导出、rt
 
 | 做法 | 说明 |
 |------|------|
-| **从入口到叶子** | 第 1 章建立地图（1.1～1.2）→ 后续章按 **Vec / sync / net** 各写一篇「接口 + 关键 unsafe」 |
+| **从入口到叶子** | 第 1 章建立三层地图（1.1～1.3）→ 第 2 章认语法 → 后续章按 **Vec / sync / net** 各写一篇「接口 + 关键 unsafe」 |
 | **盯住 `pub` 下的 `unsafe`** | 标准库安全叙事 = **少量 `unsafe` 块 + 大量 invariant 注释** |
 | **画调用链** | 例：`TcpStream::read` → `Read` trait → `sys` 模块 → `libc` |
 | **与 ER/RFR 交叉链接** | 笔记里回链到已学章节，避免重复讲所有权基础 |
@@ -72,6 +72,6 @@ library/std/src/lib.rs          ← std 入口：模块树、重导出、rt
 
 ## 相关
 
-- [1.1 三层定位](./1.1-stdlib-positioning.md)
-- [1.3 设计哲学](./1.3-design-philosophy.md)
+- [第 1 章 三层架构](../chapter01_std_overview/README.md)
+- [附录 · 设计哲学](./appendix-design-philosophy.md)
 - [Nomicon 08 实现 Vec](../../04-Rust-Nomicon/08_Impl_Vec_Arc/README.md)（手写对照官方实现）

@@ -1,6 +1,6 @@
 # 第 2 章 · Rust 特性小结
 
-> 所属：[03 DeepRustStdLib](../README.md) · 前：[第 1 章 体系概述](../chapter01_std_overview/README.md) · 后：[第 3 章 容器（规划）](../README.md#目录)
+> 所属：[03 DeepRustStdLib](../README.md) · 前：[第 1 章 三层架构](../chapter01_std_overview/README.md) · 后：[第 3 章 内存模型](../chapter03_memory_model/README.md)
 
 **本章定位**：衔接 **[RFR](../../02-RFR/RFR-本书目录.md) 内功** 与 **标准库实现** — 把所有权、trait、生命周期、闭包、模式匹配、错误、泛型从「语法点」串成 **读 `libstd` 时能认出的实现逻辑**，为后面智能指针、Unsafe 专题铺垫。
 
@@ -19,6 +19,19 @@
 | **2.7** | 泛型编程的标准库规范 | [2.7-generics-in-stdlib.md](./2.7-generics-in-stdlib.md) |
 
 **阅读顺序**：**2.1 → 2.2 → … → 2.7**（2.2～2.4 可对照 RFR 第 2 章反复跳读）
+
+---
+
+## 附录
+
+与「特性小结」配套、但不占 2.1～2.7 编号（原误放在第 1 章）：
+
+| 附录 | 主题 | 笔记 |
+|------|------|------|
+| — | 设计哲学：零成本抽象、内存安全、封装性 | [appendix-design-philosophy.md](./appendix-design-philosophy.md) |
+| — | 如何阅读标准库源码 | [appendix-reading-stdlib-source.md](./appendix-reading-stdlib-source.md) |
+
+建议：读完 [第 1 章 1.1～1.3](../chapter01_std_overview/README.md) 后，先扫附录再进 **2.1**。
 
 ---
 

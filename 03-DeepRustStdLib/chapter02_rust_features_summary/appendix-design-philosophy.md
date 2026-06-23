@@ -1,12 +1,12 @@
-# 1.3 标准库的设计哲学
+# 附录 · 标准库的设计哲学
 
-> 章索引：[第 1 章](./README.md) · 前：[1.2 模块概览](./1.2-core-modules-overview.md) · 后：[1.4 读源码](./1.4-reading-stdlib-source.md)
+> 所属：[第 2 章](./README.md) · 前：[第 1 章 三层架构](../chapter01_std_overview/README.md) · 后：[附录 · 读源码](./appendix-reading-stdlib-source.md)
 
 ---
 
 ## 一句话
 
-标准库不是「API 大全」，而是三条原则的产物：**零成本抽象**、**内存安全**、**封装性** — 与 [RFR](../../02-RFR/RFR-本书目录.md) 里的类型 / 所有权思想一脉相承。
+标准库不是「API 大全」，而是三条原则的产物：**零成本抽象**、**内存安全**、**封装性** — 与 [RFR](../../02-RFR/RFR-本书目录.md) 里的类型 / 所有权思想一脉相承。读第 2 章各节源码时，用这三条当透镜。
 
 ---
 
@@ -64,5 +64,6 @@
 
 ## 相关
 
-- [1.4 如何阅读标准库源码](./1.4-reading-stdlib-source.md)
+- [附录 · 如何阅读标准库源码](./appendix-reading-stdlib-source.md)
+- [2.7 泛型编程](./2.7-generics-in-stdlib.md)
 - [ER Item 01 表达数据结构](../../01-ER/Chapter-01-Types/Item-01-express-data-structures/README.md)
