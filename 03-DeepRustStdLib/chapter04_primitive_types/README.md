@@ -1,6 +1,6 @@
 # 第 4 章 · 基本类型及基本 Trait
 
-> 所属：[03 DeepRustStdLib](../README.md) · 前：[第 3 章 内存操作](../chapter03_memory_model/README.md) · 原书目录：[本书目录 § 第 4 章](../本书目录.md#第-4-章--基本类型及基本-trait)
+> 所属：[03 DeepRustStdLib](../README.md) · 前：[第 3 章 内存操作](../chapter03_memory_model/README.md) · 后：[第 5 章 迭代器](../chapter05_iterators/README.md) · 原书目录：[本书目录 § 第 4 章](../本书目录.md#第-4-章--基本类型及基本-trait)
 
 **本章定位**：`core` 内置函数、整数/浮点/`Option`/`Result`、以及 Marker / 算术 / `Try` / 范围 / 索引等 **基本 Trait** — 读容器与并发原语前的类型与运算符底座。
 
