@@ -8,6 +8,29 @@
 
 ---
 
+
+<!-- AUTO:SECTION-INDEX -->
+
+| 节 | 主题 | 笔记 |
+|:---:|------|------|
+| **4.1** | 固有函数库 | [笔记](./4.1-inherent-fns.md) |
+| **4.1.1** | 原子操作函数 | [笔记](./4.1.1-atomic-fns.md) |
+| **4.1.2** | 数学函数及位操作函数 | [笔记](./4.1.2-math-bit-fns.md) |
+| **4.1.3** | 指令预取优化函数、断言类函数及栈获取函数 | [笔记](./4.1.3-prefetch-assert-stack-fns.md) |
+| **4.2** | 基本类型分析 | [笔记](./4.2-basic-types.md) |
+| **4.2.1** | 整数类型 | [笔记](./4.2.1-integer-types.md) |
+| **4.2.2** | 浮点类型 | [笔记](./4.2.2-float-types.md) |
+| **4.2.3** | Option<T> 类型 | [笔记](./4.2.3-option-type.md) |
+| **4.2.4** | 引用类型 match 语法研究 | [笔记](./4.2.4-ref-match-syntax.md) |
+| **4.2.5** | Result<T, E> 类型 | [笔记](./4.2.5-result-type.md) |
+| **4.3** | 基本 Trait | [笔记](./4.3-basic-traits.md) |
+| **4.3.1** | 编译器内置 Marker Trait | [笔记](./4.3.1-marker-traits.md) |
+| **4.3.2** | 算术运算符 Trait | [笔记](./4.3.2-arithmetic-traits.md) |
+| **4.3.3** | `?` 运算符 Trait | [笔记](./4.3.3-try-trait.md) |
+| **4.3.4** | 范围运算符 Trait | [笔记](./4.3.4-range-traits.md) |
+| **4.3.5** | 索引运算符 Trait | [笔记](./4.3.5-index-traits.md) |
+
+<!-- /AUTO:SECTION-INDEX -->
 ## 子节索引
 
 ### 4.1 固有函数库

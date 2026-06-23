@@ -8,6 +8,25 @@
 
 ---
 
+
+<!-- AUTO:SECTION-INDEX -->
+
+| 节 | 主题 | 笔记 |
+|:---:|------|------|
+| **9.1** | Rust 与 C 语言交互 | [笔记](./9.1-rust-c-interop.md) |
+| **9.1.1** | C 语言的类型适配 | [笔记](./9.1.1-c-type-adaptation.md) |
+| **9.1.2** | C 语言的 va_list 类型适配 | [笔记](./9.1.2-c-va-list.md) |
+| **9.1.3** | C 语言字符串类型适配 | [笔记](./9.1.3-c-strings.md) |
+| **9.1.4** | OsString 代码分析 | [笔记](./9.1.4-osstring.md) |
+| **9.2** | 代码工程中的一个技巧 | [笔记](./9.2-engineering-trick.md) |
+| **9.3** | 内存管理之 STD 库 | [笔记](./9.3-std-memory-mgmt.md) |
+| **9.4** | 系统调用（SYSCALL）的封装 | [笔记](./9.4-syscall-wrapper.md) |
+| **9.5** | 文件描述符及句柄 | [笔记](./9.5-fd-and-handles.md) |
+| **9.5.1** | 文件描述符所有权设计 | [笔记](./9.5.1-fd-ownership.md) |
+| **9.5.2** | 文件逻辑操作适配层 | [笔记](./9.5.2-fd-logic-layer.md) |
+| **9.6** | 进程管理 | [笔记](./9.6-process-overview.md) |
+
+<!-- /AUTO:SECTION-INDEX -->
 ## 子节索引
 
 ### 9.1 Rust 与 C 语言交互

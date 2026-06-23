@@ -5,6 +5,8 @@
 
 在 **Effective Rust** 之后、**Nomicon** 之前，按原书章节啃 **标准库底层与内存操作** — 为 unsafe / HFT 内存池 / 并发专题打底。
 
+**笔记结构**：每章文件夹 + **每小节一个 `.md`**（README 仅为索引）；新建节默认为可填充模板，刷书 / 对照源码后迭代。
+
 ---
 
 ## 阅读定位
@@ -24,24 +26,24 @@
 
 | 章 | 原书主题 | 入口 | 进度 |
 |:---:|----------|------|------|
-| **1** | 标准库体系概述（1.1～1.4） | [chapter01_std_overview/](./chapter01_std_overview/README.md) | ✅ 1.1～1.4 |
-| **2** | Rust 特征小议（2.1～2.4） | [chapter02_rust_features_summary/](./chapter02_rust_features_summary/README.md) | 📝 按书重构 |
-| **3** | **内存操作**（3.1～3.11） | [chapter03_memory_model/](./chapter03_memory_model/README.md) | 📝 按书重构 |
-| **4** | 基本类型及基本 Trait（4.1～4.3） | [chapter04_primitive_types/](./chapter04_primitive_types/README.md) | 📝 规划 |
-| **5** | 迭代器（5.1～5.9） | [chapter05_iterators/](./chapter05_iterators/README.md) | 📝 规划 |
-| **6** | 基本类型（续）（6.1～6.5） | [chapter06_basic_types_continued/](./chapter06_basic_types_continued/README.md) | 📝 规划 |
-| **7** | 内部可变性类型（7.1～7.5） | [chapter07_interior_mutability/](./chapter07_interior_mutability/README.md) | 📝 规划 |
-| **8** | 智能指针（8.1～8.8） | [chapter08_smart_pointers/](./chapter08_smart_pointers/README.md) | 📝 规划 |
-| **9** | 用户态标准库基础（9.1～9.6） | [chapter09_userspace_std_basics/](./chapter09_userspace_std_basics/README.md) | 📝 规划 |
-| **10** | 进程管理（10.1～10.3） | [chapter10_process_management/](./chapter10_process_management/README.md) | 📝 规划 |
-| **11** | 并发编程（11.1～11.11） | [chapter11_concurrency/](./chapter11_concurrency/README.md) | 📝 规划 |
-| **12** | 文件系统（12.1～12.2） | [chapter12_filesystem/](./chapter12_filesystem/README.md) | 📝 规划 |
-| **13** | I/O 系统（13.1～13.3） | [chapter13_io/](./chapter13_io/README.md) | 📝 规划 |
-| **14** | 异步编程（14.1～14.2） | [chapter14_async/](./chapter14_async/README.md) | 📝 规划 |
+| **1** | 标准库体系概述（1.1～1.4） | [chapter01_std_overview/](./chapter01_std_overview/README.md) | ✅ 正文 |
+| **2** | Rust 特征小议（2.1～2.4） | [chapter02_rust_features_summary/](./chapter02_rust_features_summary/README.md) | 📄 骨架 |
+| **3** | **内存操作**（3.1～3.11） | [chapter03_memory_model/](./chapter03_memory_model/README.md) | 📄 骨架 |
+| **4** | 基本类型及基本 Trait（4.1～4.3） | [chapter04_primitive_types/](./chapter04_primitive_types/README.md) | 📄 骨架 |
+| **5** | 迭代器（5.1～5.9） | [chapter05_iterators/](./chapter05_iterators/README.md) | 📄 骨架 |
+| **6** | 基本类型（续）（6.1～6.5） | [chapter06_basic_types_continued/](./chapter06_basic_types_continued/README.md) | 📄 骨架 |
+| **7** | 内部可变性类型（7.1～7.5） | [chapter07_interior_mutability/](./chapter07_interior_mutability/README.md) | 📄 骨架 |
+| **8** | 智能指针（8.1～8.8） | [chapter08_smart_pointers/](./chapter08_smart_pointers/README.md) | 📄 骨架 |
+| **9** | 用户态标准库基础（9.1～9.6） | [chapter09_userspace_std_basics/](./chapter09_userspace_std_basics/README.md) | 📄 骨架 |
+| **10** | 进程管理（10.1～10.3） | [chapter10_process_management/](./chapter10_process_management/README.md) | 📄 骨架 |
+| **11** | 并发编程（11.1～11.11） | [chapter11_concurrency/](./chapter11_concurrency/README.md) | 📄 骨架 |
+| **12** | 文件系统（12.1～12.2） | [chapter12_filesystem/](./chapter12_filesystem/README.md) | 📄 骨架 |
+| **13** | I/O 系统（13.1～13.3） | [chapter13_io/](./chapter13_io/README.md) | 📄 骨架 |
+| **14** | 异步编程（14.1～14.2） | [chapter14_async/](./chapter14_async/README.md) | 📄 骨架 |
 
-细目（无页码、已剔除「回顾」小节）→ **[本书目录.md](./本书目录.md)**
+细目 → **[本书目录.md](./本书目录.md)** · 批量生成/更新骨架：`python scripts/scaffold-deep-stdlib-notes.py`
 
-**补充轨道**（非原书编号）：ch2 现有 `2.1～2.7` 与附录为 **RFR↔`std` 桥梁**；ch3 旧编号笔记中 **Mutex/RwLock → 第 11 章**、**Cell/RefCell → 第 7 章**。
+**补充轨道**（非原书编号）：ch2 `2.x` 桥梁笔记与附录；ch3 [_supplement/](./chapter03_memory_model/_supplement/README.md) 旧编号笔记。
 
 ---
 

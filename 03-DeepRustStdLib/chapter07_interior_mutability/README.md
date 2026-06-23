@@ -8,6 +8,23 @@
 
 ---
 
+
+<!-- AUTO:SECTION-INDEX -->
+
+| 节 | 主题 | 笔记 |
+|:---:|------|------|
+| **7.1** | Borrow / BorrowMut 分析 | [笔记](./7.1-borrow-borrowmut.md) |
+| **7.2** | Cell<T> 类型分析 | [笔记](./7.2-cell-overview.md) |
+| **7.2.1** | UnsafeCell<T> 分析 | [笔记](./7.2.1-unsafecell.md) |
+| **7.2.2** | Cell<T> 分析 | [笔记](./7.2.2-cell.md) |
+| **7.3** | RefCell<T> 类型分析 | [笔记](./7.3-refcell-overview.md) |
+| **7.3.1** | Borrow Trait 分析 | [笔记](./7.3.1-refcell-borrow-trait.md) |
+| **7.3.2** | BorrowMut Trait 分析 | [笔记](./7.3.2-refcell-borrowmut-trait.md) |
+| **7.3.3** | RefCell<T> 的其他函数 | [笔记](./7.3.3-refcell-other-fns.md) |
+| **7.4** | Pin<T> / Unpin<T> 类型分析 | [笔记](./7.4-pin-unpin.md) |
+| **7.5** | Lazy<T> 类型分析 | [笔记](./7.5-lazy.md) |
+
+<!-- /AUTO:SECTION-INDEX -->
 ## 子节索引
 
 ### 7.1 `Borrow` / `BorrowMut`

@@ -8,6 +8,27 @@
 
 ---
 
+
+<!-- AUTO:SECTION-INDEX -->
+
+| 节 | 主题 | 笔记 |
+|:---:|------|------|
+| **5.1** | 三种迭代器 | [笔记](./5.1-three-iterators.md) |
+| **5.2** | Iterator Trait 分析 | [笔记](./5.2-iterator-trait.md) |
+| **5.3** | Iterator 与其他集合类型转换 | [笔记](./5.3-iterator-collections.md) |
+| **5.4** | 范围类型迭代器 | [笔记](./5.4-range-iterators.md) |
+| **5.5** | 切片类型迭代器 | [笔记](./5.5-slice-iterators.md) |
+| **5.6** | 字符串类型迭代器 | [笔记](./5.6-string-iterators.md) |
+| **5.7** | 数组类型迭代器 | [笔记](./5.7-array-iterators.md) |
+| **5.7.1** | 成员本身迭代器 | [笔记](./5.7.1-array-by-value-iter.md) |
+| **5.7.2** | 成员引用迭代器 | [笔记](./5.7.2-array-by-ref-iter.md) |
+| **5.8** | Iterator 适配器 | [笔记](./5.8-iterator-adapters.md) |
+| **5.8.1** | Map 适配器 | [笔记](./5.8.1-map-adapter.md) |
+| **5.8.2** | Chain 适配器 | [笔记](./5.8.2-chain-adapter.md) |
+| **5.8.3** | 其他适配器 | [笔记](./5.8.3-other-adapters.md) |
+| **5.9** | Option<T> 适配器 | [笔记](./5.9-option-adapters.md) |
+
+<!-- /AUTO:SECTION-INDEX -->
 ## 子节索引
 
 | 节 | 主题 | 笔记 |

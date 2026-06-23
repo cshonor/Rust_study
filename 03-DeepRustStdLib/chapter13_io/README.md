@@ -8,6 +8,19 @@
 
 ---
 
+
+<!-- AUTO:SECTION-INDEX -->
+
+| 节 | 主题 | 笔记 |
+|:---:|------|------|
+| **13.1** | 标准输入 Stdin 类型分析 | [笔记](./13.1-stdin-overview.md) |
+| **13.1.1** | Read Trait | [笔记](./13.1.1-read-trait.md) |
+| **13.1.2** | 向量读/写类型分析 | [笔记](./13.1.2-vec-read-write.md) |
+| **13.1.3** | 对外接口层 | [笔记](./13.1.3-stdin-public-api.md) |
+| **13.2** | 标准输出 Stdout 类型分析 | [笔记](./13.2-stdout.md) |
+| **13.3** | 网络 I/O | [笔记](./13.3-network-io.md) |
+
+<!-- /AUTO:SECTION-INDEX -->
 ## 子节索引
 
 ### 13.1 标准输入 `Stdin`

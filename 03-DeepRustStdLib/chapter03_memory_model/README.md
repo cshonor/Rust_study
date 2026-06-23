@@ -2,49 +2,49 @@
 
 > 所属：[03 DeepRustStdLib](../README.md) · 前：[第 2 章 Rust 特征小议](../chapter02_rust_features_summary/README.md) · 后：[第 4 章 基本类型](../chapter04_primitive_types/README.md)
 
-**本章定位**（原书第 3 章，见 [本书目录 § 第 3 章](../本书目录.md#第-3-章--内存操作p13)）：裸指针、`MaybeUninit`、`NonNull`、`Unique`、`mem`、堆分配、静态内存、`Drop` — **HFT 内存池与无锁结构的核心理论章**。
+**本章定位**：裸指针、`MaybeUninit`、`NonNull`、`Unique`、`mem`、堆分配、静态内存、`Drop` — **HFT 内存池与无锁结构的核心理论章**。
 
-**目标阅读顺序**（原书）：**3.1 → 3.2 → … → 3.11**
-
-> ⚠️ 下方 **3.1～3.10 为旧版补充笔记**（UnsafeCell / Mutex 等 `std` 同步原语），主题与原书 3.1～3.11 **不同**；将迁往 `chapter03_std_sync_supplement/` 后，本目录按原书序号重写。
+**阅读顺序**：**3.1 → 3.2 → … → 3.11**
 
 ---
 
-## 子节索引（10 个一级小节）
+<!-- AUTO:SECTION-INDEX -->
 
 | 节 | 主题 | 笔记 |
 |:---:|------|------|
-| **3.1** | 内存布局与对齐 | [3.1-layout-and-alignment.md](./3.1-layout-and-alignment.md) |
-| **3.2** | 生命周期与借用检查 | [3.2-lifetimes-and-borrow-check.md](./3.2-lifetimes-and-borrow-check.md) |
-| **3.3** | `UnsafeCell` | [3.3-unsafecell.md](./3.3-unsafecell.md) |
-| **3.4** | `Cell` | [3.4-cell.md](./3.4-cell.md) |
-| **3.5** | `RefCell` | [3.5-refcell.md](./3.5-refcell.md) |
-| **3.6** | `Mutex` | [3.6-mutex.md](./3.6-mutex.md) |
-| **3.7** | `RwLock` | [3.7-rwlock.md](./3.7-rwlock.md) |
-| **3.8** | `PhantomData` | [3.8-phantomdata.md](./3.8-phantomdata.md) |
-| **3.9** | 内存泄漏与循环引用 | [3.9-leaks-and-cycles.md](./3.9-leaks-and-cycles.md) |
-| **3.10** | `MaybeUninit` | [3.10-maybeuninit.md](./3.10-maybeuninit.md) |
+| **3.1** | 裸指针——不安全的根源 | [3.1-raw-pointers.md](./3.1-raw-pointers.md) |
+| **3.1.1** | 裸指针具体实现 | [3.1.1-raw-pointer-impl.md](./3.1.1-raw-pointer-impl.md) |
+| **3.1.2** | 固有模块裸指针关联函数 | [3.1.2-raw-pointer-inherent-fns.md](./3.1.2-raw-pointer-inherent-fns.md) |
+| **3.1.3** | 裸指针操作 | [3.1.3-raw-pointer-ops.md](./3.1.3-raw-pointer-ops.md) |
+| **3.1.4** | 裸指针番外 | [3.1.4-raw-pointer-extra.md](./3.1.4-raw-pointer-extra.md) |
+| **3.2** | MaybeUninit\<T\>——未初始化变量方案 | [3.2-maybeuninit.md](./3.2-maybeuninit.md) |
+| **3.2.1** | MaybeUninit\<T\> 定义 | [3.2.1-maybeuninit-definition.md](./3.2.1-maybeuninit-definition.md) |
+| **3.2.2** | ManuallyDrop\<T\> 定义 | [3.2.2-manuallydrop-definition.md](./3.2.2-manuallydrop-definition.md) |
+| **3.2.3** | MaybeUninit\<T\> 构造函数 | [3.2.3-maybeuninit-constructors.md](./3.2.3-maybeuninit-constructors.md) |
+| **3.2.4** | MaybeUninit\<T\> 初始化函数 | [3.2.4-maybeuninit-init-fns.md](./3.2.4-maybeuninit-init-fns.md) |
+| **3.2.5** | MaybeUninit\<T\> 数组类型操作 | [3.2.5-maybeuninit-array.md](./3.2.5-maybeuninit-array.md) |
+| **3.2.6** | 典型案例 | [3.2.6-maybeuninit-cases.md](./3.2.6-maybeuninit-cases.md) |
+| **3.3** | 裸指针再论 | [3.3-raw-pointers-revisited.md](./3.3-raw-pointers-revisited.md) |
+| **3.4** | 非空裸指针——NonNull\<T\> | [3.4-nonnull.md](./3.4-nonnull.md) |
+| **3.4.1** | 构造关联函数 | [3.4.1-nonnull-constructors.md](./3.4.1-nonnull-constructors.md) |
+| **3.4.2** | 类型转换函数 | [3.4.2-nonnull-conversions.md](./3.4.2-nonnull-conversions.md) |
+| **3.4.3** | 其他函数 | [3.4.3-nonnull-other-fns.md](./3.4.3-nonnull-other-fns.md) |
+| **3.5** | 智能指针的基座——Unique\<T\> | [3.5-unique.md](./3.5-unique.md) |
+| **3.6** | mem 模块函数 | [3.6-mem-module.md](./3.6-mem-module.md) |
+| **3.6.1** | 构造泛型变量函数 | [3.6.1-mem-construct.md](./3.6.1-mem-construct.md) |
+| **3.6.2** | 泛型变量所有权转移函数 | [3.6.2-mem-ownership-transfer.md](./3.6.2-mem-ownership-transfer.md) |
+| **3.6.3** | 其他函数 | [3.6.3-mem-other-fns.md](./3.6.3-mem-other-fns.md) |
+| **3.7** | 动态内存申请及释放 | [3.7-heap-alloc.md](./3.7-heap-alloc.md) |
+| **3.7.1** | 内存布局 | [3.7.1-memory-layout.md](./3.7.1-memory-layout.md) |
+| **3.7.2** | 动态内存申请与释放接口 | [3.7.2-alloc-free-api.md](./3.7.2-alloc-free-api.md) |
+| **3.8** | 全局变量内存探讨 | [3.8-static-memory.md](./3.8-static-memory.md) |
+| **3.9** | drop 总结 | [3.9-drop-summary.md](./3.9-drop-summary.md) |
+| **3.10** | 所有权、生命周期、借用探讨 | [3.10-ownership-lifetimes-borrow.md](./3.10-ownership-lifetimes-borrow.md) |
+| **3.11** | 回顾 | [3.11-recap.md](./3.11-recap.md) |
 
----
+<!-- /AUTO:SECTION-INDEX -->
 
-## 类型关系速览
-
-```text
-编译期借用（& / &mut）
-        │
-        ▼
-3.3 UnsafeCell<T>  ← 所有「规则内可绕过 &T 不变」的根
-        │
-   ┌────┴────┐
-   ▼         ▼
-3.4 Cell   3.5 RefCell     （单线程内部可变）
-   │
-   └─ 3.6 Mutex / 3.7 RwLock  （+ 阻塞 + Send/Sync，跨线程）
-
-3.8 PhantomData  — 不参与布局，标记逻辑所有权/变型
-3.9 Rc 环 / leak — 与 3.5/3.6 对照
-3.10 MaybeUninit — 未初始化槽位；HFT 内存池关键
-```
+> 各节 `.md` 为**笔记本体**；旧版误编号笔记见 [_supplement/](./_supplement/README.md)。
 
 ---
 
@@ -52,11 +52,9 @@
 
 | 本章 | 本仓库延伸 |
 |------|------------|
-| 布局 / 对齐 | [RFR Ch02 layout](../../02-RFR/Chapter-02-Types/02-layout.md) · [Nomicon 02](../../04-Rust-Nomicon/02_Data_Layout/README.md) |
-| 借用 / 生命周期 | [RFR Ch01 · 08](../../02-RFR/Chapter-01-Foundations/08-lifetimes.md) · [Ch02 §2.3](../chapter02_rust_features_summary/2.3-lifetimes-in-stdlib.md) |
-| UnsafeCell / Cell | [RFR 07-2](../../02-RFR/Chapter-01-Foundations/07-2-unsafecell-and-containers.md) · [07-3 Cell vs RefCell](../../02-RFR/Chapter-01-Foundations/07-3-cell-vs-refcell.md) |
-| Mutex / RwLock | [05-atomic Ch1](../../05-Async-Concurrency-Network/01-atomic/Chapter-01-Rust-Concurrency-Basics/) · [RwLock 贯通笔记](../../05-Async-Concurrency-Network/01-atomic/RwLock与读写锁体系-贯通笔记.md) |
-| MaybeUninit | [Nomicon 05](../../04-Rust-Nomicon/05_Uninit_Mem/README.md) · [RFR Ch09 §03](../../02-RFR/Chapter-09-Unsafe-Code/03-calling-unsafe-functions.md) |
+| 裸指针 / unsafe | [RFR Ch09](../../02-RFR/Chapter-09-Unsafe-Code/README.md) · [Nomicon 01](../../04-Rust-Nomicon/01_Safe_Unsafe/README.md) |
+| MaybeUninit | [Nomicon 05](../../04-Rust-Nomicon/05_Uninit_Mem/README.md) · [_supplement/legacy-maybeuninit](./_supplement/legacy-maybeuninit.md) |
+| 堆分配 | [1.2 alloc 库](../chapter01_std_overview/1.2-alloc-crate.md) · [Nomicon 08](../../04-Rust-Nomicon/08_Impl_Vec_Arc/README.md) |
 
 ---
 
@@ -64,7 +62,6 @@
 
 | 节 | 实盘关联 |
 |----|----------|
-| **3.1** | 结构体 padding、缓存行、热路径字段顺序 |
-| **3.6/3.7** | 共享行情 / 订单簿的互斥 vs 读写锁选型 |
-| **3.9** | `Arc` 环导致泄漏；弱引用 `Weak` 破环 |
-| **3.10** | **预分配未初始化内存池**、ring buffer 槽位、避免重复 zero-init |
+| **3.2** | 预分配内存池、ring buffer 槽位、避免 zero-init |
+| **3.7** | 自定义分配器、对齐与缓存行 |
+| **3.9** | 手动 `drop`、避免双重释放 |

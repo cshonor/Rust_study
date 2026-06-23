@@ -8,6 +8,19 @@
 
 ---
 
+
+<!-- AUTO:SECTION-INDEX -->
+
+| 节 | 主题 | 笔记 |
+|:---:|------|------|
+| **14.1** | Rust 协程框架简析 | [笔记](./14.1-coroutine-framework.md) |
+| **14.1.1** | 协程概述 | [笔记](./14.1.1-coroutine-overview.md) |
+| **14.1.2** | Rust 的 I/O 多路复用 | [笔记](./14.1.2-io-multiplexing.md) |
+| **14.2** | Rust 协程支持类型简析 | [笔记](./14.2-coroutine-types.md) |
+| **14.2.1** | Rust 协程管理 | [笔记](./14.2.1-coroutine-management.md) |
+| **14.2.2** | Future Trait 分析 | [笔记](./14.2.2-future-trait.md) |
+
+<!-- /AUTO:SECTION-INDEX -->
 ## 子节索引
 
 ### 14.1 Rust 协程框架简析

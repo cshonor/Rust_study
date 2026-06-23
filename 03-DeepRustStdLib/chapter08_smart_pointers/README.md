@@ -8,6 +8,33 @@
 
 ---
 
+
+<!-- AUTO:SECTION-INDEX -->
+
+| 节 | 主题 | 笔记 |
+|:---:|------|------|
+| **8.1** | Box<T> 类型分析 | [笔记](./8.1-box.md) |
+| **8.2** | RawVec<T> 类型分析 | [笔记](./8.2-rawvec.md) |
+| **8.3** | Vec<T> 类型分析 | [笔记](./8.3-vec-overview.md) |
+| **8.3.1** | Vec<T> 基础分析 | [笔记](./8.3.1-vec-basics.md) |
+| **8.3.2** | Vec<T> 的 Iterator Trait | [笔记](./8.3.2-vec-iterator.md) |
+| **8.4** | Rc<T> 类型分析 | [笔记](./8.4-rc-overview.md) |
+| **8.4.1** | Rc<T> 类型的构造函数及析构函数 | [笔记](./8.4.1-rc-ctor-dtor.md) |
+| **8.4.2** | Weak<T> 类型分析 | [笔记](./8.4.2-rc-weak.md) |
+| **8.4.3** | Rc<T> 的其他函数 | [笔记](./8.4.3-rc-other-fns.md) |
+| **8.5** | Arc<T> 类型分析 | [笔记](./8.5-arc-overview.md) |
+| **8.5.1** | Arc<T> 类型的构造函数及析构函数 | [笔记](./8.5.1-arc-ctor-dtor.md) |
+| **8.5.2** | Weak<T> 类型分析 | [笔记](./8.5.2-arc-weak.md) |
+| **8.5.3** | Arc<T> 的其他函数 | [笔记](./8.5.3-arc-other-fns.md) |
+| **8.6** | Cow<'a, T> 类型分析 | [笔记](./8.6-cow-overview.md) |
+| **8.6.1** | ToOwned Trait 分析 | [笔记](./8.6.1-toowned-trait.md) |
+| **8.6.2** | Cow<'a, T> 分析 | [笔记](./8.6.2-cow.md) |
+| **8.7** | LinkedList<T> 类型分析 | [笔记](./8.7-linkedlist.md) |
+| **8.8** | String 类型分析 | [笔记](./8.8-string-overview.md) |
+| **8.8.1** | 初识 String 类型分析 | [笔记](./8.8.1-string-basics.md) |
+| **8.8.2** | 格式化字符串分析 | [笔记](./8.8.2-format-string.md) |
+
+<!-- /AUTO:SECTION-INDEX -->
 ## 子节索引
 
 | 节 | 主题 | 笔记 |
