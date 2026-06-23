@@ -50,7 +50,7 @@ where
 
 优势：`'a` 在**每次调用 `f` 时**才推导，闭包兼容所有合法 `&str` — 回调 API 标准写法。
 
-→ 理论背景：[Ch01 · 08 生命周期 §方差](../Chapter-01-Foundations/08-lifetimes.md) · Nomicon [03 型变](../../03-Rust_Nomicon/03_Lifetime_Variance/03-lifetimes.md)
+→ 理论背景：[Ch01 · 08 生命周期 §方差](../Chapter-01-Foundations/08-lifetimes.md) · Nomicon [03 型变](../../04-Rust-Nomicon/03_Lifetime_Variance/03-lifetimes.md)
 
 ---
 

@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ASYNC = "04-Async-Concurrency-Network"
+ASYNC = "05-Async-Concurrency-Network"
 EXTS = {".md", ".py", ".rs", ".toml", ".gitignore", ".ps1"}
 SKIP = {".git", "target", ".cursor"}
 

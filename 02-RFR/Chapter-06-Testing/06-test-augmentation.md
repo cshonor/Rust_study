@@ -19,6 +19,6 @@
 
 与 [RFR 第 10 章](../Chapter-10-Concurrency-and-Parallelism/10-并发与并行-Concurrency-and-Parallelism-深度解析.md) 衔接。
 
-## 05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17
+## 06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17
 
-排错时可对照 IR / 优化是否改变测试假设 → [05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/README.md)
+排错时可对照 IR / 优化是否改变测试假设 → [06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17](../../06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/README.md)

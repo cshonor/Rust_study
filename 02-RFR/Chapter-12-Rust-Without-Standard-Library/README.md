@@ -22,7 +22,7 @@
 | 主题 | 本仓库 |
 |------|--------|
 | no_std | [ER Item 33](../../01-ER/Chapter-06-Beyond-Standard-Rust/Item-33-no-std/README.md) · [demo](../../01-ER/Chapter-06-Beyond-Standard-Rust/Item-33-no-std/demo/) |
-| Nomicon | [03-Rust_Nomicon](../../03-Rust_Nomicon/README.md) |
+| Nomicon | [04-Rust-Nomicon](../../04-Rust-Nomicon/README.md) |
 
 ## 旧版单文件
 

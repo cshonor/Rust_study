@@ -38,7 +38,7 @@ use std::cell::RefCell;
 // Arc::new(RefCell::new(0)); // RefCell 非 Sync
 ```
 
-→ 并发：[RFR 第 10 章](../Chapter-10-Concurrency-and-Parallelism/README.md) · Nomicon [07 Send/Sync](../../03-Rust_Nomicon/07_Concurrency_Atomic/02-send-sync.md)
+→ 并发：[RFR 第 10 章](../Chapter-10-Concurrency-and-Parallelism/README.md) · Nomicon [07 Send/Sync](../../04-Rust-Nomicon/07_Concurrency_Atomic/02-send-sync.md)
 
 ---
 

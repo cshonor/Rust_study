@@ -6,7 +6,7 @@
 
 前置 → [05 §三 Layout 契约](./05-what-can-go-wrong.md) · [Ch02 §02 Layout](../Chapter-02-Types/02-layout.md)
 
-> Book [19.3 高级类型](../../00-Book/19-advanced-features/19.3-高级类型.md) · Nomicon [repr 系列](../../03-Rust_Nomicon/README.md) · Miri strict provenance
+> Book [19.3 高级类型](../../00-Book/19-advanced-features/19.3-高级类型.md) · Nomicon [repr 系列](../../04-Rust-Nomicon/README.md) · Miri strict provenance
 
 ---
 

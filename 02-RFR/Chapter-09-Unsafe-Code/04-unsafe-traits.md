@@ -6,7 +6,7 @@
 
 前置 → [01 unsafe 五类超能力](./01-unsafe-keyword.md) · 标记 trait 速览 [Ch02 §09.3 Send/Sync](../Chapter-02-Types/09-3-send-sync-unpin.md)
 
-> 对标：Book [19.1](../../00-Book/19-advanced-features/19.1-不安全Rust.md) · Nomicon [07 Send/Sync](../../03-Rust_Nomicon/07_Concurrency_Atomic/02-send-sync.md) · ER [Item 16](../../01-ER/Chapter-03-Concepts/Item-16-avoid-unsafe/README.md) · Async [Pin](../Chapter-08-Asynchronous-Programming/06-pin-unpin.md)
+> 对标：Book [19.1](../../00-Book/19-advanced-features/19.1-不安全Rust.md) · Nomicon [07 Send/Sync](../../04-Rust-Nomicon/07_Concurrency_Atomic/02-send-sync.md) · ER [Item 16](../../01-ER/Chapter-03-Concepts/Item-16-avoid-unsafe/README.md) · Async [Pin](../Chapter-08-Asynchronous-Programming/06-pin-unpin.md)
 
 ---
 
@@ -168,7 +168,7 @@ pub auto trait Unpin {} // 无 unsafe 修饰
 
 - Ch02 → [09.4 自动推导与 unsafe impl](../Chapter-02-Types/09-4-unsafe-impl.md)
 - Book → [16.4 Send/Sync](../../00-Book/16-fearless-concurrency/16.4-Send与Sync.md) · [19.1 unsafe](../../00-Book/19-advanced-features/19.1-不安全Rust.md)
-- Nomicon → [07 Send & Sync](../../03-Rust_Nomicon/07_Concurrency_Atomic/02-send-sync.md)
+- Nomicon → [07 Send & Sync](../../04-Rust-Nomicon/07_Concurrency_Atomic/02-send-sync.md)
 - ER → [Item 16 避免 unsafe](../../01-ER/Chapter-03-Concepts/Item-16-avoid-unsafe/README.md)
 
 ---

@@ -18,7 +18,7 @@
 |------|------|
 | 纯阅读三书 | [`docs/纯阅读路线.md`](../../docs/纯阅读路线.md) |
 | ER 35 Item | [`01-ER/ER-本书目录.md`](../../01-ER/ER-本书目录.md) |
-| Nomicon | [`03-Rust_Nomicon/README.md`](../../03-Rust_Nomicon/README.md) |
+| Nomicon | [`04-Rust-Nomicon/README.md`](../../04-Rust-Nomicon/README.md) |
 
 ## 索引
 

@@ -20,7 +20,7 @@ CPP_PREREQ_05 = """---
 | **02** | [`02-Effective-C++`](https://github.com/cshonor/cpp-learning-notes/tree/main/02-Effective-C%2B%2B) | Effective C++ | 资源管理、三/五/零法则 → 理解 IR 里的 ctor/dtor |
 | **03** | [`03-More-Effective-C++`](https://github.com/cshonor/cpp-learning-notes/tree/main/03-More-Effective-C%2B%2B) | More Effective C++ | 进阶惯用法 |
 | **04** | [`04-Effective-Modern-C++`](https://github.com/cshonor/cpp-learning-notes/tree/main/04-Effective-Modern-C%2B%2B) | Effective Modern C++ | **移动、lambda、类型推导** — LLVM 代码风格 |
-| **05** | [`05-Effective-STL`](https://github.com/cshonor/cpp-learning-notes/tree/main/05-Effective-STL) | Effective STL | 容器/迭代器 — 对照 LLVM ADT 与 Pass 遍历 |
+| **06** | [`05-Effective-STL`](https://github.com/cshonor/cpp-learning-notes/tree/main/05-Effective-STL) | Effective STL | 容器/迭代器 — 对照 LLVM ADT 与 Pass 遍历 |
 | **06** | [`06-STL-Source-Analysis`](https://github.com/cshonor/cpp-learning-notes/tree/main/06-STL-Source-Analysis) | STL 源码剖析 |  vector/list/算法实现 — 读 IR 与优化直觉 |
 
 **`07`～`09` 不挡 LLVM 入门**（对象模型、并发、C++20），可与 Rust **`04`** 并行；见 [04_Learn-LLVM-17 学习取舍](./04_Learn-LLVM-17/Learn-LLVM-17-学习取舍.md)。
@@ -28,7 +28,7 @@ CPP_PREREQ_05 = """---
 ### 推荐总顺序（Rust 仓 + C++ 仓）
 
 ```text
-本仓库：00-Book → RFR → ER → Nomicon → 04(01-atomic → 02-async_tokio → 03-network)
+本仓库：00-Book → RFR → ER → Nomicon → 05(01-atomic → 02-async_tokio → 03-network)
 姊妹仓：cpp-learning-notes 01～06（与 04 后期可并行，但须在 Learn LLVM 17 之前完成）
   ↓
 05：01 Crafting Interpreters → 03 自制编译器 → 04 Learn LLVM 17（Rust emit IR）
@@ -39,7 +39,7 @@ CPP_PREREQ_05 = """---
 """
 
 # Replace old optional sister section in 05 README
-readme05 = ROOT / "05_Compilers-and-LLVM-Learning/README.md"
+readme05 = ROOT / "06_Compilers-and-LLVM-Learning/README.md"
 t = readme05.read_text(encoding="utf-8")
 marker = "## 姊妹仓库 · C++ 对照（可选）"
 if marker in t:
@@ -53,32 +53,32 @@ print("patched", readme05.relative_to(ROOT))
 root = ROOT / "README.md"
 rt = root.read_text(encoding="utf-8")
 old_block = """```text
-④ atomic → async_tokio → rust_network  →  ⑤ Compilers / Learn LLVM 17（IR 对照）
+⑤ atomic → async_tokio → rust_network  →  ⑤ Compilers / Learn LLVM 17（IR 对照）
 ```
 
 | 顺序 | 专题 | 入口 |
 |:---:|------|------|
-| **4** | 并发 / 异步 / 网络 | [`04-Async-Concurrency-Network/README.md`](04-Async-Concurrency-Network/README.md) |
-| **5** | 编译器 / LLVM | [`05_Compilers-and-LLVM-Learning/README.md`](05_Compilers-and-LLVM-Learning/README.md) |"""
+| **5** | 并发 / 异步 / 网络 | [`05-Async-Concurrency-Network/README.md`](05-Async-Concurrency-Network/README.md) |
+| **5** | 编译器 / LLVM | [`06_Compilers-and-LLVM-Learning/README.md`](06_Compilers-and-LLVM-Learning/README.md) |"""
 new_block = """```text
-④ atomic → async_tokio → rust_network
-⑤a C++ 前置：姊妹仓 cpp-learning-notes 01～06（开 LLVM 前必修，见 05 README）
-⑤b Compilers / Learn LLVM 17（Rust 导出 IR 对照）
+⑤ atomic → async_tokio → rust_network
+⑥a C++ 前置：姊妹仓 cpp-learning-notes 01～06（开 LLVM 前必修，见 05 README）
+⑥b Compilers / Learn LLVM 17（Rust 导出 IR 对照）
 ```
 
 | 顺序 | 专题 | 入口 |
 |:---:|------|------|
-| **4** | 并发 / 异步 / 网络 | [`04-Async-Concurrency-Network/README.md`](04-Async-Concurrency-Network/README.md) |
-| **5a** | **C++ 前置**（外部） | [cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) **`01`～`06`** → 再开 LLVM |
-| **5b** | 编译器 / LLVM | [`05_Compilers-and-LLVM-Learning/README.md`](05_Compilers-and-LLVM-Learning/README.md) |"""
+| **5** | 并发 / 异步 / 网络 | [`05-Async-Concurrency-Network/README.md`](05-Async-Concurrency-Network/README.md) |
+| **6a** | **C++ 前置**（外部） | [cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) **`01`～`06`** → 再开 LLVM |
+| **6b** | 编译器 / LLVM | [`06_Compilers-and-LLVM-Learning/README.md`](06_Compilers-and-LLVM-Learning/README.md) |"""
 if old_block in rt:
     rt = rt.replace(old_block, new_block)
     root.write_text(rt, encoding="utf-8", newline="\n")
     print("patched", root.relative_to(ROOT))
 
 # Sister repo table in root
-old_sister = """| [cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) | C++ | Primer → Effective → 对象模型 → 并发 → C++20；与本书 **04 / 05** 可对照读（见 [`05_Compilers-and-LLVM-Learning/README.md`](05_Compilers-and-LLVM-Learning/README.md)） |"""
-new_sister = """| [cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) | C++ | **`01`～`06` 为 Learn LLVM 前置（必修）**；`07`～`09` 与 Rust **04 / 05** 并行；详见 [`05/README`](05_Compilers-and-LLVM-Learning/README.md) |"""
+old_sister = """| [cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) | C++ | Primer → Effective → 对象模型 → 并发 → C++20；与本书 **04 / 05** 可对照读（见 [`06_Compilers-and-LLVM-Learning/README.md`](06_Compilers-and-LLVM-Learning/README.md)） |"""
+new_sister = """| [cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) | C++ | **`01`～`06` 为 Learn LLVM 前置（必修）**；`07`～`09` 与 Rust **05 / 06** 并行；详见 [`06/README`](06_Compilers-and-LLVM-Learning/README.md) |"""
 if old_sister in rt:
     rt = rt.replace(old_sister, new_sister)
     root.write_text(rt, encoding="utf-8", newline="\n")
@@ -88,19 +88,19 @@ route = ROOT / "docs/纯阅读路线.md"
 rr = route.read_text(encoding="utf-8")
 rr = rr.replace(
     "⑤ Compilers / Learn LLVM 17（IR 对照，按需）",
-    "⑤a C++ 前置 cpp-learning-notes 01～06（必修）\n      ↓\n⑤b Compilers / Learn LLVM 17（IR 对照）",
+    "⑥a C++ 前置 cpp-learning-notes 01～06（必修）\n      ↓\n⑥b Compilers / Learn LLVM 17（IR 对照）",
 )
 rr = rr.replace(
-    "| **5** | **Learn LLVM 17** | [`05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/`](../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/README.md) | 用 ④ 的代码反查 IR / 优化 |",
-    "| **5a** | **C++ 前置**（外部） | [cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) **`01`～`06`** | LLVM 用 C++ 设计；开 LLVM 前读完 Primer → Effective 系列 → Modern → STL → STL 源码剖析 |\n| **5b** | **Learn LLVM 17** | [`05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/`](../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/README.md) | 用 ④ 的 Rust 代码反查 IR / 优化（不必写 C++ Pass） |",
+    "| **5** | **Learn LLVM 17** | [`06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/`](../06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/README.md) | 用 ④ 的代码反查 IR / 优化 |",
+    "| **6a** | **C++ 前置**（外部） | [cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) **`01`～`06`** | LLVM 用 C++ 设计；开 LLVM 前读完 Primer → Effective 系列 → Modern → STL → STL 源码剖析 |\n| **6b** | **Learn LLVM 17** | [`06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/`](../06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/README.md) | 用 ⑤ 的 Rust 代码反查 IR / 优化（不必写 C++ Pass） |",
 )
 rr = rr.replace(
-    "3. **05 LLVM 在 04 之后**：有真实并发/async/网络代码再导出 IR，比空读 LLVM 书高效。",
-    "3. **05 LLVM 在 04 之后**：有真实并发/async/网络代码再导出 IR，比空读 LLVM 书高效。\n4. **C++ 01～06 在 Learn LLVM 17 之前（必修）**：LLVM 与教材默认 C++ 读者；姊妹仓 [cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) 的 `01`～`06` 见 [`05/README`](../05_Compilers-and-LLVM-Learning/README.md)。",
+    "3. **06 LLVM 在 04 之后**：有真实并发/async/网络代码再导出 IR，比空读 LLVM 书高效。",
+    "3. **06 LLVM 在 04 之后**：有真实并发/async/网络代码再导出 IR，比空读 LLVM 书高效。\n4. **C++ 01～06 在 Learn LLVM 17 之前（必修）**：LLVM 与教材默认 C++ 读者；姊妹仓 [cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) 的 `01`～`06` 见 [`06/README`](../06_Compilers-and-LLVM-Learning/README.md)。",
 )
 rr = rr.replace(
-    "RFR → ER → Nomicon → 04(01→02→03) → 05(LLVM/IR)",
-    "RFR → ER → Nomicon → 04(01→02→03) → C++(cpp 01→06) → 05(LLVM/IR)",
+    "RFR → ER → Nomicon → 05(01→02→03) → 06(LLVM/IR)",
+    "RFR → ER → Nomicon → 05(01→02→03) → C++(cpp 01→06) → 06(LLVM/IR)",
 )
 route.write_text(rr, encoding="utf-8", newline="\n")
 print("patched", route.relative_to(ROOT))

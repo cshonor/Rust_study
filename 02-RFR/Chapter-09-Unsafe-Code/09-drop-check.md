@@ -6,7 +6,7 @@
 
 前置 → [07 Panic 与不变式](./07-panics.md) · [06 Validity](./06-validity.md) · [Ch01 §04.4 Drop 顺序](../Chapter-01-Foundations/04-4-drop-order.md)
 
-> Nomicon [05 Drop Check](../../03-Rust_Nomicon/03_Lifetime_Variance/05-drop-check.md) · Book [15.3 Drop](../../00-Book/15-smart-pointers/15.3-使用Drop运行清理代码.md) · Pin [Ch08](../Chapter-08-Asynchronous-Programming/06-pin-unpin.md)
+> Nomicon [05 Drop Check](../../04-Rust-Nomicon/03_Lifetime_Variance/05-drop-check.md) · Book [15.3 Drop](../../00-Book/15-smart-pointers/15.3-使用Drop运行清理代码.md) · Pin [Ch08](../Chapter-08-Asynchronous-Programming/06-pin-unpin.md)
 
 ---
 
@@ -77,7 +77,7 @@ fn bad() {
 
 裸指针场景常配 **`PhantomData`**，避免编译器误判型变/dropck。
 
-→ [Nomicon 06 PhantomData](../../03-Rust_Nomicon/03_Lifetime_Variance/06-phantom-data.md)
+→ [Nomicon 06 PhantomData](../../04-Rust-Nomicon/03_Lifetime_Variance/06-phantom-data.md)
 
 ---
 

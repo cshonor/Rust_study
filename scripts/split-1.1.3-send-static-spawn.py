@@ -3,7 +3,7 @@
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DIR = ROOT / "04-Async-Concurrency-Network/01-atomic/Chapter-01-Rust-Concurrency-Basics/1.1-threads-in-rust"
+DIR = ROOT / "05-Async-Concurrency-Network/01-atomic/Chapter-01-Rust-Concurrency-Basics/1.1-threads-in-rust"
 SRC = DIR / "1.1.3-send-static-spawn.md"
 
 # line numbers 1-based inclusive

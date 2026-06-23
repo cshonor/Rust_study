@@ -16,6 +16,6 @@
 
 ## 与第 7 章优化
 
-基准数字需结合 [05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch07](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter07_ir_optimize/README.md) 理解编译器做了什么。
+基准数字需结合 [06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch07](../../06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter07_ir_optimize/README.md) 理解编译器做了什么。
 
 ER → [Item 20 避免过度优化](../../01-ER/Chapter-03-Concepts/Item-20-avoid-over-optimize/README.md)

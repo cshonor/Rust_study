@@ -92,7 +92,7 @@ for i in 0..arr.len() {
 | `str::from_utf8_unchecked` | UTF-8 有效性（须已验证） |
 | `Vec::set_len` | 长度与已初始化元素一致性 |
 
-**TOCTOU 陷阱**：多线程或检查后、使用前长度被改 → `get_unchecked` 仍可能 UB → Nomicon [07 数据竞争](../../03-Rust_Nomicon/07_Concurrency_Atomic/01-data-races.md)
+**TOCTOU 陷阱**：多线程或检查后、使用前长度被改 → `get_unchecked` 仍可能 UB → Nomicon [07 数据竞争](../../04-Rust-Nomicon/07_Concurrency_Atomic/01-data-races.md)
 
 ---
 
@@ -137,7 +137,7 @@ assert_eq!(val, 100);
 | Drop `MaybeUninit` | **不会** drop 内部（可能无合法值） |
 | 勿用 `mem::uninitialized` | 已废弃；新代码**永远**用 `MaybeUninit` |
 
-→ Nomicon [05 未初始化内存](../../03-Rust_Nomicon/05_Uninit_Mem/README.md) · [03-unchecked](../../03-Rust_Nomicon/05_Uninit_Mem/03-unchecked.md) · validity [06](./06-validity.md)
+→ Nomicon [05 未初始化内存](../../04-Rust-Nomicon/05_Uninit_Mem/README.md) · [03-unchecked](../../04-Rust-Nomicon/05_Uninit_Mem/03-unchecked.md) · validity [06](./06-validity.md)
 
 ---
 

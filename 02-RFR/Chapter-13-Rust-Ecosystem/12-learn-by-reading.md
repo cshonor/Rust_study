@@ -4,7 +4,7 @@
 
 | 材料 | 侧重 |
 |------|------|
-| **The Rustonomicon** | unsafe、布局、型变 → [`03-Rust_Nomicon`](../../03-Rust_Nomicon/README.md) |
+| **The Rustonomicon** | unsafe、布局、型变 → [`04-Rust-Nomicon`](../../04-Rust-Nomicon/README.md) |
 | **Effective Rust** | 35 条习惯 → [`01-ER`](../../01-ER/ER-本书目录.md) |
 | **rustc dev guide** | 编译器内部 |
 | **Too Many Linked Lists** | 所有权直觉（经典博客书） |

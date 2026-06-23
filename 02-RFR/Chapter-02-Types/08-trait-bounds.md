@@ -41,4 +41,4 @@ for<'a> ...               →  HRTB，回调 API 标配
 ## 延伸阅读
 
 - 分发模型 → [05 hub](./05-compilation-dispatch.md)
-- Nomicon HRTB → [03 型变](../../03-Rust_Nomicon/03_Lifetime_Variance/03-lifetimes.md)
+- Nomicon HRTB → [03 型变](../../04-Rust-Nomicon/03_Lifetime_Variance/03-lifetimes.md)

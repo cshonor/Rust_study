@@ -18,7 +18,7 @@
 | 层 | 场景 | 笔记 |
 |----|------|------|
 | **包装层** | `Result` + `?`、`thiserror`、`source()` | [01 错误链](./01-error-source-chain.md) |
-| **容器层** | 子线程 panic → `join` → `Box<dyn Any>` / downcast | [1.1.2.3](../../04-Async-Concurrency-Network/01-atomic/Chapter-01-Rust-Concurrency-Basics/1.1-threads-in-rust/1.1.2.3-panic-box-dyn-any.md) |
+| **容器层** | 子线程 panic → `join` → `Box<dyn Any>` / downcast | [1.1.2.3](../../05-Async-Concurrency-Network/01-atomic/Chapter-01-Rust-Concurrency-Basics/1.1-threads-in-rust/1.1.2.3-panic-box-dyn-any.md) |
 
 传播小节亦指向 1.1.2.3 → [04 传播错误](./04-propagating-errors.md)。
 

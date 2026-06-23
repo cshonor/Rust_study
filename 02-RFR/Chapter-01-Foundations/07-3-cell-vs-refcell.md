@@ -44,7 +44,7 @@ RefCell 内部 unsafe { *UnsafeCell::get_mut(...) }
 同时 borrow_flag 保证：此刻没有其它活跃 Ref/RefMut
 ```
 
-→ 详述 [07.2](./07-2-unsafecell-and-containers.md) · Nomicon [五种 unsafe 能力](../../03-Rust_Nomicon/01_Safe_Unsafe/03-five-powers.md)
+→ 详述 [07.2](./07-2-unsafecell-and-containers.md) · Nomicon [五种 unsafe 能力](../../04-Rust-Nomicon/01_Safe_Unsafe/03-five-powers.md)
 
 ---
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One-time path update after Book/ER/RFR/Rust_Nomicon → 00-Book/01-ER/02-RFR/03-Rust_Nomicon."""
+"""One-time path update after Book/ER/RFR/Rust_Nomicon → 00-Book/01-ER/02-RFR/04-Rust-Nomicon."""
 from __future__ import annotations
 
 import re
@@ -9,9 +9,9 @@ ROOT = Path(__file__).resolve().parent.parent
 
 # Order: longest / most specific first; do not re-run after migration.
 REPLACEMENTS = [
-    ("Rust_Nomicon/", "03-Rust_Nomicon/"),
-    ("Rust_Nomicon\\", "03-Rust_Nomicon\\"),
-    ("Rust_Nomicon`", "03-Rust_Nomicon`"),
+    ("Rust_Nomicon/", "04-Rust-Nomicon/"),
+    ("Rust_Nomicon\\", "04-Rust-Nomicon\\"),
+    ("Rust_Nomicon`", "04-Rust-Nomicon`"),
     ("Book/", "00-Book/"),
     ("Book\\", "00-Book\\"),
     ("RFR/", "02-RFR/"),

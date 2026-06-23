@@ -121,7 +121,7 @@ fn push_with_guard(vec: &mut Vec<u32>, value: u32) {
 | 2 | 在 `MaybeUninit` 上 `write` 构造；中途 panic 不污染已提交 `len` |
 | 3 | **全部成功**后一次 `set_len` |
 
-→ [03 MaybeUninit](./03-calling-unsafe-functions.md) · Nomicon [05 Uninit](../../03-Rust_Nomicon/05_Uninit_Mem/README.md)
+→ [03 MaybeUninit](./03-calling-unsafe-functions.md) · Nomicon [05 Uninit](../../04-Rust-Nomicon/05_Uninit_Mem/README.md)
 
 ### 3. 缩小不一致窗口
 

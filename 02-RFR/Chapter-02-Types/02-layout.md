@@ -263,7 +263,7 @@ fn main() {
 | **[`memoffset`](https://docs.rs/memoffset)** crate | 旧 Rust 无内置 `offset_of!` 时的替代 |
 | **`rust-layout`** 等 CLI | 终端打印字段树 + padding 区间（需单独 `cargo install`，版本依 crate 而定） |
 | **GDB / LLDB / VS Code 调试器** | 查看变量地址与内存窗口 |
-| **`readelf` / `objdump` / LLVM IR** | 链接后类型、`*alloca` `align` → [05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch05](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter05_ir_advanced_type/README.md) |
+| **`readelf` / `objdump` / LLVM IR** | 链接后类型、`*alloca` `align` → [06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 ch05](../../06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter05_ir_advanced_type/README.md) |
 
 旧版 offset 示例：
 

@@ -39,7 +39,7 @@ unsafe 代码须**同时**保证：
 
 只保证 (1) 不保证 (2) → 仍是严重 UB。
 
-→ Nomicon [05 未初始化内存](../../03-Rust_Nomicon/05_Uninit_Mem/README.md)
+→ Nomicon [05 未初始化内存](../../04-Rust-Nomicon/05_Uninit_Mem/README.md)
 
 ---
 
@@ -115,7 +115,7 @@ Rust 把 Validity 规则转化为 LLVM 的**不可推翻假设**：
 
 无效值 → 假设崩塌 → [05 §一](./05-what-can-go-wrong.md) 所述静默错误 / 版本暴露 / 优化畸变。
 
-→ [04 Learn LLVM 17](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/README.md) · [ch05 IR 类型](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter05_ir_advanced_type/README.md)
+→ [04 Learn LLVM 17](../../06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/README.md) · [ch05 IR 类型](../../06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter05_ir_advanced_type/README.md)
 
 ---
 

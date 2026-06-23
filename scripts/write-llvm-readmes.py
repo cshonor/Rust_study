@@ -8,7 +8,7 @@ LLVM_README = """# 04 · Learn LLVM 17 · LLVM IR 透视
 > 所属：[Compilers & LLVM Learning](../README.md)（仓库编号 **05**）  
 > **C++ 前置（必修）**：姊妹仓 [cpp-learning-notes](https://github.com/cshonor/cpp-learning-notes) **`01`～`06`** → 见 [05/README 前置说明](../README.md#开-learn-llvm-前的-c-前置必修)  
 > 与 RFR **第 2、第 10 章** 对照读 IR；**本目录用 Rust 导出 IR，不必写 C++ Pass**。  
-> 前置实战：[04-Async-Concurrency-Network](../../04-Async-Concurrency-Network/README.md)
+> 前置实战：[05-Async-Concurrency-Network](../../05-Async-Concurrency-Network/README.md)
 
 **笔记 + 可运行 crate `llvm_insight_lab` + `ir_samples/`** 分目录完成。
 
@@ -21,8 +21,8 @@ LLVM_README = """# 04 · Learn LLVM 17 · LLVM IR 透视
 在**仓库根**执行：
 
 ```bash
-cargo build --manifest-path 05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/Cargo.toml
-cargo rustc --manifest-path 05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/Cargo.toml -- --emit=llvm-ir
+cargo build --manifest-path 06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/Cargo.toml
+cargo rustc --manifest-path 06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/Cargo.toml -- --emit=llvm-ir
 ```
 
 生成物通常在 `target/debug/deps/llvm_insight_lab-*.ll`。片段复制到 `ir_samples/`（见 [ir_samples/README.md](./ir_samples/README.md)）。
@@ -30,8 +30,8 @@ cargo rustc --manifest-path 05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/Carg
 ### 建议对照实验
 
 1. 改 `src/lib.rs` 中 `Ordering`，diff O0/O3 → `ir_samples/optimize_compare/`。
-2. 从 [04/01-atomic](../../04-Async-Concurrency-Network/01-atomic/) 摘短逻辑 → `ir_samples/atomic_ir/`。
-3. 从 [04/02-async_tokio](../../04-Async-Concurrency-Network/02-async_tokio/) 导出 → `ir_samples/async_tokio_ir/`。
+2. 从 [04/01-atomic](../../05-Async-Concurrency-Network/01-atomic/) 摘短逻辑 → `ir_samples/atomic_ir/`。
+3. 从 [04/02-async_tokio](../../05-Async-Concurrency-Network/02-async_tokio/) 导出 → `ir_samples/async_tokio_ir/`。
 
 ---
 
@@ -85,9 +85,9 @@ LLVM 用 **C++** 实现；《Learn LLVM 17》示例与 API 默认你已具备 **
 
 ## 与当前仓库学习路线的贴合顺序
 
-1. **[04/01-atomic/](../../04-Async-Concurrency-Network/01-atomic/)**：原子、内存序、锁  
-2. **[04/02-async_tokio/](../../04-Async-Concurrency-Network/02-async_tokio/)**  
-3. **[04/03-rust_network_programming/](../../04-Async-Concurrency-Network/03-rust_network_programming/)**  
+1. **[04/01-atomic/](../../05-Async-Concurrency-Network/01-atomic/)**：原子、内存序、锁  
+2. **[04/02-async_tokio/](../../05-Async-Concurrency-Network/02-async_tokio/)**  
+3. **[04/03-rust_network_programming/](../../05-Async-Concurrency-Network/03-rust_network_programming/)**  
 4. **本目录按上表精读**：用前面 Rust 代码**反查 IR 与优化**
 
 ---
@@ -111,7 +111,7 @@ LLVM 用 **C++** 实现；《Learn LLVM 17》示例与 API 默认你已具备 **
 
 IR_SAMPLES = """# IR 样本归档（`ir_samples/`）
 
-从 **`05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/src/lib.rs`** 或从 **[04-Async-Concurrency-Network](../../04-Async-Concurrency-Network/README.md)** 下三书代码导出 `.ll` 后，将**脱敏、可复现**片段放在此目录。
+从 **`06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/src/lib.rs`** 或从 **[05-Async-Concurrency-Network](../../05-Async-Concurrency-Network/README.md)** 下三书代码导出 `.ll` 后，将**脱敏、可复现**片段放在此目录。
 
 ## 子目录
 
@@ -126,14 +126,14 @@ PART02 = """# Part 02 — 源码到机器码（核心主攻）
 | `chapter05_ir_advanced_type` | 第 5 章 复合类型 | **精读** |
 | `chapter07_ir_optimize` | 第 7 章 优化 | **精读** |
 
-从 [04-Async-Concurrency-Network/](../../04-Async-Concurrency-Network/README.md) 抄最小复现进 `src/lib.rs`，`.ll` 复制到 `ir_samples/`。
+从 [05-Async-Concurrency-Network/](../../05-Async-Concurrency-Network/README.md) 抄最小复现进 `src/lib.rs`，`.ll` 复制到 `ir_samples/`。
 """
 
 for rel, text in [
-    ("05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/README.md", LLVM_README),
-    ("05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/Learn-LLVM-17-学习取舍.md", LLVM_QUQU),
-    ("05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/ir_samples/README.md", IR_SAMPLES),
-    ("05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/README.md", PART02),
+    ("06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/README.md", LLVM_README),
+    ("06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/Learn-LLVM-17-学习取舍.md", LLVM_QUQU),
+    ("06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/ir_samples/README.md", IR_SAMPLES),
+    ("06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/README.md", PART02),
 ]:
     p = ROOT / rel
     p.write_text(text, encoding="utf-8", newline="\n")

@@ -17,7 +17,7 @@ UnsafeCell  → 共享路径下也可能写 → 禁止错误优化
 
 用户**不直接使用** `UnsafeCell`；`Cell` / `RefCell` / `Mutex` 封装并承担安全契约。
 
-→ Nomicon [五种 unsafe 能力](../../03-Rust_Nomicon/01_Safe_Unsafe/03-five-powers.md) · [05 §LLVM](./05-shared-references.md)
+→ Nomicon [五种 unsafe 能力](../../04-Rust-Nomicon/01_Safe_Unsafe/03-five-powers.md) · [05 §LLVM](./05-shared-references.md)
 
 ---
 
@@ -31,7 +31,7 @@ UnsafeCell  → 共享路径下也可能写 → 禁止错误优化
 | `RwLock<T>` | 多线程读多写少 | `read`/`write` | 同上 |
 
 → 单线程详解 [07.3 Cell vs RefCell](./07-3-cell-vs-refcell.md)  
-→ 多线程 [RFR 第 10 章](../Chapter-10-Concurrency-and-Parallelism/README.md) · Nomicon [Send/Sync](../../03-Rust_Nomicon/07_Concurrency_Atomic/02-send-sync.md)
+→ 多线程 [RFR 第 10 章](../Chapter-10-Concurrency-and-Parallelism/README.md) · Nomicon [Send/Sync](../../04-Rust-Nomicon/07_Concurrency_Atomic/02-send-sync.md)
 
 ---
 

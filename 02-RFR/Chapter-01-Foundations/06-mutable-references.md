@@ -45,7 +45,7 @@ fn double(r: &mut i32) {
 }
 ```
 
-**为何重要（HFT / 性能）**：热路径里写 `&mut T`，LLVM 能按 **noalias** 做 store/load 优化 — 读 IR 见 [LLVM ch04](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter04_ir_basic/README.md)。
+**为何重要（HFT / 性能）**：热路径里写 `&mut T`，LLVM 能按 **noalias** 做 store/load 优化 — 读 IR 见 [LLVM ch04](../../06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter04_ir_basic/README.md)。
 
 **与内部可变性的关系**：`RefCell` / `Mutex` 等会 opt-out 部分假设 — 见 [07 内部可变性](./07-interior-mutability.md)。
 
@@ -147,4 +147,4 @@ Rust 把「这段期间无其它别名」写进类型系统，不必像 C 那样
 - 配套前文 → [05 共享引用](./05-shared-references.md)
 - Book → [4.2 引用与借用](../../00-Book/04-ownership/4.2-引用与借用.md)
 - ER → [Item 15 借用检查器](../../01-ER/Chapter-03-Concepts/Item-15-borrow-checker/README.md)
-- Nomicon → [03 所有权与型变](../../03-Rust_Nomicon/03_Lifetime_Variance/02-aliasing.md)
+- Nomicon → [03 所有权与型变](../../04-Rust-Nomicon/03_Lifetime_Variance/02-aliasing.md)

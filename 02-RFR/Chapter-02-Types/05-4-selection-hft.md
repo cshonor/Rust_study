@@ -80,9 +80,9 @@ FFI 边界通常 **不用 `dyn`** → [第 11 章 FFI](../Chapter-11-Foreign-Fun
 |---|------|-------|
 | 典型 call | 直接 `call` 已知符号，或 **inline 消失** | `call [vtable+offset]` 类间接 |
 | 优化器 | 常能 **devirtualize**（若类型可证唯一） | 难 inline 跨 vtable |
-| 排查 | `cargo asm` / 05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 | 对比同逻辑泛型版 |
+| 排查 | `cargo asm` / 06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17 | 对比同逻辑泛型版 |
 
-→ [04 Learn LLVM 17 · ch04 分发 IR 对照](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter04_ir_basic/notes/04_dispatch_static_vs_dyn.md) · [04_dispatch_O0.ll](../../05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/ir_samples/optimize_compare/04_dispatch_O0.ll)
+→ [04 Learn LLVM 17 · ch04 分发 IR 对照](../../06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/part02_src_to_machine/chapter04_ir_basic/notes/04_dispatch_static_vs_dyn.md) · [04_dispatch_O0.ll](../../06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/ir_samples/optimize_compare/04_dispatch_O0.ll)
 
 ---
 

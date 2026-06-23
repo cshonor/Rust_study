@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ASYNC_ROOT = "04-Async-Concurrency-Network"
+ASYNC_ROOT = "05-Async-Concurrency-Network"
 EXTS = {".md", ".gitignore", ".toml", ".rs", ".py", ".ps1"}
 
 SKIP_DIRS = {".git", "target", ".cursor"}
@@ -31,7 +31,7 @@ def transform(content: str, path: Path) -> str:
 
     # Compilers section renumber
     content = content.replace(
-        "04_Compilers-and-LLVM-Learning", "05_Compilers-and-LLVM-Learning"
+        "04_Compilers-and-LLVM-Learning", "06_Compilers-and-LLVM-Learning"
     )
 
     # Repo-root cargo / manifest paths (all files)
@@ -41,11 +41,11 @@ def transform(content: str, path: Path) -> str:
     )
     content = content.replace(
         "--manifest-path 04_Compilers-and-LLVM-Learning/",
-        "--manifest-path 05_Compilers-and-LLVM-Learning/",
+        "--manifest-path 06_Compilers-and-LLVM-Learning/",
     )
     content = content.replace(
         "04_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/",
-        "05_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/",
+        "06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/",
     )
 
     if inside_async:

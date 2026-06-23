@@ -63,7 +63,7 @@ unsafe impl Sync for MyRawPtrWrapper {}
 - Book → [16.4 Send 与 Sync](../../00-Book/16-fearless-concurrency/16.4-Send与Sync.md)
 - RFR → [第 10 章 并发](../Chapter-10-Concurrency-and-Parallelism/10-并发与并行-Concurrency-and-Parallelism-深度解析.md) · [第 8 章 Async](../Chapter-08-Asynchronous-Programming/README.md)
 - ER → [Item 10 标准 trait](../../01-ER/Chapter-02-Traits/Item-10-standard-traits/README.md)
-- Nomicon → [07 Concurrency](../../03-Rust_Nomicon/07_Concurrency_Atomic/README.md)
+- Nomicon → [07 Concurrency](../../04-Rust-Nomicon/07_Concurrency_Atomic/README.md)
 - Ch09 → [04 unsafe trait 精读](../../Chapter-09-Unsafe-Code/04-unsafe-traits.md)
 
 → 下一节：[10 存在类型](./10-existential-types.md)

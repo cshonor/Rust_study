@@ -2,7 +2,7 @@
 
 > 所属：**Unsafe Code** · [← 章索引](./README.md) · 下一节 [02 裸指针](./02-raw-pointers.md)
 
-> 对应 **The Book [19.1 不安全 Rust](../../00-Book/19-advanced-features/19.1-不安全Rust.md)** · Nomicon [五种 unsafe 能力](../../03-Rust_Nomicon/01_Safe_Unsafe/03-five-powers.md)
+> 对应 **The Book [19.1 不安全 Rust](../../00-Book/19-advanced-features/19.1-不安全Rust.md)** · Nomicon [五种 unsafe 能力](../../04-Rust-Nomicon/01_Safe_Unsafe/03-five-powers.md)
 
 ---
 
@@ -83,7 +83,7 @@ unsafe {
 
 **除此之外**的普通代码，哪怕写在 `unsafe {}` 里，依旧受完整安全规则约束。
 
-→ 逐项展开 [02 裸指针](./02-raw-pointers.md) · [04 unsafe trait](./04-unsafe-traits.md) · Nomicon [03-five-powers](../../03-Rust_Nomicon/01_Safe_Unsafe/03-five-powers.md)
+→ 逐项展开 [02 裸指针](./02-raw-pointers.md) · [04 unsafe trait](./04-unsafe-traits.md) · Nomicon [03-five-powers](../../04-Rust-Nomicon/01_Safe_Unsafe/03-five-powers.md)
 
 ---
 

@@ -66,7 +66,7 @@ NLL **不**废除独占/共享规则，只让「借用结束点」更精确。
 
 方差控制泛型类型在生命周期/类型参数上的**子类型替换规则**，根本目的是杜绝悬垂引用、保证类型安全（**soundness**）。
 
-→ 深入 + 源码：[Nomicon 03 · 型变](../../03-Rust_Nomicon/03_Lifetime_Variance/04-variance.md)
+→ 深入 + 源码：[Nomicon 03 · 型变](../../04-Rust-Nomicon/03_Lifetime_Variance/04-variance.md)
 
 ### 1. 协变 Covariant
 
@@ -103,7 +103,7 @@ let long_slot: &mut &'static str = ...; // 误以为能存 'static
 *long_slot = &short;                    // short 离开作用域后 → 悬垂
 ```
 
-编译器通过**不变**禁止这类替换。详见 Nomicon [04-variance](../../03-Rust_Nomicon/03_Lifetime_Variance/04-variance.md)。
+编译器通过**不变**禁止这类替换。详见 Nomicon [04-variance](../../04-Rust-Nomicon/03_Lifetime_Variance/04-variance.md)。
 
 ### 3. 逆变 Contravariant
 
@@ -168,4 +168,4 @@ let long_slot: &mut &'static str = ...; // 误以为能存 'static
 
 - Book → [10.3 生命周期](../../00-Book/10-generics-traits-lifetimes/10.3-生命周期与引用有效性.md) · [10.3.1 悬垂引用](../../00-Book/10-generics-traits-lifetimes/10.3.1-悬垂引用.md)
 - ER → [Item 14 生命周期](../../01-ER/Chapter-03-Concepts/Item-14-lifetimes/README.md)
-- Nomicon → [03 Lifetime & Variance](../../03-Rust_Nomicon/03_Lifetime_Variance/README.md)
+- Nomicon → [03 Lifetime & Variance](../../04-Rust-Nomicon/03_Lifetime_Variance/README.md)

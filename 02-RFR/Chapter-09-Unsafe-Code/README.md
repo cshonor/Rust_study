@@ -22,7 +22,7 @@
 | unsafe 入门 | [19.1 不安全 Rust](../../00-Book/19-advanced-features/19.1-不安全Rust.md) |
 | 避免 unsafe | [ER Item 16](../../01-ER/Chapter-03-Concepts/Item-16-avoid-unsafe/README.md) |
 | Miri | [Item 16 demo](../../01-ER/Chapter-03-Concepts/Item-16-avoid-unsafe/demo/) |
-| Nomicon | [03-Rust_Nomicon](../../03-Rust_Nomicon/README.md) |
+| Nomicon | [04-Rust-Nomicon](../../04-Rust-Nomicon/README.md) |
 | 布局 | [第 2 章 · Layout](../Chapter-02-Types/02-layout.md) |
 
 ## 旧版单文件
