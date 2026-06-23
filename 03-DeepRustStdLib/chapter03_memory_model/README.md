@@ -1,10 +1,12 @@
-# 第 3 章 · 内存模型
+# 第 3 章 · 内存操作
 
-> 所属：[03 DeepRustStdLib](../README.md) · 前：[第 2 章 Rust 特性小结](../chapter02_rust_features_summary/README.md) · 后：[第 4 章 容器（规划）](../README.md#目录)
+> 所属：[03 DeepRustStdLib](../README.md) · 前：[第 2 章 Rust 特征小议](../chapter02_rust_features_summary/README.md) · 后：[第 4 章 基本类型（规划）](../本书目录.md#第-4-章--基本类型及基本-traitp48)
 
-**本章定位**：从 **布局 / 借用 / 内部可变性 / 并发锁 / 幽灵数据 / 泄漏 / 未初始化内存** 十条线读懂 `std` 如何建立在 Rust 内存模型之上 — 为智能指针、Unsafe、HFT 预分配池打底。
+**本章定位**（原书第 3 章，见 [本书目录 § 第 3 章](../本书目录.md#第-3-章--内存操作p13)）：裸指针、`MaybeUninit`、`NonNull`、`Unique`、`mem`、堆分配、静态内存、`Drop` — **HFT 内存池与无锁结构的核心理论章**。
 
-**阅读顺序**：**3.1 → 3.2 → … → 3.10**（3.3～3.7 按「单线程内部可变 → 多线程锁」递进）
+**目标阅读顺序**（原书）：**3.1 → 3.2 → … → 3.11**
+
+> ⚠️ 下方 **3.1～3.10 为旧版补充笔记**（UnsafeCell / Mutex 等 `std` 同步原语），主题与原书 3.1～3.11 **不同**；将迁往 `chapter03_std_sync_supplement/` 后，本目录按原书序号重写。
 
 ---
 

@@ -1,8 +1,8 @@
 # 第 1 章 · Rust 标准库体系概述
 
-> 所属：[03 DeepRustStdLib](../README.md) · 后：[第 2 章 Rust 特性小结](../chapter02_rust_features_summary/README.md)
+> 所属：[03 DeepRustStdLib](../README.md) · 后：[第 2 章 Rust 特征小议](../chapter02_rust_features_summary/README.md)
 
-**本章目标**：建立 **`core` → `alloc` → `std`** 三层架构 — 弄清每一层 **能做什么、不能做什么、源码在哪**，再进入第 2 章用 Rust 特性去读具体实现。
+**本章目标**：建立 **`core` → `alloc` → `std`** 三层架构 — 弄清每一层 **能做什么、不能做什么、源码在哪**（对应原书第 1 章，见 [本书目录 § 第 1 章](../本书目录.md#第-1-章--rust-标准库体系概述p1)）。
 
 ---
 
@@ -13,8 +13,9 @@
 | **1.1** | **`core` 库**：`no_std` 最小子集、语言原语与算法 | [1.1-core-crate.md](./1.1-core-crate.md) |
 | **1.2** | **`alloc` 库**：堆分配、`Vec` / `String` / `Arc` 等 | [1.2-alloc-crate.md](./1.2-alloc-crate.md) |
 | **1.3** | **`std` 库**：OS 抽象、重导出与运行时 glue | [1.3-std-crate.md](./1.3-std-crate.md) |
+| **1.4** | **回顾**：三层依赖与适用场景 | [1.4-recap.md](./1.4-recap.md) |
 
-**阅读顺序**：**1.1 → 1.2 → 1.3**（自底向上）
+**阅读顺序**：**1.1 → 1.2 → 1.3 → 1.4**（自底向上）
 
 ---
 
