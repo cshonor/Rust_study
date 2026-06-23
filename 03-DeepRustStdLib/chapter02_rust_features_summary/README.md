@@ -38,4 +38,4 @@
 
 - 打开 `Vec` / `Option` / `Result` 源码时，能认出 **所有权转移、trait 约束、生命周期标注** 各自在干什么。
 - 理解 **`Iterator` + 闭包** 如何支撑 `for`、适配器链与零成本抽象。
-- 进入 [第 3 章 容器](../README.md#目录) / [Nomicon 智能指针](../../04-Rust-Nomicon/08_Impl_Vec_Arc/README.md) 前，语法知识已 **成体系**，而非零散 API 记忆。
+- 进入 [第 3 章 内存模型](../chapter03_memory_model/README.md) / [Nomicon 智能指针](../../04-Rust-Nomicon/08_Impl_Vec_Arc/README.md) 前，语法知识已 **成体系**。
