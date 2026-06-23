@@ -35,6 +35,9 @@
 | **9** | 用户态标准库基础（9.1～9.6） | [chapter09_userspace_std_basics/](./chapter09_userspace_std_basics/README.md) | 📝 规划 |
 | **10** | 进程管理（10.1～10.3） | [chapter10_process_management/](./chapter10_process_management/README.md) | 📝 规划 |
 | **11** | 并发编程（11.1～11.11） | [chapter11_concurrency/](./chapter11_concurrency/README.md) | 📝 规划 |
+| **12** | 文件系统（12.1～12.2） | [chapter12_filesystem/](./chapter12_filesystem/README.md) | 📝 规划 |
+| **13** | I/O 系统（13.1～13.3） | [chapter13_io/](./chapter13_io/README.md) | 📝 规划 |
+| **14** | 异步编程（14.1～14.2） | [chapter14_async/](./chapter14_async/README.md) | 📝 规划 |
 
 细目（无页码、已剔除「回顾」小节）→ **[本书目录.md](./本书目录.md)**
 

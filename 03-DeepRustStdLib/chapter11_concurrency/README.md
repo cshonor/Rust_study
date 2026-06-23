@@ -1,6 +1,6 @@
 # 第 11 章 · 并发编程
 
-> 所属：[03 DeepRustStdLib](../README.md) · 前：[第 10 章 进程管理](../chapter10_process_management/README.md) · 原书目录：[本书目录 § 第 11 章](../本书目录.md#第-11-章--并发编程)
+> 所属：[03 DeepRustStdLib](../README.md) · 前：[第 10 章 进程管理](../chapter10_process_management/README.md) · 后：[第 12 章 文件系统](../chapter12_filesystem/README.md) · 原书目录：[本书目录 § 第 11 章](../本书目录.md#第-11-章--并发编程)
 
 **本章定位**：Futex、`Mutex`/`Condvar`/`RwLock`、线程、MPSC、`std` **RUNTIME** — `libstd` 并发原语的 OS 适配与对外 API 全栈剖析。
 
