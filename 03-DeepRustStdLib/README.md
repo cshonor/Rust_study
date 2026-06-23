@@ -31,11 +31,14 @@
 | **5** | 迭代器（5.1～5.9） | [chapter05_iterators/](./chapter05_iterators/README.md) | 📝 规划 |
 | **6** | 基本类型（续）（6.1～6.5） | [chapter06_basic_types_continued/](./chapter06_basic_types_continued/README.md) | 📝 规划 |
 | **7** | 内部可变性类型（7.1～7.5） | [chapter07_interior_mutability/](./chapter07_interior_mutability/README.md) | 📝 规划 |
-| **8** | 智能指针（8.1～8.5.1+） | [chapter08_smart_pointers/](./chapter08_smart_pointers/README.md) | 📝 规划 |
+| **8** | 智能指针（8.1～8.8） | [chapter08_smart_pointers/](./chapter08_smart_pointers/README.md) | 📝 规划 |
+| **9** | 用户态标准库基础（9.1～9.6） | [chapter09_userspace_std_basics/](./chapter09_userspace_std_basics/README.md) | 📝 规划 |
+| **10** | 进程管理（10.1～10.3） | [chapter10_process_management/](./chapter10_process_management/README.md) | 📝 规划 |
+| **11** | 并发编程（11.1～11.11） | [chapter11_concurrency/](./chapter11_concurrency/README.md) | 📝 规划 |
 
 细目（无页码、已剔除「回顾」小节）→ **[本书目录.md](./本书目录.md)**
 
-**补充轨道**（非原书编号）：ch2 现有 `2.1～2.7` 与附录为 **RFR↔`std` 桥梁**，将逐步收敛或迁入附录；ch3 现有 `UnsafeCell`/`Mutex` 等笔记将迁往 `chapter03_std_sync_supplement/`（规划）。
+**补充轨道**（非原书编号）：ch2 现有 `2.1～2.7` 与附录为 **RFR↔`std` 桥梁**；ch3 旧编号笔记中 **Mutex/RwLock → 第 11 章**、**Cell/RefCell → 第 7 章**。
 
 ---
 
