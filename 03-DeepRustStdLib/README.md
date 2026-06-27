@@ -38,7 +38,7 @@
 | **10** | 进程管理（10.1～10.3 + 10.4 unsafe 走读） | [chapter10_process_management/](./chapter10_process_management/README.md) | ✅ 补充解析 |
 | **11** | 并发编程（11.0～11.13） | [chapter11_concurrency/](./chapter11_concurrency/README.md) | ✅ 补充解析 |
 | **12** | 文件系统（12.0～12.5） | [chapter12_filesystem/](./chapter12_filesystem/README.md) | ✅ 补充解析 |
-| **13** | I/O 系统（13.1～13.3） | [chapter13_io/](./chapter13_io/README.md) | 📝 脉络 ✅ · p.382+ 正文待刷书 |
+| **13** | I/O 系统（13.0～13.5） | [chapter13_io/](./chapter13_io/README.md) | ✅ 补充解析 |
 | **14** | 异步编程（14.1～14.2） | [chapter14_async/](./chapter14_async/README.md) | 📝 脉络 ✅ · p.421+ 正文待刷书 |
 
 细目 → **[本书目录.md](./本书目录.md)** · 批量生成/更新骨架：`python scripts/scaffold-deep-stdlib-notes.py`
