@@ -1,7 +1,7 @@
 # Compilers & LLVM Learning（编译器与 LLVM 学习）
 
-> 仓库编号 **05** · 前置专题：[05-Async-Concurrency-Network](../05-Async-Concurrency-Network/README.md)（atomic / async / network 实战后再做 IR 对照）  
-> Rust 主线：**`00-Book` → `02-RFR` → `01-ER` → `03-DeepRustStdLib` → `04-Rust-Nomicon` → `05-Async` → 本目录**
+> 仓库编号 **06** · 前置专题：[05-Async-Concurrency-Network](../05-Async-Concurrency-Network/README.md) · 建议先读 [07 WebAssembly](../07-Programming-WebAssembly-with-Rust/学习路径与知识链.md) Part I（栈式 VM）  
+> Rust 主线：**`00-Book` → `02-RFR` → `01-ER` → `03-DeepRustStdLib` → `04-Rust-Nomicon` → `05-Async` → `07-Wasm` → 本目录**
 
 ---
 
@@ -44,6 +44,7 @@
 |------------|-----------|
 | 前端 / AST / 解释器 | `00-Book` 语法 · RFR 类型与分发 |
 | 中间表示、优化 | **04_Learn-LLVM-17** ↔ RFR **第 2、9、10 章** · [`02-RFR/学习路径与章节对照.md`](../02-RFR/学习路径与章节对照.md) |
+| Wasm 栈式 VM / WAT | [07 Part I](../07-Programming-WebAssembly-with-Rust/chapter01_wasm_fundamentals/README.md) ↔ **01 Crafting Interpreters VM** | 两种「可读 IR」并排 |
 | IR 对照素材 | [`05-Async-Concurrency-Network/`](../05-Async-Concurrency-Network/README.md) 三书 demo → `ir_samples/` |
 | unsafe / 内存布局 | `04-Rust-Nomicon` |
 
@@ -71,10 +72,10 @@ LLVM 可与 RFR **第 2 章**（布局、分发）**并行**精读；**原子 / 
 ### 推荐总顺序（Rust 仓 + C++ 仓）
 
 ```text
-本仓库：00-Book → RFR → ER → StdLib → Nomicon → 05(01-atomic → 02-async_tokio → 03-network)
+本仓库：00-Book → RFR → ER → StdLib → Nomicon → 05(01-atomic → 02-async_tokio → 03-network) → 07 Wasm Part I
 姊妹仓：cpp-learning-notes 01～06（与 04 后期可并行，但须在 Learn LLVM 17 之前完成）
   ↓
-05：01 Crafting Interpreters → 03 自制编译器 → 04 Learn LLVM 17（Rust emit IR）
+06：01 Crafting Interpreters → 03 自制编译器 → 04 Learn LLVM 17（Rust emit IR）
 以后：02 编译器工程（橡书）+ 若读 LLVM C++ 源码再补 cpp 07～09
 ```
 

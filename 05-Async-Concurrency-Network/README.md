@@ -1,9 +1,9 @@
 # 04 · Async · Concurrency · Network
 
 > 所属：Rust 主线 **`00-Book` → `02-RFR` → `01-ER` → `03-DeepRustStdLib` → `04-Rust-Nomicon`** 之后的**实战专题**  
-> 下一专题：[05 · Compilers & LLVM Learning](../06_Compilers-and-LLVM-Learning/README.md)
+> 下一专题：[07 · WebAssembly](../07-Programming-WebAssembly-with-Rust/README.md) → [06 · Compilers & LLVM](../06_Compilers-and-LLVM-Learning/README.md)
 
-**Rust 基础 → 内存黑魔法（Nomicon）→ 并发 / 异步 / 网络 → LLVM / IR** — 本目录按 **01 → 02 → 03** 编号，对应同步并发 → 异步运行时 → 网络落地，**步步依赖、不宜跳读**。
+**Rust 基础 → 内存黑魔法（Nomicon）→ 并发 / 异步 / 网络 → Wasm → LLVM / IR** — 本目录按 **01 → 02 → 03** 编号，对应同步并发 → 异步运行时 → 网络落地，**步步依赖、不宜跳读**。
 
 ---
 
@@ -17,6 +17,8 @@
 02-async_tokio/            Async Rust · Future / 运行时 / 设计模式
         ↓
 03-rust_network_programming/   阻塞 Socket → Tokio 网络 → HTTP / 安全
+        ↓
+07-Programming-WebAssembly-with-Rust/   栈式 VM · 线性内存 · 插件宿主（可与 02/03 并行）
         ↓
 06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17   用上面代码反查 IR / 优化
 ```
@@ -62,4 +64,4 @@ cargo run --manifest-path 05-Async-Concurrency-Network/03-rust_network_programmi
 
 ## 速记
 
-**顺序** 01-atomic → 02-async_tokio → 03-rust_network → **05** LLVM IR · **勿跳步**
+**顺序** 01-atomic → 02-async_tokio → 03-rust_network → **07 Wasm** → **06** LLVM IR · **勿跳步**
