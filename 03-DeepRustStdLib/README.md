@@ -35,7 +35,7 @@
 | **7** | 内部可变性类型（7.1～7.5） | [chapter07_interior_mutability/](./chapter07_interior_mutability/README.md) | ✅ 正文 |
 | **8** | 智能指针（8.1～8.8） | [chapter08_smart_pointers/](./chapter08_smart_pointers/README.md) | 📝 8.1～8.5 ✅ · 8.6～8.8 待刷书 |
 | **9** | 用户态标准库基础（9.1～9.6） | [chapter09_userspace_std_basics/](./chapter09_userspace_std_basics/README.md) | ✅ 正文 |
-| **10** | 进程管理（10.1～10.3） | [chapter10_process_management/](./chapter10_process_management/README.md) | 📄 骨架 |
+| **10** | 进程管理（10.1～10.3） | [chapter10_process_management/](./chapter10_process_management/README.md) | 📝 脉络 ✅ · p.245+ 正文待刷书 |
 | **11** | 并发编程（11.1～11.11） | [chapter11_concurrency/](./chapter11_concurrency/README.md) | 📄 骨架 |
 | **12** | 文件系统（12.1～12.2） | [chapter12_filesystem/](./chapter12_filesystem/README.md) | 📄 骨架 |
 | **13** | I/O 系统（13.1～13.3） | [chapter13_io/](./chapter13_io/README.md) | 📄 骨架 |
