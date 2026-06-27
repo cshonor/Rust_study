@@ -5,13 +5,25 @@
 
 **全书主旨**：利用 Rust 的**安全性、性能与表达力**构建 **WebAssembly (Wasm)** 应用 — 从底层 **WAT/Wast** 栈式虚拟机与**线性内存**，到 **wasm-bindgen** 实现 Rust 与 **JavaScript** 互操作，经 **Checkers**、**Roguelike**、**Yew 聊天**等实战，延伸到浏览器外宿主（控制台、**ARM/树莓派**、**WARoS 机器人**）。强调**位标志**、内存布局等对性能的影响，并展望 Wasm 对 Web 与未来应用形态的意义。
 
-**笔记状态**：📄 骨架 · ✅ 已有正文
+**笔记状态**：📄 骨架 · 三层练手目录已建 → [三层学习架构.md](./三层学习架构.md)
 
 ---
 
-## Part I · Building a Foundation
+## 三层练手 ↔ 原书对照
 
-### 第 1 章 · WebAssembly Fundamentals
+| 层 | 练手目录 | 原书章节 |
+|:---:|----------|----------|
+| **1** | [layer01_rust-llvm-to-wasm/](./layer01_rust-llvm-to-wasm/README.md) | 第 **1** 章 |
+| **2** | [layer02_orderbook-query-wasm/](./layer02_orderbook-query-wasm/README.md) | 第 **2～4** 章 |
+| **3** | [layer03_quant-ma-strategy/](./layer03_quant-ma-strategy/README.md) | 第 **5～8** 章 + 附录 |
+
+---
+
+## Part I · 建立基础 (Building a Foundation)
+
+### 第 1 章 · WebAssembly 基础 (WebAssembly Fundamentals)
+
+**章导读**：介绍 WebAssembly、理解 WebAssembly 架构（栈式 VM、线性内存）、构建首个 WebAssembly 应用程序。
 
 | 节 | 原书主题 | 要点 | 笔记 |
 |:---:|----------|------|------|
@@ -20,9 +32,11 @@
 | **1.3** | Building a WebAssembly Application | 用跨平台工具链手写/编译首个模块 | [1.3-building-wasm-app.md](./chapter01_wasm_fundamentals/1.3-building-wasm-app.md) |
 | **1.4** | Wrapping Up | 本章小结 | [1.4-wrap-up.md](./chapter01_wasm_fundamentals/1.4-wrap-up.md) |
 
-↔ [Crafting Interpreters · VM](../../06_Compilers-and-LLVM-Learning/01_Crafting-Interpreters/part01_welcome/chapter02_map-of-the-territory/01-7-virtual-machine.md)
+↔ **Layer 1** · [Crafting Interpreters · VM](../../06_Compilers-and-LLVM-Learning/01_Crafting-Interpreters/part01_welcome/chapter02_map-of-the-territory/01-7-virtual-machine.md)
 
-### 第 2 章 · Building WebAssembly Checkers
+### 第 2 章 · 构建 WebAssembly 跳棋 (Building WebAssembly Checkers)
+
+**章导读**：应对 Wasm **数据结构限制**、实现跳棋**游戏规则**与**玩家移动**逻辑、**测试** Wasm 跳棋。
 
 | 节 | 原书主题 | 要点 | 笔记 |
 |:---:|----------|------|------|
@@ -33,11 +47,15 @@
 | **2.5** | Testing Wasm Checkers | 测试 Wasm 模块 | [2.5-testing-wasm-checkers.md](./chapter02_wasm_checkers/2.5-testing-wasm-checkers.md) |
 | **2.6** | Wrapping Up | 本章小结 | [2.6-wrap-up.md](./chapter02_wasm_checkers/2.6-wrap-up.md) |
 
+↔ **Layer 1→2** · 位布局 → [订单簿档位](./layer02_orderbook-query-wasm/README.md)
+
 ---
 
-## Part II · Interacting with JavaScript
+## Part II · 与 JavaScript 交互 (Interacting with JavaScript)
 
-### 第 3 章 · Wading into WebAssembly with Rust
+### 第 3 章 · 使用 Rust 涉足 WebAssembly (Wading into WebAssembly with Rust)
+
+**章导读**：介绍与安装 Rust、构建 Rust 版 Hello Wasm、Rust 跳棋引擎与 **Wasm 接口**、在 JavaScript 中运行游玩。
 
 | 节 | 原书主题 | 要点 | 笔记 |
 |:---:|----------|------|------|
@@ -49,7 +67,11 @@
 | **3.6** | Playing Rusty Checkers in JavaScript | 浏览器中调用 | [3.6-rusty-checkers-js.md](./chapter03_rust_wasm/3.6-rusty-checkers-js.md) |
 | **3.7** | Wrapping Up | 本章小结 | [3.7-wrap-up.md](./chapter03_rust_wasm/3.7-wrap-up.md) |
 
-### 第 4 章 · Integrating WebAssembly with JavaScript
+↔ **Layer 2**
+
+### 第 4 章 · 将 WebAssembly 与 JavaScript 集成 (Integrating WebAssembly with JavaScript)
+
+**章导读**：更好的 Hello World、基于 Wasm 的 **Rogue** 游戏、深入实验与集成。
 
 | 节 | 原书主题 | 要点 | 笔记 |
 |:---:|----------|------|------|
@@ -58,7 +80,11 @@
 | **4.3** | Experimenting Further | 扩展实验 | [4.3-experimenting-further.md](./chapter04_js_integration/4.3-experimenting-further.md) |
 | **4.4** | Wrapping Up | 本章小结 | [4.4-wrap-up.md](./chapter04_js_integration/4.4-wrap-up.md) |
 
-### 第 5 章 · Advanced JavaScript Integration with Yew
+↔ **Layer 2** · Go 订单簿 HTTP + bindgen
+
+### 第 5 章 · 使用 Yew 进行高级 JavaScript 集成 (Advanced JavaScript Integration with Yew)
+
+**章导读**：Yew 框架入门、构建完整**实时聊天**应用。
 
 | 节 | 原书主题 | 要点 | 笔记 |
 |:---:|----------|------|------|
@@ -66,11 +92,15 @@
 | **5.2** | Building a Live Chat Application | 实时聊天应用 | [5.2-live-chat-app.md](./chapter05_yew/5.2-live-chat-app.md) |
 | **5.3** | Wrapping Up | 本章小结 | [5.3-wrap-up.md](./chapter05_yew/5.3-wrap-up.md) |
 
+↔ **Layer 3** · 聊天 UI → **回测仪表盘**
+
 ---
 
-## Part III · Working with Non-Web Hosts
+## Part III · 使用非 Web 宿主 (Working with Non-Web Hosts)
 
-### 第 6 章 · Hosting Modules Outside the Browser
+### 第 6 章 · 在浏览器外部托管模块 (Hosting Modules Outside the Browser)
+
+**章导读**：如何成为合格宿主、用 Rust **解释/执行** Wasm、构建**控制台**跳棋宿主。
 
 | 节 | 原书主题 | 要点 | 笔记 |
 |:---:|----------|------|------|
@@ -79,7 +109,11 @@
 | **6.3** | Building a Console Host Checkers Player | 控制台宿主跳棋 | [6.3-console-checkers.md](./chapter06_nonweb_hosts/6.3-console-checkers.md) |
 | **6.4** | Wrapping Up | 本章小结 | [6.4-wrap-up.md](./chapter06_nonweb_hosts/6.4-wrap-up.md) |
 
-### 第 7 章 · Exploring the Internet of WebAssembly Things
+↔ **Layer 3** · wasmtime 嵌入均线策略
+
+### 第 7 章 · 探索 WebAssembly 物联网 (Exploring the Internet of WebAssembly Things)
+
+**章导读**：通用**指示器模块**、为 **ARM** 构建 Rust 应用、在**树莓派**上托管指示器模块。
 
 | 节 | 原书主题 | 要点 | 笔记 |
 |:---:|----------|------|------|
@@ -91,9 +125,11 @@
 | **7.6** | Endless Possibilities | 扩展场景 | [7.6-endless-possibilities.md](./chapter07_iot/7.6-endless-possibilities.md) |
 | **7.7** | Wrapping Up | 本章小结 | [7.7-wrap-up.md](./chapter07_iot/7.7-wrap-up.md) |
 
-↔ [ER Item 33 no_std](../../01-ER/Chapter-06-Beyond-Standard-Rust/Item-33-no-std/README.md) · [RFR Ch12](../../02-RFR/Chapter-12-Rust-Without-Standard-Library/README.md)
+↔ **Layer 3** · 边缘节点 · [ER Item 33 no_std](../../01-ER/Chapter-06-Beyond-Standard-Rust/Item-33-no-std/README.md)
 
-### 第 8 章 · Building WARoS — The WebAssembly Robot System
+### 第 8 章 · 构建 WARoS——WebAssembly 机器人系统 (Building WARoS)
+
+**章导读**：致敬 **Crobots**、设计 WARoS API、构建**比赛引擎**、创建 Wasm **机器人**、**云端**机器人部署。
 
 | 节 | 原书主题 | 要点 | 笔记 |
 |:---:|----------|------|------|
@@ -103,16 +139,20 @@
 | **8.4** | Creating WebAssembly Robots | Wasm 机器人模块 | [8.4-wasm-robots.md](./chapter08_waros/8.4-wasm-robots.md) |
 | **8.5** | Robots in the Cloud | 云端托管 | [8.5-robots-cloud.md](./chapter08_waros/8.5-robots-cloud.md) |
 | **8.6** | Wrapping Up | 本章小结 | [8.6-wrap-up.md](./chapter08_waros/8.6-wrap-up.md) |
-| **8.7** | Conclusion | 全书结论 | [8.7-conclusion.md](./chapter08_waros/8.7-conclusion.md) |
+| **8.7** | Conclusion | **全书结论** | [8.7-conclusion.md](./chapter08_waros/8.7-conclusion.md) |
+
+↔ **Layer 3** · 策略模块 = 机器人 · 引擎 = tick 调度
 
 ---
 
 ## 附录
 
-| 节 | 原书主题 | 笔记 |
-|:---:|----------|------|
-| **A1** | WebAssembly and Serverless | [A1-serverless.md](./appendix/A1-serverless.md) |
-| **A2** | Securing WebAssembly Modules | [A2-security.md](./appendix/A2-security.md) |
+| 节 | 原书主题 | 章导读 | 笔记 |
+|:---:|----------|--------|------|
+| **A1** | WebAssembly and Serverless | Serverless 基础 · Wasm 结合 · 云端应用 · **OpenFaaS** | [A1-serverless.md](./appendix/A1-serverless.md) |
+| **A2** | Securing WebAssembly Modules | 安全顾虑 · 浏览器攻击 · **签名与加密** | [A2-security.md](./appendix/A2-security.md) |
+
+↔ **Layer 3** · 实盘策略模块签名（必做）
 
 ---
 
@@ -120,15 +160,20 @@
 
 ```text
 07-Programming-WebAssembly-with-Rust/
+├── 三层学习架构.md              ← 三层练手 ↔ 原书映射
 ├── Wasm-本书目录.md
 ├── README.md
-├── chapter01_wasm_fundamentals/   ← 第 1 章
-├── chapter02_wasm_checkers/       ← 第 2 章
-├── chapter03_rust_wasm/             ← 第 3 章
-├── chapter04_js_integration/      ← 第 4 章（wasm-bindgen · Rogue）
-├── chapter05_yew/                   ← 第 5 章
-├── chapter06_nonweb_hosts/        ← 第 6 章
-├── chapter07_iot/                   ← 第 7 章（树莓派）
-├── chapter08_waros/                 ← 第 8 章
+├── 学习路径与知识链.md
+├── layer01_rust-llvm-to-wasm/   ← Layer 1 · 编译链路
+├── layer02_orderbook-query-wasm/← Layer 2 · Go 订单簿
+├── layer03_quant-ma-strategy/   ← Layer 3 · 均线策略
+├── chapter01_wasm_fundamentals/ ← 第 1 章
+├── chapter02_wasm_checkers/     ← 第 2 章
+├── chapter03_rust_wasm/         ← 第 3 章
+├── chapter04_js_integration/    ← 第 4 章
+├── chapter05_yew/               ← 第 5 章
+├── chapter06_nonweb_hosts/      ← 第 6 章
+├── chapter07_iot/               ← 第 7 章
+├── chapter08_waros/             ← 第 8 章
 └── appendix/
 ```

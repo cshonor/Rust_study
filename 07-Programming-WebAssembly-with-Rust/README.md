@@ -3,9 +3,23 @@
 > **口头简称**：`07_WebAssembly` / **Wasm 专题**  
 > **书名**：*Programming WebAssembly with Rust: Unified Development for Web, Mobile, and Embedded Applications*  
 > **作者**：Kevin Hoffman（Pragmatic Bookshelf, 2019）  
-> **完整目录**：[Wasm-本书目录.md](./Wasm-本书目录.md) · **知识链**：[学习路径与知识链.md](./学习路径与知识链.md)
+> **完整目录**：[Wasm-本书目录.md](./Wasm-本书目录.md) · **三层练手**：[三层学习架构.md](./三层学习架构.md) · **知识链**：[学习路径与知识链.md](./学习路径与知识链.md)
 
 用 **Rust** 的安全性与性能构建 **WebAssembly (Wasm)** 应用 — 从 **WAT/Wast** 栈式虚拟机与**线性内存**，到 **wasm-bindgen**、**Yew**，再到浏览器外宿主（控制台、**树莓派**、机器人系统）。
+
+---
+
+## 三层练手主线（HFT 向）
+
+> 原书 `chapter01_*`～`appendix/` 按书序记笔记；练手按下列三层推进，与 [06 LLVM](../06_Compilers-and-LLVM-Learning/04_Learn-LLVM-17/README.md) 和 Go 订单簿项目衔接。
+
+| 层 | 目录 | 目标 |
+|:---:|------|------|
+| **1** | [layer01_rust-llvm-to-wasm/](./layer01_rust-llvm-to-wasm/README.md) | **Rust + LLVM → Wasm** 编译链路，复用 `llvm_insight_lab` |
+| **2** | [layer02_orderbook-query-wasm/](./layer02_orderbook-query-wasm/README.md) | Wasm 模块对接 **Go 订单簿** 查询 API |
+| **3** | [layer03_quant-ma-strategy/](./layer03_quant-ma-strategy/README.md) | **均线策略**：Yew 浏览器回测 + wasmtime 实盘/边缘嵌入 |
+
+详表 → [三层学习架构.md](./三层学习架构.md)
 
 ---
 
@@ -23,15 +37,15 @@
 
 ---
 
-## 三部分结构
+## 三部分结构（原书）
 
-| Part | 主题 | 章 | 入口 |
-|------|------|:---:|------|
-| **I** | Building a Foundation | 1～2 | [chapter01_wasm_fundamentals/](./chapter01_wasm_fundamentals/README.md) · [chapter02_wasm_checkers/](./chapter02_wasm_checkers/README.md) |
-| **II** | Interacting with JavaScript | 3～5 | [chapter03_rust_wasm/](./chapter03_rust_wasm/README.md) … [chapter05_yew/](./chapter05_yew/README.md) |
-| **III** | Working with Non-Web Hosts | 6～8 | [chapter06_nonweb_hosts/](./chapter06_nonweb_hosts/README.md) … [chapter08_waros/](./chapter08_waros/README.md) |
+| Part | 主题 | 章 | 三层 | 入口 |
+|------|------|:---:|------|------|
+| **I** | Building a Foundation | 1～2 | **L1** → **L2** | [chapter01_wasm_fundamentals/](./chapter01_wasm_fundamentals/README.md) · [chapter02_wasm_checkers/](./chapter02_wasm_checkers/README.md) |
+| **II** | Interacting with JavaScript | 3～5 | **L2** · **L3** | [chapter03_rust_wasm/](./chapter03_rust_wasm/README.md) … [chapter05_yew/](./chapter05_yew/README.md) |
+| **III** | Working with Non-Web Hosts | 6～8 | **L3** | [chapter06_nonweb_hosts/](./chapter06_nonweb_hosts/README.md) … [chapter08_waros/](./chapter08_waros/README.md) |
 
-附录：[appendix/](./appendix/README.md)
+附录：[appendix/](./appendix/README.md)（**L3** · Serverless / 安全）
 
 ---
 
