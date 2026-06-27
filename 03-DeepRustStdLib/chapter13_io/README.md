@@ -2,7 +2,9 @@
 
 > 所属：[03 DeepRustStdLib](../README.md) · 前：[第 12 章 文件系统](../chapter12_filesystem/README.md) · 后：[第 14 章 异步编程](../chapter14_async/README.md) · 原书目录：[本书目录 § 第 13 章](../本书目录.md#第-13-章--io-系统)
 
-**本章定位**：`Stdin`/`Stdout`、`Read`/`Write`、向量读写、**网络 I/O** — `std::io` 与 `std::net` 的标准库实现栈。
+**本章定位**：**「一切皆文件」之 I/O 流**（p.382+ 正文待刷书）— **Read/Write · readv/writev · Stdin/Stdout 全局锁 · `std::net` Socket**；衔接 [Ch12 磁盘](../chapter12_filesystem/README.md) · 引向 [Ch14 异步](../chapter14_async/README.md)。
+
+**原书主线（脉络已写入）**：13.1 stdin+trait+向量+锁 → 13.2 stdout/println → 13.3 网络同一 Read/Write。
 
 **阅读顺序**：**13.1 → 13.2 → 13.3**
 
