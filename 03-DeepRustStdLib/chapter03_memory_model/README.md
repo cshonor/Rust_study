@@ -2,7 +2,9 @@
 
 > 所属：[03 DeepRustStdLib](../README.md) · 前：[第 2 章 Rust 特征小议](../chapter02_rust_features_summary/README.md) · 后：[第 4 章 基本类型](../chapter04_primitive_types/README.md)
 
-**本章定位**：裸指针、`MaybeUninit`、`NonNull`、`Unique`、`mem`、堆分配、静态内存、`Drop` — **HFT 内存池与无锁结构的核心理论章**。
+**本章定位**：所有权、借用、生命周期 **最终都可归结为内存操作**。六大板块：**裸指针** · **MaybeUninit/ManuallyDrop** · **NonNull/Unique** · **mem** · **堆分配** · **所有权/型变理论** — **HFT 内存池与无锁结构的核心理论章**。
+
+**原书主线（已写入核心节）**：3.1 90% unsafe=ptr→& · 3.2 未初始化 · 3.4/3.5 封装指针 · 3.6 take/forget · 3.7 Layout/Global · 3.10 型变 · 3.11 回顾。
 
 **阅读顺序**：**3.1 → 3.2 → … → 3.11**
 
