@@ -2,11 +2,11 @@
 
 > 所属：[03 DeepRustStdLib](../README.md) · 前：[第 10 章 进程管理](../chapter10_process_management/README.md) · 后：[第 12 章 文件系统](../chapter12_filesystem/README.md) · 原书目录：[本书目录 § 第 11 章](../本书目录.md#第-11-章--并发编程)
 
-**本章定位**：**STD 并发核心**（原书 p.264+）— **Futex** · **Mutex/Condvar/RwLock/Barrier**（三层架构）· **Once/OnceLock/LazyLock** · **thread** · **MPSC** · **极简 RUNTIME**。笔记来自 **目录 + `library/std` 结构** · **原书 unsafe 走读待刷书**。
+**本章定位**：**STD 并发核心**（原书 p.264+）— **Futex** · **Mutex/Condvar/RwLock/Barrier**（三层架构）· **Once/OnceLock/LazyLock** · **thread** · **MPSC** · **极简 RUNTIME** · **[11.12/11.13 源码附录](./11.12-mutex-futex-walkthrough.md)**。
 
-**原书主线（脉络已写入）**：Futex 底座 → 共享内存同步 → 单次 init → 线程 → **通信优于共享**（MPSC）→ 无 GC Runtime。
+**原书主线**：Futex 底座 → 共享内存同步 → 单次 init → 线程 → **通信优于共享**（MPSC）→ 无 GC Runtime。
 
-**阅读顺序**：**11.1 → 11.2 → … → 11.11**
+**阅读顺序**：**[11.0 总览](./11.0-chapter-overview.md) → 11.1 → … → 11.11**
 
 ---
 
@@ -15,6 +15,7 @@
 
 | 节 | 主题 | 笔记 |
 |:---:|------|------|
+| **11.0** | 本章总览 · 三层架构 | [笔记](./11.0-chapter-overview.md) |
 | **11.1** | Futex 分析 | [笔记](./11.1-futex.md) |
 | **11.2** | Mutex<T> 类型分析 | [笔记](./11.2-mutex-overview.md) |
 | **11.2.1** | OS 相关适配层 | [笔记](./11.2.1-mutex-os-layer.md) |
@@ -43,15 +44,18 @@
 | **11.10.4** | Shared 类型通道 | [笔记](./11.10.4-mpsc-shared.md) |
 | **11.10.5** | 对外接口层 | [笔记](./11.10.5-mpsc-public-api.md) |
 | **11.11** | Rust 的 RUNTIME | [笔记](./11.11-runtime.md) |
+| **11.12** | Mutex futex 走读（附录） | [笔记](./11.12-mutex-futex-walkthrough.md) |
+| **11.13** | MPSC 队列走读（附录） | [笔记](./11.13-mpsc-queue-walkthrough.md) |
 
 <!-- /AUTO:SECTION-INDEX -->
 ## 子节索引
 
 | 节 | 主题 | 笔记 |
 |:---:|------|------|
-| **11.1** | Futex 分析 | ✅ 脉络 |
+| **11.0** | 本章总览 | ✅ |
+| **11.1** | Futex 分析 | ✅ |
 | **11.2** | `Mutex<T>` 类型分析 | ✅ |
-| **11.2.1** | OS 相关适配层 | ✅ 脉络 |
+| **11.2.1** | OS 相关适配层 | ✅ |
 | **11.2.2** | OS 无关适配层 | ✅ 脉络 |
 | **11.2.3** | 对外接口层 | ✅ |
 | **11.3** | `Condvar` 类型分析 | ✅ |
@@ -67,16 +71,18 @@
 | **11.7** | `OnceLock<T>` 类型分析 | ✅ |
 | **11.8** | `LazyLock<T>` 类型分析 | ✅ |
 | **11.9** | 线程分析 | ✅ |
-| **11.9.1** | OS 相关适配层 | ✅ 脉络 |
+| **11.9.1** | OS 相关适配层 | ✅ |
 | **11.9.2** | OS 无关适配层 | ✅ 脉络 |
 | **11.9.3** | 对外接口层 | ✅ |
 | **11.10** | 线程消息通信——MPSC | ✅ |
-| **11.10.1** | 消息队列类型——`Queue<T>` | ✅ 脉络 |
-| **11.10.2** | 阻塞及唤醒信号机制 | ✅ 脉络 |
+| **11.10.1** | 消息队列类型——`Queue<T>` | ✅ |
+| **11.10.2** | 阻塞及唤醒信号机制 | ✅ |
 | **11.10.3** | 一次性通信通道机制 | ✅ 脉络 |
 | **11.10.4** | `Shared` 类型通道 | ✅ 脉络 |
 | **11.10.5** | 对外接口层 | ✅ |
 | **11.11** | Rust 的 RUNTIME | ✅ |
+| **11.12** | Mutex futex 走读 | ✅ |
+| **11.13** | MPSC 队列走读 | ✅ |
 
 ↔ [8.5 · Arc](../chapter08_smart_pointers/8.5-arc-overview.md) · [10.3 · 进程三层](../chapter10_process_management/10.3-process-mgmt.md)
 
