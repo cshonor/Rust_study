@@ -27,7 +27,7 @@
 | 章 | 原书主题 | 入口 | 进度 |
 |:---:|----------|------|------|
 | **1** | 标准库体系概述（1.1～1.4） | [chapter01_std_overview/](./chapter01_std_overview/README.md) | ✅ 正文 |
-| **2** | Rust 特征小议（2.1～2.4） | [chapter02_rust_features_summary/](./chapter02_rust_features_summary/README.md) | 📄 骨架 |
+| **2** | Rust 特征小议（2.1～2.4） | [chapter02_rust_features_summary/](./chapter02_rust_features_summary/README.md) | ✅ 正文 |
 | **3** | **内存操作**（3.1～3.11） | [chapter03_memory_model/](./chapter03_memory_model/README.md) | 📄 骨架 |
 | **4** | 基本类型及基本 Trait（4.1～4.3） | [chapter04_primitive_types/](./chapter04_primitive_types/README.md) | 📄 骨架 |
 | **5** | 迭代器（5.1～5.9） | [chapter05_iterators/](./chapter05_iterators/README.md) | 📄 骨架 |

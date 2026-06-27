@@ -2,7 +2,9 @@
 
 > 所属：[03 DeepRustStdLib](../README.md) · 前：[第 1 章 三层架构](../chapter01_std_overview/README.md) · 后：[第 3 章 内存操作](../chapter03_memory_model/README.md)
 
-**本章定位**（原书第 2 章）：泛型约束 → 内存安全杂述 → 从封装类型提取内部数据 → 回顾。为第 3 章裸指针与 `MaybeUninit` 做语法过渡。
+**本章定位**（原书第 2 章）：**泛型为本** → **安全封装类型** → **五种解封装范式** → 回顾。为第 3 章裸指针与 `MaybeUninit` 做语法过渡。
+
+**原书主线**：2.1 约束层次 · 2.2 Option/Box/Rc/Mutex/Ref 闭环 · 2.3 `?`/Deref/闭包/as_ref/take。
 
 **阅读顺序**（原书）：**2.1 → 2.2 → 2.3 → 2.4**
 
