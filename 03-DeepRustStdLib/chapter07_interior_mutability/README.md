@@ -2,7 +2,9 @@
 
 > 所属：[03 DeepRustStdLib](../README.md) · 前：[第 6 章 基本类型（续）](../chapter06_basic_types_continued/README.md) · 后：[第 8 章 智能指针](../chapter08_smart_pointers/README.md) · 原书目录：[本书目录 § 第 7 章](../本书目录.md#第-7-章--内部可变性类型)
 
-**本章定位**：`Borrow`/`BorrowMut`、`UnsafeCell` → `Cell`/`RefCell`、`Pin`/`Unpin`、`Lazy` — 在保持 Rust 借用规则下的内部可变与延迟初始化。
+**本章定位**：内部可变性 **不是绕过编译器的补丁** — **`UnsafeCell` → Cell/RefCell`**（运行期借用）· **`Pin`/`Unpin`**（自引用/async）· **`OnceCell`/`Lazy`**（单次/延迟 init）— 为树、图、状态机留 **合法动态空间**。
+
+**原书主线（已写入）**：7.1 Borrow · 7.2～7.3 内部 mut · 7.4 Pin · 7.5 Lazy/OnceCell。
 
 **阅读顺序**：**7.1 → 7.2 → … → 7.5**
 
@@ -31,7 +33,7 @@
 
 | 节 | 主题 | 笔记 |
 |:---:|------|------|
-| **7.1** | `Borrow` / `BorrowMut` 分析 | 📝 规划 |
+| **7.1** | `Borrow` / `BorrowMut` 分析 | ✅ |
 
 ### 7.2 `Cell<T>`
 

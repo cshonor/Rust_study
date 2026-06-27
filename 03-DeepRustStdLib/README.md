@@ -31,8 +31,8 @@
 | **3** | **内存操作**（3.1～3.11） | [chapter03_memory_model/](./chapter03_memory_model/README.md) | 📝 核心节 ✅ · 3.1.2～3.2.6 等待刷书 |
 | **4** | 基本类型及基本 Trait（4.1～4.3） | [chapter04_primitive_types/](./chapter04_primitive_types/README.md) | ✅ 正文 |
 | **5** | 迭代器（5.1～5.9） | [chapter05_iterators/](./chapter05_iterators/README.md) | ✅ 正文 |
-| **6** | 基本类型（续）（6.1～6.5） | [chapter06_basic_types_continued/](./chapter06_basic_types_continued/README.md) | 📄 骨架 |
-| **7** | 内部可变性类型（7.1～7.5） | [chapter07_interior_mutability/](./chapter07_interior_mutability/README.md) | 📄 骨架 |
+| **6** | 基本类型（续）（6.1～6.5） | [chapter06_basic_types_continued/](./chapter06_basic_types_continued/README.md) | ✅ 正文 |
+| **7** | 内部可变性类型（7.1～7.5） | [chapter07_interior_mutability/](./chapter07_interior_mutability/README.md) | ✅ 正文 |
 | **8** | 智能指针（8.1～8.8） | [chapter08_smart_pointers/](./chapter08_smart_pointers/README.md) | 📄 骨架 |
 | **9** | 用户态标准库基础（9.1～9.6） | [chapter09_userspace_std_basics/](./chapter09_userspace_std_basics/README.md) | 📄 骨架 |
 | **10** | 进程管理（10.1～10.3） | [chapter10_process_management/](./chapter10_process_management/README.md) | 📄 骨架 |
