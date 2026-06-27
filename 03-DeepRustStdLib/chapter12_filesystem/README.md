@@ -2,7 +2,9 @@
 
 > 所属：[03 DeepRustStdLib](../README.md) · 前：[第 11 章 并发编程](../chapter11_concurrency/README.md) · 后：[第 13 章 I/O 系统](../chapter13_io/README.md) · 原书目录：[本书目录 § 第 12 章](../本书目录.md#第-12-章--文件系统)
 
-**本章定位**：`std::fs` / `std::path` 的 **OS 适配层**（路径、文件、目录）与 **对外 Safe API** — 延续第 9 章文件描述符设计。
+**本章定位**：**`std::path` / `std::fs`** — **12.1 OS 适配层**（路径编码 · open/readdir SYSCALL）+ **12.2 对外 safe API**（**`File` + Drop 接管 fd**）。原书 p.360+ 正文待刷书。
+
+**原书主线（脉络已写入）**：跨平台路径 → 文件/目录 syscall → **`std::fs` 统一接口**。
 
 **阅读顺序**：**12.1 → 12.2**
 
