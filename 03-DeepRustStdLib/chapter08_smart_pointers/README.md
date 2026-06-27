@@ -2,7 +2,9 @@
 
 > 所属：[03 DeepRustStdLib](../README.md) · 前：[第 7 章 内部可变性](../chapter07_interior_mutability/README.md) · 后：[第 9 章 用户态标准库基础](../chapter09_userspace_std_basics/README.md) · 原书目录：[本书目录 § 第 8 章](../本书目录.md#第-8-章--智能指针)
 
-**本章定位**：`Box`、`RawVec`、`Vec`、`Rc`/`Weak`、`Arc`、`Cow`、`LinkedList`、`String` — `alloc` 层堆容器与共享所有权的标准库实现剖析。
+**本章定位**：**ALLOC 层**堆管理核心 — **`Box` 独占** · **`RawVec`+`Vec` 动态连续** · **`Rc`/`Weak` 单线程共享** · **`Arc`/`Weak` 多线程计数** — 无 GC 下安全实现 **图/树/动态数组**；**8.6～8.8**（Cow/LinkedList/String）待刷书。
+
+**原书主线（8.1～8.5 已写入）**：Global+Drop · RawVec/len · mem copy · 双计数+Weak 破环 · Arc 原子计数≠数据并发安全。
 
 **阅读顺序**：**8.1 → 8.2 → … → 8.8**
 
@@ -39,19 +41,19 @@
 
 | 节 | 主题 | 笔记 |
 |:---:|------|------|
-| **8.1** | `Box<T>` 类型分析 | 📝 规划 |
-| **8.2** | `RawVec<T>` 类型分析 | 📝 规划 |
-| **8.3** | `Vec<T>` 类型分析 | 📝 规划 |
-| **8.3.1** | `Vec<T>` 基础分析 | 📝 规划 |
-| **8.3.2** | `Vec<T>` 的 Iterator Trait | 📝 规划 |
-| **8.4** | `Rc<T>` 类型分析 | 📝 规划 |
-| **8.4.1** | `Rc<T>` 类型的构造函数及析构函数 | 📝 规划 |
-| **8.4.2** | `Weak<T>` 类型分析 | 📝 规划 |
-| **8.4.3** | `Rc<T>` 的其他函数 | 📝 规划 |
-| **8.5** | `Arc<T>` 类型分析 | 📝 规划 |
-| **8.5.1** | `Arc<T>` 类型的构造函数及析构函数 | 📝 规划 |
-| **8.5.2** | `Weak<T>` 类型分析 | 📝 规划 |
-| **8.5.3** | `Arc<T>` 的其他函数 | 📝 规划 |
+| **8.1** | `Box<T>` 类型分析 | ✅ |
+| **8.2** | `RawVec<T>` 类型分析 | ✅ |
+| **8.3** | `Vec<T>` 类型分析 | ✅ |
+| **8.3.1** | `Vec<T>` 基础分析 | ✅ |
+| **8.3.2** | `Vec<T>` 的 Iterator Trait | ✅ |
+| **8.4** | `Rc<T>` 类型分析 | ✅ |
+| **8.4.1** | `Rc<T>` 类型的构造函数及析构函数 | ✅ |
+| **8.4.2** | `Weak<T>` 类型分析 | ✅ |
+| **8.4.3** | `Rc<T>` 的其他函数 | ✅ |
+| **8.5** | `Arc<T>` 类型分析 | ✅ |
+| **8.5.1** | `Arc<T>` 类型的构造函数及析构函数 | ✅ |
+| **8.5.2** | `Weak<T>` 类型分析 | ✅ |
+| **8.5.3** | `Arc<T>` 的其他函数 | ✅ |
 | **8.6** | `Cow<'a, T>` 类型分析 | 📝 规划 |
 | **8.6.1** | `ToOwned` Trait 分析 | 📝 规划 |
 | **8.6.2** | `Cow<'a, T>` 分析 | 📝 规划 |
@@ -67,7 +69,7 @@
 | 本章 | 本仓库延伸 |
 |------|------------|
 | `Vec` / `RawVec` | [1.2 alloc 库](../chapter01_std_overview/1.2-alloc-crate.md) · [Nomicon 08](../../04-Rust-Nomicon/08_Impl_Vec_Arc/README.md) |
-| `Rc` / `Weak` / 环 | [3.9 泄漏与循环引用](../chapter03_memory_model/3.9-leaks-and-cycles.md) |
+| `Rc` / `Weak` / 环 | [8.4.2 · Weak 破环](./8.4.2-rc-weak.md) |
 | `Arc` + 并发 | [第 11 章 并发](../chapter11_concurrency/README.md) · [05-atomic](../../05-Async-Concurrency-Network/01-atomic/README-学习区.md) |
 | `String` | [第 6 章 §6.4](../chapter06_basic_types_continued/README.md) |
 | Iterator | [第 5 章 迭代器](../chapter05_iterators/README.md) |
