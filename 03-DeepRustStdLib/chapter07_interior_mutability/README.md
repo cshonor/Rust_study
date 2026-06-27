@@ -39,29 +39,29 @@
 
 | 节 | 主题 | 笔记 |
 |:---:|------|------|
-| **7.2** | `Cell<T>` 类型分析 | 📝 规划 |
-| **7.2.1** | `UnsafeCell<T>` 分析 | 📝 规划 |
-| **7.2.2** | `Cell<T>` 分析 | 📝 规划 |
+| **7.2** | `Cell<T>` 类型分析 | ✅ |
+| **7.2.1** | `UnsafeCell<T>` 分析 | ✅ |
+| **7.2.2** | `Cell<T>` 分析 | ✅ |
 
-↔ 过渡参考：[3.3 UnsafeCell](../chapter03_memory_model/3.3-unsafecell.md) · [3.4 Cell](../chapter03_memory_model/3.4-cell.md)
+↔ [7.2.1 · UnsafeCell](./7.2.1-unsafecell.md) · [3.1 · unsafe 根源](../chapter03_memory_model/3.1-raw-pointers.md)
 
 ### 7.3 `RefCell<T>`
 
 | 节 | 主题 | 笔记 |
 |:---:|------|------|
-| **7.3** | `RefCell<T>` 类型分析 | 📝 规划 |
-| **7.3.1** | `Borrow` Trait 分析 | 📝 规划 |
-| **7.3.2** | `BorrowMut` Trait 分析 | 📝 规划 |
-| **7.3.3** | `RefCell<T>` 的其他函数 | 📝 规划 |
+| **7.3** | `RefCell<T>` 类型分析 | ✅ |
+| **7.3.1** | `Borrow` Trait 分析 | ✅ Ref guard |
+| **7.3.2** | `BorrowMut` Trait 分析 | ✅ RefMut guard |
+| **7.3.3** | `RefCell<T>` 的其他函数 | ✅ |
 
-↔ 过渡参考：[3.5 RefCell](../chapter03_memory_model/3.5-refcell.md)
+↔ [7.3 · RefCell 总览](./7.3-refcell-overview.md)
 
 ### 7.4～7.5
 
 | 节 | 主题 | 笔记 |
 |:---:|------|------|
-| **7.4** | `Pin<T>` / `Unpin<T>` 类型分析 | 📝 规划 |
-| **7.5** | `Lazy<T>` 类型分析 | 📝 规划 |
+| **7.4** | `Pin<T>` / `Unpin<T>` 类型分析 | ✅ |
+| **7.5** | `Lazy<T>` 类型分析 | ✅ OnceCell |
 
 ---
 
